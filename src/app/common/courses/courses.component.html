@@ -1,0 +1,352 @@
+<!-- Default -->
+<div
+    class="courses-area border-bottom border-top bg-f3f3f3 pt-120 pb-95"
+    [ngClass]="{'d-none': router.url === '/index-2' || router.url === '/index-3'}"
+>
+    <div class="container">
+        <div class="section-title position-relative">
+            <h2 class="mb-0 fw-semibold text-uppercase">
+                Our Popular Courses
+            </h2>
+            <a routerLink="/courses" class="default-btn">
+                Explore All Courses
+            </a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-md-6">
+                <div class="single-course-box mb-25 position-relative">
+                    <h3 class="fw-semibold">
+                        <a routerLink="/course-details">
+                            English Speaking
+                        </a>
+                    </h3>
+                    <p>
+                        Learn the Beauty of English
+                    </p>
+                    <div class="instructor d-flex align-items-center">
+                        <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
+                        <div>
+                            <h4 class="fw-medium">
+                                Steven James
+                            </h4>
+                            <span class="d-block">
+                                Instructor
+                            </span>
+                        </div>
+                    </div>
+                    <a routerLink="/course-details" class="default-btn">
+                        Enroll Now
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="single-course-box mb-25 position-relative">
+                    <h3 class="fw-semibold">
+                        <a routerLink="/course-details">
+                            Hindi Speaking
+                        </a>
+                    </h3>
+                    <p>
+                        Learn the Beauty of Hindi
+                    </p>
+                    <div class="instructor d-flex align-items-center">
+                        <img src="images/users/user2.jpg" class="rounded-circle" alt="user-image">
+                        <div>
+                            <h4 class="fw-medium">
+                                Michael Eller
+                            </h4>
+                            <span class="d-block">
+                                Instructor
+                            </span>
+                        </div>
+                    </div>
+                    <a routerLink="/course-details" class="default-btn">
+                        Enroll Now
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="single-course-box mb-25 position-relative">
+                    <h3 class="fw-semibold">
+                        <a routerLink="/course-details">
+                            Urdu Speaking
+                        </a>
+                    </h3>
+                    <p>
+                        Learn the Beauty of Urdu
+                    </p>
+                    <div class="instructor d-flex align-items-center">
+                        <img src="images/users/user3.jpg" class="rounded-circle" alt="user-image">
+                        <div>
+                            <h4 class="fw-medium">
+                                Charles Ferrell
+                            </h4>
+                            <span class="d-block">
+                                Instructor
+                            </span>
+                        </div>
+                    </div>
+                    <a routerLink="/course-details" class="default-btn">
+                        Enroll Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Only for Home Demo - 2 -->
+<div
+    class="courses-area pb-95"
+    *ngIf="router.url === '/index-2'"
+>
+    <div class="container">
+        <div class="section-title d-md-flex align-items-center justify-content-between">
+            <div class="title">
+                <h2 class="fs-32 mb-0 fw-semibold text-uppercase">
+                    Our Popular Courses
+                </h2>
+                <p>
+                    Embark on an Immersive Multilingual Experience: Discover Our Wide Range of Language Courses Designed to Cater.
+                </p>
+            </div>
+            <a routerLink="/courses" class="link-btn d-inline-block text-center rounded-circle fw-medium">
+                <span class="d-block">
+                    Explore All Courses
+                </span>
+                <img src="images/icons/diagonal-arrow-right-up.svg" alt="diagonal-arrow-right-up">
+            </a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-sm-6">
+                <div class="single-course-item bg-f6ffeb mb-25 position-relative">
+                    <div class="number lh-1 fw-semibold">
+                        01
+                    </div>
+                    <h3 class="fw-semibold">
+                        <a routerLink="/course-details">
+                            English Speaking
+                        </a>
+                    </h3>
+                    <p>
+                        Learn the Beauty of English
+                    </p>
+                    <div class="instructor d-flex align-items-center">
+                        <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
+                        <div>
+                            <h4 class="fw-medium">
+                                Steven James
+                            </h4>
+                            <span class="d-block">
+                                Instructor
+                            </span>
+                        </div>
+                    </div>
+                    <a routerLink="/course-details" class="link-btn d-inline-block">
+                        <img src="images/icons/arrow-right-up.svg" alt="arrow-right-up">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="single-course-item bg-f6ffeb mb-25 position-relative">
+                    <div class="number lh-1 fw-semibold">
+                        02
+                    </div>
+                    <h3 class="fw-semibold">
+                        <a routerLink="/course-details">
+                            Hindi Speaking
+                        </a>
+                    </h3>
+                    <p>
+                        Learn the Beauty of Hindi
+                    </p>
+                    <div class="instructor d-flex align-items-center">
+                        <img src="images/users/user2.jpg" class="rounded-circle" alt="user-image">
+                        <div>
+                            <h4 class="fw-medium">
+                                Michael Eller
+                            </h4>
+                            <span class="d-block">
+                                Instructor
+                            </span>
+                        </div>
+                    </div>
+                    <a routerLink="/course-details" class="link-btn d-inline-block">
+                        <img src="images/icons/arrow-right-up.svg" alt="arrow-right-up">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6">
+                <div class="single-course-item bg-f6ffeb mb-25 position-relative">
+                    <div class="number lh-1 fw-semibold">
+                        03
+                    </div>
+                    <h3 class="fw-semibold">
+                        <a routerLink="/course-details">
+                            Urdu Speaking
+                        </a>
+                    </h3>
+                    <p>
+                        Learn the Beauty of Urdu
+                    </p>
+                    <div class="instructor d-flex align-items-center">
+                        <img src="images/users/user3.jpg" class="rounded-circle" alt="user-image">
+                        <div>
+                            <h4 class="fw-medium">
+                                Charles Ferrell
+                            </h4>
+                            <span class="d-block">
+                                Instructor
+                            </span>
+                        </div>
+                    </div>
+                    <a routerLink="/course-details" class="link-btn d-inline-block">
+                        <img src="images/icons/arrow-right-up.svg" alt="arrow-right-up">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Only for Home Demo - 3 -->
+<div
+    class="courses-area pt-120 pb-95"
+    *ngIf="router.url === '/index-3'"
+>
+    <div class="container">
+        <div class="section-title mb-40 text-center">
+            <h2 class="fw-semibold fs-32 mx-auto mb-0 text-uppercase">
+                Our popular courses 
+            </h2>
+        </div>
+        <div class="courses-list mx-auto">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="course-item mb-25">
+                        <div class="d-flex align-items-center">
+                            <img src="images/icons/english.svg" alt="icon">
+                            <h3 class="mb-0 fw-semibold">
+                                <a routerLink="/course-details">
+                                    English Speaking
+                                </a>
+                            </h3>
+                        </div>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+                        </p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="instructor d-flex align-items-center">
+                                <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
+                                <div>
+                                    <h4 class="fw-medium">
+                                        Steven James
+                                    </h4>
+                                    <span class="d-block">
+                                        Instructor
+                                    </span>
+                                </div>
+                            </div>
+                            <a routerLink="/course-details" class="link-btn d-inline-block">
+                                <img src="images/icons/arrow-right.svg" alt="arrow-right">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="course-item mb-25">
+                        <div class="d-flex align-items-center">
+                            <img src="images/icons/hindi.svg" alt="icon">
+                            <h3 class="mb-0 fw-semibold">
+                                <a routerLink="/course-details">
+                                    English Speaking
+                                </a>
+                            </h3>
+                        </div>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+                        </p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="instructor d-flex align-items-center">
+                                <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
+                                <div>
+                                    <h4 class="fw-medium">
+                                        Steven James
+                                    </h4>
+                                    <span class="d-block">
+                                        Instructor
+                                    </span>
+                                </div>
+                            </div>
+                            <a routerLink="/course-details" class="link-btn d-inline-block">
+                                <img src="images/icons/arrow-right.svg" alt="arrow-right">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="course-item mb-25">
+                        <div class="d-flex align-items-center">
+                            <img src="images/icons/urdu.svg" alt="icon">
+                            <h3 class="mb-0 fw-semibold">
+                                <a routerLink="/course-details">
+                                    English Speaking
+                                </a>
+                            </h3>
+                        </div>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+                        </p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="instructor d-flex align-items-center">
+                                <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
+                                <div>
+                                    <h4 class="fw-medium">
+                                        Steven James
+                                    </h4>
+                                    <span class="d-block">
+                                        Instructor
+                                    </span>
+                                </div>
+                            </div>
+                            <a routerLink="/course-details" class="link-btn d-inline-block">
+                                <img src="images/icons/arrow-right.svg" alt="arrow-right">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="course-item mb-25">
+                        <div class="d-flex align-items-center">
+                            <img src="images/icons/spanish.svg" alt="icon">
+                            <h3 class="mb-0 fw-semibold">
+                                <a routerLink="/course-details">
+                                    English Speaking
+                                </a>
+                            </h3>
+                        </div>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
+                        </p>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="instructor d-flex align-items-center">
+                                <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
+                                <div>
+                                    <h4 class="fw-medium">
+                                        Steven James
+                                    </h4>
+                                    <span class="d-block">
+                                        Instructor
+                                    </span>
+                                </div>
+                            </div>
+                            <a routerLink="/course-details" class="link-btn d-inline-block">
+                                <img src="images/icons/arrow-right.svg" alt="arrow-right">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

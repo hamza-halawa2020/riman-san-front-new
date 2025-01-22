@@ -1,0 +1,323 @@
+<!-- Default -->
+<div
+    class="blog-area pt-120 pb-95"
+    [ngClass]="{'d-none': router.url === '/index-2' || router.url === '/index-3'}"
+>
+    <div class="container">
+        <div class="section-title position-relative">
+            <h2 class="mb-0 fw-semibold text-uppercase">
+                Recent blog & news
+            </h2>
+            <a routerLink="/blog" class="default-btn">
+                Explore All Blog
+            </a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-4 col-md-6">
+                <div class="single-blog-post mb-25">
+                    <a routerLink="/blog-details" class="image d-block">
+                        <img src="images/blogs/blog1.jpg" alt="blog-image">
+                    </a>
+                    <div class="content">
+                        <div class="info position-relative">
+                            <ul class="d-flex align-items-center p-0 mb-0 list-unstyled">
+                                <li class="d-inline-block position-relative">
+                                    25 <br>Jun
+                                </li>
+                                <li class="d-inline-block position-relative">
+                                    <i class="fa-regular fa-circle-user"></i> By
+                                    <a routerLink="/blog">
+                                        Admin
+                                    </a>
+                                </li>
+                                <li class="d-inline-block position-relative">
+                                    <i class="fa-regular fa-comment-dots"></i>
+                                    <a routerLink="/blog-details">
+                                        Comments (05)
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="fw-semibold">
+                            <a routerLink="/blog-details">
+                                The Art of Perfecting Sounds in a New Language
+                            </a>
+                        </h3>
+                        <div class="text-end">
+                            <a routerLink="/blog-details" class="default-btn">
+                                Continue Reading
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="single-blog-post mb-25">
+                    <a routerLink="/blog-details" class="image d-block">
+                        <img src="images/blogs/blog2.jpg" alt="blog-image">
+                    </a>
+                    <div class="content">
+                        <div class="info position-relative">
+                            <ul class="d-flex align-items-center p-0 mb-0 list-unstyled">
+                                <li class="d-inline-block position-relative">
+                                    25 <br>Jun
+                                </li>
+                                <li class="d-inline-block position-relative">
+                                    <i class="fa-regular fa-circle-user"></i> By
+                                    <a routerLink="/blog">
+                                        Admin
+                                    </a>
+                                </li>
+                                <li class="d-inline-block position-relative">
+                                    <i class="fa-regular fa-comment-dots"></i>
+                                    <a routerLink="/blog-details">
+                                        Comments (05)
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="fw-semibold">
+                            <a routerLink="/blog-details">
+                                How Exploring Traditions Enhances Learning
+                            </a>
+                        </h3>
+                        <div class="text-end">
+                            <a routerLink="/blog-details" class="default-btn">
+                                Continue Reading
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-md-6">
+                <div class="single-blog-post mb-25">
+                    <a routerLink="/blog-details" class="image d-block">
+                        <img src="images/blogs/blog3.jpg" alt="blog-image">
+                    </a>
+                    <div class="content">
+                        <div class="info position-relative">
+                            <ul class="d-flex align-items-center p-0 mb-0 list-unstyled">
+                                <li class="d-inline-block position-relative">
+                                    25 <br>Jun
+                                </li>
+                                <li class="d-inline-block position-relative">
+                                    <i class="fa-regular fa-circle-user"></i> By
+                                    <a routerLink="/blog">
+                                        Admin
+                                    </a>
+                                </li>
+                                <li class="d-inline-block position-relative">
+                                    <i class="fa-regular fa-comment-dots"></i>
+                                    <a routerLink="/blog-details">
+                                        Comments (05)
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h3 class="fw-semibold">
+                            <a routerLink="/blog-details">
+                                The Cognitive Advantages of Learning Multiple Languages
+                            </a>
+                        </h3>
+                        <div class="text-end">
+                            <a routerLink="/blog-details" class="default-btn">
+                                Continue Reading
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Only for Home Demo - 2 -->
+<div
+    class="blog-area pt-120 pb-95"
+    *ngIf="router.url === '/index-2'"
+>
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 class="fs-32 fw-semibold mx-auto mb-0 text-uppercase">
+                Latest News & Blog
+            </h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6">
+                <div class="single-post-box position-relative mb-25">
+                    <div class="image position-relative">
+                        <a routerLink="/blog-details" class="d-block">
+                            <img src="images/blogs/blog4.jpg" alt="blog-image">
+                        </a>
+                        <div class="date">
+                            21 march 2024
+                        </div>
+                        <a routerLink="/blog-details" class="default-btn">
+                            Read More
+                        </a>
+                    </div>
+                    <div class="content">
+                        <h3 class="fw-semibold">
+                            <a routerLink="/blog-details">
+                                Understanding How the Brain Learns Languages
+                            </a>
+                        </h3>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                        </p>
+                        <a routerLink="/blog-details" class="link-btn fw-medium d-inline-block">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single-post-box position-relative mb-25">
+                    <div class="image position-relative">
+                        <a routerLink="/blog-details" class="d-block">
+                            <img src="images/blogs/blog5.jpg" alt="blog-image">
+                        </a>
+                        <div class="date">
+                            21 march 2024
+                        </div>
+                        <a routerLink="/blog-details" class="default-btn">
+                            Read More
+                        </a>
+                    </div>
+                    <div class="content">
+                        <h3 class="fw-semibold">
+                            <a routerLink="/blog-details">
+                                How Language Shapes Identity and Diversity
+                            </a>
+                        </h3>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                        </p>
+                        <a routerLink="/blog-details" class="link-btn fw-medium d-inline-block">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single-post-box position-relative mb-25">
+                    <div class="image position-relative">
+                        <a routerLink="/blog-details" class="d-block">
+                            <img src="images/blogs/blog6.jpg" alt="blog-image">
+                        </a>
+                        <div class="date">
+                            21 march 2024
+                        </div>
+                        <a routerLink="/blog-details" class="default-btn">
+                            Read More
+                        </a>
+                    </div>
+                    <div class="content">
+                        <h3 class="fw-semibold">
+                            <a routerLink="/blog-details">
+                                Exploring Innovative Language Learning Techniques
+                            </a>
+                        </h3>
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
+                        </p>
+                        <a routerLink="/blog-details" class="link-btn fw-medium d-inline-block">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Only for Home Demo - 3 -->
+<div
+    class="blog-area pt-120 pb-95"
+    *ngIf="router.url === '/index-3'"
+>
+    <div class="container">
+        <div class="section-title mb-40 position-relative">
+            <h2 class="fs-32 mb-0 fw-semibold text-uppercase">
+                Recent blog & news
+            </h2>
+            <a routerLink="/blog" class="default-btn">
+                Explore All Blog
+            </a>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="single-blog-post-item mb-25">
+                    <a routerLink="/blog-details" class="image d-block">
+                        <img src="images/blogs/blog13.jpg" alt="blog-image">
+                    </a>
+                    <div class="content">
+                        <div class="info d-lg-flex align-items-center justify-content-between">
+                            <ul class="p-0 mb-0 list-unstyled">
+                                <li class="position-relative d-inline-block">
+                                    <a routerLink="/blog">
+                                        Education
+                                    </a>
+                                </li>
+                                <li class="position-relative d-inline-block">
+                                    <a routerLink="/blog">
+                                        Language
+                                    </a>
+                                </li>
+                                <li class="position-relative d-inline-block">
+                                    <a routerLink="/blog">
+                                        Arabic
+                                    </a>
+                                </li>
+                            </ul>
+                            <span class="d-block">
+                                3 Minutes Read
+                            </span>
+                        </div>
+                        <h3 class="fw-semibold mb-0">
+                            <a routerLink="/blog-details">
+                                The Power of Consistency: How Regular Practice Boosts Language Proficiency
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="single-blog-post-item mb-25">
+                    <a routerLink="/blog-details" class="image d-block">
+                        <img src="images/blogs/blog14.jpg" alt="blog-image">
+                    </a>
+                    <div class="content">
+                        <div class="info d-lg-flex align-items-center justify-content-between">
+                            <ul class="p-0 mb-0 list-unstyled">
+                                <li class="position-relative d-inline-block">
+                                    <a routerLink="/blog">
+                                        Education
+                                    </a>
+                                </li>
+                                <li class="position-relative d-inline-block">
+                                    <a routerLink="/blog">
+                                        Language
+                                    </a>
+                                </li>
+                                <li class="position-relative d-inline-block">
+                                    <a routerLink="/blog">
+                                        Arabic
+                                    </a>
+                                </li>
+                            </ul>
+                            <span class="d-block">
+                                3 Minutes Read
+                            </span>
+                        </div>
+                        <h3 class="fw-semibold mb-0">
+                            <a routerLink="/blog-details">
+                                Strategies for Overcoming Common Challenges in Multilingual Communication
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

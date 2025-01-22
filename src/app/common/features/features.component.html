@@ -1,0 +1,145 @@
+<!-- Default -->
+<div
+    class="features-area pt-120 pb-95 position-relative z-1 border-top border-bottom bg-f6ffeb"
+    [ngClass]="{'d-none': router.url === '/index-2'}"
+>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-feature-box text-center mb-25 position-relative z-1">
+                    <h3 class="fw-semibold">
+                        Spanish
+                    </h3>
+                    <p class="mx-auto">
+                        Learn the Beauty of Spanish
+                    </p>
+                    <a routerLink="/courses" class="link-btn position-relative z-1 d-inline-block rounded-circle text-center">
+                        <img src="images/icons/diagonal-arrow-right-up.svg" alt="diagonal-arrow-right-up">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-feature-box text-center mb-25 position-relative z-1">
+                    <h3 class="fw-semibold">
+                        German
+                    </h3>
+                    <p class="mx-auto">
+                        Learn the Beauty of German
+                    </p>
+                    <a routerLink="/courses" class="link-btn position-relative z-1 d-inline-block rounded-circle text-center">
+                        <img src="images/icons/diagonal-arrow-right-up.svg" alt="diagonal-arrow-right-up">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-feature-box text-center mb-25 position-relative z-1">
+                    <h3 class="fw-semibold">
+                        Arabic
+                    </h3>
+                    <p class="mx-auto">
+                        Learn the Beauty of Arabic
+                    </p>
+                    <a routerLink="/courses" class="link-btn position-relative z-1 d-inline-block rounded-circle text-center">
+                        <img src="images/icons/diagonal-arrow-right-up.svg" alt="diagonal-arrow-right-up">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="single-feature-box text-center mb-25 position-relative z-1">
+                    <h3 class="fw-semibold">
+                        Mandarin
+                    </h3>
+                    <p class="mx-auto">
+                        Learn the Beauty of Mandarin
+                    </p>
+                    <a routerLink="/courses" class="link-btn position-relative z-1 d-inline-block rounded-circle text-center">
+                        <img src="images/icons/diagonal-arrow-right-up.svg" alt="diagonal-arrow-right-up">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="shape3">
+        <img src="images/shapes/shape3.svg" alt="shape3">
+    </div>
+</div>
+
+<!-- Only for Home Demo - 2 -->
+<div
+    class="features-area ptb-120"
+    *ngIf="router.url === '/index-2'"
+>
+    <div class="container">
+        <div class="features-slides overflow-hidden d-md-flex">
+            <div
+                class="slide position-relative active"
+                [class.active]="isActive1"
+                (click)="toggleClass(1)"
+                style="background-image: url(images/features/feature1.jpg);"
+            >
+                <div class="features-content d-lg-flex align-items-center justify-content-between">
+                    <div class="content">
+                        <h3 class="fw-semibold">
+                            Start Your Language Journey Today
+                        </h3>
+                        <p>
+                            Seize the Opportunity to Transform Your Language Skills and Expand Your Horizons.
+                        </p>
+                    </div>
+                    <a routerLink="/contact" class="link-btn d-inline-block text-center rounded-circle fw-medium">
+                        <span class="d-block">
+                            Contact Us
+                        </span>
+                        <img src="images/icons/diagonal-arrow-right-up.svg" alt="diagonal-arrow-right-up">
+                    </a>
+                </div>
+            </div>
+            <div
+                class="slide position-relative"
+                [class.active]="isActive2"
+                (click)="toggleClass(2)"
+                style="background-image: url(images/features/feature2.jpg);"
+            >
+                <div class="features-content d-lg-flex align-items-center justify-content-between">
+                    <div class="content">
+                        <h3 class="fw-semibold">
+                            Start Your Language Journey Today
+                        </h3>
+                        <p>
+                            Seize the Opportunity to Transform Your Language Skills and Expand Your Horizons.
+                        </p>
+                    </div>
+                    <a routerLink="/contact" class="link-btn d-inline-block text-center rounded-circle fw-medium">
+                        <span class="d-block">
+                            Contact Us
+                        </span>
+                        <img src="images/icons/diagonal-arrow-right-up.svg" alt="diagonal-arrow-right-up">
+                    </a>
+                </div>
+            </div>
+            <div
+                class="slide position-relative"
+                [class.active]="isActive3"
+                (click)="toggleClass(3)"
+                style="background-image: url(images/features/feature3.jpg);"
+            >
+                <div class="features-content d-lg-flex align-items-center justify-content-between">
+                    <div class="content">
+                        <h3 class="fw-semibold">
+                            Start Your Language Journey Today
+                        </h3>
+                        <p>
+                            Seize the Opportunity to Transform Your Language Skills and Expand Your Horizons.
+                        </p>
+                    </div>
+                    <a routerLink="/contact" class="link-btn d-inline-block text-center rounded-circle fw-medium">
+                        <span class="d-block">
+                            Contact Us
+                        </span>
+                        <img src="images/icons/diagonal-arrow-right-up.svg" alt="diagonal-arrow-right-up">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

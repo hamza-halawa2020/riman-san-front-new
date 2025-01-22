@@ -1,0 +1,120 @@
+<!-- Default -->
+<div
+    class="contact-area bg-f3f3f3 border-top ptb-120"
+    [ngClass]="{'d-none': router.url === '/index-2' || router.url === '/index-3'}"
+>
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 class="fw-semibold mx-auto mb-0 text-uppercase">
+                Have any question?
+            </h2>
+            <p>
+                Your email address will not be published. Required field are marked*
+            </p>
+        </div>
+        <div class="contact-form text-center mx-auto">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="Full name *" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" placeholder="Email address *" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                    <div class="form-group mb-0">
+                        <textarea class="form-control" placeholder="Write your message *"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button class="default-btn" type="submit">
+                Send Message
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Only for Home Demo - 2 -->
+<div
+    class="contact-area ptb-120"
+    *ngIf="router.url === '/index-2'"
+>
+    <div class="container">
+        <div class="contact-content text-center mx-auto">
+            <h2 class="fw-semibold text-uppercase">
+                Your Gateway to Multilingual Learning Begins Here
+            </h2>
+            <div class="info position-relative d-flex align-items-center justify-content-between mx-auto">
+                <h3 class="mb-0 fw-semibold">
+                    +123 456 78912
+                </h3>
+                <div class="icon d-flex align-items-center justify-content-center rounded-circle">
+                    <img src="images/icons/phone.svg" alt="phone">
+                </div>
+                <a href="tel:+12345678912" class="link-btn position-absolute top-0 end-0 start-0 bottom-0"></a>
+            </div>
+            <p class="mx-auto">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type 
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Only for Home Demo - 3 -->
+<div
+    class="contact-area pb-120"
+    *ngIf="router.url === '/index-3'"
+>
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="contact-form-content">
+                    <h2 class="fw-semibold text-uppercase">
+                        Multilingual Learning Begins Here
+                    </h2>
+                    <div class="box d-md-flex align-items-center">
+                        <div class="icon rounded-circle d-flex align-items-center justify-content-center">
+                            <img src="images/icons/white-phone.svg" alt="phone">
+                        </div>
+                        <div>
+                            <h3 class="fw-medium">
+                                Get Free Consultant
+                            </h3>
+                            <a href="tel:+12345678912" class="fw-semibold phone-number">
+                                +123 456 78912
+                            </a>
+                        </div>
+                    </div>
+                    <p>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="contact-form-box">
+                    <div class="form-group">
+                        <input type="text" class="form-control shadow-none" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control shadow-none" placeholder="Your Email Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control shadow-none" placeholder="Your Phone Number">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control shadow-none" placeholder="Write Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control shadow-none" placeholder="Your Message..."></textarea>
+                    </div>
+                    <button type="submit" class="default-btn d-block w-100">
+                        Send Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
