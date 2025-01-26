@@ -13,12 +13,30 @@ import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { FeedbackComponent } from '../../common/feedback/feedback.component';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { MainSlider } from '../../common/main-slider/main-slider.component';
 
 @Component({
     selector: 'app-home-demo-one',
     standalone: true,
-    imports: [NavbarComponent, BannerComponent, FeaturesComponent, AboutComponent, CoursesComponent, WhyUsComponent, UpcomingCoursesComponent, FeedbackComponent, CtaComponent, TeamComponent, ContactComponent, BlogComponent, FooterComponent, BackToTopComponent],
+    imports: [
+        NavbarComponent,
+        FeedbackComponent,
+        BannerComponent,
+        FeaturesComponent,
+        AboutComponent,
+        CoursesComponent,
+        WhyUsComponent,
+        UpcomingCoursesComponent,
+        FeedbackComponent,
+        MainSlider,
+        CtaComponent,
+        TeamComponent,
+        ContactComponent,
+        BlogComponent,
+        FooterComponent,
+        BackToTopComponent,
+    ],
     templateUrl: './home-demo-one.component.html',
-    styleUrl: './home-demo-one.component.scss'
+    styleUrl: './home-demo-one.component.scss',
 })
 export class HomeDemoOneComponent {}

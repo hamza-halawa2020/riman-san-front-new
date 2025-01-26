@@ -1,81 +1,44 @@
 <!-- Default -->
 <footer
-    class="footer-area bg-f6ffeb pt-120 border-top"
-    [ngClass]="{'d-none': router.url === '/index-2' || router.url === '/index-3'}"
+    class="footer-area bg-light pt-5 border-top"
+    [ngClass]="{
+        'd-none': router.url === '/index-2' || router.url === '/index-3'
+    }"
 >
     <div class="container">
-        <div class="subscribe-box row">
-            <div class="col-lg-6 col-md-12">
-                <div class="subscribe-content">
-                    <h3 class="fw-semibold">
-                        Subscribe to Newsletter
-                    </h3>
-                    <p>
-                        Stay updated with our latest news and offers
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="subscribe-form">
-                    <form>
-                        <input type="text" class="form-control" placeholder="Enter email address">
-                        <button type="button">
-                            Subscribe
-                        </button>
-                    </form>
-                    <p>
-                        By subscribing, you agree to our Privacy Policy
-                    </p>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-3 col-sm-6">
                 <div class="single-footer-widget mb-25">
                     <a routerLink="/" class="logo mb-0 d-inline-block">
-                        <img src="images/logo.svg" alt="logo">
+                        <img src="images/logo.svg" alt="logo" />
                     </a>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="single-footer-widget mb-25">
-                    <h3 class="fw-medium">
-                        About Us
-                    </h3>
+                    <h3 class="fw-medium">About Us</h3>
                     <ul class="custom-links p-0 mb-0 list-unstyled">
                         <li>
-                            <a routerLink="/contact">
-                                Contact
-                            </a>
+                            <a routerLink="/contact"> Contact </a>
                         </li>
                         <li>
-                            <a routerLink="/contact">
-                                Support
-                            </a>
+                            <a routerLink="/contact"> Support </a>
                         </li>
                         <li>
-                            <a routerLink="/blog">
-                                Resources
-                            </a>
+                            <a routerLink="/blog"> Resources </a>
                         </li>
                         <li>
-                            <a routerLink="/privacy-policy">
-                                Help Center
-                            </a>
+                            <a routerLink="/privacy-policy"> Help Center </a>
                         </li>
                         <li>
-                            <a routerLink="/blog">
-                                Blog
-                            </a>
+                            <a routerLink="/blog"> Blog </a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="single-footer-widget mb-25">
-                    <h3 class="fw-medium">
-                        Courses
-                    </h3>
+                    <h3 class="fw-medium">Courses</h3>
                     <ul class="custom-links p-0 mb-0 list-unstyled">
                         <li>
                             <a routerLink="/course-details">
@@ -83,48 +46,32 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Testimonials
-                            </a>
+                            <a href="#"> Testimonials </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Events
-                            </a>
+                            <a href="#"> Events </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Partners
-                            </a>
+                            <a href="#"> Partners </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Careers
-                            </a>
+                            <a href="#"> Careers </a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3 col-sm-6">
                 <div class="single-footer-widget mb-25">
-                    <h3 class="fw-medium">
-                        Terms
-                    </h3>
+                    <h3 class="fw-medium">Terms</h3>
                     <ul class="custom-links p-0 mb-0 list-unstyled">
                         <li>
-                            <a routerLink="/privacy-policy">
-                                Privacy
-                            </a>
+                            <a routerLink="/privacy-policy"> Privacy </a>
                         </li>
                         <li>
-                            <a routerLink="/privacy-policy">
-                                Cookies
-                            </a>
+                            <a routerLink="/privacy-policy"> Cookies </a>
                         </li>
                         <li>
-                            <a routerLink="/terms-conditions">
-                                Sitemap
-                            </a>
+                            <a routerLink="/terms-conditions"> Sitemap </a>
                         </li>
                         <li>
                             <a routerLink="/terms-conditions">
@@ -143,16 +90,12 @@
         <div class="copyright-area border-top">
             <div class="row align-items-center">
                 <div class="col-lg-3 col-sm-6">
-                    <p class="mb-0">
-                        © 2024 Lanklub. All rights reserved.
-                    </p>
+                    <p class="mb-0">© 2024 Riman-San. All rights reserved.</p>
                 </div>
                 <div class="col-lg-6 col-sm-6">
                     <ul class="custom-links mb-0 list-unstyled">
                         <li class="d-inline-block">
-                            <a routerLink="/privacy-policy">
-                                Privacy Policy
-                            </a>
+                            <a routerLink="/privacy-policy"> Privacy Policy </a>
                         </li>
                         <li class="d-inline-block">
                             <a routerLink="/terms-conditions">
@@ -168,16 +111,28 @@
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="socials">
-                        <a href="#" class="d-inline-block position-relative rounded-circle text-center">
+                        <a
+                            href="#"
+                            class="d-inline-block position-relative rounded-circle text-center"
+                        >
                             <i class="fa-brands fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="d-inline-block position-relative rounded-circle text-center">
+                        <a
+                            href="#"
+                            class="d-inline-block position-relative rounded-circle text-center"
+                        >
                             <i class="fa-brands fa-x-twitter"></i>
                         </a>
-                        <a href="#" class="d-inline-block position-relative rounded-circle text-center">
+                        <a
+                            href="#"
+                            class="d-inline-block position-relative rounded-circle text-center"
+                        >
                             <i class="fa-brands fa-linkedin-in"></i>
                         </a>
-                        <a href="#" class="d-inline-block position-relative rounded-circle text-center">
+                        <a
+                            href="#"
+                            class="d-inline-block position-relative rounded-circle text-center"
+                        >
                             <i class="fa-brands fa-google"></i>
                         </a>
                     </div>
@@ -188,31 +143,41 @@
 </footer>
 
 <!-- Only for Home Demo - 2 -->
-<footer
-    class="footer-area bg-f6ffeb pt-120"
-    *ngIf="router.url === '/index-2'"
->
+<footer class="footer-area bg-f6ffeb pt-120" *ngIf="router.url === '/index-2'">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-sm-6">
                 <div class="single-footer-widget mb-25">
                     <a routerLink="/" class="logo d-inline-block">
-                        <img src="images/logo.svg" alt="logo">
+                        <img src="images/logo.svg" alt="logo" />
                     </a>
                     <p>
-                        Lorem ipsum is simply dummy text of the printing and typesetting industry.
+                        Lorem ipsum is simply dummy text of the printing and
+                        typesetting industry.
                     </p>
                     <div class="socials">
-                        <a href="#" class="d-inline-block position-relative rounded-circle text-center">
+                        <a
+                            href="#"
+                            class="d-inline-block position-relative rounded-circle text-center"
+                        >
                             <i class="fa-brands fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="d-inline-block position-relative rounded-circle text-center">
+                        <a
+                            href="#"
+                            class="d-inline-block position-relative rounded-circle text-center"
+                        >
                             <i class="fa-brands fa-x-twitter"></i>
                         </a>
-                        <a href="#" class="d-inline-block position-relative rounded-circle text-center">
+                        <a
+                            href="#"
+                            class="d-inline-block position-relative rounded-circle text-center"
+                        >
                             <i class="fa-brands fa-linkedin-in"></i>
                         </a>
-                        <a href="#" class="d-inline-block position-relative rounded-circle text-center">
+                        <a
+                            href="#"
+                            class="d-inline-block position-relative rounded-circle text-center"
+                        >
                             <i class="fa-brands fa-google"></i>
                         </a>
                     </div>
@@ -220,43 +185,29 @@
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="single-footer-widget style-two mb-25">
-                    <h3 class="fw-medium">
-                        About Us
-                    </h3>
+                    <h3 class="fw-medium">About Us</h3>
                     <ul class="custom-links p-0 mb-0 list-unstyled">
                         <li>
-                            <a routerLink="/contact">
-                                Contact
-                            </a>
+                            <a routerLink="/contact"> Contact </a>
                         </li>
                         <li>
-                            <a routerLink="/contact">
-                                Support
-                            </a>
+                            <a routerLink="/contact"> Support </a>
                         </li>
                         <li>
-                            <a routerLink="/blog">
-                                Resources
-                            </a>
+                            <a routerLink="/blog"> Resources </a>
                         </li>
                         <li>
-                            <a routerLink="/contact">
-                                Help Center
-                            </a>
+                            <a routerLink="/contact"> Help Center </a>
                         </li>
                         <li>
-                            <a routerLink="/blog">
-                                Blog
-                            </a>
+                            <a routerLink="/blog"> Blog </a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-4 col-sm-6">
                 <div class="single-footer-widget style-two mb-25">
-                    <h3 class="fw-medium">
-                        Courses
-                    </h3>
+                    <h3 class="fw-medium">Courses</h3>
                     <ul class="custom-links p-0 mb-0 list-unstyled">
                         <li>
                             <a routerLink="/course-details">
@@ -264,46 +215,34 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Testimonials
-                            </a>
+                            <a href="#"> Testimonials </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Events
-                            </a>
+                            <a href="#"> Events </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Partners
-                            </a>
+                            <a href="#"> Partners </a>
                         </li>
                         <li>
-                            <a href="#">
-                                Careers
-                            </a>
+                            <a href="#"> Careers </a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-4 col-md-8 col-sm-6">
                 <div class="single-footer-widget style-two mb-25">
-                    <h3 class="fw-medium">
-                        Newsletter
-                    </h3>
-                    <p>
-                        Stay updated with our latest news and offers.
-                    </p>
+                    <h3 class="fw-medium">Newsletter</h3>
+                    <p>Stay updated with our latest news and offers.</p>
                     <div class="newsletter-form">
                         <form>
-                            <input type="text" class="form-control" placeholder="Enter email address">
-                            <button type="button">
-                                Subscribe
-                            </button>
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter email address"
+                            />
+                            <button type="button">Subscribe</button>
                         </form>
-                        <p>
-                            By subscribing, you agree to our Privacy Policy
-                        </p>
+                        <p>By subscribing, you agree to our Privacy Policy</p>
                     </div>
                 </div>
             </div>
@@ -311,16 +250,12 @@
         <div class="copyright-area style-two border-top">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-5 col-sm-6">
-                    <p class="mb-0">
-                        © 2024 Lanklub. All rights reserved.
-                    </p>
+                    <p class="mb-0">© 2025 Riman-San. All rights reserved.</p>
                 </div>
                 <div class="col-lg-6 col-md-7 col-sm-6">
                     <ul class="custom-links mb-0 list-unstyled">
                         <li class="d-inline-block">
-                            <a routerLink="/privacy-policy">
-                                Privacy Policy
-                            </a>
+                            <a routerLink="/privacy-policy"> Privacy Policy </a>
                         </li>
                         <li class="d-inline-block">
                             <a routerLink="/terms-conditions">
@@ -340,10 +275,7 @@
 </footer>
 
 <!-- Only for Home Demo - 3 -->
-<footer
-    class="footer-area bg-282828"
-    *ngIf="router.url === '/index-3'"
->
+<footer class="footer-area bg-282828" *ngIf="router.url === '/index-3'">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-12">
@@ -353,16 +285,32 @@
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="footer-socials text-center">
-                    <a href="#" target="_blank" class="d-block w-100 text-uppercase">
+                    <a
+                        href="#"
+                        target="_blank"
+                        class="d-block w-100 text-uppercase"
+                    >
                         FACEBOOK
                     </a>
-                    <a href="#" target="_blank" class="d-block w-100 text-uppercase">
+                    <a
+                        href="#"
+                        target="_blank"
+                        class="d-block w-100 text-uppercase"
+                    >
                         TWITTER
                     </a>
-                    <a href="#" target="_blank" class="d-block w-100 text-uppercase">
+                    <a
+                        href="#"
+                        target="_blank"
+                        class="d-block w-100 text-uppercase"
+                    >
                         LINKEDIN
                     </a>
-                    <a href="#" target="_blank" class="d-block w-100 text-uppercase">
+                    <a
+                        href="#"
+                        target="_blank"
+                        class="d-block w-100 text-uppercase"
+                    >
                         INSTAGRAM
                     </a>
                 </div>
@@ -370,7 +318,8 @@
             <div class="col-lg-4 col-md-6">
                 <div class="footer-widget">
                     <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.
+                        Lorem Ipsum is simply dummy text of the printing and
+                        typesetting industry. Lorem Ipsum has been the.
                     </p>
                     <a routerLink="/contact" class="default-btn">
                         Let’s Talk
@@ -383,33 +332,25 @@
                 <div class="col-lg-5 col-md-12">
                     <ul class="custom-links p-0 mb-0 list-unstyled">
                         <li class="d-inline-block">
-                            <a routerLink="/about">
-                                About Lanklub
-                            </a>
+                            <a routerLink="/about"> About Riman-San </a>
                         </li>
                         <li class="d-inline-block">
-                            <a routerLink="/courses">
-                                Our Courses
-                            </a>
+                            <a routerLink="/courses"> Our Courses </a>
                         </li>
                         <li class="d-inline-block">
-                            <a routerLink="/contact">
-                                Contact Us
-                            </a>
+                            <a routerLink="/contact"> Contact Us </a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-lg-2 col-md-12 text-lg-center">
                     <a routerLink="/" class="logo d-inline-block">
-                        <img src="images/white-logo.svg" alt="white-logo">
+                        <img src="images/white-logo.svg" alt="white-logo" />
                     </a>
                 </div>
                 <div class="col-lg-5 col-md-12 text-lg-end">
                     <ul class="custom-links p-0 mb-0 list-unstyled">
                         <li class="d-inline-block">
-                            <a routerLink="/privacy-policy">
-                                Privacy Policy
-                            </a>
+                            <a routerLink="/privacy-policy"> Privacy Policy </a>
                         </li>
                         <li class="d-inline-block">
                             <a routerLink="/terms-conditions">
@@ -421,9 +362,7 @@
             </div>
         </div>
         <div class="copyright text-center">
-            <p>
-                Copyright, Lanklub All Rights Reserved
-            </p>
+            <p>Copyright, Riman-San All Rights Reserved</p>
         </div>
     </div>
 </footer>
