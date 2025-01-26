@@ -1,6 +1,9 @@
 <div
     class="navbar-area position-fixed top-0 start-0 end-0"
-    [ngClass]="{'is-sticky': isSticky, 'white-navbar': router.url === '/index-3'}"
+    [ngClass]="{
+        'is-sticky': isSticky,
+        'white-navbar': router.url === '/index-3'
+    }"
 >
     <div class="lanklub-nav">
         <div class="container">
@@ -9,18 +12,18 @@
                 [class.active]="classApplied"
             >
                 <a
-                    [ngClass]="{'d-none': router.url === '/index-3'}"
+                    [ngClass]="{ 'd-none': router.url === '/index-3' }"
                     class="navbar-brand"
                     routerLink="/"
                 >
-                    <img src="images/logo.svg" alt="logo">
+                    <img src="images/logo.svg" alt="logo" />
                 </a>
                 <a
                     *ngIf="router.url === '/index-3'"
                     class="navbar-brand"
                     routerLink="/"
                 >
-                    <img src="images/white-logo.svg" alt="logo">
+                    <img src="images/white-logo.svg" alt="logo" />
                 </a>
                 <button
                     class="navbar-toggler rounded-0 p-0 border-0 shadow-none"
@@ -36,118 +39,291 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a href="javascript:void(0);" class="dropdown-toggle nav-link active">
+                            <a
+                                href="javascript:void(0);"
+                                class="dropdown-toggle nav-link active"
+                            >
                                 Home
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Home Demo - 1
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/index-2" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/index-2"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Home Demo - 2
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/index-3" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/index-3"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Home Demo - 3
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a routerLink="/about" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <a
+                                routerLink="/about"
+                                class="nav-link"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                            >
                                 About
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="javascript:void(0);" class="dropdown-toggle nav-link">
+                            <a
+                                href="javascript:void(0);"
+                                class="dropdown-toggle nav-link"
+                            >
                                 Courses
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a routerLink="/courses" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/courses"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Courses
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/course-details" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/course-details"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Course Details
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="javascript:void(0);" class="dropdown-toggle nav-link">
+                            <a
+                                href="javascript:void(0);"
+                                class="dropdown-toggle nav-link"
+                            >
                                 Pages
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a routerLink="/team" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/team"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Team
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/team-details" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/team-details"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Team Details
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="javascript:void(0);" class="dropdown-toggle nav-link">
+                                    <a
+                                        href="javascript:void(0);"
+                                        class="dropdown-toggle nav-link"
+                                    >
                                         Blog
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
-                                            <a routerLink="/blog" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                            <a
+                                                routerLink="/blog"
+                                                class="nav-link"
+                                                routerLinkActive="active"
+                                                [routerLinkActiveOptions]="{
+                                                    exact: true
+                                                }"
+                                            >
                                                 Blog
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a routerLink="/blog-details" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                            <a
+                                                routerLink="/blog-details"
+                                                class="nav-link"
+                                                routerLinkActive="active"
+                                                [routerLinkActiveOptions]="{
+                                                    exact: true
+                                                }"
+                                            >
                                                 Blog Details
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/login" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/login"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Login
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/register" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/register"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Register
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/privacy-policy" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/privacy-policy"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Privacy Policy
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/terms-conditions" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/terms-conditions"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         Terms & Conditions
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/not-found" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    <a
+                                        routerLink="/not-found"
+                                        class="nav-link"
+                                        routerLinkActive="active"
+                                        [routerLinkActiveOptions]="{
+                                            exact: true
+                                        }"
+                                    >
                                         404 Error Page
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a routerLink="/contact" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            <a
+                                routerLink="/contact"
+                                class="nav-link"
+                                routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }"
+                            >
                                 Contact
                             </a>
                         </li>
                     </ul>
-                    <div class="others-option">
-                        <a routerLink="/courses" class="default-btn">
-                            Enroll Now
+                    <div class="ms-4">
+                        <a routerLink="/courses" class="">
+                            <i class="fa-solid fa-cart-plus"></i>
                         </a>
+                    </div>
+                    <div class="ms-4">
+                        <a routerLink="/courses" class="">
+                            <i class="fa-regular fa-heart"></i>
+                        </a>
+                    </div>
+                    <div class="ms-4">
+                        <a routerLink="/login" class="btn btn-success">
+                            Login
+                        </a>
+                    </div>
+                    <div class="ms-4">
+                        <a routerLink="/register" class="btn btn-success">
+                            Sign Up
+                        </a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a
+                                    href="javascript:void(0);"
+                                    class="dropdown-toggle nav-link"
+                                >
+                                    Settings
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a
+                                            routerLink="/courses"
+                                            class="nav-link"
+                                            routerLinkActive="active"
+                                            [routerLinkActiveOptions]="{
+                                                exact: true
+                                            }"
+                                        >
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a
+                                            routerLink="/courses"
+                                            class="nav-link"
+                                            routerLinkActive="active"
+                                            [routerLinkActiveOptions]="{
+                                                exact: true
+                                            }"
+                                        >
+                                            Log Out
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
