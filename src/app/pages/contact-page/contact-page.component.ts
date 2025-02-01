@@ -1,16 +1,33 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { RouterLink } from '@angular/router';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { ContactComponent } from '../../common/contact/contact.component';
-import { NavbarComponent } from "../../common/navbar/navbar.component";
+import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ContactService } from './contact.service';
 
 @Component({
     selector: 'app-contact-page',
     standalone: true,
-    imports: [RouterLink, NavbarComponent, PageBannerComponent, ContactComponent, FooterComponent, BackToTopComponent],
+    imports: [
+        CommonModule,
+        NgIf,
+        NgClass,
+        ReactiveFormsModule,
+        RouterLink,
+        NavbarComponent,
+        PageBannerComponent,
+        ContactComponent,
+        FooterComponent,
+        BackToTopComponent,
+        HttpClientModule,
+    ],
     templateUrl: './contact-page.component.html',
-    styleUrl: './contact-page.component.scss'
+    styleUrl: './contact-page.component.scss',
+    providers: [ContactService],
 })
 export class ContactPageComponent {}

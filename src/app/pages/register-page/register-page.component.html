@@ -6,6 +6,15 @@
 <div class="register-area bg-fbfbfb ptb-120">
     <div class="container">
         <div class="row align-items-center">
+            <!-- Success Message -->
+            <div *ngIf="successMessage" class="alert alert-success">
+                {{ successMessage }}
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="errorMessage" class="alert alert-danger">
+                {{ errorMessage }}
+            </div>
             <div class="col-lg-6 col-md-12 order-2 order-lg-1">
                 <div class="register-image text-center">
                     <img src="images/riman-san/2.jpg" alt="login-image" />
@@ -131,11 +140,7 @@
                                 >
                             </label>
                         </div>
-                        <button
-                            type="submit"
-                            class="default-btn d-block w-100"
-                            [disabled]="registerForm.invalid"
-                        >
+                        <button type="submit" class="default-btn d-block w-100">
                             Register
                         </button>
                     </form>

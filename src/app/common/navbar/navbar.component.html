@@ -40,49 +40,12 @@
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <a
-                                href="javascript:void(0);"
-                                class="dropdown-toggle nav-link active"
+                                class="nav-link active"
+                                routerLinkActive="active"
+                                routerLink="/"
                             >
                                 Home
                             </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Home Demo - 1
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/index-2"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Home Demo - 2
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/index-3"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Home Demo - 3
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
                             <a
@@ -278,9 +241,7 @@
                         </a>
                     </div>
                     <div class="ms-4">
-                        <a routerLink="/login" class="btn-navbar">
-                            Login
-                        </a>
+                        <a routerLink="/login" class="btn-navbar"> Login </a>
                     </div>
                     <div class="ms-4">
                         <a routerLink="/register" class="btn-navbar">

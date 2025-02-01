@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomeDemoOneComponent } from './demos/home-demo-one/home-demo-one.component';
-import { HomeDemoTwoComponent } from './demos/home-demo-two/home-demo-two.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { CoursesPageComponent } from './pages/courses-page/courses-page.component';
@@ -17,7 +16,6 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
-    { path: 'index-2', component: HomeDemoTwoComponent },
     { path: 'about', component: AboutPageComponent },
     { path: 'courses', component: CoursesPageComponent },
     { path: 'course-details', component: CourseDetailsPageComponent },

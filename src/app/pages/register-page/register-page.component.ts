@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
     FormBuilder,
     FormGroup,
@@ -13,7 +13,7 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-register-page',
@@ -26,6 +26,7 @@ import { NgClass } from '@angular/common';
         BackToTopComponent,
         HttpClientModule,
         ReactiveFormsModule,
+        NgIf,
         NgClass,
     ],
     templateUrl: './register-page.component.html',
@@ -37,8 +38,11 @@ export class RegisterPageComponent {
     passwordVisible = false;
     passwordConfirmationVisible = false;
     selectedFile: File | null = null;
+    successMessage: string = '';
+    errorMessage: string = '';
 
     constructor(
+        public router: Router,
         private fb: FormBuilder,
         private registerService: RegisterService
     ) {
@@ -47,10 +51,7 @@ export class RegisterPageComponent {
             email: ['', [Validators.required, Validators.email]],
             phone: [
                 '',
-                [
-                    Validators.required,
-                    Validators.pattern(/^[0-9]{10,15}$/), 
-                ],
+                [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)],
             ],
             image: [null, [Validators.required]],
             password: ['', [Validators.required, Validators.minLength(8)]],
@@ -93,7 +94,11 @@ export class RegisterPageComponent {
     }
 
     register() {
-        if (this.registerForm.invalid) return;
+        if (this.registerForm.invalid) {
+            this.errorMessage =
+                'Please fill out all required fields correctly.';
+            return;
+        }
 
         const formData = new FormData();
         formData.append('name', this.registerForm.get('name')?.value);
@@ -110,10 +115,13 @@ export class RegisterPageComponent {
 
         this.registerService.register(formData).subscribe({
             next: (response: any) => {
-                alert('Registration successful!');
+                this.successMessage = 'Registered successfully!';
+                this.errorMessage = '';
+                this.registerForm.reset();
             },
             error: (err) => {
-                alert('Registration failed. Please try again.');
+                this.errorMessage = 'An error occurred . Please try again.' +err;
+                this.successMessage = '';
             },
         });
     }
