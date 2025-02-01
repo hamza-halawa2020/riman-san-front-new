@@ -8,233 +8,37 @@
 <div class="courses-area bg-f3f3f3 pt-120 pb-95">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-xl-4 col-md-6">
+            <div class="col-xl-4 col-md-6" *ngFor="let course of data">
                 <div class="single-course-box mb-25 position-relative">
-                    <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
-                            English Speaking
-                        </a>
-                    </h3>
-                    <p>
-                        Learn the Beauty of English
-                    </p>
-                    <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
-                        <div>
-                            <h4 class="fw-medium">
-                                Steven James
-                            </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
-                        </div>
+                    <div class="col text-center mb-2">
+                        <img
+                            src="{{ image + course.image }}"
+                            class="max-height"
+                            alt="user-image"
+                        />
                     </div>
-                    <a routerLink="/course-details" class="default-btn">
-                        Enroll Now
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="single-course-box mb-25 position-relative">
                     <h3 class="fw-semibold">
                         <a routerLink="/course-details">
-                            Hindi Speaking
+                            {{ course.title }}
                         </a>
                     </h3>
                     <p>
-                        Learn the Beauty of Hindi
+                        Category: {{ course.category }} <br />Tag:
+                        {{ course.tag }}
                     </p>
                     <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user2.jpg" class="rounded-circle" alt="user-image">
+                        <img
+                            src="{{
+                                imageInstructor + course.instructor_image
+                            }}"
+                            class="rounded-circle instructor"
+                            alt="user-image"
+                        />
                         <div>
                             <h4 class="fw-medium">
-                                Michael Eller
+                                <p>{{ course.instructor }}</p>
                             </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
-                        </div>
-                    </div>
-                    <a routerLink="/course-details" class="default-btn">
-                        Enroll Now
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="single-course-box mb-25 position-relative">
-                    <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
-                            Urdu Speaking
-                        </a>
-                    </h3>
-                    <p>
-                        Learn the Beauty of Urdu
-                    </p>
-                    <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user3.jpg" class="rounded-circle" alt="user-image">
-                        <div>
-                            <h4 class="fw-medium">
-                                Charles Ferrell
-                            </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
-                        </div>
-                    </div>
-                    <a routerLink="/course-details" class="default-btn">
-                        Enroll Now
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="single-course-box mb-25 position-relative">
-                    <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
-                            English Speaking
-                        </a>
-                    </h3>
-                    <p>
-                        Learn the Beauty of English
-                    </p>
-                    <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
-                        <div>
-                            <h4 class="fw-medium">
-                                Steven James
-                            </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
-                        </div>
-                    </div>
-                    <a routerLink="/course-details" class="default-btn">
-                        Enroll Now
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="single-course-box mb-25 position-relative">
-                    <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
-                            Hindi Speaking
-                        </a>
-                    </h3>
-                    <p>
-                        Learn the Beauty of Hindi
-                    </p>
-                    <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user2.jpg" class="rounded-circle" alt="user-image">
-                        <div>
-                            <h4 class="fw-medium">
-                                Michael Eller
-                            </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
-                        </div>
-                    </div>
-                    <a routerLink="/course-details" class="default-btn">
-                        Enroll Now
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="single-course-box mb-25 position-relative">
-                    <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
-                            Urdu Speaking
-                        </a>
-                    </h3>
-                    <p>
-                        Learn the Beauty of Urdu
-                    </p>
-                    <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user3.jpg" class="rounded-circle" alt="user-image">
-                        <div>
-                            <h4 class="fw-medium">
-                                Charles Ferrell
-                            </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
-                        </div>
-                    </div>
-                    <a routerLink="/course-details" class="default-btn">
-                        Enroll Now
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="single-course-box mb-25 position-relative">
-                    <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
-                            English Speaking
-                        </a>
-                    </h3>
-                    <p>
-                        Learn the Beauty of English
-                    </p>
-                    <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user1.jpg" class="rounded-circle" alt="user-image">
-                        <div>
-                            <h4 class="fw-medium">
-                                Steven James
-                            </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
-                        </div>
-                    </div>
-                    <a routerLink="/course-details" class="default-btn">
-                        Enroll Now
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="single-course-box mb-25 position-relative">
-                    <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
-                            Hindi Speaking
-                        </a>
-                    </h3>
-                    <p>
-                        Learn the Beauty of Hindi
-                    </p>
-                    <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user2.jpg" class="rounded-circle" alt="user-image">
-                        <div>
-                            <h4 class="fw-medium">
-                                Michael Eller
-                            </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
-                        </div>
-                    </div>
-                    <a routerLink="/course-details" class="default-btn">
-                        Enroll Now
-                    </a>
-                </div>
-            </div>
-            <div class="col-xl-4 col-md-6">
-                <div class="single-course-box mb-25 position-relative">
-                    <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
-                            Urdu Speaking
-                        </a>
-                    </h3>
-                    <p>
-                        Learn the Beauty of Urdu
-                    </p>
-                    <div class="instructor d-flex align-items-center">
-                        <img src="images/users/user3.jpg" class="rounded-circle" alt="user-image">
-                        <div>
-                            <h4 class="fw-medium">
-                                Charles Ferrell
-                            </h4>
-                            <span class="d-block">
-                                Instructor
-                            </span>
+                            <span class="d-block"> Instructor </span>
                         </div>
                     </div>
                     <a routerLink="/course-details" class="default-btn">

@@ -1,0 +1,28 @@
+<div class="upcoming-courses-area border-top border-bottom bg-f3f3f3 pt-5 pb-5">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 class="fw-semibold mx-auto mb-0 text-uppercase">Events</h2>
+        </div>
+        <div class="upcoming-courses-slides mx-auto">
+            <owl-carousel-o [options]="upcomingEventsSlides">
+                <ng-template carouselSlide *ngFor="let slide of sliderData">
+                    <div class="single-upcoming-course-box position-relative">
+                        <div class="image position-relative">
+                            <img
+                                src="{{ image + slide.image }}"
+                                class="bg-image max-height"
+                                alt="bg-image"
+                            />
+                        </div>
+                        <div class="content">
+                            <h3 class="fw-semibold">{{ slide.title }}</h3>
+                        </div>
+                        <a routerLink="/course-details" class="default-btn">
+                            View Event
+                        </a>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</div>

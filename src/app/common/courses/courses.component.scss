@@ -1,3 +1,10 @@
+.max-height {
+    max-height: 250px;
+}
+.instructor {
+    height: 50px;
+    width: 50px;
+}
 .single-course-box {
     padding: 30px;
     border-radius: 15px;
@@ -11,7 +18,7 @@
         font: {
             size: 24px;
             family: var(--fontFamily);
-        };
+        }
         a {
             color: var(--whiteColor);
         }
@@ -35,7 +42,7 @@
             font: {
                 size: 20px;
                 family: var(--fontFamily);
-            };
+            }
         }
         span {
             color: #f3f3f3;
@@ -51,7 +58,7 @@
         padding: {
             top: 12px;
             bottom: 12px;
-        };
+        }
     }
     &:hover {
         background-color: var(--primaryColor);
@@ -97,14 +104,14 @@
         font: {
             size: 48px;
             family: var(--headingFontFamily);
-        };
+        }
     }
     h3 {
         margin-bottom: 12px;
         font: {
             size: 24px;
             family: var(--fontFamily);
-        };
+        }
     }
     p {
         max-width: 210px;
@@ -121,7 +128,7 @@
             font: {
                 size: 20px;
                 family: var(--fontFamily);
-            };
+            }
         }
         span {
             color: var(--paragraphColor);
@@ -150,7 +157,7 @@
         font: {
             size: 24px;
             family: var(--fontFamily);
-        };
+        }
     }
     p {
         font-size: 16px;
@@ -158,7 +165,7 @@
         margin: {
             top: 25px;
             bottom: 35px;
-        };
+        }
     }
     .instructor {
         img {
@@ -172,7 +179,7 @@
             font: {
                 size: 20px;
                 family: var(--fontFamily);
-            };
+            }
         }
         span {
             color: #f3f3f3;
@@ -187,11 +194,10 @@
 }
 
 /* Max width 767px */
-@media only screen and (max-width : 767px) {
-
+@media only screen and (max-width: 767px) {
     .single-course-box {
         padding: 20px;
-    
+
         h3 {
             font-size: 20px;
         }
@@ -200,7 +206,7 @@
         }
         .instructor {
             margin-top: 18px;
-    
+
             h4 {
                 font-size: 18px;
             }
@@ -209,12 +215,12 @@
             padding: {
                 top: 11px;
                 bottom: 11px;
-            };
+            }
         }
     }
     .single-course-item {
         padding: 20px;
-    
+
         .number {
             font-size: 40px;
             right: 20px;
@@ -228,7 +234,7 @@
         }
         .instructor {
             margin-top: 18px;
-    
+
             h4 {
                 font-size: 18px;
             }
@@ -243,7 +249,7 @@
     }
     .course-item {
         padding: 20px;
-    
+
         h3 {
             margin-left: 18px;
             font-size: 20px;
@@ -253,7 +259,7 @@
             margin: {
                 top: 20px;
                 bottom: 20px;
-            };
+            }
         }
         .instructor {
             h4 {
@@ -261,24 +267,23 @@
             }
         }
     }
-
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+}
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {
-
+@media only screen and (min-width: 768px) and (max-width: 991px) {
     .single-course-box {
         padding: 25px;
-    
+
         h3 {
             font-size: 22px;
         }
         .instructor {
             margin-top: 20px;
-    
+
             h4 {
                 font-size: 18px;
             }
@@ -287,12 +292,12 @@
             padding: {
                 top: 11px;
                 bottom: 11px;
-            };
+            }
         }
     }
     .single-course-item {
         padding: 25px;
-    
+
         .number {
             right: 25px;
             font-size: 45px;
@@ -302,7 +307,7 @@
         }
         .instructor {
             margin-top: 20px;
-    
+
             h4 {
                 font-size: 18px;
             }
@@ -317,7 +322,7 @@
     }
     .course-item {
         padding: 25px;
-    
+
         h3 {
             margin-left: 20px;
             font-size: 22px;
@@ -327,17 +332,19 @@
             margin: {
                 top: 25px;
                 bottom: 25px;
-            };
+            }
         }
     }
-
 }
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+}
 
 /* Min width 1200px to Max width 1399px */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+}
 
 /* Min width 1600px */
-@media only screen and (min-width: 1600px) {}
+@media only screen and (min-width: 1600px) {
+}

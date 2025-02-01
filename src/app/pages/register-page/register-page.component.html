@@ -8,71 +8,136 @@
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-12 order-2 order-lg-1">
                 <div class="register-image text-center">
-                    <img src="images/register.jpg" alt="register-image">
+                    <img src="images/riman-san/2.jpg" alt="login-image" />
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 order-1 order-lg-2">
                 <div class="register-content">
                     <ul class="links p-0 list-unstyled">
                         <li class="d-inline-block">
-                            <a routerLink="/login" class="d-block position-relative">
+                            <a
+                                routerLink="/login"
+                                class="d-block position-relative"
+                            >
                                 Log in
                             </a>
                         </li>
                         <li class="d-inline-block">
-                            <a routerLink="/register" class="d-block position-relative active">
+                            <a
+                                routerLink="/register"
+                                class="d-block position-relative active"
+                            >
                                 Register
                             </a>
                         </li>
                     </ul>
-                    <h3 class="fw-medium">
-                        Create account
-                    </h3>
-                    <form>
+                    <h3 class="fw-medium">Create account</h3>
+                    <form [formGroup]="registerForm" (ngSubmit)="register()">
                         <div class="form-group">
-                            <input type="text" class="form-control shadow-none" placeholder="Name">
+                            <input
+                                type="text"
+                                class="form-control shadow-none"
+                                placeholder="Name"
+                                formControlName="name"
+                            />
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control shadow-none" placeholder="Email">
+                            <input
+                                type="text"
+                                class="form-control shadow-none"
+                                placeholder="Email"
+                                formControlName="email"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control shadow-none"
+                                placeholder="Phone"
+                                formControlName="phone"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="file"
+                                class="form-control shadow-none"
+                                (change)="onFileSelected($event)"
+                            />
                         </div>
                         <div class="form-group position-relative">
-                            <input type="password" id="passwordInput" class="form-control shadow-none" placeholder="Password">
-                            <button type="button" class="p-0 bg-transparent border-0" id="togglePassword">
-                                <i class="fa-regular fa-eye-slash"></i>
+                            <input
+                                [type]="passwordVisible ? 'text' : 'password'"
+                                id="passwordInput"
+                                class="form-control shadow-none"
+                                placeholder="Password"
+                                formControlName="password"
+                            />
+                            <button
+                                type="button"
+                                class="p-0 bg-transparent border-0 position-absolute end-0 me-2"
+                                (click)="togglePasswordVisibility()"
+                            >
+                                <i
+                                    [ngClass]="
+                                        passwordVisible
+                                            ? 'fa-regular fa-eye'
+                                            : 'fa-regular fa-eye-slash'
+                                    "
+                                ></i>
                             </button>
                         </div>
-                        <a routerLink="." class="forgot-password">
-                            Forgot your Password?
+                        <div class="form-group position-relative">
+                            <input
+                                [type]="
+                                    passwordConfirmationVisible
+                                        ? 'text'
+                                        : 'password'
+                                "
+                                id="passwordInput"
+                                class="form-control shadow-none"
+                                placeholder="Confirm Password"
+                                formControlName="password_confirmation"
+                            />
+                            <button
+                                type="button"
+                                class="p-0 bg-transparent border-0 position-absolute end-0 me-2"
+                                (click)="togglePasswordConfirmationVisibility()"
+                            >
+                                <i
+                                    [ngClass]="
+                                        passwordConfirmationVisible
+                                            ? 'fa-regular fa-eye'
+                                            : 'fa-regular fa-eye-slash'
+                                    "
+                                ></i>
+                            </button>
+                        </div>
+                        <a routerLink="/login" class="forgot-password">
+                            Do You Have Account?
                         </a>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
-                            <label class="form-check-label" for="flexCheckDefault">
-                                Agree to <a href="#">Terms & Conditions and Privacy Policy</a>
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="flexCheckDefault"
+                            />
+                            <label
+                                class="form-check-label"
+                                for="flexCheckDefault"
+                            >
+                                Agree to
+                                <a routerLink="#"
+                                    >Terms & Conditions and Privacy Policy</a
+                                >
                             </label>
                         </div>
-                        <button type="submit" class="default-btn d-block w-100">
+                        <button
+                            type="submit"
+                            class="default-btn d-block w-100"
+                            [disabled]="registerForm.invalid"
+                        >
                             Register
                         </button>
-                        <p class="text-center">
-                            Or register with an account
-                        </p>
-                        <div class="socials text-center">
-                            <button type="button" class="d-inline-block border-0 p-0 position-relative">
-                                <i class="fa-brands fa-apple"></i>
-                            </button>
-                            <button type="button" class="d-inline-block border-0 p-0 position-relative">
-                                <i class="fa-brands fa-github"></i>
-                            </button>
-                            <button type="button" class="d-inline-block border-0 p-0 position-relative">
-                                <i class="fa-brands fa-google"></i>
-                            </button>
-                            <button type="button" class="d-inline-block border-0 p-0 position-relative">
-                                <i class="fa-brands fa-facebook-f"></i>
-                            </button>
-                            <button type="button" class="d-inline-block border-0 p-0 position-relative">
-                                <i class="fa-brands fa-windows"></i>
-                            </button>
-                        </div>
                     </form>
                 </div>
             </div>

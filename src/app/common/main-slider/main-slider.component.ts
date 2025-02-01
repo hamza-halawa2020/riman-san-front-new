@@ -1,17 +1,47 @@
-import { NgClass, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { MainSliderService } from './main-slider.service';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
     selector: 'app-main-slider',
     standalone: true,
-    imports: [RouterLink, CarouselModule, NgIf, NgClass],
+    imports: [
+        RouterLink,
+        CommonModule,
+        CarouselModule,
+        NgIf,
+        NgClass,
+        HttpClientModule,
+    ],
     templateUrl: './main-slider.component.html',
     styleUrl: './main-slider.component.scss',
+    providers: [MainSliderService],
 })
-export class MainSlider {
-    constructor(public router: Router) {}
+export class MainSlider implements OnInit {
+    sliderData: any;
+    image = environment.imgUrl + 'main-sliders/';
+    constructor(
+        public router: Router,
+        private mainSliderService: MainSliderService
+    ) {}
+
+    ngOnInit(): void {
+        this.fetchSliderData();
+    }
+
+    fetchSliderData() {
+        this.mainSliderService.index().subscribe({
+            next: (response) => {
+                this.sliderData = Object.values(response)[0];
+            },
+            error: (error) => {
+            },
+        });
+    }
 
     feedbackSlides: OwlOptions = {
         items: 1,
@@ -41,7 +71,7 @@ export class MainSlider {
         dots: false,
         autoplay: true,
         autoplayHoverPause: true,
-        autoHeight: false, 
+        autoHeight: false,
         responsive: {
             0: {
                 autoHeight: false,

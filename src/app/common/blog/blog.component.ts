@@ -1,18 +1,48 @@
-import { NgClass, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../environments/environment.development';
+import { PostService } from './post.service';
+import { formatDistanceToNow } from 'date-fns';
 
 @Component({
     selector: 'app-blog',
     standalone: true,
-    imports: [RouterLink, NgClass, NgIf],
+    imports: [
+        RouterLink,
+        RouterLink,
+        CommonModule,
+        NgIf,
+        NgClass,
+        HttpClientModule,
+    ],
     templateUrl: './blog.component.html',
-    styleUrl: './blog.component.scss'
+    styleUrl: './blog.component.scss',
+    providers: [PostService],
 })
-export class BlogComponent {
+export class BlogComponent implements OnInit {
+    data: any;
+    image = environment.imgUrl + 'posts/';
 
-    constructor (
-        public router: Router
-    ) {}
+    constructor(public router: Router, private postService: PostService) {}
 
+    ngOnInit(): void {
+        this.fetchData();
+    }
+
+    getRelativeTime(dateString: string): string {
+        const date = new Date(dateString);
+        return formatDistanceToNow(date, { addSuffix: true }); // e.g., "2 days ago"
+    }
+
+    fetchData() {
+        this.postService.index().subscribe({
+            next: (response) => {
+                this.data = Object.values(response)[0];
+            },
+            error: (error) => {
+            },
+        });
+    }
 }

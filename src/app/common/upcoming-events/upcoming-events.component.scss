@@ -1,3 +1,7 @@
+
+.max-height{
+    max-height: 300px;
+}
 .upcoming-courses-area {
     .section-title {
         margin-bottom: 40px;
@@ -87,7 +91,7 @@
         }
     }
     .default-btn {
-        bottom: 0;
+        top: 115px;
         opacity: 0;
         right: 55px;
         visibility: hidden;
@@ -102,17 +106,17 @@
         };
     }
     &:hover {
-        .image {
-            img {
-                opacity: 0;
-                visibility: hidden;
+        // .image {
+        //     img {
+        //         opacity: 0;
+        //         visibility: hidden;
 
-                &:nth-child(2) {
-                    opacity: 1;
-                    visibility: visible;
-                }
-            }
-        }
+        //         &:nth-child(2) {
+        //             opacity: 1;
+        //             visibility: visible;
+        //         }
+        //     }
+        // }
         .content {
             h3 {
                 color: var(--blackColor);

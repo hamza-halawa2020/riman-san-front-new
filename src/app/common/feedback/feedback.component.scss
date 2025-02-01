@@ -8,13 +8,31 @@
         }
     }
 }
+
+.rating {
+    color: #ffc107; /* Gold color for stars */
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.rating i {
+    margin: 0 2px;
+}
+
+.fa-star.fas {
+    color: #ffc107; /* Filled star color */
+}
+
+.fa-star.far {
+    color: #e4e5e9; /* Empty star color */
+}
 ::ng-deep {
     .feedback-slides {
         max-width: 870px;
-    
+
         .owl-theme {
             .owl-nav {
-                &.disabled+.owl-dots {
+                &.disabled + .owl-dots {
                     margin-top: 25px;
                 }
             }
@@ -32,21 +50,22 @@
                         margin: {
                             left: 4px;
                             right: 4px;
-                        };
+                        }
                         &::before {
                             top: 0;
                             left: 0;
                             right: 0;
                             bottom: 0;
                             margin: 3px;
-                            content: '';
+                            content: "";
                             border-radius: 50%;
                             position: absolute;
                             background: #1c1c1c;
                             transition: var(--transition);
                         }
                     }
-                    &:hover, &.active {
+                    &:hover,
+                    &.active {
                         span {
                             border-color: var(--blackColor);
                         }
@@ -59,7 +78,7 @@
 .single-feedback-item {
     .info {
         margin-top: 30px;
-        
+
         img {
             width: 100px;
             display: inline-block;
@@ -68,11 +87,11 @@
             margin: {
                 top: 16px;
                 bottom: 7px;
-            };
+            }
             font: {
                 size: 24px;
                 family: var(--fontFamily);
-            };
+            }
         }
         span {
             color: var(--paragraphColor);
@@ -90,7 +109,7 @@
     .single-feedback-box {
         .image {
             margin-right: 70px;
-    
+
             img {
                 display: inline-block !important;
                 width: auto !important;
@@ -98,13 +117,13 @@
         }
         .content {
             margin-left: -40px;
-    
+
             h3 {
                 margin-bottom: 8px;
                 font: {
                     size: 24px;
                     family: var(--fontFamily);
-                };
+                }
             }
             .designation {
                 color: #f3f3f3;
@@ -113,14 +132,14 @@
                 margin: {
                     top: 20px;
                     bottom: 30px;
-                };
+                }
                 img {
                     display: inline-block !important;
                     width: auto !important;
                 }
             }
             p {
-                color: #F6FFEB;
+                color: #f6ffeb;
             }
         }
     }
@@ -134,8 +153,8 @@
                 bottom: -130px;
                 margin-top: 0;
                 position: absolute;
-    
-                [class*=owl-] {
+
+                [class*="owl-"] {
                     padding: 0;
                     width: 35px;
                     height: 35px;
@@ -146,9 +165,9 @@
                     color: var(--blackColor);
                     transition: var(--transition);
                     background: var(--whiteColor);
-    
+
                     &:hover {
-                        background-color: #C3C3C3;
+                        background-color: #c3c3c3;
                     }
                 }
             }
@@ -165,7 +184,7 @@
 
     img {
         position: absolute;
-        border: 3px solid #FBFBFB;
+        border: 3px solid #fbfbfb;
 
         &:nth-child(1) {
             top: 32%;
@@ -201,8 +220,7 @@
 }
 
 /* Max width 767px */
-@media only screen and (max-width : 767px) {
-
+@media only screen and (max-width: 767px) {
     .feedback-area {
         .section-title {
             &.mb-40 {
@@ -216,10 +234,10 @@
     ::ng-deep {
         .feedback-slides {
             max-width: 100%;
-        
+
             .owl-theme {
                 .owl-nav {
-                    &.disabled+.owl-dots {
+                    &.disabled + .owl-dots {
                         margin-top: 15px;
                     }
                 }
@@ -229,13 +247,13 @@
     .single-feedback-item {
         .info {
             margin-top: 20px;
-            
+
             h3 {
                 font-size: 20px;
                 margin: {
                     top: 15px;
                     bottom: 7px;
-                };
+                }
             }
         }
     }
@@ -244,17 +262,17 @@
         padding: 25px 20px;
         border-width: 3px;
         max-width: 100%;
-    
+
         .single-feedback-box {
             .image {
                 margin: {
                     right: 0;
                     bottom: 25px;
-                };
+                }
             }
             .content {
                 margin-left: 0;
-        
+
                 h3 {
                     font-size: 20px;
                 }
@@ -262,7 +280,7 @@
                     margin: {
                         top: 15px;
                         bottom: 15px;
-                    };
+                    }
                 }
             }
         }
@@ -279,15 +297,14 @@
     .feedback-users-list {
         display: none;
     }
-
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+}
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {
-
+@media only screen and (min-width: 768px) and (max-width: 991px) {
     .feedback-area {
         .section-title {
             &.mb-40 {
@@ -301,10 +318,10 @@
     ::ng-deep {
         .feedback-slides {
             max-width: 100%;
-    
+
             .owl-theme {
                 .owl-nav {
-                    &.disabled+.owl-dots {
+                    &.disabled + .owl-dots {
                         margin-top: 20px;
                     }
                 }
@@ -314,13 +331,13 @@
     .single-feedback-item {
         .info {
             margin-top: 25px;
-            
+
             h3 {
                 font-size: 22px;
                 margin: {
                     top: 15px;
                     bottom: 8px;
-                };
+                }
             }
         }
     }
@@ -328,14 +345,14 @@
         padding: 35px;
         max-width: 100%;
         margin-bottom: 65px;
-    
+
         .single-feedback-box {
             .image {
                 margin-right: 25px;
             }
             .content {
                 margin-left: -25px;
-        
+
                 h3 {
                     font-size: 22px;
                 }
@@ -343,7 +360,7 @@
                     margin: {
                         top: 20px;
                         bottom: 20px;
-                    };
+                    }
                 }
             }
         }
@@ -360,12 +377,10 @@
     .feedback-users-list {
         display: none;
     }
-
 }
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {
-
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
     ::ng-deep {
         .feedback-slides {
             max-width: 750px;
@@ -373,7 +388,7 @@
     }
     .feedback-slides2 {
         max-width: 100%;
-    
+
         .single-feedback-box {
             .image {
                 margin-right: 50px;
@@ -383,16 +398,14 @@
     .feedback-users-list {
         display: none;
     }
-
 }
 
 /* Min width 1200px to Max width 1399px */
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
-
     .feedback-slides2 {
         padding: 40px;
         max-width: 800px;
-    
+
         .single-feedback-box {
             .image {
                 margin-right: 50px;
@@ -421,12 +434,10 @@
             }
         }
     }
-
 }
 
 /* Min width 1600px */
 @media only screen and (min-width: 1600px) {
-
     .feedback-users-list {
         img {
             &:nth-child(1) {
@@ -449,5 +460,4 @@
             }
         }
     }
-
 }

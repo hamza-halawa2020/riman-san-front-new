@@ -1,65 +1,23 @@
-<!-- Default -->
-<div
-    class="feedback-area ptb-120 position-relative z-1"
-    [ngClass]="{ 'd-none': router.url === '/index-3' }"
->
-    <div class="feedback-slides mx-auto">
+<div class="new-class position-relative">
+    <div class="main-slider mx-auto">
         <owl-carousel-o [options]="feedbackSlides">
-            <ng-template carouselSlide>
-                <div class="single-feedback-item text-center">
-                    <div class="info">
-                        <img
-                            src="images/users/user4.jpg"
-                            class="rounded-circle"
-                            alt="user-image"
-                        />
-                        <h3 class="fw-semibold">Linda B. Ackerman</h3>
-                    </div>
-                    <p class="fw-medium">
-                        "Learning at LOGO has been an enriching experience. The
-                        instructors are not only skilled but incredibly
-                        passionate about teaching. The immersive approach has
-                        significantly boosted my confidence in speaking the
-                        language."
-                    </p>
-                </div>
-            </ng-template>
-            <ng-template carouselSlide>
-                <div class="single-feedback-item text-center">
-                    <div class="info">
-                        <img
-                            src="images/users/user1.jpg"
-                            class="rounded-circle"
-                            alt="user-image"
-                        />
-                        <h3 class="fw-semibold">James T. Warner</h3>
-                    </div>
-                    <p class="fw-medium">
-                        "Learning at LOGO has been an enriching experience. The
-                        instructors are not only skilled but incredibly
-                        passionate about teaching. The immersive approach has
-                        significantly boosted my confidence in speaking the
-                        language."
-                    </p>
-                </div>
-            </ng-template>
-            <ng-template carouselSlide>
-                <div class="single-feedback-item text-center">
-                    <div class="info">
-                        <img
-                            src="images/users/user2.jpg"
-                            class="rounded-circle"
-                            alt="user-image"
-                        />
-                        <h3 class="fw-semibold">Macky Q. Anderson</h3>
-                    </div>
-                    <p class="fw-medium">
-                        "Learning at LOGO has been an enriching experience. The
-                        instructors are not only skilled but incredibly
-                        passionate about teaching. The immersive approach has
-                        significantly boosted my confidence in speaking the
-                        language."
-                    </p>
+            <ng-template carouselSlide *ngFor="let slide of sliderData">
+                <div class="text-center">
+                    <a href="{{ slide.link }}">
+                        <div class="image-container">
+                            <img
+                                src="{{ image + slide.image }}"
+                                class="carousel-image"
+                                alt="{{ slide.image }}"
+                            />
+                            <div class="overlay-content">
+                                <h3 class="fw-semibold">{{ slide.title }}</h3>
+                                <div class="fw-medium">
+                                    {{ slide.description }}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </ng-template>
         </owl-carousel-o>
