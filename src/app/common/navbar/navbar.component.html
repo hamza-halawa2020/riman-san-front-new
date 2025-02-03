@@ -240,52 +240,29 @@
                             <i class="fa-regular fa-heart"></i>
                         </a>
                     </div>
-                    <div class="ms-4">
-                        <a routerLink="/login" class="btn-navbar"> Login </a>
-                    </div>
-                    <div class="ms-4">
+
+                    <div class="ms-4" *ngIf="!loginService.isLoggedIn()">
                         <a routerLink="/register" class="btn-navbar">
                             Sign Up
                         </a>
                     </div>
-                    <!-- <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item">
-                                <a
-                                    href="javascript:void(0);"
-                                    class="dropdown-toggle nav-link"
-                                >
-                                    Settings
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a
-                                            routerLink="/courses"
-                                            class="nav-link"
-                                            routerLinkActive="active"
-                                            [routerLinkActiveOptions]="{
-                                                exact: true
-                                            }"
-                                        >
-                                            Profile
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a
-                                            routerLink="/courses"
-                                            class="nav-link"
-                                            routerLinkActive="active"
-                                            [routerLinkActiveOptions]="{
-                                                exact: true
-                                            }"
-                                        >
-                                            Log Out
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div> -->
+                    <div class="ms-4" *ngIf="!loginService.isLoggedIn()">
+                        <a routerLink="/login" class="btn-navbar"> Login </a>
+                    </div>
+                    <div class="ms-4" *ngIf="loginService.isLoggedIn()">
+                        <a routerLink="/profile" class="btn-navbar">
+                            Profile
+                        </a>
+                    </div>
+                    <div
+                        class="ms-4"
+                        (click)="logout()"
+                        *ngIf="loginService.isLoggedIn()"
+                    >
+                        <button class="btn-navbar">
+                            <i class="fas fa-sign-out-alt"></i> Log Out
+                        </button>
+                    </div>
                 </div>
             </nav>
         </div>

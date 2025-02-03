@@ -13,6 +13,9 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { PrivacyPolicyPageComponent } from './pages/privacy-policy-page/privacy-policy-page.component';
 import { TermsConditionsPageComponent } from './pages/terms-conditions-page/terms-conditions-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
+import { AuthGuard } from './auth.guard';
+import { unAuthGuard } from './un-auth.guard';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -23,8 +26,9 @@ export const routes: Routes = [
     { path: 'team-details', component: TeamDetailsPageComponent },
     { path: 'blog', component: BlogPageComponent },
     { path: 'blog-details', component: BlogDetailsPageComponent },
-    { path: 'login', component: LoginPageComponent },
-    { path: 'register', component: RegisterPageComponent },
+    { path: 'login', component: LoginPageComponent, canActivate: [unAuthGuard]},
+    { path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]},
+    { path: 'register', component: RegisterPageComponent, canActivate: [unAuthGuard]},
     { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
     { path: 'terms-conditions', component: TermsConditionsPageComponent },
     { path: 'contact', component: ContactPageComponent },

@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment.development';
 })
 export class CoursesService {
     private apiUrl = environment.backEndUrl;
-    private data = '/courses';
+    private data = '/random-courses';
     constructor(private http: HttpClient) {}
     index() {
         return this.http.get(`${this.apiUrl}${this.data}`);

@@ -3,18 +3,9 @@
 <app-page-banner />
 
 <!-- Register -->
-<div class="register-area bg-fbfbfb ptb-120">
+<div class="register-area bg-fbfbfb pt-5 pb-5">
     <div class="container">
         <div class="row align-items-center">
-            <!-- Success Message -->
-            <div *ngIf="successMessage" class="alert alert-success">
-                {{ successMessage }}
-            </div>
-
-            <!-- Error Message -->
-            <div *ngIf="errorMessage" class="alert alert-danger">
-                {{ errorMessage }}
-            </div>
             <div class="col-lg-6 col-md-12 order-2 order-lg-1">
                 <div class="register-image text-center">
                     <img src="images/riman-san/2.jpg" alt="login-image" />
@@ -41,6 +32,13 @@
                         </li>
                     </ul>
                     <h3 class="fw-medium">Create account</h3>
+                    <div *ngIf="successMessage" class="alert alert-success">
+                        {{ successMessage }}
+                    </div>
+
+                    <div *ngIf="errorMessage" class="alert alert-danger">
+                        {{ errorMessage }}
+                    </div>
                     <form [formGroup]="registerForm" (ngSubmit)="register()">
                         <div class="form-group">
                             <input
@@ -124,22 +122,6 @@
                         <a routerLink="/login" class="forgot-password">
                             Do You Have Account?
                         </a>
-                        <div class="form-check">
-                            <input
-                                class="form-check-input"
-                                type="checkbox"
-                                id="flexCheckDefault"
-                            />
-                            <label
-                                class="form-check-label"
-                                for="flexCheckDefault"
-                            >
-                                Agree to
-                                <a routerLink="#"
-                                    >Terms & Conditions and Privacy Policy</a
-                                >
-                            </label>
-                        </div>
                         <button type="submit" class="default-btn d-block w-100">
                             Register
                         </button>

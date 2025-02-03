@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment.development';
 })
 export class PostService {
     private apiUrl = environment.backEndUrl;
-    private data = '/posts';
+    private data = '/random-posts';
     constructor(private http: HttpClient) {}
     index() {
         return this.http.get(`${this.apiUrl}${this.data}`);

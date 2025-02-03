@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import {
     FormBuilder,
     FormGroup,
-    Validators,
     ReactiveFormsModule,
+    Validators,
+    AbstractControl,
 } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { PageBannerComponent } from './page-banner/page-banner.component';
@@ -23,6 +23,7 @@ import { LoginService } from './login.service';
         ReactiveFormsModule,
         RouterLink,
         NgClass,
+        NgIf,
         NavbarComponent,
         PageBannerComponent,
         FooterComponent,
@@ -37,18 +38,37 @@ export class LoginPageComponent {
     loginForm: FormGroup;
     passwordVisible = false;
     passwordConfirmationVisible = false;
-    private router = inject(Router);
-    private cookieService = inject(CookieService);
+    successMessage: string = '';
+    errorMessage: string = '';
 
-    constructor(private fb: FormBuilder, private loginService: LoginService) {
+    constructor(
+        private fb: FormBuilder,
+        private router: Router,
+        private loginService: LoginService
+    ) {
         this.loginForm = this.fb.group({
             emailOrPhone: ['', [Validators.required]],
             password: ['', [Validators.required, Validators.minLength(8)]],
             password_confirmation: [
                 '',
-                [Validators.required, Validators.minLength(8)],
+                [Validators.required, this.passwordMatchValidator()],
             ],
         });
+    }
+
+    passwordMatchValidator(): (
+        control: AbstractControl
+    ) => { [key: string]: boolean } | null {
+        return (control: AbstractControl) => {
+            if (this.loginForm) {
+                const password = this.loginForm.get('password')?.value;
+                const confirmPassword = control.value;
+                return password === confirmPassword
+                    ? null
+                    : { passwordMismatch: true };
+            }
+            return null;
+        };
     }
 
     togglePasswordVisibility() {
@@ -59,20 +79,32 @@ export class LoginPageComponent {
         this.passwordConfirmationVisible = !this.passwordConfirmationVisible;
     }
 
-    login() {
-        if (this.loginForm.invalid) return;
+    extractErrorMessage(error: any): string {
+        let errorMessage = 'An error occurred';
+        if (error && error.error && error.error.errors) {
+            errorMessage = Object.values(error.error.errors).flat().join(', ');
+        }
+        return errorMessage;
+    }
 
-        this.loginService.login(this.loginForm.value).subscribe({
-            next: (response: any) => {
-                this.cookieService.set('auth_token', response.token, {
-                    expires: 7,
-                    path: '/',
-                });
-                this.router.navigate(['/dashboard']);
-            },
-            error: (err) => {
-                alert('Login failed. Please check your credentials.');
-            },
-        });
+    login() {
+        if (this.loginForm.valid) {
+            this.loginService.login(this.loginForm.value).subscribe({
+                next: (res: any) => {
+                    this.loginService.setTokenInCookie(res.token);
+                    this.router.navigate(['/']);
+                },
+                error: (err) => {
+                    this.errorMessage =
+                        'Login failed. Please try again. ' +
+                        this.extractErrorMessage(err);
+                    setTimeout(() => (this.errorMessage = ''), 10000);
+                },
+            });
+        } else {
+            this.errorMessage =
+                'Form is invalid. Please fill all the required fields.';
+            setTimeout(() => (this.errorMessage = ''), 10000);
+        }
     }
 }

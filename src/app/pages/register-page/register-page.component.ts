@@ -53,7 +53,7 @@ export class RegisterPageComponent {
                 '',
                 [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)],
             ],
-            image: [null, [Validators.required]],
+            image: [''],
             password: ['', [Validators.required, Validators.minLength(8)]],
             password_confirmation: [
                 '',
@@ -77,6 +77,14 @@ export class RegisterPageComponent {
         };
     }
 
+    extractErrorMessage(error: any): string {
+        let errorMessage = 'An error occurred';
+        if (error && error.error && error.error.errors) {
+            errorMessage = Object.values(error.error.errors).flat().join(', ');
+        }
+        return errorMessage;
+    }
+
     onFileSelected(event: any) {
         const file = event.target.files[0];
         if (file) {
@@ -97,6 +105,8 @@ export class RegisterPageComponent {
         if (this.registerForm.invalid) {
             this.errorMessage =
                 'Please fill out all required fields correctly.';
+            setTimeout(() => (this.errorMessage = ''), 10000);
+
             return;
         }
 
@@ -116,12 +126,15 @@ export class RegisterPageComponent {
         this.registerService.register(formData).subscribe({
             next: (response: any) => {
                 this.successMessage = 'Registered successfully!';
-                this.errorMessage = '';
+                setTimeout(() => (this.successMessage = ''), 10000);
                 this.registerForm.reset();
+                this.router.navigate(['/login']);
             },
             error: (err) => {
-                this.errorMessage = 'An error occurred . Please try again.' +err;
-                this.successMessage = '';
+                this.errorMessage =
+                    'An error occurred . Please try again. ' +
+                    this.extractErrorMessage(err);
+                setTimeout(() => (this.errorMessage = ''), 10000);
             },
         });
     }

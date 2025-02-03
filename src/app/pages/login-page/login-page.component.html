@@ -1,113 +1,120 @@
-<app-navbar />
+    <app-navbar />
 
-<app-page-banner />
+    <app-page-banner />
 
-<!-- Login -->
-<div class="login-area bg-fbfbfb ptb-120">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 col-md-12 order-2 order-lg-1">
-                <div class="login-image text-center">
-                    <img src="images/riman-san/2.jpg" alt="login-image" />
+    <!-- Login -->
+    <div class="login-area bg-fbfbfb pt-5 pb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 order-2 order-lg-1">
+                    <div class="login-image text-center">
+                        <img src="images/riman-san/2.jpg" alt="login-image" />
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-6 col-md-12 order-1 order-lg-2">
-                <div class="login-content">
-                    <ul class="links p-0 list-unstyled">
-                        <li class="d-inline-block">
-                            <a
-                                routerLink="/login"
-                                class="d-block position-relative active"
+                <div class="col-lg-6 col-md-12 order-1 order-lg-2">
+                    <div class="login-content">
+                        <ul class="links p-0 list-unstyled">
+                            <li class="d-inline-block">
+                                <a
+                                    routerLink="/login"
+                                    class="d-block position-relative active"
+                                >
+                                    Log in
+                                </a>
+                            </li>
+                            <li class="d-inline-block">
+                                <a
+                                    routerLink="/register"
+                                    class="d-block position-relative"
+                                >
+                                    Register
+                                </a>
+                            </li>
+                        </ul>
+                        <h3 class="fw-medium">Log in to your account</h3>
+                        <div *ngIf="successMessage" class="alert alert-success">
+                            {{ successMessage }}
+                        </div>
+
+                        <div *ngIf="errorMessage" class="alert alert-danger">
+                            {{ errorMessage }}
+                        </div>
+                        <form [formGroup]="loginForm" (ngSubmit)="login()">
+                            <div class="form-group">
+                                <input
+                                    type="text"
+                                    class="form-control shadow-none"
+                                    placeholder="Email Or Phone"
+                                    formControlName="emailOrPhone"
+                                />
+                            </div>
+
+                            <div class="form-group position-relative">
+                                <input
+                                    [type]="passwordVisible ? 'text' : 'password'"
+                                    class="form-control shadow-none"
+                                    placeholder="Password"
+                                    formControlName="password"
+                                />
+                                <button
+                                    type="button"
+                                    class="p-0 bg-transparent border-0 position-absolute end-0 me-2"
+                                    (click)="togglePasswordVisibility()"
+                                >
+                                    <i
+                                        [ngClass]="
+                                            passwordVisible
+                                                ? 'fa-regular fa-eye'
+                                                : 'fa-regular fa-eye-slash'
+                                        "
+                                    ></i>
+                                </button>
+                            </div>
+
+                            <div class="form-group position-relative">
+                                <input
+                                    [type]="
+                                        passwordConfirmationVisible
+                                            ? 'text'
+                                            : 'password'
+                                    "
+                                    class="form-control shadow-none"
+                                    placeholder="Password Confirmation"
+                                    formControlName="password_confirmation"
+                                />
+                                <button
+                                    type="button"
+                                    class="p-0 bg-transparent border-0 position-absolute end-0 me-2"
+                                    (click)="togglePasswordConfirmationVisibility()"
+                                >
+                                    <i
+                                        [ngClass]="
+                                            passwordConfirmationVisible
+                                                ? 'fa-regular fa-eye'
+                                                : 'fa-regular fa-eye-slash'
+                                        "
+                                    ></i>
+                                </button>
+                            </div>
+
+                            <a routerLink="." class="forgot-password">
+                                Forgot your Password?
+                            </a>
+                            <button
+                                type="submit"
+                                class="default-btn d-block w-100"
+                                [disabled]="loginForm.invalid"
                             >
                                 Log in
-                            </a>
-                        </li>
-                        <li class="d-inline-block">
-                            <a
-                                routerLink="/register"
-                                class="d-block position-relative"
-                            >
-                                Register
-                            </a>
-                        </li>
-                    </ul>
-                    <h3 class="fw-medium">Log in to your account</h3>
-                    <form [formGroup]="loginForm" (ngSubmit)="login()">
-                        <div class="form-group">
-                            <input
-                                type="text"
-                                class="form-control shadow-none"
-                                placeholder="Email Or Phone"
-                                formControlName="emailOrPhone"
-                            />
-                        </div>
-
-                        <div class="form-group position-relative">
-                            <input
-                                [type]="passwordVisible ? 'text' : 'password'"
-                                class="form-control shadow-none"
-                                placeholder="Password"
-                                formControlName="password"
-                            />
-                            <button
-                                type="button"
-                                class="p-0 bg-transparent border-0 position-absolute end-0 me-2"
-                                (click)="togglePasswordVisibility()"
-                            >
-                                <i
-                                    [ngClass]="
-                                        passwordVisible
-                                            ? 'fa-regular fa-eye'
-                                            : 'fa-regular fa-eye-slash'
-                                    "
-                                ></i>
                             </button>
-                        </div>
-
-                        <div class="form-group position-relative">
-                            <input
-                                [type]="
-                                    passwordConfirmationVisible
-                                        ? 'text'
-                                        : 'password'
-                                "
-                                class="form-control shadow-none"
-                                placeholder="Password Confirmation"
-                                formControlName="password_confirmation"
-                            />
-                            <button
-                                type="button"
-                                class="p-0 bg-transparent border-0 position-absolute end-0 me-2"
-                                (click)="togglePasswordConfirmationVisibility()"
-                            >
-                                <i
-                                    [ngClass]="
-                                        passwordConfirmationVisible
-                                            ? 'fa-regular fa-eye'
-                                            : 'fa-regular fa-eye-slash'
-                                    "
-                                ></i>
-                            </button>
-                        </div>
-
-                        <a routerLink="." class="forgot-password">
-                            Forgot your Password?
-                        </a>
-                        <button
-                            type="submit"
-                            class="default-btn d-block w-100"
-                            [disabled]="loginForm.invalid"
-                        >
-                            Log in
-                        </button>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End Login -->
+    <!-- End Login -->
 
-<app-footer />
+    <app-footer />
 
-<app-back-to-top />
+    <app-back-to-top />
