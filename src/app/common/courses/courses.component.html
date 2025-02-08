@@ -18,7 +18,7 @@
                         />
                     </div>
                     <h3 class="fw-semibold">
-                        <a routerLink="/course-details">
+                        <a routerLink="/course/{{course.id}}">
                             {{ course.title }}
                         </a>
                     </h3>
@@ -41,7 +41,7 @@
                             <span class="d-block"> Instructor </span>
                         </div>
                     </div>
-                    <a routerLink="/course-details" class="default-btn">
+                    <a routerLink="/course/{{course.id}}" class="default-btn">
                         Enroll Now
                     </a>
                 </div>

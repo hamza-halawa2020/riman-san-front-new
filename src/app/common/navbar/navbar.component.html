@@ -1,4 +1,4 @@
-<div
+<!-- <div
     class="navbar-area position-fixed top-0 start-0 end-0"
     [ngClass]="{
         'is-sticky': isSticky,
@@ -101,7 +101,7 @@
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
                                     <a
-                                        routerLink="/team"
+                                        routerLink="/instructors"
                                         class="nav-link"
                                         routerLinkActive="active"
                                         [routerLinkActiveOptions]="{
@@ -111,18 +111,7 @@
                                         Team
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/team-details"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Team Details
-                                    </a>
-                                </li>
+                            
                                 <li class="nav-item">
                                     <a
                                         href="javascript:void(0);"
@@ -267,4 +256,171 @@
             </nav>
         </div>
     </div>
+</div> -->
+
+<!-- START NAVBAR -->
+<div id="navigation" class="fixed-top navbar-light bg-faded site-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-3 col-sm-4">
+                <div class="site-logo">
+                    <a href="/">
+                        <img src="riman-san/3.jpg" alt="" />
+                    </a>
+                </div>
+            </div>
+            <!--- END Col -->
+
+            <div class="col-lg-6 col-md-9 col-sm-8">
+                <div class="header_right">
+                    <nav id="main-menu" class="ms-auto">
+                        <ul>
+                            <li>
+                                <a class="nav-link" routerLink="/"
+                                    >Home <span class="ti-angle-down"></span
+                                ></a>
+                            </li>
+                            <li>
+                                <a class="nav-link" routerLink="#"
+                                    >Pages <span class="ti-angle-down"></span
+                                ></a>
+                                <ul>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="about.html"
+                                            >About Us</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="team.html"
+                                            >Instructor</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="team-details.html"
+                                            >Instructor Details</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="faq.html"
+                                            >FAQ's</a
+                                        >
+                                    </li>
+
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="error.html"
+                                            >404 Page</a
+                                        >
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="nav-link" routerLink="/courses"
+                                    >Courses <span class="ti-angle-down"></span
+                                ></a>
+                            </li>
+                            <li>
+                                <a class="nav-link" routerLink="events"
+                                    >Event</a
+                                >
+                            </li>
+                            <li>
+                                <a class="nav-link" routerLink="shop.html"
+                                    >Shop <span class="ti-angle-down"></span
+                                ></a>
+                                <ul>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="shop.html"
+                                            >Shop</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="single_shop.html"
+                                            >Single Shop</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="cart.html"
+                                            >Cart Page</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="checkout.html"
+                                            >Checkout page</a
+                                        >
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="nav-link" routerLink="/posts"
+                                    >Blog <span class="ti-angle-down"></span
+                                ></a>
+                                <ul>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="blog.html"
+                                            >Blog List</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="blog_single.html"
+                                            >Single Blog</a
+                                        >
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="nav-link" routerLink="contact.html"
+                                    >Contact</a
+                                >
+                            </li>
+                        </ul>
+                    </nav>
+                    <div id="mobile_menu"></div>
+                </div>
+            </div>
+            <!--- END Col -->
+            <div class="col-lg-4 col-md-3 col-sm-8">
+                <div class="home_lc">
+                    <a routerLink="#" class="hlc">
+                        <i class="ti-heart"></i>
+                        <span class="gactive">0</span>
+                    </a>
+                    <a routerLink="#" class="hlc">
+                        <i class="ti-shopping-cart-full"></i>
+                        <span class="gactive">2</span>
+                    </a>
+                </div>
+                <div class="call_to_action">
+                    <a class="btn_one" routerLink="/login">Login</a>
+                    <a class="btn_two" routerLink="/register">Sign Up</a>
+                </div>
+                <!--- END SOCIAL PROFILE -->
+            </div>
+            <!--- END Col -->
+        </div>
+        <!--- END ROW -->
+    </div>
+    <!--- END CONTAINER -->
 </div>
+<!-- END NAVBAR -->

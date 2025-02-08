@@ -9,6 +9,7 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { CourseService } from './course.service';
 import { environment } from '../../../environments/environment.development';
 import { CommonModule } from '@angular/common';
+import { SafeUrlPipe } from '../../safe-url.pipe';
 
 @Component({
     selector: 'app-courses-page',
@@ -22,6 +23,7 @@ import { CommonModule } from '@angular/common';
         FooterComponent,
         BackToTopComponent,
         HttpClientModule,
+        SafeUrlPipe,
     ],
     templateUrl: './courses-page.component.html',
     styleUrl: './courses-page.component.scss',
@@ -31,11 +33,9 @@ export class CoursesPageComponent implements OnInit {
     data: any;
     image = environment.imgUrl + 'Courses/';
     imageInstructor = environment.imgUrl + 'instructors/';
+    showVideo = false;
 
-    constructor(
-        public router: Router,
-        private courseService: CourseService
-    ) {}
+    constructor(public router: Router, private courseService: CourseService) {}
 
     ngOnInit(): void {
         this.fetchdata();
@@ -46,8 +46,7 @@ export class CoursesPageComponent implements OnInit {
             next: (response) => {
                 this.data = Object.values(response)[0];
             },
-            error: (error) => {
-            },
+            error: (error) => {},
         });
     }
 }

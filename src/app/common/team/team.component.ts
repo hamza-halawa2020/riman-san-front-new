@@ -8,14 +8,7 @@ import { environment } from '../../../environments/environment.development';
 @Component({
     selector: 'app-team',
     standalone: true,
-    imports: [
-        RouterLink,
-        RouterLink,
-        CommonModule,
-        NgIf,
-        NgClass,
-        HttpClientModule,
-    ],
+    imports: [RouterLink, CommonModule, NgIf, NgClass, HttpClientModule],
     templateUrl: './team.component.html',
     styleUrl: './team.component.scss',
     providers: [InstructorService],
@@ -38,8 +31,7 @@ export class TeamComponent implements OnInit {
             next: (response) => {
                 this.data = Object.values(response)[0];
             },
-            error: (error) => {
-            },
+            error: (error) => {},
         });
     }
 }

@@ -2,74 +2,172 @@
 
 <app-page-banner />
 
-<div class="pb-120 border-bottom"></div>
-
-<!-- Course Details -->
-<div class="course-details-area bg-f3f3f3 ptb-120">
+<section class="our_event section-padding">
     <div class="container">
         <div class="row">
-            <div class="col">
-                <div class="course-details-desc">
-                    <div class="image">
-                        <img
-                            src="images/course-details.jpg"
-                            alt="course-details-image"
-                        />
+            <div class="col-lg-8 col-sm-8 col-xs-12">
+                <div class="single_event_single">
+                    <img
+                        alt=""
+                        class="img-fluid max-height"
+                        src="{{ image + details.image }}"
+                    />
+                    <div class="single_event_text_single">
+                        <h4>{{ details.title }}</h4>
+                        <p>
+                            {{ details.description }}
+                        </p>
                     </div>
-                    <h2 class="fw-semibold">English Speaking</h2>
-                    <p>
-                        Embark on a transformative journey to enhance your
-                        English communication skills. This comprehensive course
-                        is designed for learners of all levels, from beginners
-                        to advanced speakers. Focused on practical
-                        communication, the course aims to build confidence in
-                        spoken English through interactive sessions and
-                        real-life applications.
-                    </p>
-                    <h3 class="fw-semibold">Course Duration:</h3>
-                    <ul>
-                        <li>
-                            Choose from flexible schedules: 8-week intensive
-                            course or 12-week standard.
-                        </li>
-                        <li>
-                            Classes conducted twice a week, with each session
-                            lasting 90 minutes.
-                        </li>
-                    </ul>
-                    <h3 class="fw-semibold">Course Objectives:</h3>
-                    <ol>
-                        <li>Develop fluency in spoken English.</li>
-                        <li>Enhance pronunciation and articulation.</li>
-                        <li>
-                            Build a strong foundation in grammar and vocabulary.
-                        </li>
-                        <li>Improve listening and comprehension skills.</li>
-                        <li>
-                            Gain confidence in diverse communication scenarios.
-                        </li>
-                    </ol>
-                    <div class="instructor d-flex align-items-center">
-                        <img
-                            src="images/users/user14.jpg"
-                            class="rounded-circle"
-                            alt="user-image"
-                        />
-                        <div>
-                            <h4 class="fw-medium">Jeffrey E. Walton</h4>
-                            <span class="d-block">
-                                Instructor, English Speaking
-                            </span>
+                </div>
+            </div>
+            <!--- END COL -->
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+                <div class="event_info_price">
+                    <h4>
+                        <i class="fas fa-money-bill"></i> Price
+
+                        <b> {{ details.price }} EGP </b>
+                    </h4>
+                </div>
+                <div class="event_info_price">
+                    <h4 *ngIf="details.certifications == 1; else noCert">
+                        <i class="fa fa-trophy"></i> Certification
+                        <b>Yes</b>
+                    </h4>
+                    <ng-template #noCert>
+                        <h4>
+                            <b>No certification available</b>
+                        </h4>
+                    </ng-template>
+                </div>
+                <div class="event_info_register">
+                    <a class="btn_one" href="#">
+                        <i class="fa fa-graduation-cap"></i> Enroll Now
+                    </a>
+                </div>
+
+                <!-- END SIDEBAR POST -->
+                <div class="sidebar-post mt-4">
+                    <div class="sidebar_title"><h4>Follow us</h4></div>
+                    <div class="row single_social">
+                        <div class="col mb-3" *ngFor="let social of data">
+                            <a href="{{ social.url }}" target="_blank">
+                                <img
+                                    alt=""
+                                    class="rounded"
+                                    src="{{ socialImage + social.icon }}"
+                                    width="30px"
+                                    height="30px"
+                                />
+                            </a>
                         </div>
+                    </div>
+                    <!-- END SOCIAL MEDIA POST -->
+                </div>
+                <!-- END SIDEBAR POST -->
+            </div>
+            <!--- END COL -->
+        </div>
+
+        <div class="row">
+            <!--- END SINGLE EVENT -->
+            <div class="course-details-content section-bg">
+                <div class="overview">
+                    <iframe
+                        *ngIf="details && details.video_url"
+                        width="900"
+                        height="506"
+                        [src]="details.video_url | safeUrl"
+                        frameborder="0"
+                        allowfullscreen
+                    ></iframe>
+                </div>
+            </div>
+            <div class="course-details-content section-bg"></div>
+            <div class="overview text-center">
+                <div class="instructor-item">
+                    <div class="">
+                        <a routerLink="/instructor/{{ details.instructor_id }}">
+                            <img
+                                alt=""
+                                class="rounded"
+                                src="{{
+                                    instructorImage + details.instructor_image
+                                }}"
+                                style="max-width: 450px"
+                            />
+                        </a>
+                    </div>
+                    <div class="instructor-content">
+                        <h6 class="title">
+                            {{ details.instructor }}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-details-content section-bg">
+                <div class="client-review">
+                    <div class="review-comments">
+                        <h6 class="review-title">Reviews (03)</h6>
+                        <ul class="review-contents">
+                            <li *ngFor="let review of details.courseReviews">
+                                <div class="cont">
+                                    <h6 class="subtitle">{{ review.user }}</h6>
+                                    <div class="ratings cl-theme">
+                                        <rating
+                                            [(ngModel)]="review.rating"
+                                            [max]="5"
+                                            [readonly]="true"
+                                            style="
+                                                color: #e1b619;
+                                                font-size: 25px;
+                                            "
+                                        ></rating>
+                                    </div>
+                                    <p>{{ review.review }}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="review-form">
+                        <h6 class="review-title">Add a Review</h6>
+                        <form class="row client-form align-items-center">
+                            <div class="col-md-4 col-12">
+                                <div class="rating">
+                                    <span class="rating-title"
+                                        >Your Rating :
+                                    </span>
+
+                                    <rating
+                                        [max]="5"
+                                        style="color: #e1b619; font-size: 25px"
+                                    ></rating>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-12 d-inline-flex">
+                                <textarea
+                                    rows="5"
+                                    placeholder="Type Here Message"
+                                ></textarea>
+                            </div>
+                            <div class="col-12 pb-4">
+                                <button
+                                    type="submit"
+                                    class="custom-button rounded"
+                                >
+                                    Submit Review
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- END ROW -->
     </div>
-</div>
-<!-- End Course Details -->
-
-<app-contact />
+    <!-- END CONTAINER -->
+</section>
 
 <app-footer />
 
