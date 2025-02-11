@@ -11,8 +11,6 @@ import { environment } from '../../../environments/environment.development';
     standalone: true,
     imports: [
         RouterLink,
-        CarouselModule,
-        RouterLink,
         CommonModule,
         CarouselModule,
         NgIf,
@@ -41,8 +39,7 @@ export class ProductSliderComponent implements OnInit {
             next: (response) => {
                 this.sliderData = Object.values(response)[0];
             },
-            error: (error) => {
-            },
+            error: (error) => {},
         });
     }
 

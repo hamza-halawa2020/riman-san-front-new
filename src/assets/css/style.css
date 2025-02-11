@@ -125,7 +125,7 @@ span{font-family: 'Mulish', sans-serif;}
   margin: 4px 10px;
 }
 .section-title p {
-	width: 60%;
+	/* width: 60%; */
 	margin: 0;
 	font-size: 42px;
 	font-weight: 800;
@@ -2330,27 +2330,27 @@ background:#2eca7f;
 border:1px solid #2eca7f;
 display:block;
 }
-.owl-prev{
+/* .owl-prev{
     position: absolute;
     left:89%;
-}
-.owl-next{
+} */
+/* .owl-next{
     position: absolute;
     right: 1%;
-}
-.owl-prev:after,
+} */
+/* .owl-prev:after,
 .owl-next:after{
     content: "\f104";
     font-family: 'FontAwesome';
     font-size: 26px;
     color: #1a2d62;
     opacity: 1;
-}
-.owl-next:after{ content: "\f105"; }
+} */
+/* .owl-next:after{ content: "\f105"; }
 @media only screen and (max-width: 768px){
     .owl-theme .owl-controls{ margin-top: 20px; }
 	 .owl-theme .owl-controls{display:none!important; }
-}
+} */
 /*
 * ----------------------------------------------------------------------------------------
 * 11.END REVIEWS DESIGN

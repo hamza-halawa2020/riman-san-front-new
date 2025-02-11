@@ -66,21 +66,43 @@ export class CourseDetailsPageComponent implements OnInit {
         });
     }
 
+    // getDetails(): void {
+    //     this.activateRoute.params.subscribe((params) => {
+    //         this.id = +params['id'];
+    //         this.courseService.show(this.id).subscribe((data) => {
+    //             this.details = Object.values(data)[0];
+    //             if (this.data.video_url.includes('youtube.com/watch')) {
+    //                 const url = new URL(this.data.video_url);
+    //                 const videoId = url.searchParams.get('v');
+
+    //                 if (videoId) {
+    //                     const siParam = url.searchParams.get('si');
+    //                     this.data.video_url = `https://www.youtube.com/embed/${videoId}`;
+
+    //                     if (siParam) {
+    //                         this.data.video_url += `?si=${siParam}`;
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //     });
+    // }
+
     getDetails(): void {
         this.activateRoute.params.subscribe((params) => {
             this.id = +params['id'];
             this.courseService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
-                if (this.details.video_url.includes('youtube.com/watch')) {
-                    const url = new URL(this.details.video_url);
+                if (this.data && this.data.video_url && this.data.video_url.includes('youtube.com/watch')) {
+                    const url = new URL(this.data.video_url);
                     const videoId = url.searchParams.get('v');
-
+    
                     if (videoId) {
                         const siParam = url.searchParams.get('si');
-                        this.details.video_url = `https://www.youtube.com/embed/${videoId}`;
-
+                        this.data.video_url = `https://www.youtube.com/embed/${videoId}`;
+    
                         if (siParam) {
-                            this.details.video_url += `?si=${siParam}`;
+                            this.data.video_url += `?si=${siParam}`;
                         }
                     }
                 }

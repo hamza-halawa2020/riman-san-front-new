@@ -49,8 +49,8 @@
                 <!-- END SIDEBAR POST -->
                 <div class="sidebar-post mt-4">
                     <div class="sidebar_title"><h4>Follow us</h4></div>
-                    <div class="row single_social">
-                        <div class="col mb-3" *ngFor="let social of data">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="p-2" *ngFor="let social of data">
                             <a href="{{ social.url }}" target="_blank">
                                 <img
                                     alt=""
@@ -74,7 +74,7 @@
             <div class="course-details-content section-bg">
                 <div class="overview">
                     <iframe
-                        *ngIf="details && details.video_url"
+                        *ngIf="details"
                         width="900"
                         height="506"
                         [src]="details.video_url | safeUrl"

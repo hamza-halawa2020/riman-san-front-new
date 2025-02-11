@@ -8,7 +8,7 @@ import { BackToTopComponent } from '../../common/back-to-top/back-to-top.compone
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { CourseService } from './course.service';
 import { environment } from '../../../environments/environment.development';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { SafeUrlPipe } from '../../safe-url.pipe';
 
 @Component({
@@ -16,6 +16,7 @@ import { SafeUrlPipe } from '../../safe-url.pipe';
     standalone: true,
     imports: [
         RouterLink,
+        NgIf,
         CommonModule,
         NavbarComponent,
         PageBannerComponent,
@@ -41,10 +42,32 @@ export class CoursesPageComponent implements OnInit {
         this.fetchdata();
     }
 
+    // Video Popup
+    isOpen = false;
+    openPopup(): void {
+        this.isOpen = true;
+    }
+    closePopup(): void {
+        this.isOpen = false;
+    }
+
     fetchdata() {
         this.courseService.index().subscribe({
             next: (response) => {
                 this.data = Object.values(response)[0];
+                if (this.data.video_url.includes('youtube.com/watch')) {
+                    const url = new URL(this.data.video_url);
+                    const videoId = url.searchParams.get('v');
+
+                    if (videoId) {
+                        const siParam = url.searchParams.get('si');
+                        this.data.video_url = `https://www.youtube.com/embed/${videoId}`;
+
+                        if (siParam) {
+                            this.data.video_url += `?si=${siParam}`;
+                        }
+                    }
+                }
             },
             error: (error) => {},
         });

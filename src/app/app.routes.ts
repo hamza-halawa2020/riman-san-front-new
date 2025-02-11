@@ -24,14 +24,14 @@ export const routes: Routes = [
     { path: 'course/:id', component: CourseDetailsPageComponent },
     { path: 'instructors', component: TeamPageComponent },
     { path: 'instructor/:id', component: TeamDetailsPageComponent },
-    { path: 'blog', component: BlogPageComponent },
-    { path: 'blog-details', component: BlogDetailsPageComponent },
+    { path: 'posts', component: BlogPageComponent },
+    { path: 'post/:id', component: BlogDetailsPageComponent },
     { path: 'login', component: LoginPageComponent, canActivate: [unAuthGuard]},
     { path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]},
     { path: 'register', component: RegisterPageComponent, canActivate: [unAuthGuard]},
     { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
     { path: 'terms-conditions', component: TermsConditionsPageComponent },
-    { path: 'contact', component: ContactPageComponent },
+    { path: 'contacts', component: ContactPageComponent },
     // Here add new pages component
 
     { path: '**', component: ErrorPageComponent }, // This line will remain down from the whole pages component list

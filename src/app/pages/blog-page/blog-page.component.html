@@ -2,71 +2,60 @@
 
 <app-page-banner />
 
-<div class="pb-120 border-bottom"></div>
-
-<!-- Blog -->
-<div class="blog-area bg-f3f3f3 pt-120 pb-95">
+<section class="blog_area_bg section-padding">
     <div class="container">
         <div class="row">
-            <div class="col-xl-4 col-md-6" *ngFor="let data of data">
-                <div class="single-blog-post mb-25">
-                    <a routerLink="/blog-details" class="image d-block">
-                        <div class="text-center">
-                            <img
-                                src="{{ image + data.image }}"
-                                alt="blog-image"
-                                class="max-height"
-                            />
+            <div
+                class="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp"
+                *ngFor="let data of data"
+                data-wow-duration="1s"
+                data-wow-delay="0.1s"
+                data-wow-offset="0"
+            >
+                <div class="single_blog">
+                    <img
+                        src="{{ image + data.image }}"
+                        class="img-fluid max-height"
+                        alt="image"
+                    />
+                    <div class="content_box">
+                        <span
+                            [title]="
+                                data.created_at | date : 'MMM d, yyyy, h:mm a'
+                            "
+                        >
+                            {{ getRelativeTime(data.created_at) }} |
+                            <a> {{ data.title }}</a></span
+                        >
+                        <div>
+                            <i class="fa-regular fa-circle-user"></i> By
+                            {{ data.admin }}
                         </div>
-                    </a>
-                    <div class="content">
-                        <div class="info position-relative">
-                            <ul
-                                class="d-flex align-items-center p-0 mb-0 list-unstyled"
-                            >
-                                <li
-                                    class="d-inline-block position-relative"
-                                    [title]="
-                                        data.created_at
-                                            | date : 'MMM d, yyyy, h:mm a'
-                                    "
-                                >
-                                    {{ getRelativeTime(data.created_at) }}
-                                </li>
+                        <div>
+                            <i class="fa-regular fa-comment-dots"></i>
 
-                                <li class="d-inline-block position-relative">
-                                    <i class="fa-regular fa-circle-user"></i> By
-                                    <a routerLink="/blog"> {{ data.admin }} </a>
-                                </li>
-                                <li class="d-inline-block position-relative">
-                                    <i class="fa-regular fa-comment-dots"></i>
-                                    <a routerLink="/blog-details">
-                                        Comments ({{
-                                            data.postComments.length
-                                        }})
-                                    </a>
-                                </li>
-                            </ul>
+                            Comments ({{ data.postComments.length }})
                         </div>
-                        <h3 class="fw-semibold">
-                            <a routerLink="/blog-details">
-                                {{ data.title }}
-                            </a>
-                        </h3>
-                        <div class="text-end">
-                            <a routerLink="/blog-details" class="default-btn">
-                                Continue Reading
+                        <div class="mt-3">
+                            <a routerLink="/post/{{data.id}}" class="cta"
+                                ><span>READ MORE</span>
+                                <svg
+                                    width="13px"
+                                    height="10px"
+                                    viewBox="0 0 13 10"
+                                >
+                                    <path d="M1,5 L11,5"></path>
+                                    <polyline points="8 1 12 5 8 9"></polyline>
+                                </svg>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- END COL-->
         </div>
     </div>
-</div>
-<!-- End Blog -->
-
-<app-feedback />
+</section>
 
 <app-footer />
 

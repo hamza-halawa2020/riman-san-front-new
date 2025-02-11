@@ -2,227 +2,228 @@
 
 <app-page-banner />
 
-<div class="pb-120 border-bottom"></div>
-
-<!-- Blog Details -->
-<div class="blog-details-area bg-f3f3f3 ptb-120">
+<!-- START BLOG -->
+<section class="blog-page section-padding">
     <div class="container">
-        <div class="blog-details-header">
-            <h2 class="fw-semibold">
-                The Art of Perfecting Sounds in a New Language
-            </h2>
-            <div class="d-md-flex align-items-center justify-content-between">
-                <div class="user d-flex align-items-center">
-                    <img src="images/users/user14.jpg" class="rounded-circle" alt="user-image">
-                    <div>
-                        <h3 class="fw-semibold">
-                            Jeffrey E. Walton
-                        </h3>
-                        <span class="d-block">
-                            11 Jan 2022 • 5 min read
-                        </span>
-                    </div>
-                </div>
-                <div class="socials d-flex align-items-center">
-                    <span class="d-block">
-                        Share Post On:
-                    </span>
-                    <a href="#" class="d-inline-block position-relative rounded-circle text-center">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="d-inline-block position-relative rounded-circle text-center">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
-                    <a href="#" class="d-inline-block position-relative rounded-circle text-center">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                    </a>
-                    <a href="#" class="d-inline-block position-relative rounded-circle text-center">
-                        <i class="fa-brands fa-google"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="blog-details-image text-center">
-            <img src="images/blog-details.jpg" alt="blog-details-image">
-        </div>
         <div class="row">
-            <div class="col-lg-8 col-md-12">
-                <div class="blog-details-desc">
-                    <p>
-                        In this insightful blog post, we delve into "The Art of Perfecting Sounds in a New Language." Pronunciation plays a pivotal role in effective language communication, influencing overall language proficiency. 
-                    </p>
-                    <p>
-                        The article begins by highlighting the importance of accurate pronunciation, emphasizing its impact on successful language acquisition and meaningful interactions. It then addresses common challenges faced by learners, 
-                    </p>
-                    <p>
-                        offering valuable insights into language-specific pronunciation difficulties. The blog proceeds to provide a practical guide with tips for perfecting pronunciation, offering readers actionable advice and exercises to enhance their sound accuracy. 
-                    </p>
-                    <p>
-                        Additionally, it explores the integration of technology into language learning, showcasing various apps and online tools specifically designed to focus on pronunciation improvement. Real-life application takes center stage in the latter part of the blog, featuring success stories of learners who have successfully navigated and overcome pronunciation challenges. 
-                    </p>
-                    <p>
-                        These anecdotes serve to inspire and illustrate how mastering pronunciation contributes to a more confident and effective language communication. In conclusion, the post summarizes key takeaways and encourages readers to prioritize pronunciation in their language learning endeavors. By adopting the insights 
-                    </p>
-                    <p>
-                        and techniques presented, learners can embark on a journey to not only improve their pronunciation but also elevate their overall language proficiency, making their communication more authentic and impactful.
-                    </p>
-                    <p>
-                        approach to pronunciation, inviting readers to embark on a language-learning odyssey that transcends mere linguistic acquisition. By immersing themselves in the nuances of pronunciation, readers can unlock the gateway to a richer, more authentic linguistic experience, where the artistry of language becomes a reflection of personal expression and cultural understanding.
-                    </p>
-                    <div class="info d-md-flex align-items-end justify-content-between">
-                        <div class="socials">
-                            <span class="d-block">
-                                Share This Post
-                            </span>
-                            <a href="#" class="d-inline-block position-relative rounded-circle text-center">
-                                <i class="fa-brands fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="d-inline-block position-relative rounded-circle text-center">
-                                <i class="fa-brands fa-x-twitter"></i>
-                            </a>
-                            <a href="#" class="d-inline-block position-relative rounded-circle text-center">
-                                <i class="fa-brands fa-linkedin-in"></i>
-                            </a>
-                            <a href="#" class="d-inline-block position-relative rounded-circle text-center">
-                                <i class="fa-brands fa-google"></i>
-                            </a>
-                        </div>
-                        <div class="tags">
-                            <a routerLink="/blog" class="d-inline-block">
-                                Multilanguage
-                            </a>
-                            <a routerLink="/blog" class="d-inline-block">
-                                Language club
-                            </a>
-                            <a routerLink="/blog" class="d-inline-block">
-                                Language learning
-                            </a>
-                        </div>
+            <div class="col-lg-7 col-sm-12 col-xs-12">
+                <div class="arti_single">
+                    <div class="arti_img_two">
+                        <img
+                            src="{{ image + details.image }}"
+                            class="img-fluid"
+                            alt="Blog image"
+                        />
+                    </div>
+
+                    <div class="arti_sp">
+                        <h2>
+                            {{ details.title }}
+                        </h2>
+
+                        <p>
+                            {{ details.content }}
+                        </p>
                     </div>
                 </div>
-                <div class="blog-details-author border-top d-flex align-items-center">
-                    <img src="images/users/user14.jpg" class="rounded-circle" alt="user-image">
-                    <div>
-                        <h3 class="fw-semibold">
-                            Jeffrey E. Walton
-                        </h3>
-                        <span class="d-block">
-                            Language Instructor, ABC Company
-                        </span>
+                <!-- END ARTI SINGLE  -->
+                <div class="author_part">
+                    <h3 class="blog_head_title">Added By</h3>
+                    <div class="single_author d-flex align-items-center">
+                        <img
+                            src="{{ userImage + details.admin_image }}"
+                            alt=""
+                        />
+                        <h4>{{ details.admin }}</h4>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="blog-widgets-area">
-                    <div class="widget search-box">
-                        <form>
-                            <input type="text" class="form-control shadow-none" placeholder="Search here...">
-                            <button type="button" class="d-inline-block p-0 border-0 bg-transparent">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
+                <!--- END AUTHOR PART -->
+                <div class="comments_part">
+                    <h3 class="blog_head_title">Comments</h3>
+                    <div
+                        class="single_comment"
+                        *ngFor="let comment of details.postComments"
+                    >
+                        <img
+                            src="{{ userImage + comment.user_image }}"
+                            alt=""
+                        />
+                        <h4>
+                            {{ comment.user }}
+                        </h4>
+                        <p>
+                            {{ comment.comment }}
+                        </p>
+                    </div>
+
+                    <!--- END SINGLE COMMENT -->
+                </div>
+                <!--- END COMMENTS PART -->
+                <div class="comment_form">
+                    <h3 class="blog_head_title">Add a Comment</h3>
+                    <div class="contact comment-box">
+                        <form
+                            id="contact-form"
+                            method="post"
+                            enctype="multipart/form-data"
+                        >
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        class="form-control"
+                                        id="first-name"
+                                        placeholder="Name"
+                                        required="required"
+                                    />
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        class="form-control"
+                                        id="first-email"
+                                        placeholder="Email"
+                                        required="required"
+                                    />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input
+                                        type="text"
+                                        name="subject"
+                                        class="form-control"
+                                        id="subject"
+                                        placeholder="Subject"
+                                        required="required"
+                                    />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <textarea
+                                        rows="6"
+                                        name="message"
+                                        class="form-control"
+                                        id="description"
+                                        placeholder="Your Message"
+                                        required="required"
+                                    ></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="actions">
+                                        <button
+                                            type="submit"
+                                            value="Send message"
+                                            name="submit"
+                                            id="submitButton"
+                                            class="btn btn_one"
+                                            title="Submit Your Message!"
+                                        >
+                                            Submit Comment
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
-                    <div class="widget post-category">
-                        <h3 class="fw-semibold widget-title">
-                            Post Category:
-                        </h3>
-                        <ul class="p-0 mb-0 list-unstyled">
-                            <li>
-                                <a routerLink="/blog-details" class="d-block w-100 position-relative">
-                                    Language Learning Tips
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/blog-details" class="d-block w-100 position-relative">
-                                    Cultural Insights
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/blog-details" class="d-block w-100 position-relative">
-                                    Language Resources
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/blog-details" class="d-block w-100 position-relative">
-                                    Student Stories
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/blog-details" class="d-block w-100 position-relative">
-                                    Language News and Trends
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="/blog-details" class="d-block w-100 position-relative">
-                                    Interviews and Profiles
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </a>
-                            </li>
-                        </ul>
+                </div>
+                <!--- END COMMENT FORM -->
+            </div>
+            <!-- END COL-->
+            <div class="col-lg-5 col-sm-12 col-xs-12">
+                <!-- END SINGLE POST -->
+                <div class="sidebar-post">
+                    <div class="sidebar_title"><h4>Popular post</h4></div>
+                    <div class="single_popular" *ngFor="let data of randomData">
+                        <a routerLink="/post/{{data.id}}"
+                            ><img src="{{ image + data.image }}" alt="" />
+                            <h5>
+                                {{ data.title }}
+                            </h5>
+                        </a>
                     </div>
-                    <div class="widget recent-post">
-                        <h3 class="fw-semibold widget-title">
-                            Recent Post:
-                        </h3>
-                        <ul class="p-0 mb-0 list-unstyled">
-                            <li class="d-flex align-items-center">
-                                <a routerLink="/blog-details" class="image d-block">
-                                    <img src="images/blogs/blog10.jpg" alt="blog-image">
-                                </a>
-                                <div>
-                                    <h4 class="fw-semibold">
-                                        <a routerLink="/blog-details">
-                                            Sodales neque sodales and etiam nulla magna
-                                        </a>
-                                    </h4>
-                                    <span class="d-block">
-                                        02 June, 2023
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <a routerLink="/blog-details" class="image d-block">
-                                    <img src="images/blogs/blog11.jpg" alt="blog-image">
-                                </a>
-                                <div>
-                                    <h4 class="fw-semibold">
-                                        <a routerLink="/blog-details">
-                                            Sodales neque sodales and etiam nulla magna
-                                        </a>
-                                    </h4>
-                                    <span class="d-block">
-                                        02 June, 2023
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="d-flex align-items-center">
-                                <a routerLink="/blog-details" class="image d-block">
-                                    <img src="images/blogs/blog12.jpg" alt="blog-image">
-                                </a>
-                                <div>
-                                    <h4 class="fw-semibold">
-                                        <a routerLink="/blog-details">
-                                            Sodales neque sodales and etiam nulla magna
-                                        </a>
-                                    </h4>
-                                    <span class="d-block">
-                                        02 June, 2023
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
+                    <!-- END SINGLE POPULAR POST -->
+                </div>
+                <!-- END SIDEBAR POST -->
+                <div class="sidebar-post">
+                    <div class="sidebar_title"><h4>Follow us</h4></div>
+                    <div
+                        class="d-flex justify-content-center align-items-center"
+                    >
+                        <div class="p-2" *ngFor="let social of data">
+                            <a href="{{ social.url }}" target="_blank">
+                                <img
+                                    alt=""
+                                    class="rounded"
+                                    src="{{ socialImage + social.icon }}"
+                                    width="30px"
+                                    height="30px"
+                                />
+                            </a>
+                        </div>
+                    </div>
+                    <!-- END SOCIAL MEDIA POST -->
+                </div>
+                <!-- END SIDEBAR POST -->
+                <div class="sidebar-post">
+                    <div class="sidebar_title"><h4>CATEGORIES</h4></div>
+                    <div class="single_category">
+                        {{ details.category }}
+                    </div>
+                    <!-- END SOCIAL MEDIA POST -->
+                </div>
+                <!-- END SIDEBAR POST -->
+                <div class="sidebar-post">
+                    <div class="tag">
+                        <div class="sidebar_title"><h4>Popular Tag</h4></div>
+                        {{ details.tag }}
                     </div>
                 </div>
+                <div class="sidebar-post">
+                    <div class="sidebar_title"><h4>Ad Banner</h4></div>
+                    <div class="sidebar-banner">
+                        <div class="upcoming-courses-slides2 mx-auto">
+                            <owl-carousel-o [options]="ProductSliderSlides">
+                                <ng-template
+                                    carouselSlide
+                                    *ngFor="let slide of sliderData"
+                                >
+                                    <a target="_blank" href="{{ slide.link }}">
+                                        <div
+                                            class="single-upcoming-course-box position-relative"
+                                        >
+                                            <div
+                                                class="image position-relative"
+                                            >
+                                                <div
+                                                    class="text-center max-height"
+                                                >
+                                                    <img
+                                                        src="{{
+                                                            sliderImage +
+                                                                slide.image
+                                                        }}"
+                                                        class="bg-image"
+                                                        alt="bg-image"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </ng-template>
+                            </owl-carousel-o>
+                        </div>
+                    </div>
+                    <!-- END SOCIAL MEDIA POST -->
+                </div>
+                <!-- END SIDEBAR POST -->
             </div>
+            <!--- END COL -->
         </div>
+        <!-- END ROW-->
     </div>
-</div>
-<!-- End Blog Details -->
+    <!-- END CONTAINER-->
+</section>
+<!-- END BLOG -->
 
 <app-more-blogs />
 

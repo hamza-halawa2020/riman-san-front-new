@@ -1327,12 +1327,12 @@
 	background:#2eca7f;
 	color:#fff;
 }
-.hero-area2 .owl-carousel .owl-controls .owl-nav .owl-prev{
+/* .hero-area2 .owl-carousel .owl-controls .owl-nav .owl-prev{
 	left:0;
-}
-.hero-area2 .owl-carousel .owl-controls .owl-nav .owl-next{
+} */
+/* .hero-area2 .owl-carousel .owl-controls .owl-nav .owl-next{
 	right:0;
-}
+} */
 /* Hero Area 3 */
 .hero-area3{}
 .hero-area3 .big-content{
@@ -1478,12 +1478,12 @@
 	background:#2eca7f;
 	color:#fff;
 }
-.hero-area4 .owl-carousel .owl-controls .owl-nav .owl-prev{
+/* .hero-area4 .owl-carousel .owl-controls .owl-nav .owl-prev{
 	left:0;
-}
-.hero-area4 .owl-carousel .owl-controls .owl-nav .owl-next{
+} */
+/* .hero-area4 .owl-carousel .owl-controls .owl-nav .owl-next{
 	right:0;
-}
+} */
 
 /*======================================
    End Hero Area CSS
@@ -1660,12 +1660,12 @@
 	color:#fff;
 	background:#2eca7f;
 }
-.most-popular .owl-carousel .owl-controls .owl-nav .owl-prev{
+/* .most-popular .owl-carousel .owl-controls .owl-nav .owl-prev{
 	left:0;
-}
-.most-popular .owl-carousel .owl-controls .owl-nav .owl-next{
+} */
+/* .most-popular .owl-carousel .owl-controls .owl-nav .owl-next{
 	right:0;
-}
+} */
 /*======================================
    End Most Popular CSS
 ========================================*/

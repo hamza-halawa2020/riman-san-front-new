@@ -1,273 +1,14 @@
-<!-- <div
-    class="navbar-area position-fixed top-0 start-0 end-0"
-    [ngClass]="{
-        'is-sticky': isSticky,
-        'white-navbar': router.url === '/index-3'
-    }"
->
-    <div class="lanklub-nav">
-        <div class="container">
-            <nav
-                class="navbar navbar-expand-lg bg-light"
-                [class.active]="classApplied"
-            >
-                <a
-                    [ngClass]="{ 'd-none': router.url === '/index-3' }"
-                    class="navbar-brand"
-                    routerLink="/"
-                >
-                    <img src="images/logo.svg" alt="logo" />
-                </a>
-                <a
-                    *ngIf="router.url === '/index-3'"
-                    class="navbar-brand"
-                    routerLink="/"
-                >
-                    <img src="images/white-logo.svg" alt="logo" />
-                </a>
-                <button
-                    class="navbar-toggler rounded-0 p-0 border-0 shadow-none"
-                    (click)="toggleClass()"
-                    type="button"
-                >
-                    <span class="burger-menu">
-                        <span class="top-bar d-block"></span>
-                        <span class="middle-bar d-block"></span>
-                        <span class="bottom-bar d-block"></span>
-                    </span>
-                </button>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item">
-                            <a
-                                class="nav-link active"
-                                routerLinkActive="active"
-                                routerLink="/"
-                            >
-                                Home
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                routerLink="/about"
-                                class="nav-link"
-                                routerLinkActive="active"
-                                [routerLinkActiveOptions]="{ exact: true }"
-                            >
-                                About
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                href="javascript:void(0);"
-                                class="dropdown-toggle nav-link"
-                            >
-                                Courses
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/courses"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Courses
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/course-details"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Course Details
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                href="javascript:void(0);"
-                                class="dropdown-toggle nav-link"
-                            >
-                                Pages
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/instructors"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Team
-                                    </a>
-                                </li>
-                            
-                                <li class="nav-item">
-                                    <a
-                                        href="javascript:void(0);"
-                                        class="dropdown-toggle nav-link"
-                                    >
-                                        Blog
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a
-                                                routerLink="/blog"
-                                                class="nav-link"
-                                                routerLinkActive="active"
-                                                [routerLinkActiveOptions]="{
-                                                    exact: true
-                                                }"
-                                            >
-                                                Blog
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a
-                                                routerLink="/blog-details"
-                                                class="nav-link"
-                                                routerLinkActive="active"
-                                                [routerLinkActiveOptions]="{
-                                                    exact: true
-                                                }"
-                                            >
-                                                Blog Details
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/login"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Login
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/register"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Register
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/privacy-policy"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Privacy Policy
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/terms-conditions"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        Terms & Conditions
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        routerLink="/not-found"
-                                        class="nav-link"
-                                        routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{
-                                            exact: true
-                                        }"
-                                    >
-                                        404 Error Page
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a
-                                routerLink="/contact"
-                                class="nav-link"
-                                routerLinkActive="active"
-                                [routerLinkActiveOptions]="{ exact: true }"
-                            >
-                                Contact
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="ms-4">
-                        <a routerLink="/courses" class="">
-                            <i class="fa-solid fa-cart-plus"></i>
-                        </a>
-                    </div>
-                    <div class="ms-4">
-                        <a routerLink="/courses" class="">
-                            <i class="fa-regular fa-heart"></i>
-                        </a>
-                    </div>
-
-                    <div class="ms-4" *ngIf="!loginService.isLoggedIn()">
-                        <a routerLink="/register" class="btn-navbar">
-                            Sign Up
-                        </a>
-                    </div>
-                    <div class="ms-4" *ngIf="!loginService.isLoggedIn()">
-                        <a routerLink="/login" class="btn-navbar"> Login </a>
-                    </div>
-                    <div class="ms-4" *ngIf="loginService.isLoggedIn()">
-                        <a routerLink="/profile" class="btn-navbar">
-                            Profile
-                        </a>
-                    </div>
-                    <div
-                        class="ms-4"
-                        (click)="logout()"
-                        *ngIf="loginService.isLoggedIn()"
-                    >
-                        <button class="btn-navbar">
-                            <i class="fas fa-sign-out-alt"></i> Log Out
-                        </button>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-</div> -->
-
 <!-- START NAVBAR -->
 <div id="navigation" class="fixed-top navbar-light bg-faded site-navigation">
     <div class="container">
         <div class="row">
             <div class="col-lg-2 col-md-3 col-sm-4">
-                <div class="site-logo">
-                    <a href="/">
-                        <img src="riman-san/3.jpg" alt="" />
+                <div class=" navbar-brand">
+                    <a routerLink="/">
+                        <img src="assets/logo.svg" alt="" />
                     </a>
                 </div>
+                
             </div>
             <!--- END Col -->
 
@@ -276,9 +17,26 @@
                     <nav id="main-menu" class="ms-auto">
                         <ul>
                             <li>
-                                <a class="nav-link" routerLink="/"
+                                <a class="nav-link" routerLink="index.html"
                                     >Home <span class="ti-angle-down"></span
                                 ></a>
+                                <ul>
+                                    <li>
+                                        <a class="nav-link" routerLink="index.html"
+                                            >Home 01</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" routerLink="index_2.html"
+                                            >Home 02</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" routerLink="index_3.html"
+                                            >Home 03</a
+                                        >
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a class="nav-link" routerLink="#"
@@ -286,16 +44,12 @@
                                 ></a>
                                 <ul>
                                     <li>
-                                        <a
-                                            class="nav-link"
-                                            routerLink="about.html"
+                                        <a class="nav-link" routerLink="about.html"
                                             >About Us</a
                                         >
                                     </li>
                                     <li>
-                                        <a
-                                            class="nav-link"
-                                            routerLink="team.html"
+                                        <a class="nav-link" routerLink="team.html"
                                             >Instructor</a
                                         >
                                     </li>
@@ -307,31 +61,74 @@
                                         >
                                     </li>
                                     <li>
-                                        <a
-                                            class="nav-link"
-                                            routerLink="faq.html"
+                                        <a class="nav-link" routerLink="faq.html"
                                             >FAQ's</a
                                         >
                                     </li>
-
+                                    <li>
+                                        <a class="nav-link" routerLink="event.html"
+                                            >Event</a
+                                        >
+                                    </li>
                                     <li>
                                         <a
                                             class="nav-link"
-                                            routerLink="error.html"
+                                            routerLink="event_single.html"
+                                            >Event Single</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" routerLink="error.html"
                                             >404 Page</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" routerLink="login.html"
+                                            >Login</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" routerLink="register.html"
+                                            >Register</a
                                         >
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a class="nav-link" routerLink="/courses"
+                                <a class="nav-link" routerLink="course.html"
                                     >Courses <span class="ti-angle-down"></span
                                 ></a>
-                            </li>
-                            <li>
-                                <a class="nav-link" routerLink="events"
-                                    >Event</a
-                                >
+                                <ul>
+                                    <li>
+                                        <a class="nav-link" routerLink="course.html"
+                                            >Courses 01</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" routerLink="course2.html"
+                                            >Courses 02</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" routerLink="course3.html"
+                                            >Courses 03</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="course-sidebar.html"
+                                            >Course Sidebar</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="nav-link"
+                                            routerLink="single_course.html"
+                                            >Course details</a
+                                        >
+                                    </li>
+                                </ul>
                             </li>
                             <li>
                                 <a class="nav-link" routerLink="shop.html"
@@ -339,9 +136,7 @@
                                 ></a>
                                 <ul>
                                     <li>
-                                        <a
-                                            class="nav-link"
-                                            routerLink="shop.html"
+                                        <a class="nav-link" routerLink="shop.html"
                                             >Shop</a
                                         >
                                     </li>
@@ -353,30 +148,24 @@
                                         >
                                     </li>
                                     <li>
-                                        <a
-                                            class="nav-link"
-                                            routerLink="cart.html"
+                                        <a class="nav-link" routerLink="cart.html"
                                             >Cart Page</a
                                         >
                                     </li>
                                     <li>
-                                        <a
-                                            class="nav-link"
-                                            routerLink="checkout.html"
+                                        <a class="nav-link" routerLink="checkout.html"
                                             >Checkout page</a
                                         >
                                     </li>
                                 </ul>
                             </li>
                             <li>
-                                <a class="nav-link" routerLink="/posts"
+                                <a class="nav-link" routerLink="blog.html"
                                     >Blog <span class="ti-angle-down"></span
                                 ></a>
                                 <ul>
                                     <li>
-                                        <a
-                                            class="nav-link"
-                                            routerLink="blog.html"
+                                        <a class="nav-link" routerLink="blog.html"
                                             >Blog List</a
                                         >
                                     </li>
@@ -397,23 +186,24 @@
                         </ul>
                     </nav>
                     <div id="mobile_menu"></div>
+                    
                 </div>
             </div>
             <!--- END Col -->
             <div class="col-lg-4 col-md-3 col-sm-8">
                 <div class="home_lc">
                     <a routerLink="#" class="hlc">
-                        <i class="ti-heart"></i>
+                        <i class="fa-regular fa-heart"></i>
                         <span class="gactive">0</span>
                     </a>
                     <a routerLink="#" class="hlc">
-                        <i class="ti-shopping-cart-full"></i>
+                        <i class="fa-solid fa-cart-plus"></i>
                         <span class="gactive">2</span>
                     </a>
                 </div>
                 <div class="call_to_action">
-                    <a class="btn_one" routerLink="/login">Login</a>
-                    <a class="btn_two" routerLink="/register">Sign Up</a>
+                    <a class="btn_one" routerLink="login.html">Login</a>
+                    <a class="btn_two" routerLink="register.html">Sign Up</a>
                 </div>
                 <!--- END SOCIAL PROFILE -->
             </div>

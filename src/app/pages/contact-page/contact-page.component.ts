@@ -30,4 +30,7 @@ import { ContactService } from './contact.service';
     styleUrl: './contact-page.component.scss',
     providers: [ContactService],
 })
-export class ContactPageComponent {}
+export class ContactPageComponent {
+    infoEmail = 'info@email.com';
+    adminEmail = 'admin@email.com';
+}
