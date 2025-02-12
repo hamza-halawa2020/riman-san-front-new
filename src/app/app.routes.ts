@@ -24,6 +24,7 @@ import { EventPageComponent } from './pages/event-page/event-page.component';
 import { EventDetailsPageComponent } from './pages/event-details-page/event-details-page.component';
 import { FaqsPageComponent } from './pages/faqs-page/faqs-page.component';
 import { FavouritePageComponent } from './pages/favourite-page/favourite-page.component';
+import { ForgetpasswordPageComponent } from './pages/forgetpassword-page/forgetpassword-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -42,6 +43,7 @@ export const routes: Routes = [
     { path: 'whishlist', component: FavouritePageComponent },
     { path: 'checkout', component: CheckoutPageComponent },
     { path: 'faqs', component: FaqsPageComponent },
+    { path: 'forget-password', component: ForgetpasswordPageComponent },
     {
         path: 'login',
         component: LoginPageComponent,
