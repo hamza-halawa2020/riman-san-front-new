@@ -20,7 +20,10 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
 import { ProductDetailsPageComponent } from './pages/product-details-page/product-details-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
-
+import { EventPageComponent } from './pages/event-page/event-page.component';
+import { EventDetailsPageComponent } from './pages/event-details-page/event-details-page.component';
+import { FaqsPageComponent } from './pages/faqs-page/faqs-page.component';
+import { FavouritePageComponent } from './pages/favourite-page/favourite-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -33,10 +36,12 @@ export const routes: Routes = [
     { path: 'post/:id', component: BlogDetailsPageComponent },
     { path: 'products', component: ProductPageComponent },
     { path: 'product/:id', component: ProductDetailsPageComponent },
-    { path: 'events', component:  EventPageComponent},
-    { path: 'event/:id', component:  },
+    { path: 'events', component: EventPageComponent },
+    { path: 'event/:id', component: EventDetailsPageComponent },
     { path: 'cart', component: CartPageComponent },
+    { path: 'whishlist', component: FavouritePageComponent },
     { path: 'checkout', component: CheckoutPageComponent },
+    { path: 'faqs', component: FaqsPageComponent },
     {
         path: 'login',
         component: LoginPageComponent,

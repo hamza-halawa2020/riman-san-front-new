@@ -7,6 +7,7 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { InstructorService } from './instructor.service';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
+import { SafeUrlPipe } from '../../safe-url.pipe';
 
 @Component({
     selector: 'app-team-details-page',
@@ -20,12 +21,14 @@ import { environment } from '../../../environments/environment.development';
         NgClass,
         FooterComponent,
         BackToTopComponent,
+        SafeUrlPipe,
     ],
     templateUrl: './team-details-page.component.html',
     styleUrl: './team-details-page.component.scss',
 })
 export class TeamDetailsPageComponent implements OnInit {
     details: any;
+    data: any;
     id: any;
     image = environment.imgUrl + 'instructors/';
     courseImage = environment.imgUrl + 'Courses/';
@@ -37,12 +40,33 @@ export class TeamDetailsPageComponent implements OnInit {
     ngOnInit(): void {
         this.getDetails();
     }
+    // Video Popup
+    isOpen = false;
+    openPopup(): void {
+        this.isOpen = true;
+    }
+    closePopup(): void {
+        this.isOpen = false;
+    }
 
     getDetails(): void {
         this.activateRoute.params.subscribe((params) => {
             this.id = +params['id'];
             this.instructorService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
+                if (this.details.video_url.includes('youtube.com/watch')) {
+                    const url = new URL(this.details.video_url);
+                    const videoId = url.searchParams.get('v');
+
+                    if (videoId) {
+                        const siParam = url.searchParams.get('si');
+                        this.details.video_url = `https://www.youtube.com/embed/${videoId}`;
+
+                        if (siParam) {
+                            this.details.video_url += `?si=${siParam}`;
+                        }
+                    }
+                }
             });
         });
     }

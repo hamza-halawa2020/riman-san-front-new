@@ -2,94 +2,155 @@
 
 <app-page-banner />
 
-<!-- Team Details -->
-<div class="team-details-area pt-5 pb-5">
+<!-- START AGENT PROFILE -->
+<section class="template_agent section-padding">
     <div class="container">
-        <div class="team-details-box">
-            <div class="row align-items-center">
-                <div class="col-lg-4 col-md-12">
-                    <div class="image text-center">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="single_agent">
+                    <div class="single_agent_image">
                         <img
-                            src="{{ image + details.image }}"
-                            alt="team-image"
+                            src="assets/riman-san/1.jpg"
+                            class="img-fluid"
+                            alt=""
                         />
                     </div>
-                </div>
-                <div class="col-lg-8 col-md-12">
-                    <div class="content">
-                        <h3 class="text-uppercase fw-semibold">
-                            {{ details.name }}
-                        </h3>
-                        <span class="d-block designation">
-                            {{ details.job_title }}
-                        </span>
+                    <div class="single_agent_content">
+                        <h4>Bondo Kader Khan</h4>
+                        <h5>Digital Marketer</h5>
                         <p>
-                            {{ details.description }}
+                            Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry. Lorem Ipsum has been the
+                            industry's standard dummy text ever type book.
                         </p>
-                        <ul class="info mb-0 p-0 list-unstyled">
-                            <li class="d-inline-block position-relative">
-                                <img
-                                    src="images/icons/phone-call.svg"
-                                    alt="phone-call"
-                                />
-                                <a href="tel:(000)967-237-96">
-                                    {{ details.phone }}
-                                </a>
+                        <ul>
+                            <li>
+                                <i class="fa-regular fa-envelope"></i
+                                >yourmailgmail.com
                             </li>
-                            <li class="d-inline-block position-relative">
-                                <img src="images/icons/email.svg" alt="email" />
-                                <a href="mailto:farnsinfokk@email.com">
-                                    {{ details.email }}
-                                </a>
+                            <li>
+                                <i class="fa-solid fa-phone"></i>(+123) 123 123
+                                123
                             </li>
                         </ul>
                     </div>
                 </div>
+                <!--- END SINGLE ITEM -->
             </div>
+            <!--- END COL -->
         </div>
+        <!--- END ROW -->
     </div>
-</div>
-<!-- End Team Details -->
+    <!--- END CONTAINER -->
+</section>
+<!-- END AGENT PROFILE -->
 
-<!-- courses -->
-<div class="team-area bg-f3f3f3 pt-5 pb-5 border-top border-bottom">
+<!--START COURSE -->
+<div class="best-cpurse section-padding">
     <div class="container">
-        <h3 class="fw-semibold text-center mb-5 ">
-              Courses For Instructor
-        </h3>
-        <div class="row justify-content-center">
-
+        <div class="section-title">
+            <h2>Popular Courses</h2>
+            <p>
+                Choose Our <span><u>Top Courses</u></span>
+            </p>
+        </div>
+        <div class="row">
             <div
-                class="col-lg-3 col-sm-6"
-                *ngFor="let course of details.courses"
-            >
-                <div
-                    class="single-team-member text-center mb-25 position-relative"
-                >
-                    <img
-                        src="{{ courseImage + course.image }}"
-                        alt="team-image"
-                    />
+            class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp"
+            data-wow-duration="1s"
+            data-wow-delay="0.1s"
+            data-wow-offset="0"
+            *ngFor="let course of data"
+        >
+            <div class="course-slide">
+                <div class="video-box position-relative">
                     <div class="content">
-                        <h3 class="fw-semibold">
-                            <a routerLink="/course/{{ course.id }}">
-                                {{ course.title }}
-                            </a>
-                        </h3>
+                        <button
+                            type="button"
+                            (click)="openPopup()"
+                            class="video-btn"
+                        >
+                            <img
+                                src="assets/riman-san/play.svg"
+                                alt="play"
+                                class="img-fluid"
+                            />
+                        </button>
                     </div>
+                </div>
+
+                <!-- Video Popup -->
+                <div class="mfp-bg mfp-fade mfp-ready" *ngIf="isOpen"></div>
+                <div
+                    class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-fade mfp-ready"
+                    *ngIf="isOpen"
+                    tabindex="-1"
+                >
+                    <div class="mfp-container mfp-iframe-holder">
+                        <div class="mfp-content">
+                            <div class="mfp-iframe-scaler">
+                                <button
+                                    (click)="closePopup()"
+                                    title="Close (Esc)"
+                                    type="button"
+                                    class="mfp-close"
+                                >
+                                    Close
+                                </button>
+                                <iframe
+                                    width="900"
+                                    height="506"
+                                    [src]="course.video_url | safeUrl"
+                                    frameborder="0"
+                                    allowfullscreen
+                                ></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="course-img">
+                    <a routerLink="/course/{{ course.id }}">
+                        <img
+                            src="{{ image + course.image }}"
+                            class="max-height img-fluid"
+                            alt=""
+                            style="min-height: 350px"
+                        />
+                    </a>
+                    <div class="course-date">
+                        <span class="month"
+                            ><i class="fas fa-money-bill"></i>
+                            {{ course.price }} EGP</span
+                        >
+                    </div>
+                </div>
+                <div class="course-content">
+                    <p class="c_btn m-1">{{ course.category }}</p>
+                    <p class="c_btn m-1">{{ course.tag }}</p>
+                    <h3>
+                        <a routerLink="/course/{{ course.id }}">{{
+                            course.title
+                        }}</a>
+                    </h3>
+                    <!-- <p class="">{{ course.description }}</p> -->
                 </div>
             </div>
         </div>
+          
+            <!--END COL -->
+            <div class="col-lg-12 text-center">
+                <div class="cc_btn">
+                    <a class="btn_one" routerLink="/courses">View All Course</a>
+                </div>
+            </div>
+            <!--END COL -->
+        </div>
+        <!--END ROW -->
     </div>
+    <!--END CONTAINER -->
 </div>
-<!-- End courses -->
-
-<div class="pb-120 pt-40 text-center">
-    <div class="container">
-        <a routerLink="/contact" class="default-btn"> Join With Us </a>
-    </div>
-</div>
-
+<!--END COURSE -->
 <app-footer />
 
 <app-back-to-top />

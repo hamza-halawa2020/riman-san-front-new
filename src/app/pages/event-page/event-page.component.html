@@ -2,95 +2,39 @@
 
 <app-page-banner />
 
-<!-- Start product Area -->
-<section id="product_area" class="section-padding">
+<!-- START EVENT -->
+<section class="our-event section-padding">
     <div class="container">
+        <div class="section-title">
+            <h2>Upcoming Events</h2>
+            <p>
+                Join With Us <span><u>Our Events</u></span>
+            </p>
+        </div>
         <div class="row">
-            <div class="col-md-12">
-                <div class="section-title">
-                    <h2>Our Posts</h2>
-                    <p>
-                        Check Our <span><u>All Posts</u></span>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center">
-            <div class="">
-                <div class="row">
-                    <div
-                        class="col-lg-3 col-md-4 col-sm-6 mix sale"
-                        *ngFor="let product of data"
-                    >
-                        <div class="product-grid">
-                            <div class="product-image">
-                                <a routerLink="/product/{{ product.id }}">
-                                    <img
-                                        class="pic-1 imageClass"
-                                        src="{{
-                                            image +
-                                                product.productImages[0].image
-                                        }}"
-                                        alt="product image"
-                                    />
-                                </a>
-                                <ul class="social">
-                                    <li>
-                                        <a
-                                            routerLink=""
-                                            data-tip="Add to Wishlist"
-                                            ><i class="fa-regular fa-heart"></i
-                                        ></a>
-                                    </li>
-                                    <li>
-                                        <a routerLink="" data-tip="Add to Cart">
-                                            <i class="fa-solid fa-cart-plus"></i
-                                        ></a>
-                                    </li>
-                                </ul>
-                                <span
-                                    class="product-new-label"
-                                    *ngIf="product.discount"
-                                >
-                                    discount: {{ product.discount }} EGP
-                                </span>
-                            </div>
-                            <!-- <ul class="rating">
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                            </ul> -->
-                            <div class="product-content">
-                                <h3 class="title">
-                                    <a routerLink="/product/{{ product.id }}">
-                                        {{ product.title }}</a
-                                    >
-                                </h3>
-                                <div class="price">
-                                    {{ product.priceAfterDiscount }} EGP
-                                    <span *ngIf="product.priceBeforeDiscount"
-                                        >{{
-                                            product.priceBeforeDiscount
-                                        }}
-                                        EGP</span
-                                    >
-                                </div>
-                                <a class="add-to-cart" routerLink=""
-                                    >+ Add To Cart</a
-                                >
-                            </div>
-                        </div>
+            <div class="col-lg-4 col-sm-6 col-xs-12">
+                <div class="event-slide">
+                    <div class="event-img">
+                        <img src="assets/riman-san/1.jpg" alt="" />
                     </div>
-                    <!-- End Col -->
+                    <div class="event-content">
+                        <h3>
+                            <a routerLink="event"
+                                >Electrical Engineering of Batparder new
+                                event</a
+                            >
+                        </h3>
+                    </div>
                 </div>
+                <!-- END EVENT -->
             </div>
+            <!-- END COL -->
         </div>
+        <!-- END ROW -->
     </div>
+    <!-- END CONTAINER -->
 </section>
-<!-- End product Area -->
+<!-- END EVENT -->
 
 <app-footer />
 
