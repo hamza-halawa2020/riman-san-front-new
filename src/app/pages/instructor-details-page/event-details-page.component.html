@@ -1,0 +1,185 @@
+<app-navbar />
+
+<app-page-banner />
+
+<!-- Product Details Area  -->
+<div class="prdct_dtls_page_area section-padding">
+    <div class="container">
+        <div class="row">
+            <!-- Product Details Image -->
+            <div class="col-md-6 col-xs-12">
+                <div class="pd_img fix">
+                    <a class="venobox" href="assets/images/shop/3.jpg"
+                        ><img
+                            src="{{ image + details.productImages[0].image }}"
+                            class="img-fluid"
+                            alt=""
+                    /></a>
+                </div>
+            </div>
+            <!-- Product Details Content -->
+            <div class="col-md-6 col-xs-12">
+                <div class="prdct_dtls_content">
+                    <a class="pd_title"> {{ details.title }} </a>
+                    <div class="pd_price_dtls fix">
+                        <!-- Product Price -->
+                        <div class="pd_price">
+                            <span class="new"
+                                >{{ details.priceAfterDiscount }} EGP
+                            </span>
+                            <span class="old"
+                                >({{ details.priceBeforeDiscount }} EGP)</span
+                            >
+                        </div>
+                    </div>
+                    <div class="pd_text">
+                        <p>
+                            {{ details.description }}
+                        </p>
+                    </div>
+
+                    <div class="pd_clr_qntty_dtls fix">
+                        <div class="pd_qntty_area">
+                            <h4>quantity:</h4>
+                            <div class="pd_qty fix">
+                                <input
+                                    value="1"
+                                    name="qttybutton"
+                                    class="cart-plus-minus-box"
+                                    type="number"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Product Action -->
+                    <div class="pd_btn fix">
+                        <a class="btn btn-default acc_btn">add to bag</a>
+                        <a class="btn btn-default acc_btn btn_icn"
+                            ><i class="fa fa-heart"></i
+                        ></a>
+                        <a class="btn btn-default acc_btn btn_icn"
+                            ><i class="fa fa-refresh"></i
+                        ></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="course-details-content section-bg p-3">
+            <div class="client-review">
+                <div class="review-comments">
+                    <h6 class="review-title">Reviews (03)</h6>
+                    <ul class="review-contents">
+                        <li *ngFor="let review of details.productReviews">
+                            <div class="cont">
+                                <h6 class="subtitle">{{ review.user }}</h6>
+                                <div class="ratings cl-theme">
+                                    <rating
+                                        [(ngModel)]="review.rating"
+                                        [max]="5"
+                                        [readonly]="true"
+                                        style="color: #e1b619; font-size: 25px"
+                                    ></rating>
+                                </div>
+                                <p>{{ review.review }}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="review-form">
+                    <h6 class="review-title">Add a Review</h6>
+                    <form class="row client-form align-items-center">
+                        <div class="col-md-4 col-12">
+                            <div class="rating">
+                                <span class="rating-title">Your Rating : </span>
+
+                                <rating
+                                    [max]="5"
+                                    style="color: #e1b619; font-size: 25px"
+                                ></rating>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-12 d-inline-flex">
+                            <textarea
+                                rows="5"
+                                placeholder="Type Here Message"
+                            ></textarea>
+                        </div>
+                        <div class="col-12 pb-4">
+                            <button type="submit" class="custom-button rounded">
+                                Submit Review
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Related Product Area -->
+<div class="related_prdct_area text-center">
+    <div class="container">
+        <!-- Section Title -->
+        <div class="rp_title text-center"><h3>Related products</h3></div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="product-grid">
+                    <div class="product-image">
+                        <a href="#">
+                            <img
+                                class="pic-1"
+                                src="assets/images/shop/1.jpg"
+                                alt="Product Image"
+                            />
+                            <img
+                                class="pic-2"
+                                src="assets/images/shop/2.jpg"
+                                alt="Product Image"
+                            />
+                        </a>
+                        <ul class="social">
+                            <li>
+                                <a href="" data-tip="Quick View"
+                                    ><i class="ti-zoom-in"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="" data-tip="Add to Wishlist"
+                                    ><i class="ti-bag"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a href="" data-tip="Add to Cart"
+                                    ><i class="ti-shopping-cart"></i
+                                ></a>
+                            </li>
+                        </ul>
+                        <span class="product-new-label">Sale</span>
+                    </div>
+                    <ul class="rating">
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                    </ul>
+                    <div class="product-content">
+                        <h3 class="title"><a href="#">Product Title</a></h3>
+                        <div class="price">
+                            $16.00
+                            <span>$20.00</span>
+                        </div>
+                        <a class="add-to-cart" href="">+ Add To Cart</a>
+                    </div>
+                </div>
+            </div>
+            <!-- End Col -->
+        </div>
+    </div>
+</div>
+
+<app-footer />
+
+<app-back-to-top />

@@ -134,7 +134,7 @@
                 <div class="sidebar-post">
                     <div class="sidebar_title"><h4>Popular post</h4></div>
                     <div class="single_popular" *ngFor="let data of randomData">
-                        <a routerLink="/post/{{data.id}}"
+                        <a routerLink="/post/{{ data.id }}"
                             ><img src="{{ image + data.image }}" alt="" />
                             <h5>
                                 {{ data.title }}
@@ -224,8 +224,6 @@
     <!-- END CONTAINER-->
 </section>
 <!-- END BLOG -->
-
-<app-more-blogs />
 
 <app-footer />
 

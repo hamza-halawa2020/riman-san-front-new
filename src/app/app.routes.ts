@@ -16,6 +16,11 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { AuthGuard } from './auth.guard';
 import { unAuthGuard } from './un-auth.guard';
+import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { ProductDetailsPageComponent } from './pages/product-details-page/product-details-page.component';
+import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -26,9 +31,27 @@ export const routes: Routes = [
     { path: 'instructor/:id', component: TeamDetailsPageComponent },
     { path: 'posts', component: BlogPageComponent },
     { path: 'post/:id', component: BlogDetailsPageComponent },
-    { path: 'login', component: LoginPageComponent, canActivate: [unAuthGuard]},
-    { path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]},
-    { path: 'register', component: RegisterPageComponent, canActivate: [unAuthGuard]},
+    { path: 'products', component: ProductPageComponent },
+    { path: 'product/:id', component: ProductDetailsPageComponent },
+    { path: 'events', component:  EventPageComponent},
+    { path: 'event/:id', component:  },
+    { path: 'cart', component: CartPageComponent },
+    { path: 'checkout', component: CheckoutPageComponent },
+    {
+        path: 'login',
+        component: LoginPageComponent,
+        canActivate: [unAuthGuard],
+    },
+    {
+        path: 'profile',
+        component: ProfilePageComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'register',
+        component: RegisterPageComponent,
+        canActivate: [unAuthGuard],
+    },
     { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
     { path: 'terms-conditions', component: TermsConditionsPageComponent },
     { path: 'contacts', component: ContactPageComponent },
