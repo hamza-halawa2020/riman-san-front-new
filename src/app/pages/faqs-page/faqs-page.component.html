@@ -2,6 +2,34 @@
 
 <app-page-banner />
 
+
+
+
+
+<div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button
+        class="accordion-button"
+        type="button"
+        (click)="isCollapsed = !isCollapsed"
+      >
+        How does it create content?
+      </button>
+    </h2>
+    <div
+      id="collapseOne"
+      class="accordion-collapse"
+      [ngClass]="{'show': isCollapsed, 'collapse': !isCollapsed}"
+    >
+      <div class="accordion-body">
+        Great value and so easy to use and saves me so much time!
+      </div>
+    </div>
+  </div>
+  
+
+
+
 <!-- START FAQ -->
 <section class="faq_area section-padding">
     <div class="container">

@@ -6,6 +6,7 @@ import { ContactComponent } from '../../common/contact/contact.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
     selector: 'app-faqs-page',
@@ -18,8 +19,12 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
         ContactComponent,
         FooterComponent,
         BackToTopComponent,
+        NgClass,
+        NgIf,
     ],
     templateUrl: './faqs-page.component.html',
     styleUrl: './faqs-page.component.scss',
 })
-export class FaqsPageComponent {}
+export class FaqsPageComponent {
+    isCollapsed: boolean = false;
+}

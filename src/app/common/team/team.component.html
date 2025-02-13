@@ -1,23 +1,35 @@
 <!-- Default -->
-<div class="team-area mt-5 mb-5">
-    <div class="container">
-        <div class="section-title text-center">
-            <h2 class="fw-semibold mx-auto mb-0 text-uppercase">
-                Meet the Passionate Team Driving Excellence at
-            </h2>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-3 col-sm-6" *ngFor="let instructor of data">
-                <div
-                    class="single-team-member text-center mb-25 position-relative"
-                >
-                    <img src="{{image + instructor.image}}" alt="team-image" />
-                    <div class="content">
-                        <h3 class="fw-semibold">
-                            <a routerLink="/instructor/{{instructor.id}}"> {{instructor.name}} </a>
-                        </h3>
-                        <span class="d-block"> Instructor </span>
-                    </div>
+<div class="row text-center">
+    <div
+        class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp"
+        *ngFor="let instructor of data"
+        data-wow-duration="1s"
+        data-wow-delay="0.1s"
+        data-wow-offset="0"
+    >
+        <div class="our-team">
+            <a routerLink="/instructor/{{ instructor.id }}">
+                <div class="team_img">
+                    <img src="assets/riman-san/1.jpg" alt="team-image" />
+                    <ul class="social">
+                        <li>
+                            <a><i class="fa-regular fa-envelope"></i></a>
+                        </li>
+                        <li>
+                            <a><i class="fa-solid fa-phone"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </a>
+            <div class="team-content">
+                <div class="title">
+                    {{ instructor.name }}
+                </div>
+                <div class="post">{{ instructor.job_title }}</div>
+                <div class="sth_det2">
+                    <span class="fa-regular fa-file">
+                        <u> {{ instructor.courses.length }} Courses</u></span
+                    >
                 </div>
             </div>
         </div>

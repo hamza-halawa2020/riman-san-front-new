@@ -10,8 +10,17 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 @Component({
     selector: 'app-about-page',
     standalone: true,
-    imports: [NavbarComponent, PageBannerComponent, AboutComponent, TeamComponent, ContactComponent, FooterComponent, BackToTopComponent],
+    imports: [
+        NavbarComponent,
+        PageBannerComponent,
+        TeamComponent,
+        AboutComponent,
+        TeamComponent,
+        ContactComponent,
+        FooterComponent,
+        BackToTopComponent,
+    ],
     templateUrl: './about-page.component.html',
-    styleUrl: './about-page.component.scss'
+    styleUrl: './about-page.component.scss',
 })
 export class AboutPageComponent {}
