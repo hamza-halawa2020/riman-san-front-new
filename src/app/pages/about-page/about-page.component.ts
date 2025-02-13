@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { AboutComponent } from '../../common/about/about.component';
 import { TeamComponent } from '../../common/team/team.component';
@@ -6,6 +6,8 @@ import { ContactComponent } from '../../common/contact/contact.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { FaqsComponent } from '../../common/faqs/faqs.component';
+import * as bootstrap from 'bootstrap';
 
 @Component({
     selector: 'app-about-page',
@@ -19,8 +21,19 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
         ContactComponent,
         FooterComponent,
         BackToTopComponent,
+        FaqsComponent,
     ],
     templateUrl: './about-page.component.html',
-    styleUrl: './about-page.component.scss',
+    styleUrls: ['./about-page.component.scss'],
 })
-export class AboutPageComponent {}
+export class AboutPageComponent implements OnInit {
+    ngOnInit(): void {
+        const carousel = document.querySelector('#partnerCarousel');
+        if (carousel) {
+            const carouselInstance = new bootstrap.Carousel(carousel, {
+                interval: 2000,
+                ride: 'carousel',
+            });
+        }
+    }
+}
