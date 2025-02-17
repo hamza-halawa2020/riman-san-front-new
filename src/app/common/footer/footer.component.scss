@@ -24,7 +24,7 @@
                 // font-size: 16px;
                 box-shadow: unset;
                 border-radius: 5px;
-                color: var(--blackColor);
+                color: #013C4A;
                 border: 1px solid #C3C3C3;
                 background-color: #fbfbfb;
                 padding: {
@@ -48,7 +48,7 @@
                 border: 0;
                 padding: 12px 30px;
                 position: absolute;
-                color: var(--blackColor);
+                color: #013C4A;
                 border-radius: 0 5px 5px 0;
                 transition: var(--transition);
                 background-color: var(--primaryColor);
@@ -58,7 +58,7 @@
                 // };
                 &:hover {
                     color: var(--whiteColor);
-                    background-color: var(--secondaryColor);
+                    background-color: #013C4A;
                 }
             }
         }
@@ -92,7 +92,7 @@
                 color: var(--paragraphColor);
 
                 &:hover {
-                    color: var(--blackColor);
+                    color: #013C4A;
                 }
             }
             &:last-child {
@@ -120,7 +120,7 @@
                 transform: translateY(-50%);
             }
             &:hover {
-                color: var(--blackColor);
+                color: #013C4A;
                 background-color: var(--primaryColor);
             }
             &:last-child {
@@ -147,7 +147,7 @@
                 // font-size: 16px;
                 box-shadow: unset;
                 border-radius: 5px;
-                color: var(--blackColor);
+                color: #013C4A;
                 border: 1px solid #C3C3C3;
                 background-color: #fbfbfb;
                 padding: {
@@ -171,7 +171,7 @@
                 border: 0;
                 padding: 12px 30px;
                 position: absolute;
-                color: var(--blackColor);
+                color: #013C4A;
                 border-radius: 0 5px 5px 0;
                 transition: var(--transition);
                 background-color: var(--primaryColor);
@@ -181,7 +181,7 @@
                 // };
                 &:hover {
                     color: var(--whiteColor);
-                    background-color: var(--secondaryColor);
+                    background-color: #013C4A;
                 }
             }
         }
@@ -334,7 +334,7 @@
                 transform: translateY(-50%);
             }
             &:hover {
-                color: var(--blackColor);
+                color: #013C4A;
                 background-color: var(--primaryColor);
             }
             &:last-child {

@@ -11,7 +11,11 @@ import { LoginService } from '../../pages/login-page/login.service';
     styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-    constructor(public router: Router, public loginService: LoginService) {}
+    isLoggedIn: boolean = false;
+
+    constructor(public router: Router, public loginService: LoginService) {
+        this.isLoggedIn = !!loginService.isLoggedIn();
+    }
 
     // Navbar Sticky
     isSticky: boolean = false;
@@ -27,12 +31,6 @@ export class NavbarComponent {
         } else {
             this.isSticky = false;
         }
-    }
-
-    // Menu Trigger
-    classApplied = false;
-    toggleClass() {
-        this.classApplied = !this.classApplied;
     }
 
     logout() {

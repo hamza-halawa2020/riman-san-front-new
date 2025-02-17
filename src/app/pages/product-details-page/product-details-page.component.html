@@ -6,17 +6,72 @@
 <div class="prdct_dtls_page_area section-padding">
     <div class="container">
         <div class="row">
-            <!-- Product Details Image -->
-            <div class="col-md-6 col-xs-12">
-                <div class="pd_img fix">
-                    <a class="venobox" href="assets/images/shop/3.jpg"
-                        ><img
-                            src="{{ image + details.productImages[0].image }}"
-                            class="img-fluid"
-                            alt=""
-                    /></a>
+            <div
+                class="modal fade bs-example-modal-xl transparent-modal"
+                id="imageModal"
+                tabindex="-1"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                            ></button>
+                        </div>
+                        <div class="modal-body text-center position-relative">
+                            <button
+                                *ngIf="currentIndex > 0"
+                                class="btn btn-light position-absolute start-0 top-50 translate-middle-y"
+                                (click)="prevImage()"
+                            >
+                                <i class="fa fa-chevron-left"></i>
+                            </button>
+
+                            <img [src]="selectedImage" class="img-fluid" />
+
+                            <button
+                                *ngIf="currentIndex < details.productImages.length - 1"
+                                class="btn btn-light position-absolute end-0 top-50 translate-middle-y"
+                                (click)="nextImage()"
+                            >
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="upcoming-courses-slides2 mx-auto">
+                <owl-carousel-o [options]="ProductSliderSlides">
+                    <ng-template
+                        carouselSlide
+                        *ngFor="
+                            let slide of details.productImages;
+                            let i = index
+                        "
+                    >
+                        <a (click)="openModal(image + slide.image, i)">
+                            <div
+                                class="single-upcoming-course-box position-relative"
+                            >
+                                <div class="image position-relative">
+                                    <div class="text-center max-height">
+                                        <img
+                                            src="{{ image + slide.image }}"
+                                            class="bg-image"
+                                            alt="bg-image"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </ng-template>
+                </owl-carousel-o>
+            </div>
+
             <!-- Product Details Content -->
             <div class="col-md-6 col-xs-12">
                 <div class="prdct_dtls_content">
@@ -54,11 +109,10 @@
                     <!-- Product Action -->
                     <div class="pd_btn fix">
                         <a class="btn btn-default acc_btn">add to bag</a>
-                        <a class="btn btn-default acc_btn btn_icn"
+                        <a
+                            *ngIf="isLoggedIn"
+                            class="btn btn-default acc_btn btn_icn"
                             ><i class="fa fa-heart"></i
-                        ></a>
-                        <a class="btn btn-default acc_btn btn_icn"
-                            ><i class="fa fa-refresh"></i
                         ></a>
                     </div>
                 </div>

@@ -65,7 +65,7 @@
                     border: 1px solid var(--primaryColor);
 
                     &:hover {
-                        color: var(--blackColor);
+                        color: #013C4A;
                         background-color: var(--primaryColor);
                     }
                 }
@@ -89,7 +89,7 @@
         position: absolute;
         border-radius: 15px;
         transition: var(--transition);
-        background: var(--blackColor);
+        background: #013C4A;
     }
     &:hover {
         .content {
@@ -123,12 +123,12 @@
                     width: 35px;
                     height: 35px;
                     line-height: 35px;
-                    color: var(--blackColor);
+                    color: #013C4A;
                     background-color: var(--primaryColor);
 
                     &:hover {
                         color: var(--whiteColor);
-                        background-color: var(--secondaryColor);
+                        background-color: #013C4A;
                     }
                 }
                 &:first-child {
@@ -160,11 +160,11 @@
                 li {
                     a {
                         color: var(--whiteColor);
-                        background-color: var(--blackColor);
+                        background-color: #013C4A;
     
                         &:hover {
                             color: var(--whiteColor);
-                            background-color: var(--secondaryColor);
+                            background-color: #013C4A;
                         }
                     }
                 }
@@ -221,10 +221,10 @@
                 height: 35px;
                 font-size: 18px;
                 line-height: 35px;
-                background-color: var(--secondaryColor);
+                background-color: #013C4A;
 
                 &:hover {
-                    color: var(--blackColor);
+                    color: #013C4A;
                     background-color: var(--primaryColor);
                 }
             }

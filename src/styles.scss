@@ -2,25 +2,36 @@
 :root {
     --fontFamily: "Poppins", sans-serif;
     --headingFontFamily: "Unbounded", sans-serif;
-    --primaryColor: #A7FF37;
-    --secondaryColor: #586CEC;
+    --primaryColor: #c4edff;
+    --secondaryColor: #586cec;
     --paragraphColor: #555555;
     --whiteColor: #ffffff;
     --blackColor: #000000;
-    --transition: .5s;
+    --transition: 0.5s;
     --fontSize: 20px;
 }
 body {
     margin: 0;
     padding: 0;
-    color: var(--blackColor);
+    color: #013c4a;
     // font: {
     //     size: var(--fontSize);
     //     family: var(--fontFamily);
     // };
 }
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    color: var(--blackColor);
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #013c4a;
     // font: {
     //     weight: 700;
     //     family: var(--headingFontFamily);
@@ -28,7 +39,7 @@ body {
 }
 a {
     transition: var(--transition);
-    color: var(--blackColor);
+    color: #013c4a;
     text-decoration: none;
     outline: 0 !important;
 
@@ -57,7 +68,7 @@ p {
     // font-size: var(--fontSize);
     margin-bottom: 15px;
     line-height: 1.5;
-    
+
     &:last-child {
         margin-bottom: 0;
     }
@@ -69,7 +80,7 @@ p {
     padding: {
         top: 120px;
         bottom: 120px;
-    };
+    }
 }
 .pt-120 {
     padding-top: 120px;
@@ -81,7 +92,7 @@ p {
     padding: {
         top: 95px;
         bottom: 95px;
-    };
+    }
 }
 .pt-95 {
     padding-top: 95px;
@@ -107,12 +118,23 @@ p {
     background-color: #1c1c1c;
     color: var(--whiteColor);
 
-    .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         color: var(--whiteColor);
     }
     a {
         color: var(--whiteColor);
-    
+
         &:hover {
             color: var(--primaryColor);
         }
@@ -121,8 +143,8 @@ p {
         color: #f3f3f3;
     }
     .default-btn {
-        color: var(--blackColor);
-        
+        color: #013c4a;
+
         &:hover {
             color: var(--whiteColor);
         }
@@ -133,7 +155,8 @@ p {
 }
 
 // Border
-.border-top, .border-bottom {
+.border-top,
+.border-bottom {
     border-color: var(--paragraphColor) !important;
 }
 
@@ -143,7 +166,7 @@ p {
     padding: 15px 30px;
     border-radius: 5px;
     display: inline-block;
-    color: var(--blackColor);
+    color: #013c4a;
     transition: var(--transition);
     background-color: var(--primaryColor);
     // font: {
@@ -152,7 +175,7 @@ p {
     // };
     &:hover {
         color: var(--whiteColor);
-        background-color: var(--secondaryColor);
+        background-color: #013c4a;
     }
 }
 
@@ -167,10 +190,6 @@ p {
         // font-size: 48px;
         max-width: 540px;
         line-height: 1.25;
-
-        &.fs-32 {
-            // font-size: 32px;
-        }
     }
     p {
         margin-top: 20px;
@@ -220,7 +239,7 @@ p {
     width: 60px;
     overflow: hidden;
     position: absolute;
-    border-left: 1px solid var(--blackColor);
+    border-left: 1px solid #013c4a;
 
     div {
         margin-left: -64px;
@@ -240,8 +259,8 @@ p {
         left: 0;
         border: {
             left-width: 0;
-            right: 1px solid var(--blackColor);
-        };
+            right: 1px solid #013c4a;
+        }
     }
 }
 
@@ -278,20 +297,12 @@ p {
 }
 
 /* Max width 767px */
-@media only screen and (max-width : 767px) {
-
-    // Default CSS
-    body {
-        // font-size: 15px;
-    }
-    p {
-        // font-size: 15px;
-    }
+@media only screen and (max-width: 767px) {
     .ptb-120 {
         padding: {
             top: 60px;
             bottom: 60px;
-        };
+        }
     }
     .pt-120 {
         padding-top: 60px;
@@ -303,7 +314,7 @@ p {
         padding: {
             top: 35px;
             bottom: 35px;
-        };
+        }
     }
     .pt-95 {
         padding-top: 35px;
@@ -322,17 +333,13 @@ p {
     .section-title {
         margin-bottom: 30px;
         text-align: center;
-    
+
         &.mb-40 {
             margin-bottom: 30px;
         }
         h2 {
             // font-size: 25px;
             max-width: 100%;
-
-            &.fs-32 {
-                // font-size: 25px;
-            }
         }
         p {
             margin-top: 15px;
@@ -344,7 +351,7 @@ p {
         }
         .title {
             max-width: 100%;
-    
+
             p {
                 // font-size: 15px;
                 line-height: 1.6;
@@ -356,14 +363,14 @@ p {
             height: 120px;
             margin-top: 18px;
             padding-top: 24px;
-    
+
             span {
                 margin-bottom: 10px;
                 max-width: 130px;
                 margin: {
                     left: auto;
                     right: auto;
-                };
+                }
             }
         }
     }
@@ -374,30 +381,26 @@ p {
     }
 
     // Shapes
-    .shape1, .shape2, .shape3, .shape4, .shape5 {
+    .shape1,
+    .shape2,
+    .shape3,
+    .shape4,
+    .shape5 {
         display: none;
     }
-
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+}
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {
-
-    // Default CSS
-    body {
-        // font-size: 16px;
-    }
-    p {
-        // font-size: 16px;
-    }
+@media only screen and (min-width: 768px) and (max-width: 991px) {
     .ptb-120 {
         padding: {
             top: 80px;
             bottom: 80px;
-        };
+        }
     }
     .pt-120 {
         padding-top: 80px;
@@ -409,7 +412,7 @@ p {
         padding: {
             top: 55px;
             bottom: 55px;
-        };
+        }
     }
     .pt-95 {
         padding-top: 55px;
@@ -438,7 +441,7 @@ p {
         }
         .title {
             max-width: 500px;
-    
+
             p {
                 line-height: 1.7;
                 margin-top: 20px;
@@ -457,27 +460,22 @@ p {
     }
 
     // Shapes
-    .shape1, .shape2, .shape3, .shape4, .shape5 {
+    .shape1,
+    .shape2,
+    .shape3,
+    .shape4,
+    .shape5 {
         display: none;
     }
-
 }
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {
-
-    // Default CSS
-    body {
-        // font-size: 18px;
-    }
-    p {
-        // font-size: 18px;
-    }
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
     .ptb-120 {
         padding: {
             top: 100px;
             bottom: 100px;
-        };
+        }
     }
     .pt-120 {
         padding-top: 100px;
@@ -489,7 +487,7 @@ p {
         padding: {
             top: 75px;
             bottom: 75px;
-        };
+        }
     }
     .pt-95 {
         padding-top: 75px;
@@ -506,9 +504,7 @@ p {
 
     // Section Title
     .section-title {
-        h2 {
-            // font-size: 42px;
-        }
+      
         p {
             margin-top: 15px;
         }
@@ -525,19 +521,18 @@ p {
         right: 5%;
         width: 100px;
     }
-    .shape4, .shape5 {
+    .shape4,
+    .shape5 {
         display: none;
     }
-
 }
 
 /* Min width 1200px to Max width 1399px */
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
-
     // Scroll Down Text
     .scroll-down-text {
         width: 40px;
-    
+
         div {
             margin-left: -75px;
         }
@@ -547,12 +542,10 @@ p {
     .shape1 {
         right: 5%;
     }
-
 }
 
 /* Min width 1600px */
 @media only screen and (min-width: 1600px) {
-
     // Scroll Down Text
     .scroll-down-text {
         width: 150px;
@@ -569,5 +562,4 @@ p {
     .shape2 {
         left: 49.2%;
     }
-
 }

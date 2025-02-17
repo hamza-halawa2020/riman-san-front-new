@@ -31,10 +31,6 @@ export class LoginService {
         this.cookieService.set('token', token, options);
     }
 
-    // isLoggedIn() {
-    //     return this.getTokenFromCookie();
-    // }
-
     isLoggedIn(): boolean {
         return !!this.getTokenFromCookie();
     }

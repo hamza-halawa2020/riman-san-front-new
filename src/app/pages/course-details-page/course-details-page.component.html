@@ -49,7 +49,9 @@
                 <!-- END SIDEBAR POST -->
                 <div class="sidebar-post mt-4">
                     <div class="sidebar_title"><h4>Follow us</h4></div>
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div
+                        class="d-flex justify-content-center align-items-center"
+                    >
                         <div class="p-2" *ngFor="let social of data">
                             <a href="{{ social.url }}" target="_blank">
                                 <img
@@ -62,7 +64,32 @@
                             </a>
                         </div>
                     </div>
+
                     <!-- END SOCIAL MEDIA POST -->
+                </div>
+                <div class="sidebar-post mt-4">
+                    <div class="sidebar_title"><h4>Category</h4></div>
+                    <div
+                        class="d-flex justify-content-center align-items-center"
+                    >
+                        <div class="p-2">
+                            <a target="_blank">
+                                {{ details.category }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-post mt-4">
+                    <div class="sidebar_title"><h4>Tag</h4></div>
+                    <div
+                        class="d-flex justify-content-center align-items-center"
+                    >
+                        <div class="p-2">
+                            <a target="_blank">
+                                {{ details.tag }}
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <!-- END SIDEBAR POST -->
             </div>

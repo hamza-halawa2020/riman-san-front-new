@@ -54,6 +54,7 @@ export class EventDetailsPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.getDetails();
+        this.fetchdata();
     }
 
     getDetails(): void {
@@ -62,6 +63,14 @@ export class EventDetailsPageComponent implements OnInit {
             this.eventService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
             });
+        });
+    }
+    fetchdata() {
+        this.eventService.allSocial().subscribe({
+            next: (response) => {
+                this.data = Object.values(response)[0];
+            },
+            error: (error) => {},
         });
     }
 }

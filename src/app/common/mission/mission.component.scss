@@ -14,7 +14,7 @@
         font-size: 48px;
         line-height: 1.25;
         margin-bottom: 40px;
-        color: var(--blackColor);
+        color: #013C4A;
     }
     .box {
         border-radius: 15px;
@@ -36,7 +36,7 @@
             .number {
                 line-height: 1;
                 margin-bottom: 10px;
-                color: var(--blackColor);
+                color: #013C4A;
                 font: {
                     size: 48px;
                     family: var(--headingFontFamily);
@@ -55,8 +55,8 @@
             h3 {
                 margin-bottom: 20px;
                 padding-bottom: 20px;
-                color: var(--blackColor);
-                border-bottom: 1px solid var(--secondaryColor);
+                color: #013C4A;
+                border-bottom: 1px solid #013C4A;
                 font: {
                     size: 32px;
                     family: var(--fontFamily);

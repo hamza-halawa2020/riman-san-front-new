@@ -1,352 +1,351 @@
+.upcoming-courses-area {
+    padding-bottom: 40px;
+    padding-top: 20px;
+
+    .section-title {
+        margin-bottom: 40px;
+
+        h2 {
+            max-width: 980px;
+        }
+    }
+}
 .max-height{
     max-height: 450px;
 }
-.course-details-sidebar {
-    .course-list {
-        padding: 30px;
-        border-radius: 15px;
-        margin-bottom: 40px;
-        background-color: var(--whiteColor);
+.single-upcoming-course-box {
+    .image {
+        img {
+            transition: var(--transition);
 
+            &:nth-child(2) {
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                opacity: 0;
+                visibility: hidden;
+                position: absolute;
+            }
+        }
+    }
+    .content {
+        left: 0;
+        right: 0;
+        top: 50%;
+        position: absolute;
+        transform: translateY(-50%);
+        padding: {
+            left: 45px;
+            right: 45px;
+        }
         h3 {
-            padding-left: 15px;
-            margin-bottom: 33px;
+            transition: var(--transition);
+            color: var(--whiteColor);
+            margin-bottom: 15px;
+            padding-left: 40px;
             font: {
-                size: 32px;
+                size: 24px;
                 family: var(--fontFamily);
-            };
+            }
         }
         ul {
+            margin-bottom: 20px;
+
             li {
-                margin-bottom: 28px;
+                margin-bottom: 10px;
+                color: var(--whiteColor);
+                transition: var(--transition);
 
-                a {
-                    padding: 15px;
-                    border-radius: 5px;
-                    background-color: #f3f3f3;
-
-                    &:hover, &.active {
-                        background-color: var(--primaryColor);
-                    }
+                span {
+                    color: var(--whiteColor);
+                    transition: var(--transition);
+                }
+                &:nth-child(1) {
+                    padding-left: 28px;
+                }
+                &:nth-child(2) {
+                    padding-left: 15px;
                 }
                 &:last-child {
                     margin-bottom: 0;
                 }
             }
         }
-    }
-    .enroll-form {
-        padding: 50px 30px;
-        border-radius: 15px;
-        background-color: var(--whiteColor);
+        .instructor {
+            transition: var(--transition);
 
-        form {
-            .form-group {
-                margin-bottom: 30px;
-                
-                .form-control {
-                    height: 60px;
-                    font-size: 20px;
-                    border-radius: 5px;
-                    color: var(--blackColor);
-                    border: 1px solid #1c1c1c;
-                    padding: {
-                        left: 15px;
-                        right: 15px;
-                    };
-                    &::placeholder {
-                        color: #c3c3c3;
-                        transition: var(--transition);
-                    }
-                    &:focus {
-                        &::placeholder {
-                            color: transparent;
-                        }
-                    }
+            img {
+                width: 50px;
+                margin-right: 10px;
+            }
+            h4 {
+                margin-bottom: 3px;
+                color: var(--whiteColor);
+                font: {
+                    size: 20px;
+                    family: var(--fontFamily);
                 }
-                .form-select {
-                    height: 60px;
-                    cursor: pointer;
-                    font-size: 20px;
-                    color: #c3c3c3;
-                    margin-top: 45px;
-                    border-radius: 5px;
-                    border: 1px solid #1c1c1c;
-                    padding: {
-                        left: 15px;
-                        right: 15px;
-                    };
-                }
+            }
+            span {
+                color: #f3f3f3;
             }
         }
     }
+    .default-btn {
+        bottom: 0;
+        opacity: 0;
+        right: 55px;
+        visibility: hidden;
+        position: absolute;
+        color: var(--whiteColor);
+        background-color: #1c1c1c;
+        border: 3px solid #f3f3f3;
+        border-radius: 50px 0 15px 50px;
+        padding: {
+            top: 12px;
+            bottom: 12px;
+        }
+    }
 }
-.course-details-desc {
-    padding-left: 5px;
-    
-    .image {
-        border-radius: 15px;
-        margin-bottom: 48px;
+::ng-deep {
+    .upcoming-courses-slides2 {
+        max-width: 450px;
+        // max-width: 930px;
+        .owl-theme {
+            .owl-nav {
+                margin-top: 0;
 
-        img {
-            border-radius: 15px;
-        }
-    }
-    .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-        font-family: var(--fontFamily);
-    }
-    h2 {
-        font-size: 48px;
-        margin-bottom: 22px;
-    }
-    h3 {
-        font-size: 32px;
-        margin-bottom: 22px;
+                [class*="owl-"] {
+                    top: 50%;
+                    margin: 0;
+                    padding: 0;
+                    width: 60px;
+                    left: -70px;
+                    height: 60px;
+                    font-size: 20px;
+                    margin-top: 25px;
+                    position: absolute;
+                    border-radius: 50%;
+                    color: #013C4A;
+                    transform: translateY(-50%);
+                    transition: var(--transition);
+                    background-color: var(--primaryColor);
 
-        &:not(:first-child) {
-            margin-top: 38px;
-        }
-    }
-    ul, ol {
-        li {
-            color: var(--paragraphColor);
-        }
-    }
-    .instructor {
-        margin-top: 50px;
-
-        img {
-            width: 100px;
-            margin-right: 20px;
-        }
-        h4 {
-            font-size: 24px;
-            margin-bottom: 7px;
-        }
-        span {
-            color: var(--paragraphColor);
+                    i {
+                        left: 0;
+                        right: 0;
+                        top: 50%;
+                        position: absolute;
+                        transform: translateY(-50%);
+                    }
+                    &.owl-next {
+                        left: auto;
+                        right: -70px;
+                    }
+                    // &:hover {
+                    //     color: var(--whiteColor);
+                    //     background-color: #013C4A;
+                    // }
+                }
+            }
         }
     }
 }
 
 /* Max width 767px */
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width: 767px) {
+    .upcoming-courses-area {
+        .section-title {
+            margin-bottom: 30px;
 
-    .course-details-sidebar {
-        .course-list {
-            padding: 20px;
-            margin-bottom: 25px;
-    
+            h2 {
+                max-width: 100%;
+            }
+        }
+    }
+    .single-upcoming-course-box {
+        transition: var(--transition);
+        background: #1c1c1c;
+        border-radius: 15px;
+        padding: 20px;
+
+        .image {
+            display: none;
+        }
+        .content {
+            top: 0;
+            position: relative;
+            transform: translateY(0);
+            padding: {
+                left: 0;
+                right: 0;
+            }
             h3 {
-                font-size: 20px;
-                padding-left: 0;
                 margin-bottom: 15px;
+                padding-left: 0;
+                font-size: 20px;
             }
             ul {
                 li {
-                    margin-bottom: 12px;
-    
-                    a {
-                        padding: {
-                            top: 10px;
-                            bottom: 10px;
-                        };
+                    &:nth-child(1) {
+                        padding-left: 0;
+                    }
+                    &:nth-child(2) {
+                        padding-left: 0;
                     }
                 }
             }
+            .instructor {
+                h4 {
+                    font-size: 18px;
+                }
+            }
         }
-        .enroll-form {
-            padding: 20px;
-    
-            form {
-                .form-group {
-                    margin-bottom: 15px;
-                    
-                    .form-control {
-                        height: 50px;
-                        font-size: 15px;
-                    }
-                    .form-select {
-                        height: 50px;
+        .default-btn {
+            right: 0;
+            padding: {
+                top: 11px;
+                bottom: 11px;
+            }
+        }
+        // &:hover {
+        //     background: var(--primaryColor);
+
+        //     .default-btn {
+        //         opacity: 1;
+        //         visibility: visible;
+        //     }
+        // }
+    }
+    ::ng-deep {
+        .upcoming-courses-slides2 {
+            max-width: 100%;
+            padding: {
+                left: 0;
+                right: 0;
+            }
+            .owl-theme {
+                .owl-nav {
+                    margin-top: 25px;
+
+                    [class*="owl-"] {
+                        top: 0;
+                        left: 0;
+                        width: 45px;
+                        height: 45px;
                         margin-top: 0;
                         font-size: 15px;
+                        line-height: 45px;
+                        position: relative;
+                        transform: translateY(0);
+                        margin: {
+                            left: 5px;
+                            right: 5px;
+                        }
+                        &.owl-next {
+                            right: 0;
+                        }
                     }
                 }
             }
         }
     }
-    .course-details-desc {
-        padding-left: 0;
-        margin-top: 25px;
-        
-        .image {
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-size: 25px;
-            margin-bottom: 15px;
-        }
-        h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-    
-            &:not(:first-child) {
-                margin-top: 25px;
-            }
-        }
-        .instructor {
-            margin-top: 25px;
-    
-            img {
-                width: 70px;
-                margin-right: 15px;
-            }
-            h4 {
-                font-size: 20px;
-            }
-        }
-    }
-
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+}
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .upcoming-courses-area {
+        .section-title {
+            margin-bottom: 30px;
 
-    .course-details-sidebar {
-        .course-list {
-            padding: 25px;
-            margin-bottom: 25px;
-    
-            h3 {
-                font-size: 22px;
-                padding-left: 0;
-                margin-bottom: 20px;
+            h2 {
+                max-width: 100%;
             }
-            ul {
-                li {
-                    margin-bottom: 15px;
+        }
+    }
+    .single-upcoming-course-box {
+        .content {
+            padding: {
+                left: 35px;
+                right: 35px;
+            }
+            h3 {
+                font-size: 20px;
+            }
+            .instructor {
+                h4 {
+                    font-size: 18px;
                 }
             }
         }
-        .enroll-form {
-            padding: 30px 25px;
-    
-            form {
-                .form-group {
-                    margin-bottom: 25px;
-                    
-                    .form-control {
-                        height: 55px;
-                        font-size: 16px;
-                    }
-                    .form-select {
+        .default-btn {
+            right: 45px;
+        }
+    }
+    ::ng-deep {
+        .upcoming-courses-slides2 {
+            max-width: 100%;
+            padding: {
+                left: 0;
+                right: 0;
+            }
+            .owl-theme {
+                .owl-nav {
+                    margin-top: 25px;
+
+                    [class*="owl-"] {
+                        top: 0;
+                        left: 0;
+                        width: 55px;
                         height: 55px;
                         margin-top: 0;
                         font-size: 16px;
+                        position: relative;
+                        transform: translateY(0);
+                        margin: {
+                            left: 8px;
+                            right: 8px;
+                        }
+                        &.owl-next {
+                            right: 0;
+                        }
                     }
                 }
             }
         }
     }
-    .course-details-desc {
-        padding-left: 0;
-        margin-top: 30px;
-        
-        .image {
-            margin-bottom: 30px;
-        }
-        h2 {
-            font-size: 36px;
-            margin-bottom: 18px;
-        }
-        h3 {
-            font-size: 24px;
-            margin-bottom: 18px;
-    
-            &:not(:first-child) {
-                margin-top: 30px;
-            }
-        }
-        .instructor {
-            margin-top: 30px;
-    
-            img {
-                width: 80px;
-            }
-            h4 {
-                font-size: 22px;
-            }
-        }
-    }
-
 }
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    ::ng-deep {
+        .upcoming-courses-slides2 {
+            .owl-theme {
+                .owl-nav {
+                    [class*="owl-"] {
+                        left: -60px;
+                        font-size: 18px;
 
-    .course-details-sidebar {
-        .course-list {
-            margin-bottom: 25px;
-        
-            h3 {
-                font-size: 28px;
-                padding-left: 0;
-                margin-bottom: 25px;
-            }
-            ul {
-                li {
-                    margin-bottom: 22px;
-                }
-            }
-        }
-        .enroll-form {
-            form {
-                .form-group {
-                    margin-bottom: 25px;
-                    
-                    .form-control {
-                        font-size: 18px;
-                    }
-                    .form-select {
-                        font-size: 18px;
-                        margin-top: 35px;
+                        &.owl-next {
+                            left: auto;
+                            right: -60px;
+                        }
                     }
                 }
             }
         }
     }
-    .course-details-desc {
-        padding-left: 0;
-        
-        .image {
-            margin-bottom: 40px;
-        }
-        h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-        h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-    
-            &:not(:first-child) {
-                margin-top: 30px;
-            }
-        }
-        .instructor {
-            h4 {
-                margin-bottom: 6px;
-            }
-        }
-    }
-
 }
 
 /* Min width 1200px to Max width 1399px */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+}
 
 /* Min width 1600px */
-@media only screen and (min-width: 1600px) {}
+@media only screen and (min-width: 1600px) {
+}

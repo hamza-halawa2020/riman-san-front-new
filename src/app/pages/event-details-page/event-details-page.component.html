@@ -6,39 +6,77 @@
 <section class="our_event section-padding">
     <div class="container">
         <div class="row">
-            <div class="col col-xs-12">
+            <div class="col-lg-8 col-sm-8 col-xs-12">
                 <div class="single_event_single">
                     <img
                         alt=""
-                        class="img-responsive"
-                        src="assets/riman-san/1.jpg"
+                        class="img-fluid max-height"
+                        src="{{ image + details.image }}"
                     />
                     <div class="single_event_text_single">
-                        <h4>
-                            Architecture Design of International Art Fair 2023
-                        </h4>
-                    </div>
-                    <div class="single_event_text_single_description">
-                        <p>
-                            It has survived not only five centuries, but also
-                            the leap into electronic typesetting, remaining
-                            essentially unchanged. It was popularised in the
-                            1960s with the release of Letraset sheets containing
-                            Lorem Ipsum passages, and more recently with desktop
-                            publishing software like Aldus PageMaker including
-                            versions of Lorem Ipsum.
-                        </p>
+                        <h4>{{ details.title }}</h4>
                     </div>
                 </div>
-                <!--- END SINGLE EVENT -->
+                <div>
+                    {{ details.content }}
+                </div>
             </div>
+            <!--- END COL -->
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+                <!-- END SIDEBAR POST -->
+                <div class="sidebar-post mt-4">
+                    <div class="sidebar_title"><h4>Follow us</h4></div>
+                    <div
+                        class="d-flex justify-content-center align-items-center"
+                    >
+                        <div class="p-2" *ngFor="let social of data">
+                            <a href="{{ social.url }}" target="_blank">
+                                <img
+                                    alt=""
+                                    class="rounded"
+                                    src="{{ socialImage + social.icon }}"
+                                    width="30px"
+                                    height="30px"
+                                />
+                            </a>
+                        </div>
+                    </div>
 
+                    <!-- END SOCIAL MEDIA POST -->
+                </div>
+                <div class="sidebar-post mt-4">
+                    <div class="sidebar_title"><h4>Category</h4></div>
+                    <div
+                        class="d-flex justify-content-center align-items-center"
+                    >
+                        <div class="p-2">
+                            <a target="_blank">
+                                {{ details.category }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-post mt-4">
+                    <div class="sidebar_title"><h4>Tag</h4></div>
+                    <div
+                        class="d-flex justify-content-center align-items-center"
+                    >
+                        <div class="p-2">
+                            <a target="_blank">
+                                {{ details.tag }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- END SIDEBAR POST -->
+            </div>
             <!--- END COL -->
         </div>
         <!-- END ROW -->
     </div>
     <!-- END CONTAINER -->
 </section>
+
 <!-- END EVENT -->
 <app-footer />
 

@@ -5,9 +5,9 @@ import { environment } from '../../../environments/environment.development';
 @Injectable({
     providedIn: 'root',
 })
-export class CoursesService {
+export class ClientCartService {
     private apiUrl = environment.backEndUrl;
-    private data = '/courses';
+    private data = '/carts';
     constructor(private http: HttpClient) {}
     index() {
         return this.http.get(`${this.apiUrl}${this.data}`);

@@ -65,7 +65,7 @@
 
             &:hover {
                 color: var(--whiteColor);
-                background-color: var(--secondaryColor);
+                background-color: #013C4A;
             }
         }
         &::before {
@@ -77,7 +77,7 @@
             opacity: .20;
             position: absolute;
             border-radius: 15px;
-            background: var(--blackColor);
+            background: #013C4A;
         }
     }
 }

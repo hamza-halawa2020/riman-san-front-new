@@ -12,7 +12,9 @@ import { environment } from '../../../environments/environment.development';
 import { SafeUrlPipe } from '../../safe-url.pipe';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from './product.service';
-
+import { LoginService } from '../login-page/login.service';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+declare var bootstrap: any; // لازم لاستدعاء Bootstrap Modal
 @Component({
     selector: 'app-product-details-page',
     standalone: true,
@@ -30,7 +32,9 @@ import { ProductService } from './product.service';
         SafeUrlPipe,
         RatingModule,
         FormsModule,
+        CarouselModule,
     ],
+
     templateUrl: './product-details-page.component.html',
     styleUrl: './product-details-page.component.scss',
 })
@@ -42,20 +46,38 @@ export class ProductDetailsPageComponent implements OnInit {
     }
     details: any;
     data: any;
+    isLoggedIn: boolean = false;
 
     id: any;
     image = environment.imgUrl + 'products/';
     instructorImage = environment.imgUrl + 'instructors/';
     socialImage = environment.imgUrl + 'socials/';
+    selectedImage: string = '';
+    currentIndex: number = 0;
     constructor(
         private activateRoute: ActivatedRoute,
-        private productService: ProductService
-    ) {}
+        private productService: ProductService,
+        private loginService: LoginService
+    ) {
+        this.isLoggedIn = !!loginService.isLoggedIn();
+    }
 
     ngOnInit(): void {
         this.getDetails();
     }
 
+    // openModal(img: string) {
+    //     this.selectedImage = img;
+    //     let modal = new bootstrap.Modal(document.getElementById('imageModal'));
+    //     modal.show();
+    // }
+
+    openModal(imageUrl: string, index: number) {
+        this.selectedImage = imageUrl;
+        this.currentIndex = index;
+        let modal = new bootstrap.Modal(document.getElementById('imageModal'));
+        modal.show();
+    }
     getDetails(): void {
         this.activateRoute.params.subscribe((params) => {
             this.id = +params['id'];
@@ -64,4 +86,53 @@ export class ProductDetailsPageComponent implements OnInit {
             });
         });
     }
+
+    nextImage() {
+        if (this.currentIndex < this.details.productImages.length - 1) {
+            this.currentIndex++;
+            this.selectedImage =
+                this.image +
+                this.details.productImages[this.currentIndex].image;
+        }
+    }
+
+    prevImage() {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+            this.selectedImage =
+                this.image +
+                this.details.productImages[this.currentIndex].image;
+        }
+    }
+
+    ProductSliderSlides: OwlOptions = {
+        nav: true,
+        loop: true,
+        margin: 25,
+        dots: false,
+        autoplay: true,
+        smartSpeed: 500,
+        autoplayHoverPause: true,
+        navText: [
+            "<i class='fa-solid fa-chevron-left'></i>",
+            "<i class='fa-solid fa-chevron-right'></i>",
+        ],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            515: {
+                items: 1,
+            },
+            695: {
+                items: 2,
+            },
+            935: {
+                items: 2,
+            },
+            1115: {
+                items: 2,
+            },
+        },
+    };
 }

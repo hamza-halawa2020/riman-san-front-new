@@ -18,13 +18,14 @@ import { AuthGuard } from './auth.guard';
 import { unAuthGuard } from './un-auth.guard';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { ProductDetailsPageComponent } from './pages/product-details-page/product-details-page.component';
-import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
 import { EventDetailsPageComponent } from './pages/event-details-page/event-details-page.component';
 import { FaqsPageComponent } from './pages/faqs-page/faqs-page.component';
 import { FavouritePageComponent } from './pages/favourite-page/favourite-page.component';
 import { ForgetpasswordPageComponent } from './pages/forgetpassword-page/forgetpassword-page.component';
+import { CartPageWrapperComponent } from './pages/cart-page-wrapper/cart-page-wrapper.component';
+import { CartResolver } from './pages/cart-page-wrapper/cart.resolver';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -39,11 +40,16 @@ export const routes: Routes = [
     { path: 'product/:id', component: ProductDetailsPageComponent },
     { path: 'events', component: EventPageComponent },
     { path: 'event/:id', component: EventDetailsPageComponent },
-    { path: 'cart', component: CartPageComponent },
-    { path: 'whishlist', component: FavouritePageComponent },
+    { path: 'wishlist', component: FavouritePageComponent },
     { path: 'checkout', component: CheckoutPageComponent },
     { path: 'faqs', component: FaqsPageComponent },
     { path: 'forget-password', component: ForgetpasswordPageComponent },
+
+    {
+        path: 'cart',
+        component: CartPageWrapperComponent,
+        resolve: { userType: CartResolver },
+    },
     {
         path: 'login',
         component: LoginPageComponent,

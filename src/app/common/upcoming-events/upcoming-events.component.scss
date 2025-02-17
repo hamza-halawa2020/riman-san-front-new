@@ -119,11 +119,11 @@
         // }
         .content {
             h3 {
-                color: var(--blackColor);
+                color: #013C4A;
             }
             ul {
                 li {
-                    color: var(--blackColor);
+                    color: #013C4A;
 
                     span {
                         color: var(--paragraphColor);
@@ -163,7 +163,7 @@
                     margin-top: 25px;
                     position: absolute;
                     border-radius: 50%;
-                    color: var(--blackColor);
+                    color: #013C4A;
                     transform: translateY(-50%);
                     transition: var(--transition);
                     background-color: var(--primaryColor);
@@ -181,7 +181,7 @@
                     }
                     &:hover {
                         color: var(--whiteColor);
-                        background-color: var(--secondaryColor);
+                        background-color: #013C4A;
                     }
                 }
             }

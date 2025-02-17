@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment.development';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { formatDistanceToNow } from 'date-fns';
 import { EventService } from './event.service';
+import { EventsComponent } from '../../common/events/events.component';
 
 @Component({
     selector: 'app-event-page',
@@ -25,6 +26,7 @@ import { EventService } from './event.service';
         NgClass,
         FooterComponent,
         BackToTopComponent,
+        EventsComponent,
     ],
     templateUrl: './event-page.component.html',
     styleUrl: './event-page.component.scss',
@@ -34,10 +36,7 @@ export class EventPageComponent implements OnInit {
     data: any;
     image = environment.imgUrl + 'events/';
 
-    constructor(
-        public router: Router,
-        private eventService: EventService
-    ) {}
+    constructor(public router: Router, private eventService: EventService) {}
 
     ngOnInit(): void {
         this.fetchdata();
@@ -46,7 +45,7 @@ export class EventPageComponent implements OnInit {
     fetchdata() {
         this.eventService.index().subscribe({
             next: (response) => {
-                this.data = Object.values(response)[0];                
+                this.data = Object.values(response)[0];
             },
             error: (error) => {},
         });

@@ -106,11 +106,6 @@
                                 ></a>
                                 <ul>
                                     <li>
-                                        <a class="nav-link" routerLink="/cart"
-                                            >Cart Page</a
-                                        >
-                                    </li>
-                                    <li>
                                         <a
                                             class="nav-link"
                                             routerLink="/checkout"
@@ -134,11 +129,45 @@
                     <div id="mobile_menu"></div>
                 </div>
             </div>
+
             <!--- END Col -->
+
             <div class="col-lg-4 col-md-3 col-sm-8">
+                <div class="home_lc">
+                    <a *ngIf="isLoggedIn" routerLink="/cart" class="hlc">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <span class="gactive">2</span>
+                    </a>
+                    <a *ngIf="!isLoggedIn" routerLink="/cart" class="hlc">
+                        <i class="fa-solid fa-cart-plus"></i>
+                        <span class="gactive">5</span>
+                    </a>
+                    <a *ngIf="isLoggedIn" routerLink="/wishlist" class="hlc">
+                        <i class="fa-regular fa-heart"></i>
+                        <span class="gactive">0</span>
+                    </a>
+                </div>
+
                 <div class="call_to_action">
-                    <a class="btn_one" routerLink="/login">login</a>
-                    <a class="btn_two" routerLink="/register">sign up</a>
+                    <a *ngIf="!isLoggedIn" class="btn_one" routerLink="/login"
+                        >login</a
+                    >
+                    <a
+                        *ngIf="!isLoggedIn"
+                        class="btn_two"
+                        routerLink="/register"
+                        >sign up</a
+                    >
+                    <a *ngIf="isLoggedIn" class="btn_one" routerLink="/profile"
+                        >profile</a
+                    >
+                    <a
+                        *ngIf="isLoggedIn"
+                        class="btn_two"
+                        style="cursor: pointer"
+                        (click)="logout()"
+                        >Logout</a
+                    >
                 </div>
                 <!--- END SOCIAL PROFILE -->
             </div>

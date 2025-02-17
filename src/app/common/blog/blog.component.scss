@@ -52,7 +52,7 @@
                         line-height: 1.1;
                         text-align: center;
                         padding: 8px 11.4px;
-                        color: var(--blackColor);
+                        color: #013C4A;
                         border-radius: 10px 0 0 10px;
                         transition: var(--transition);
                         background-color: var(--primaryColor);
@@ -72,7 +72,7 @@
                         color: var(--paragraphColor);
 
                         &:hover {
-                            color: var(--blackColor);
+                            color: #013C4A;
                         }
                     }
                     &:last-child {
@@ -124,16 +124,16 @@
                     li {
                         &:nth-child(1) {
                             color: var(--whiteColor);
-                            background-color: var(--blackColor);
+                            background-color: #013C4A;
                         }
                     }
                 }
             }
             h3 {
-                color: var(--blackColor);
+                color: #013C4A;
 
                 a {
-                    color: var(--blackColor);
+                    color: #013C4A;
 
                     &:hover {
                         color: var(--paragraphColor);
@@ -173,14 +173,14 @@
             visibility: hidden;
             position: absolute;
             color: var(--whiteColor);
-            background-color: var(--secondaryColor);
+            background-color: #013C4A;
             transform: translateX(-50%) translateY(-50%);
             padding: {
                 top: 10px;
                 bottom: 10px;
             }
             &:hover {
-                color: var(--blackColor);
+                color: #013C4A;
                 background-color: var(--primaryColor);
             }
         }
@@ -201,7 +201,7 @@
         }
         .link-btn {
             margin-top: 15px;
-            color: var(--secondaryColor);
+            color: #013C4A;
 
             &:hover {
                 text-decoration: underline;
@@ -228,7 +228,7 @@
         content: "";
         position: absolute;
         transition: var(--transition);
-        background: var(--secondaryColor);
+        background: #013C4A;
     }
     &:hover {
         .image {

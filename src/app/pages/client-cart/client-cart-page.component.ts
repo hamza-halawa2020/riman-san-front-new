@@ -1,4 +1,3 @@
-import { LoginService } from './../login-page/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { PageBannerComponent } from './page-banner/page-banner.component';
@@ -9,11 +8,10 @@ import { FeedbackComponent } from '../../common/feedback/feedback.component';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { environment } from '../../../environments/environment.development';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
-import { formatDistanceToNow } from 'date-fns';
-import { ProductService } from './product.service';
+import { ClientCartService } from './client-cart.service';
 
 @Component({
-    selector: 'app-product-page',
+    selector: 'app-client-cart-page',
     standalone: true,
     imports: [
         HttpClientModule,
@@ -27,29 +25,25 @@ import { ProductService } from './product.service';
         FooterComponent,
         BackToTopComponent,
     ],
-    templateUrl: './product-page.component.html',
-    styleUrl: './product-page.component.scss',
-    providers: [ProductService],
+    templateUrl: './client-cart-page.component.html',
+    styleUrl: './client-cart-page.component.scss',
+    providers: [ClientCartService],
 })
-export class ProductPageComponent implements OnInit {
+export class ClientCartPageComponent implements OnInit {
     data: any;
-    image = environment.imgUrl + 'products/';
-    isLoggedIn: boolean = false;
+    image = environment.imgUrl + 'client-carts/';
 
     constructor(
         public router: Router,
-        private productService: ProductService,
-        private loginService: LoginService
-    ) {
-        this.isLoggedIn = !!loginService.isLoggedIn();
-    }
+        private clientCartService: ClientCartService
+    ) {}
 
     ngOnInit(): void {
         this.fetchdata();
     }
 
     fetchdata() {
-        this.productService.index().subscribe({
+        this.clientCartService.index().subscribe({
             next: (response) => {
                 this.data = Object.values(response)[0];
             },

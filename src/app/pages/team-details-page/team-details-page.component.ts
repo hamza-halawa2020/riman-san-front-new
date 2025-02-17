@@ -54,20 +54,10 @@ export class TeamDetailsPageComponent implements OnInit {
             this.id = +params['id'];
             this.instructorService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
-                if (this.details.video_url.includes('youtube.com/watch')) {
-                    const url = new URL(this.details.video_url);
-                    const videoId = url.searchParams.get('v');
-
-                    if (videoId) {
-                        const siParam = url.searchParams.get('si');
-                        this.details.video_url = `https://www.youtube.com/embed/${videoId}`;
-
-                        if (siParam) {
-                            this.details.video_url += `?si=${siParam}`;
-                        }
-                    }
-                }
+               
             });
         });
     }
+
+    
 }

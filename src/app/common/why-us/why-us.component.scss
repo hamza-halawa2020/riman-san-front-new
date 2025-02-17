@@ -2,7 +2,7 @@
     height: 100%;
     margin-right: 30px;
     background: {
-        image: url(../../../assets/riman-san/4.jpg);
+        image: url(/assets/riman-san/4.jpg);
         position: center center;
         repeat: no-repeat;
         size: cover;
@@ -72,13 +72,13 @@
             color: transparent;
             margin-bottom: 16px;
             -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: var(--blackColor);
+            -webkit-text-stroke-color: #013C4A;
         }
         p {
             font-size: 16px;
             line-height: 1.5;
             padding-right: 15px;
-            color: var(--blackColor);
+            color: #013C4A;
         }
     }
 }
@@ -200,13 +200,13 @@
             height: 76px;
             font-size: 25px;
             position: absolute;
-            color: var(--secondaryColor);
+            color: #013C4A;
             transition: var(--transition);
             background-color: var(--whiteColor);
             transform: translateX(-50%) translateY(-50%);
 
             &:hover {
-                background-color: var(--secondaryColor);
+                background-color: #013C4A;
                 color: var(--whiteColor);
             }
         }
