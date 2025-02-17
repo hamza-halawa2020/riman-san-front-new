@@ -40,10 +40,14 @@ export const routes: Routes = [
     { path: 'product/:id', component: ProductDetailsPageComponent },
     { path: 'events', component: EventPageComponent },
     { path: 'event/:id', component: EventDetailsPageComponent },
-    { path: 'wishlist', component: FavouritePageComponent },
     { path: 'checkout', component: CheckoutPageComponent },
     { path: 'faqs', component: FaqsPageComponent },
     { path: 'forget-password', component: ForgetpasswordPageComponent },
+    {
+        path: 'wishlist',
+        component: FavouritePageComponent,
+        canActivate: [AuthGuard],
+    },
 
     {
         path: 'cart',

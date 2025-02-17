@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "lanklub": {
+    "rimansan": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/lanklub",
+            "outputPath": "dist/rimansan",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -105,10 +105,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "lanklub:build:production"
+              "buildTarget": "rimansan:build:production"
             },
             "development": {
-              "buildTarget": "lanklub:build:development"
+              "buildTarget": "rimansan:build:development"
             }
           },
           "defaultConfiguration": "development"

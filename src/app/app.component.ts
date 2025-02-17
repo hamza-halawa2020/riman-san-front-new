@@ -7,13 +7,12 @@ import { RouterOutlet, Router, Event, NavigationEnd } from '@angular/router';
     standalone: true,
     imports: [RouterOutlet],
     templateUrl: './app.component.html',
-    styleUrl: './app.component.scss'
+    styleUrl: './app.component.scss',
 })
 export class AppComponent {
-    
-    title = 'Lanklub - Angular 18 Education Template';
+    title = 'Riman-San';
 
-    constructor (
+    constructor(
         private router: Router,
         private viewportScroller: ViewportScroller
     ) {
@@ -24,5 +23,4 @@ export class AppComponent {
             }
         });
     }
-
 }

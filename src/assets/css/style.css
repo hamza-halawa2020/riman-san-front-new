@@ -37,9 +37,19 @@ Version      : 1.0
 * 01.GENERAL STYLE
 * ----------------------------------------------------------------------------------------
 */
+
+@font-face {
+    font-family: 'LyonArabic';
+    src: url('/assets/fonts/LyonArabicTextRegular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 body {
 color:#888;
-font-family: 'Mulish', sans-serif;
+font-family: 'LyonArabic';
+
 font-size: 16px;
 font-weight: 500;
 line-height: 26px;
@@ -57,12 +67,14 @@ h5,
 h6 {
   letter-spacing: 0px;
   margin: 0px;
-  font-family: 'Mulish', sans-serif;
+  font-family: 'LyonArabic';
+
   color: #214F81;
   font-weight: 400;
 }
 a {
-	font-family: 'Mulish', sans-serif;
+	font-family: 'LyonArabic';
+
     text-decoration: none;
     -webkit-transition: all 0.2s;
     -o-transition: all 0.2s;
@@ -94,7 +106,10 @@ fieldset {
 b, strong {
 	font-weight: 600;
 }
-span{font-family: 'Mulish', sans-serif;}
+span{
+	font-family: 'LyonArabic';
+
+}
 .no-padding { padding: 0 }
 
 /*END PRELOADER DESIGN*/
@@ -2276,7 +2291,7 @@ padding:20px;
 	font-size: 14px;
 	margin-top: 8px;
 	display: block;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'LyonArabic';
 }
 .owl-theme{-webkit-transition:0.4s;-o-transition:0.4s;transition:0.4s;}
 .owl-theme .owl-controls{
@@ -2432,7 +2447,9 @@ background:#fff;
 	margin: 15px 0;
 	/* margin: 0 5px; */
 }
-.sth_det u{font-family:'Mulish', sans-serif;}
+.sth_det u{
+	font-family: 'LyonArabic';
+}
 /*END HOME PAGE TEAM DESIGN*/
 
 /*START TEAM PAGE THREE CSS*/
@@ -2565,7 +2582,7 @@ margin-top:60px;
 }
 .sth_det2 u{
 color: #214F81;
-font-family:'Mulish', sans-serif;
+font-family: 'LyonArabic';
 }
 /*END TEAM PAGE THREE CSS*/
 /*START SINGLE TEAM DETAILS*/
@@ -4134,7 +4151,7 @@ border: 2px solid #013C4A!important;
     position: absolute;
     top: 13px;
     left: 13px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'LyonArabic';
 }
 .product-grid .product-discount-label{
     background-color: #333;

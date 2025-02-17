@@ -1,10 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+    font-family: "LyonArabic";
+    src: url("/assets/fonts/LyonArabicTextRegular.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
-    --fontFamily: "COMM";
-    --headingFontFamily: "COMM";
+    --fontFamily: "LyonArabic";
+    --headingFontFamily: "LyonArabic";
     --primaryColor: #c4edff;
-    --secondaryColor: #013C4A;
-    --paragraphColor: #214F81;
+    --secondaryColor: #013c4a;
+    --paragraphColor: #214f81;
     --whiteColor: #ffffff;
     --blackColor: #000000;
     --transition: 0.5s;
@@ -14,7 +22,6 @@ body {
     margin: 0;
     padding: 0;
     color: #013c4a;
-  
 }
 .h1,
 .h2,
@@ -29,7 +36,6 @@ h4,
 h5,
 h6 {
     color: #013c4a;
-
 }
 a {
     transition: var(--transition);
