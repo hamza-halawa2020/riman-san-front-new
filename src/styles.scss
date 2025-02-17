@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-    --fontFamily: "Poppins", sans-serif;
-    --headingFontFamily: "Unbounded", sans-serif;
+    --fontFamily: "COMM";
+    --headingFontFamily: "COMM";
     --primaryColor: #c4edff;
-    --secondaryColor: #586cec;
-    --paragraphColor: #555555;
+    --secondaryColor: #013C4A;
+    --paragraphColor: #214F81;
     --whiteColor: #ffffff;
     --blackColor: #000000;
     --transition: 0.5s;
@@ -14,10 +14,7 @@ body {
     margin: 0;
     padding: 0;
     color: #013c4a;
-    // font: {
-    //     size: var(--fontSize);
-    //     family: var(--fontFamily);
-    // };
+  
 }
 .h1,
 .h2,
@@ -32,10 +29,7 @@ h4,
 h5,
 h6 {
     color: #013c4a;
-    // font: {
-    //     weight: 700;
-    //     family: var(--headingFontFamily);
-    // };
+
 }
 a {
     transition: var(--transition);
@@ -65,7 +59,6 @@ img {
 }
 p {
     color: var(--paragraphColor);
-    // font-size: var(--fontSize);
     margin-bottom: 15px;
     line-height: 1.5;
 
@@ -169,10 +162,7 @@ p {
     color: #013c4a;
     transition: var(--transition);
     background-color: var(--primaryColor);
-    // font: {
-    //     size: var(--fontSize);
-    //     weight: 500;
-    // };
+
     &:hover {
         color: var(--whiteColor);
         background-color: #013c4a;
@@ -187,7 +177,6 @@ p {
         margin-bottom: 40px;
     }
     h2 {
-        // font-size: 48px;
         max-width: 540px;
         line-height: 1.25;
     }
@@ -206,7 +195,6 @@ p {
             max-width: 100%;
         }
         p {
-            // font-size: 16px;
             line-height: 1.8;
             margin-top: 25px;
         }
@@ -326,7 +314,6 @@ p {
     // Default Btn
     .default-btn {
         padding: 13px 25px;
-        // font-size: 15px;
     }
 
     // Section Title
@@ -338,7 +325,6 @@ p {
             margin-bottom: 30px;
         }
         h2 {
-            // font-size: 25px;
             max-width: 100%;
         }
         p {
@@ -353,7 +339,6 @@ p {
             max-width: 100%;
 
             p {
-                // font-size: 15px;
                 line-height: 1.6;
                 margin-top: 15px;
             }
@@ -424,13 +409,11 @@ p {
     // Default Btn
     .default-btn {
         padding: 13px 30px;
-        // font-size: 16px;
     }
 
     // Section Title
     .section-title {
         h2 {
-            // font-size: 36px;
             max-width: 470px;
         }
         p {
@@ -499,12 +482,10 @@ p {
     // Default Btn
     .default-btn {
         padding: 14px 30px;
-        // font-size: 18px;
     }
 
     // Section Title
     .section-title {
-      
         p {
             margin-top: 15px;
         }
