@@ -90,8 +90,9 @@ export class LoginPageComponent {
     login() {
         if (this.loginForm.valid) {
             this.loginService.login(this.loginForm.value).subscribe({
-                next: (res: any) => {
-                    this.loginService.setTokenInCookie(res.token);
+                next: (response: any) => {
+                    const token = response.token; // Adjust based on your API response
+                    this.loginService.setTokenInCookie(token);
                     this.router.navigate(['/']);
                 },
                 error: (err) => {

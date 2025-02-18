@@ -10,8 +10,9 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
 import { CoursesService } from './courses.service';
-import { SafeUrlPipe } from '../../safe-url.pipe';
 import { FormsModule } from '@angular/forms';
+import { TruncateDescriptionPipe } from '../../truncate-description.pipe';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-course-details-page',
@@ -27,7 +28,8 @@ import { FormsModule } from '@angular/forms';
         CommonModule,
         NgIf,
         NgClass,
-        SafeUrlPipe,
+        TruncateDescriptionPipe,
+
         RatingModule,
         FormsModule,
     ],
@@ -42,6 +44,7 @@ export class CourseDetailsPageComponent implements OnInit {
     }
     details: any;
     data: any;
+    videoUrlSafe!: SafeResourceUrl;
 
     id: any;
     image = environment.imgUrl + 'Courses/';
@@ -49,7 +52,8 @@ export class CourseDetailsPageComponent implements OnInit {
     socialImage = environment.imgUrl + 'socials/';
     constructor(
         private activateRoute: ActivatedRoute,
-        private courseService: CoursesService
+        private courseService: CoursesService,
+        private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit(): void {
@@ -66,43 +70,26 @@ export class CourseDetailsPageComponent implements OnInit {
         });
     }
 
-    // getDetails(): void {
-    //     this.activateRoute.params.subscribe((params) => {
-    //         this.id = +params['id'];
-    //         this.courseService.show(this.id).subscribe((data) => {
-    //             this.details = Object.values(data)[0];
-    //             if (this.data.video_url.includes('youtube.com/watch')) {
-    //                 const url = new URL(this.data.video_url);
-    //                 const videoId = url.searchParams.get('v');
-
-    //                 if (videoId) {
-    //                     const siParam = url.searchParams.get('si');
-    //                     this.data.video_url = `https://www.youtube.com/embed/${videoId}`;
-
-    //                     if (siParam) {
-    //                         this.data.video_url += `?si=${siParam}`;
-    //                     }
-    //                 }
-    //             }
-    //         });
-    //     });
-    // }
-
-    getDetails(): void {
+    getDetails() {
         this.activateRoute.params.subscribe((params) => {
             this.id = +params['id'];
             this.courseService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
-                if (this.data && this.data.video_url && this.data.video_url.includes('youtube.com/watch')) {
-                    const url = new URL(this.data.video_url);
-                    const videoId = url.searchParams.get('v');
-    
-                    if (videoId) {
-                        const siParam = url.searchParams.get('si');
-                        this.data.video_url = `https://www.youtube.com/embed/${videoId}`;
-    
-                        if (siParam) {
-                            this.data.video_url += `?si=${siParam}`;
+                if (this.details?.video_url) {
+                    if (this.details.video_url.includes('youtube.com/watch')) {
+                        try {
+                            const url = new URL(this.details.video_url);
+                            const videoId = url.searchParams.get('v');
+
+                            if (videoId) {
+                                let safeUrl = `https://www.youtube.com/embed/${videoId}`;
+                                this.videoUrlSafe =
+                                    this.sanitizer.bypassSecurityTrustResourceUrl(
+                                        safeUrl
+                                    );
+                            }
+                        } catch (error) {
+                            console.error('Invalid URL:', error);
                         }
                     }
                 }

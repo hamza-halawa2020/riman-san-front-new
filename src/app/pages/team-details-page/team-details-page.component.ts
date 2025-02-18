@@ -7,7 +7,8 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { InstructorService } from './instructor.service';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
-import { SafeUrlPipe } from '../../safe-url.pipe';
+import { TruncateDescriptionPipe } from '../../truncate-description.pipe';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-team-details-page',
@@ -21,7 +22,7 @@ import { SafeUrlPipe } from '../../safe-url.pipe';
         NgClass,
         FooterComponent,
         BackToTopComponent,
-        SafeUrlPipe,
+        TruncateDescriptionPipe,
     ],
     templateUrl: './team-details-page.component.html',
     styleUrl: './team-details-page.component.scss',
@@ -30,11 +31,14 @@ export class TeamDetailsPageComponent implements OnInit {
     details: any;
     data: any;
     id: any;
+    videoUrlSafe!: SafeResourceUrl;
+
     image = environment.imgUrl + 'instructors/';
     courseImage = environment.imgUrl + 'Courses/';
     constructor(
         private activateRoute: ActivatedRoute,
-        private instructorService: InstructorService
+        private instructorService: InstructorService,
+        private sanitizer: DomSanitizer
     ) {}
 
     ngOnInit(): void {
@@ -42,9 +46,22 @@ export class TeamDetailsPageComponent implements OnInit {
     }
     // Video Popup
     isOpen = false;
-    openPopup(): void {
+
+    openPopup(videoUrl: string): void {
         this.isOpen = true;
+
+        if (videoUrl && videoUrl.includes('youtube.com/watch')) {
+            const url = new URL(videoUrl);
+            const videoId = url.searchParams.get('v');
+
+            if (videoId) {
+                let safeUrl = `https://www.youtube.com/embed/${videoId}`;
+                this.videoUrlSafe =
+                    this.sanitizer.bypassSecurityTrustResourceUrl(safeUrl);
+            }
+        }
     }
+
     closePopup(): void {
         this.isOpen = false;
     }
@@ -54,10 +71,26 @@ export class TeamDetailsPageComponent implements OnInit {
             this.id = +params['id'];
             this.instructorService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
-               
+
+                if (this.details?.video_url) {
+                    if (this.details.video_url.includes('youtube.com/watch')) {
+                        try {
+                            const url = new URL(this.details.video_url);
+                            const videoId = url.searchParams.get('v');
+
+                            if (videoId) {
+                                let safeUrl = `https://www.youtube.com/embed/${videoId}`;
+                                this.videoUrlSafe =
+                                    this.sanitizer.bypassSecurityTrustResourceUrl(
+                                        safeUrl
+                                    );
+                            }
+                        } catch (error) {
+                            console.error('Invalid URL:', error);
+                        }
+                    }
+                }
             });
         });
     }
-
-    
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { RouterOutlet, Router, Event, NavigationEnd } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-root',
@@ -13,6 +14,7 @@ export class AppComponent {
     title = 'Riman-San';
 
     constructor(
+        private http: HttpClient,
         private router: Router,
         private viewportScroller: ViewportScroller
     ) {

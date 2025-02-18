@@ -101,10 +101,10 @@
             <div class="course-details-content section-bg">
                 <div class="overview">
                     <iframe
-                        *ngIf="details"
-                        width="900"
-                        height="506"
-                        [src]="details.video_url | safeUrl"
+                        *ngIf="videoUrlSafe"
+                        [src]="videoUrlSafe"
+                        width="560"
+                        height="315"
                         frameborder="0"
                         allowfullscreen
                     ></iframe>

@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -9,14 +8,7 @@ import { CartPageComponent } from '../cart-page/cart-page.component';
 @Component({
     selector: 'app-cart-page-wrapper',
     standalone: true,
-    imports: [
-        HttpClientModule,
-        CommonModule,
-        RouterLink,
-        NavbarComponent,
-        CartPageComponent,
-        ClientCartPageComponent,
-    ],
+    imports: [CommonModule, CartPageComponent, ClientCartPageComponent],
     templateUrl: './cart-page-wrapper.component.html',
 })
 export class CartPageWrapperComponent {

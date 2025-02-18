@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
     providedIn: 'root',
@@ -8,8 +9,18 @@ import { environment } from '../../../environments/environment.development';
 export class CartService {
     private apiUrl = environment.backEndUrl;
     private data = '/carts';
-    constructor(private http: HttpClient) {}
+
+    constructor(
+        private http: HttpClient,
+        private cookieService: CookieService
+    ) {}
+
     index() {
-        return this.http.get(`${this.apiUrl}${this.data}`);
+        const token = this.cookieService.get('token');
+        const headers = new HttpHeaders({
+            Authorization: `Bearer ${token}`,
+        });
+
+        return this.http.get(`${this.apiUrl}${this.data}`, { headers });
     }
 }

@@ -1,17 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PageBannerComponent } from './page-banner/page-banner.component';
-import { AboutComponent } from '../../common/about/about.component';
-import { TeamComponent } from '../../common/team/team.component';
-import { ContactComponent } from '../../common/contact/contact.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
+import { ProfileService } from './profile.service';
+import { CommonModule } from '@angular/common';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
     selector: 'app-profile-page',
     standalone: true,
-    imports: [NavbarComponent, PageBannerComponent, AboutComponent, TeamComponent, ContactComponent, FooterComponent, BackToTopComponent],
+    imports: [
+        NavbarComponent,
+        PageBannerComponent,
+        FooterComponent,
+        BackToTopComponent,
+        CommonModule,
+    ],
     templateUrl: './profile-page.component.html',
-    styleUrl: './profile-page.component.scss'
+    styleUrl: './profile-page.component.scss',
 })
-export class ProfilePageComponent {}
+export class ProfilePageComponent implements OnInit {
+    image = environment.imgUrl + 'users/';
+    data: any;
+    constructor(private profileService: ProfileService) {}
+
+    ngOnInit(): void {
+        this.fetchdata();
+    }
+
+    fetchdata() {
+        this.profileService.index().subscribe({
+            next: (response) => {
+                this.data = Object.values(response)[0];
+            },
+        });
+    }
+}

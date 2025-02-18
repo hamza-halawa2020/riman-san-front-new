@@ -13,7 +13,6 @@ export const tokenInterceptor: HttpInterceptorFn = (
     next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
     const cookieService = inject(CookieService);
-
     const token = cookieService.get('token');
 
     if (token) {

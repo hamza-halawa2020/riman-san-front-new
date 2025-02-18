@@ -26,6 +26,7 @@ import { FavouritePageComponent } from './pages/favourite-page/favourite-page.co
 import { ForgetpasswordPageComponent } from './pages/forgetpassword-page/forgetpassword-page.component';
 import { CartPageWrapperComponent } from './pages/cart-page-wrapper/cart-page-wrapper.component';
 import { CartResolver } from './pages/cart-page-wrapper/cart.resolver';
+import { CartPageComponent } from './pages/cart-page/cart-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },

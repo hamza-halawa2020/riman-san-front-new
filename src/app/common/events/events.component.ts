@@ -3,7 +3,6 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
-import { SafeUrlPipe } from '../../safe-url.pipe';
 import { EventsService } from './events.service';
 
 @Component({
@@ -16,7 +15,7 @@ import { EventsService } from './events.service';
         NgIf,
         NgClass,
         HttpClientModule,
-        SafeUrlPipe,
+        
     ],
     templateUrl: './events.component.html',
     styleUrl: './events.component.scss',

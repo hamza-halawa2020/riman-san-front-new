@@ -2,8 +2,80 @@
 
 <app-page-banner />
 
-<div class="pb-120 border-bottom"></div>
+<div class="border-bottom"></div>
 
+<div class="container py-5 text-center">
+    <div class="row mb-4">
+        <div class="col">
+            <h5>ID</h5>
+        </div>
+        <div class="col">
+            <h5>Name</h5>
+        </div>
+        <div class="col">
+            <h5>Slug</h5>
+        </div>
+        <div class="col">
+            <h5>Email</h5>
+        </div>
+        <div class="col">
+            <h5>Phone</h5>
+        </div>
+        <div class="col">
+            <h5>Image</h5>
+        </div>
+        <div class="col">
+            <h5>Email Verified</h5>
+        </div>
+        <div class="col">
+            <h5>Type</h5>
+        </div>
+        <div class="col">
+            <h5>Created At</h5>
+        </div>
+        <div class="col">
+            <h5>Addresses</h5>
+        </div>
+    </div>
+
+    <div class="row border-top py-3">
+        <div class="col">
+            <p>{{ data.id }}</p>
+        </div>
+        <div class="col">
+            <p>{{ data.name }}</p>
+        </div>
+        <div class="col">
+            <p>{{ data.slug }}</p>
+        </div>
+        <div class="col">
+            <p>{{ data.email }}</p>
+        </div>
+        <div class="col">
+            <p>{{ data.phone }}</p>
+        </div>
+        <div class="col">
+            <img
+                src="{{ image + data.image }}"
+                alt="User Image"
+                class="img-fluid rounded"
+            />
+        </div>
+        <div class="col">
+            <p>{{ data.email_verified_at | date }}</p>
+        </div>
+
+        <div class="col">
+            <p>{{ data.type }}</p>
+        </div>
+        <div class="col">
+            <p>{{ data.created_at | date }}</p>
+        </div>
+        <div class="col">
+            <p>{{ data.addresses }}</p>
+        </div>
+    </div>
+</div>
 
 <app-footer />
 

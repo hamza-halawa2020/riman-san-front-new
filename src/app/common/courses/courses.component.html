@@ -5,13 +5,13 @@
             <div class="section-title">
                 <h2>Our Courses</h2>
                 <p>
-                    Choose Our <span><u>Top Courses</u></span>
+                    Choose Our <span><u>Courses</u></span>
                 </p>
             </div>
 
-            <a routerLink="/courses" class="default-btn">
+            <!-- <a routerLink="/courses" class="default-btn">
                 Explore All Courses
-            </a>
+            </a> -->
         </div>
         <div class="row justify-content-center">
             <div
@@ -27,7 +27,7 @@
                         <div class="content">
                             <button
                                 type="button"
-                                (click)="openPopup()"
+                                (click)="openPopup(course.video_url)"
                                 class="video-btn"
                             >
                                 <img
@@ -57,12 +57,13 @@
                                     >
                                         Close
                                     </button>
+
                                     <iframe
-                                        [src]="course.video_url | safeUrl"
-                                        title="Riman San"
+                                        *ngIf="isOpen && videoUrlSafe"
+                                        [src]="videoUrlSafe"
+                                        width="560"
+                                        height="315"
                                         frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin"
                                         allowfullscreen
                                     ></iframe>
                                 </div>
@@ -94,7 +95,7 @@
                                 course.title
                             }}</a>
                         </h3>
-                        <p class="">{{ course.description }}</p>
+                        <p class="">{{ course.description | truncateDescription: 5 }}</p>
                     </div>
                 </div>
             </div>

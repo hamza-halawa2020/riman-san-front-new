@@ -9,7 +9,6 @@ import { BackToTopComponent } from '../../common/back-to-top/back-to-top.compone
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
-import { SafeUrlPipe } from '../../safe-url.pipe';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from './product.service';
 import { LoginService } from '../login-page/login.service';
@@ -29,7 +28,7 @@ declare var bootstrap: any; // لازم لاستدعاء Bootstrap Modal
         CommonModule,
         NgIf,
         NgClass,
-        SafeUrlPipe,
+        
         RatingModule,
         FormsModule,
         CarouselModule,

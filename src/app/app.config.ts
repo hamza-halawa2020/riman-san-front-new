@@ -5,6 +5,7 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './token.interceptor';
+import { CookieService } from 'ngx-cookie-service';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -13,5 +14,6 @@ export const appConfig: ApplicationConfig = {
         provideRouter(routes),
         provideClientHydration(),
         provideAnimationsAsync(),
+        CookieService,
     ],
 };

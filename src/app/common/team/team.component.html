@@ -1,37 +1,54 @@
 <!-- Default -->
-<div class="row text-center">
-    <div
-        class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp"
-        *ngFor="let instructor of data"
-        data-wow-duration="1s"
-        data-wow-delay="0.1s"
-        data-wow-offset="0"
-    >
-        <div class="our-team">
-            <a routerLink="/instructor/{{ instructor.id }}">
-                <div class="team_img">
-                    <img src="assets/riman-san/1.jpg" alt="team-image" />
-                    <ul class="social">
-                        <li>
-                            <a><i class="fa-regular fa-envelope"></i></a>
-                        </li>
-                        <li>
-                            <a><i class="fa-solid fa-phone"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </a>
-            <div class="team-content">
-                <div class="title">
-                    {{ instructor.name }}
-                </div>
-                <div class="post">{{ instructor.job_title }}</div>
-                <div class="sth_det2">
-                    <span class="fa-regular fa-file">
-                        <u> {{ instructor.courses.length }} Courses</u></span
-                    >
+<section class="team_member section-padding">
+    <div class="container">
+        <div class="section-title">
+            <h2>Our Instructor</h2>
+            <p>
+                Our Expert <span><u>Instructors</u></span>
+            </p>
+        </div>
+        <div class="row text-center">
+            <div
+                class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp"
+                *ngFor="let instructor of data"
+                data-wow-duration="1s"
+                data-wow-delay="0.1s"
+                data-wow-offset="0"
+            >
+                <div class="our-team">
+                    <a routerLink="/instructor/{{ instructor.id }}">
+                        <div class="team_img">
+                            <img
+                                src="assets/riman-san/1.jpg"
+                                alt="team-image"
+                            />
+                            <ul class="social">
+                                <li>
+                                    <a
+                                        ><i class="fa-regular fa-envelope"></i
+                                    ></a>
+                                </li>
+                                <li>
+                                    <a><i class="fa-solid fa-phone"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                    <div class="team-content">
+                        <div class="title">
+                            {{ instructor.name }}
+                        </div>
+                        <div class="post">{{ instructor.job_title }}</div>
+                        <div class="sth_det2">
+                            <span class="fa-regular fa-file">
+                                <u>
+                                    {{ instructor.courses.length }} Courses</u
+                                ></span
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>

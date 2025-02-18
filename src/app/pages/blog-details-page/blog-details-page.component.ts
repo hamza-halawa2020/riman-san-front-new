@@ -62,7 +62,6 @@ export class BlogDetailsPageComponent {
         this.postService.allSideBarBanners().subscribe({
             next: (response) => {
                 this.sliderData = Object.values(response)[0];
-                console.log('this.sliderData', this.sliderData);
             },
             error: (error) => {},
         });
