@@ -2,268 +2,342 @@
 
 <app-page-banner />
 
-<!-- Start Checkout -->
-<section class="shop checkout section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-12">
-                <div class="checkout-form">
-                    <div class="row">
-                        <div class="col-12">
-                            <h2 class="checkout-title">Checkout Details</h2>
+<!-- Success Message as a Toast -->
+<div
+    *ngIf="successMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-success">Success</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ successMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
 
-                            <!-- Display Order Items -->
-                            <div
-                                class="checkout-section"
-                                *ngIf="checkoutData?.orderItems"
-                            >
-                                <h4 class="section-title">Order Items:</h4>
-                                <ul class="order-items-list">
-                                    <li
-                                        class="order-item"
-                                        *ngFor="
-                                            let item of checkoutData.orderItems
-                                        "
-                                    >
-                                        <span class="product-id"
-                                            >Product :
-                                            <a
-                                                routerLink="/product/{{
-                                                    item.product_id
-                                                }}"
-                                            >
-                                                <img
-                                                    width="50px"
-                                                    height="50px"
-                                                    [src]="
-                                                        image +
-                                                        getProductDetails(
-                                                            item.product_id
-                                                        ).image
-                                                    "
-                                                    alt="{{
-                                                        getProductDetails(
-                                                            item.product_id
-                                                        ).image
+<!-- Error Message as a Toast -->
+<div
+    *ngIf="errorMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-danger">Error</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ errorMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="checkoutData; else elseBlock">
+    <!-- Start Checkout -->
+    <section class="shop checkout section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12">
+                    <div class="checkout-form">
+                        <div class="row">
+                            <div class="col-12">
+                                <h2 class="checkout-title">Checkout Details</h2>
+
+                                <!-- Display Order Items -->
+                                <div
+                                    class="checkout-section"
+                                    *ngIf="checkoutData?.orderItems"
+                                >
+                                    <h4 class="section-title">Order Items:</h4>
+                                    <ul class="order-items-list">
+                                        <li
+                                            class="order-item"
+                                            *ngFor="
+                                                let item of checkoutData.orderItems
+                                            "
+                                        >
+                                            <span class="product-id"
+                                                >Product :
+                                                <a
+                                                    routerLink="/product/{{
+                                                        item.product_id
                                                     }}"
-                                                    class="product-image rounded"
-                                                />
-                                            </a>
-                                        </span>
-                                        <span class="quantity"
-                                            >Quantity: {{ item.quantity }}</span
+                                                >
+                                                    <img
+                                                        width="50px"
+                                                        height="50px"
+                                                        [src]="
+                                                            image +
+                                                            getProductDetails(
+                                                                item.product_id
+                                                            ).image
+                                                        "
+                                                        alt="{{
+                                                            getProductDetails(
+                                                                item.product_id
+                                                            ).image
+                                                        }}"
+                                                        class="product-image rounded"
+                                                    />
+                                                </a>
+                                            </span>
+                                            <span class="quantity"
+                                                >Quantity:
+                                                {{ item.quantity }}</span
+                                            >
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Display Country -->
+                                <div class="checkout-section">
+                                    <h4 class="section-title">Address:</h4>
+                                    <span class="detail-label">Country :</span>
+
+                                    <div
+                                        class="col country-details order-item"
+                                        *ngIf="checkoutData?.country_id"
+                                    >
+                                        {{ totalPriceData.country }}
+                                    </div>
+
+                                    <span class="detail-label"> City:</span>
+
+                                    <div
+                                        class="col city-details order-item"
+                                        *ngIf="checkoutData?.city_id"
+                                    >
+                                        {{ totalPriceData.city }}
+                                    </div>
+
+                                    <span class="detail-label">Address:</span>
+
+                                    <div
+                                        *ngIf="checkoutData?.address"
+                                        class="col address-details order-item"
+                                    >
+                                        {{ checkoutData.address }}
+                                    </div>
+
+                                    <span class="detail-label">Notes:</span>
+                                    <div
+                                        *ngIf="checkoutData?.notes"
+                                        class="col address-details order-item"
+                                    >
+                                        {{ checkoutData.notes }}
+                                    </div>
+                                </div>
+
+                                <!-- Display Coupon -->
+                                <div
+                                    class="checkout-section"
+                                    *ngIf="checkoutData?.coupon_id"
+                                >
+                                    <h4 class="section-title">Coupon:</h4>
+                                    <p class="coupon-details order-item">
+                                        Coupon: {{ totalPriceData.coupon }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="order-details">
+                        <!-- Order Widget -->
+                        <div class="single-widget">
+                            <h2>CART TOTALS</h2>
+                            <div class="content">
+                                <ul>
+                                    <li>
+                                        Sub Total<span
+                                            *ngIf="totalPriceData?.totalAmount"
+                                            >{{
+                                                totalPriceData.totalAmount
+                                                    | currency
+                                            }}</span
+                                        >
+                                    </li>
+                                    <li>
+                                        (+) Shipping<span
+                                            *ngIf="totalPriceData?.shipmentCost"
+                                            >{{
+                                                totalPriceData.shipmentCost
+                                                    | currency
+                                            }}</span
+                                        >
+                                    </li>
+                                    <li>
+                                        (-) Discount<span
+                                            *ngIf="totalPriceData?.discount"
+                                            >{{
+                                                totalPriceData.discount
+                                                    | currency
+                                            }}</span
+                                        >
+                                    </li>
+                                    <li class="last">
+                                        Total<span
+                                            *ngIf="totalPriceData?.finalPrice"
+                                            >{{
+                                                totalPriceData.finalPrice
+                                                    | currency
+                                            }}</span
                                         >
                                     </li>
                                 </ul>
                             </div>
-
-                            <!-- Display Country -->
-                            <div class="checkout-section">
-                                <h4 class="section-title">Address:</h4>
-                                <span class="detail-label">Country :</span>
-
-                                <div
-                                    class="col country-details order-item"
-                                    *ngIf="checkoutData?.country_id"
-                                >
-                                    {{ totalPriceData.country }}
-                                </div>
-
-                                <span class="detail-label"> City:</span>
-
-                                <div
-                                    class="col city-details order-item"
-                                    *ngIf="checkoutData?.city_id"
-                                >
-                                    {{ totalPriceData.city }}
-                                </div>
-
-                                <span class="detail-label">Address:</span>
-
-                                <div
-                                    *ngIf="checkoutData?.address"
-                                    class="col address-details order-item"
-                                >
-                                    {{ checkoutData.address }}
-                                </div>
-
-                                <span class="detail-label">Notes:</span>
-                                <div
-                                    *ngIf="checkoutData?.notes"
-                                    class="col address-details order-item"
-                                >
-                                    {{ checkoutData.notes }}
-                                </div>
-                            </div>
-
-                            <!-- Display Coupon -->
-                            <div
-                                class="checkout-section"
-                                *ngIf="checkoutData?.coupon_id"
-                            >
-                                <h4 class="section-title">Coupon:</h4>
-                                <p class="coupon-details order-item">
-                                    Coupon: {{ totalPriceData.coupon }}
-                                </p>
-                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-12">
-                <div class="order-details">
-                    <!-- Order Widget -->
-                    <div class="single-widget">
-                        <h2>CART TOTALS</h2>
-                        <div class="content">
-                            <ul>
-                                <li>
-                                    Sub Total<span
-                                        *ngIf="totalPriceData?.totalAmount"
-                                        >{{
-                                            totalPriceData.totalAmount
-                                                | currency
-                                        }}</span
-                                    >
-                                </li>
-                                <li>
-                                    (+) Shipping<span
-                                        *ngIf="totalPriceData?.shipmentCost"
-                                        >{{
-                                            totalPriceData.shipmentCost
-                                                | currency
-                                        }}</span
-                                    >
-                                </li>
-                                <li>
-                                    (-) Discount<span
-                                        *ngIf="totalPriceData?.discount"
-                                        >{{
-                                            totalPriceData.discount | currency
-                                        }}</span
-                                    >
-                                </li>
-                                <li class="last">
-                                    Total<span
-                                        *ngIf="totalPriceData?.finalPrice"
-                                        >{{
-                                            totalPriceData.finalPrice | currency
-                                        }}</span
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!--/ End Order Widget -->
-                    <!-- Order Widget -->
-                    <div class="single-widget">
-                        <h2>Payments</h2>
-                        <div class="content">
-                            <div class="container mt-2">
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input"
-                                        type="radio"
-                                        name="flexRadioDefault"
-                                        id="flexRadioDefault1"
-                                    />
-                                    <label
-                                        class="form-check-label"
-                                        for="flexRadioDefault1"
-                                    >
-                                        Cash On Delivery
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input"
-                                        type="radio"
-                                        name="flexRadioDefault"
-                                        id="flexRadioDefault2"
-                                        checked
-                                    />
-                                    <label
-                                        class="form-check-label"
-                                        for="flexRadioDefault2"
-                                    >
-                                        Visa / Master Card
-                                    </label>
+                        <!--/ End Order Widget -->
+                        <!-- Order Widget -->
+                        <div class="single-widget">
+                            <h2>Payments</h2>
+                            <div class="content">
+                                <div class="container mt-2">
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="payment_method"
+                                            id="cashOnDelivery"
+                                            (change)="
+                                                updatePaymentMethod(
+                                                    'cash_on_delivery'
+                                                )
+                                            "
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="cashOnDelivery"
+                                        >
+                                            Cash On Delivery
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input"
+                                            type="radio"
+                                            name="payment_method"
+                                            id="visaMaster"
+                                            (change)="
+                                                updatePaymentMethod('visa')
+                                            "
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="visaMaster"
+                                        >
+                                            Visa / Master Card
+                                        </label>
+                                        <!-- <div class="form-check">Payment Wallet (soming Soon)</div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--/ End Order Widget -->
-                    <!-- Payment Method Widget -->
-                    <div class="single-widget payement">
-                        <div class="content">
-                            <img
-                                src="/assets/riman-san/5.png"
-                                class="img-fluid"
-                                alt="#"
-                            />
-                        </div>
-                    </div>
-                    <!--/ End Payment Method Widget -->
-                    <!-- Button Widget -->
-                    <div class="single-widget get-button">
-                        <div class="content">
-                            <div class="button">
-                                <a href="#" class="btn">proceed to checkout</a>
+                        <!--/ End Order Widget -->
+                        <!-- Payment Method Widget -->
+                        <div class="single-widget payement">
+                            <div class="content">
+                                <img
+                                    src="/assets/riman-san/5.png"
+                                    class="img-fluid"
+                                    alt="#"
+                                />
                             </div>
                         </div>
+                        <!--/ End Payment Method Widget -->
+                        <!-- Button Widget -->
+                        <div class="single-widget get-button">
+                            <div class="content">
+                                <button
+                                    (click)="proceedToCheckout()"
+                                    class="btn"
+                                >
+                                    Proceed to Checkout
+                                </button>
+                            </div>
+                        </div>
+                        <!--/ End Button Widget -->
                     </div>
-                    <!--/ End Button Widget -->
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!--/ End Checkout -->
+    </section>
+    <!--/ End Checkout -->
 
-<!-- Start Shop Services Area  -->
-<section class="shop-services section" style="margin-bottom: 60px">
-    <div class="container">
+    <!-- Start Shop Services Area  -->
+    <section class="shop-services section" style="margin-bottom: 60px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="fa-solid fa-rocket"></i>
+                        <h4>Free shiping</h4>
+                        <p>Orders over $100</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <h4>Free Return</h4>
+                        <p>Within 30 days returns</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="fa-solid fa-lock"></i>
+                        <h4>Sucure Payment</h4>
+                        <p>100% secure payment</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="fa-solid fa-tags"></i>
+                        <h4>Best Peice</h4>
+                        <p>Guaranteed price</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Shop Newsletter -->
+</div>
+
+<ng-template #elseBlock>
+    <div class="container text-center">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="fa-solid fa-rocket"></i>
-                    <h4>Free shiping</h4>
-                    <p>Orders over $100</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="fa-solid fa-arrows-rotate"></i>
-                    <h4>Free Return</h4>
-                    <p>Within 30 days returns</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="fa-solid fa-lock"></i>
-                    <h4>Sucure Payment</h4>
-                    <p>100% secure payment</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="fa-solid fa-tags"></i>
-                    <h4>Best Peice</h4>
-                    <p>Guaranteed price</p>
-                </div>
-                <!-- End Single Service -->
+            <div class="empty-cart my-5">
+                <h3>No checkout data available.</h3>
+                <a routerLink="/products" class="btn_one mt-3"
+                    >Continue Shopping</a
+                >
             </div>
         </div>
     </div>
-</section>
-<!-- End Shop Newsletter -->
+</ng-template>
 
 <app-footer />
 

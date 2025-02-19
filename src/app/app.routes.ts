@@ -27,6 +27,7 @@ import { ForgetpasswordPageComponent } from './pages/forgetpassword-page/forgetp
 import { CartPageWrapperComponent } from './pages/cart-page-wrapper/cart-page-wrapper.component';
 import { CartResolver } from './pages/cart-page-wrapper/cart.resolver';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { PaymentStatusPageComponent } from './pages/payment-status-page/payment-status-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -44,6 +45,7 @@ export const routes: Routes = [
     { path: 'checkout', component: CheckoutPageComponent },
     { path: 'faqs', component: FaqsPageComponent },
     { path: 'forget-password', component: ForgetpasswordPageComponent },
+    { path: 'payment-status', component: PaymentStatusPageComponent },
     {
         path: 'wishlist',
         component: FavouritePageComponent,

@@ -1,14 +1,40 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CheckoutService {
     private apiUrl = environment.backEndUrl;
-    constructor(private http: HttpClient) {}
+    constructor(
+        private http: HttpClient,
+        private cookieService: CookieService
+    ) {}
+
+    private getHeaders() {
+        const token = this.cookieService.get('token');
+        return new HttpHeaders({
+            Authorization: `Bearer ${token}`,
+        });
+    }
     allProducts() {
         return this.http.get(`${this.apiUrl}/products`);
+    }
+    clearCart() {
+        return this.http.delete(`${this.apiUrl}/cart_clear`, {
+            headers: this.getHeaders(),
+        });
+    }
+
+    storeOrder(item: any) {
+        return this.http.post(`${this.apiUrl}/orders`, item, {
+            headers: this.getHeaders(),
+        });
+    }
+
+    getPaymentLink(orderID: any) {
+        return this.http.post(`${this.apiUrl}/payment/credit`, orderID);
     }
 }
