@@ -4234,15 +4234,7 @@ border: 2px solid #013C4A!important;
 .pd_title:hover {
 	color: #000;
 }
-.pd_price_dtls {
-	margin-bottom: 38px;
-}
-.pd_price{
-	float:left;
-}
-.pd_ratng{
-	float:right;
-}
+
 .pd_price .new {
 	color: #303030;
 	font-size: 18px;

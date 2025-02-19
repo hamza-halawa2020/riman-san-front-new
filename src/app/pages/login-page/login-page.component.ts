@@ -99,13 +99,13 @@ export class LoginPageComponent {
                     this.errorMessage =
                         'Login failed. Please try again. ' +
                         this.extractErrorMessage(err);
-                    setTimeout(() => (this.errorMessage = ''), 10000);
+                    setTimeout(() => (this.errorMessage = ''), 1000);
                 },
             });
         } else {
             this.errorMessage =
                 'Form is invalid. Please fill all the required fields.';
-            setTimeout(() => (this.errorMessage = ''), 10000);
+            setTimeout(() => (this.errorMessage = ''), 1000);
         }
     }
 }

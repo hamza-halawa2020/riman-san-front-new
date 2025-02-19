@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { ProductService } from './product.service';
 import { LoginService } from '../login-page/login.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
-declare var bootstrap: any; // لازم لاستدعاء Bootstrap Modal
+import { CartService } from '../cart-page/cart.service';
+declare var bootstrap: any;
 @Component({
     selector: 'app-product-details-page',
     standalone: true,
@@ -28,7 +29,6 @@ declare var bootstrap: any; // لازم لاستدعاء Bootstrap Modal
         CommonModule,
         NgIf,
         NgClass,
-        
         RatingModule,
         FormsModule,
         CarouselModule,
@@ -46,7 +46,8 @@ export class ProductDetailsPageComponent implements OnInit {
     details: any;
     data: any;
     isLoggedIn: boolean = false;
-
+    successMessage: string = '';
+    errorMessage: string = '';
     id: any;
     image = environment.imgUrl + 'products/';
     instructorImage = environment.imgUrl + 'instructors/';
@@ -56,6 +57,7 @@ export class ProductDetailsPageComponent implements OnInit {
     constructor(
         private activateRoute: ActivatedRoute,
         private productService: ProductService,
+        private cartService: CartService,
         private loginService: LoginService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
@@ -65,11 +67,28 @@ export class ProductDetailsPageComponent implements OnInit {
         this.getDetails();
     }
 
-    // openModal(img: string) {
-    //     this.selectedImage = img;
-    //     let modal = new bootstrap.Modal(document.getElementById('imageModal'));
-    //     modal.show();
-    // }
+    addToCart(product_id: any) {
+        const payload = {
+            product_id: product_id,
+        };
+
+        this.cartService.addToCart(payload).subscribe({
+            next: (response) => {
+                this.successMessage = 'Product added to cart successfully!';
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 1000);
+                this.cartService.notifyCartUpdate();
+            },
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 1000);
+            },
+        });
+    }
 
     openModal(imageUrl: string, index: number) {
         this.selectedImage = imageUrl;

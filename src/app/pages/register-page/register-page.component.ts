@@ -105,7 +105,7 @@ export class RegisterPageComponent {
         if (this.registerForm.invalid) {
             this.errorMessage =
                 'Please fill out all required fields correctly.';
-            setTimeout(() => (this.errorMessage = ''), 10000);
+            setTimeout(() => (this.errorMessage = ''), 1000);
 
             return;
         }
@@ -126,7 +126,7 @@ export class RegisterPageComponent {
         this.registerService.register(formData).subscribe({
             next: (response: any) => {
                 this.successMessage = 'Registered successfully!';
-                setTimeout(() => (this.successMessage = ''), 10000);
+                setTimeout(() => (this.successMessage = ''), 1000);
                 this.registerForm.reset();
                 this.router.navigate(['/login']);
             },
@@ -134,7 +134,7 @@ export class RegisterPageComponent {
                 this.errorMessage =
                     'An error occurred . Please try again. ' +
                     this.extractErrorMessage(err);
-                setTimeout(() => (this.errorMessage = ''), 10000);
+                setTimeout(() => (this.errorMessage = ''), 1000);
             },
         });
     }

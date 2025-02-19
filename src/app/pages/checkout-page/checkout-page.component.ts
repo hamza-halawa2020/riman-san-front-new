@@ -33,11 +33,37 @@ import { CheckoutService } from './checkout.service';
 export class CheckoutPageComponent implements OnInit {
     data: any;
     image = environment.imgUrl + 'checkouts/';
+    checkoutData: any;
+    totalPriceData: any;
 
-    constructor(public router: Router, private checkoutService: CheckoutService) {}
+    constructor(
+        public router: Router,
+        private checkoutService: CheckoutService
+    ) {}
 
     ngOnInit(): void {
-        this.fetchdata();
+
+        const storedData = localStorage.getItem('checkoutData');
+        if (storedData) {
+            try {
+                this.checkoutData = JSON.parse(storedData);
+            } catch (error) {
+                console.error('Error parsing checkoutData:', error);
+            }
+        } else {
+            console.error('No checkoutData found in localStorage.');
+        }
+
+        const storedData2 = localStorage.getItem('totalPriceData');
+        if (storedData2) {
+            try {
+                this.totalPriceData = JSON.parse(storedData2);
+            } catch (error) {
+                console.error('Error parsing totalPriceData:', error);
+            }
+        } else {
+            console.error('No totalPriceData found in localStorage.');
+        }
     }
 
     fetchdata() {

@@ -9,8 +9,8 @@ import { FeedbackComponent } from '../../common/feedback/feedback.component';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { environment } from '../../../environments/environment.development';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
-import { formatDistanceToNow } from 'date-fns';
 import { ProductService } from './product.service';
+import { CartService } from '../cart-page/cart.service';
 
 @Component({
     selector: 'app-product-page',
@@ -35,10 +35,13 @@ export class ProductPageComponent implements OnInit {
     data: any;
     image = environment.imgUrl + 'products/';
     isLoggedIn: boolean = false;
+    successMessage: string = '';
+    errorMessage: string = '';
 
     constructor(
         public router: Router,
         private productService: ProductService,
+        private cartService: CartService,
         private loginService: LoginService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
@@ -46,6 +49,29 @@ export class ProductPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.fetchdata();
+    }
+
+    addToCart(product_id: any) {
+        const payload = {
+            product_id: product_id,
+        };
+
+        this.cartService.addToCart(payload).subscribe({
+            next: (response) => {
+                this.successMessage = 'Product added to cart successfully!';
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 1000);
+                this.cartService.notifyCartUpdate();
+            },
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 1000);
+            },
+        });
     }
 
     fetchdata() {

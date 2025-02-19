@@ -62,7 +62,12 @@
         <div class="row">
             <div class="col-lg-2 col-md-3 col-sm-4">
                 <div class="navbar-brand">
-                    <a routerLink="/"><img src="assets/logo.svg" alt="" /></a>
+                    <a routerLink="/"
+                        ><img
+                            src="/assets/riman-san/logo.svg"
+                            alt=""
+                            style="max-width: 40%; border-radius: 50%"
+                    /></a>
                 </div>
             </div>
             <!--- END Col -->
@@ -104,15 +109,6 @@
                                 <a class="nav-link" routerLink="/products"
                                     >Shop <span class="ti-angle-down"></span
                                 ></a>
-                                <ul>
-                                    <li>
-                                        <a
-                                            class="nav-link"
-                                            routerLink="/checkout"
-                                            >Checkout page</a
-                                        >
-                                    </li>
-                                </ul>
                             </li>
                             <li>
                                 <a class="nav-link" routerLink="/posts"
@@ -136,7 +132,9 @@
                 <div class="home_lc">
                     <a *ngIf="isLoggedIn" routerLink="/cart" class="hlc">
                         <i class="fa-solid fa-cart-plus"></i>
-                        <span class="gactive">2</span>
+                        <span class="gactive">{{
+                            data ? data.length : 0
+                        }}</span>
                     </a>
                     <a *ngIf="!isLoggedIn" routerLink="/cart" class="hlc">
                         <i class="fa-solid fa-cart-plus"></i>
@@ -158,9 +156,10 @@
                         routerLink="/register"
                         >sign up</a
                     >
-                    <a *ngIf="isLoggedIn" class="btn_one" routerLink="/profile"
-                        >profile</a
+                    <a *ngIf="isLoggedIn" class="btn_one" routerLink="/profile">
+                        profile</a
                     >
+
                     <a
                         *ngIf="isLoggedIn"
                         class="btn_two"

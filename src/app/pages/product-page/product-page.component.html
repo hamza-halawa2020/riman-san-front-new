@@ -16,6 +16,50 @@
             </div>
         </div>
 
+        <!-- Success Message as a Toast -->
+        <div
+            *ngIf="successMessage"
+            class="toast-container position-fixed top-0 end-0 p-3"
+        >
+            <div
+                class="toast show"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+            >
+                <div class="toast-header">
+                    <strong class="me-auto text-success">Success</strong>
+                </div>
+                <div class="toast-body">
+                    <h6>
+                        {{ successMessage }}
+                    </h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Message as a Toast -->
+        <div
+            *ngIf="errorMessage"
+            class="toast-container position-fixed top-0 end-0 p-3"
+        >
+            <div
+                class="toast show"
+                role="alert"
+                aria-live="assertive"
+                aria-atomic="true"
+            >
+                <div class="toast-header">
+                    <strong class="me-auto text-danger">Error</strong>
+                </div>
+                <div class="toast-body">
+                    <h6>
+                        {{ errorMessage }}
+                    </h6>
+                </div>
+            </div>
+        </div>
+
         <div class="text-center">
             <div class="">
                 <div class="row">
@@ -45,7 +89,11 @@
                                         ></a>
                                     </li>
                                     <li>
-                                        <a routerLink="" data-tip="Add to Cart">
+                                        <a
+                                            style="cursor: pointer"
+                                            (click)="addToCart(product.id)"
+                                            data-tip="Add to Cart"
+                                        >
                                             <i class="fa-solid fa-cart-plus"></i
                                         ></a>
                                     </li>
@@ -58,12 +106,12 @@
                                 </span>
                             </div>
                             <!-- <ul class="rating">
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                            </ul> -->
+                                    <li class="fa fa-star"></li>
+                                    <li class="fa fa-star"></li>
+                                    <li class="fa fa-star"></li>
+                                    <li class="fa fa-star"></li>
+                                    <li class="fa fa-star"></li>
+                                </ul> -->
                             <div class="product-content">
                                 <h3 class="title">
                                     <a routerLink="/product/{{ product.id }}">
@@ -79,7 +127,10 @@
                                         EGP</span
                                     >
                                 </div>
-                                <a class="add-to-cart" routerLink=""
+                                <a
+                                    class="add-to-cart"
+                                    style="cursor: pointer"
+                                    (click)="addToCart(product.id)"
                                     >+ Add To Cart</a
                                 >
                             </div>

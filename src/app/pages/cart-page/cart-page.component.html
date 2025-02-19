@@ -2,191 +2,370 @@
 
 <app-page-banner />
 
-<!-- Shopping Cart -->
-<div class="shopping-cart section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <!-- Shopping Summery -->
-                <table class="table shopping-summery">
-                    <thead>
-                        <tr class="main-hading">
-                            <th>Id</th>
-                            <th>PRODUCT</th>
-                            <th>NAME</th>
-                            <th class="text-center">UNIT PRICE</th>
-                            <th class="text-center">QUANTITY</th>
-                            <th class="text-center">TOTAL</th>
-                            <th class="text-center">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let cart of data">
-                            <td class="">
-                                {{ cart.id }}
-                            </td>
-                            <td class="image">
-                                <a routerLink="/products/{{ cart.product_id }}">
-                                    <img src="assets/riman-san/1.jpg" alt="#"
-                                /></a>
-                            </td>
-                            <td class="">
-                                <a href="#">{{ cart.product_id }}</a>
-                            </td>
-                            <td class="price" data-title="Price">
-                                <span>$110.00 </span>
-                            </td>
-                            <td class="qty" data-title="Qty">
-                                <!-- Input Order -->
-                                <div class="input-group">
-                                    <div class="button minus">
-                                        <button
-                                            type="button"
-                                            class="btn btn-primary btn-number"
-                                            disabled="disabled"
-                                            data-type="minus"
-                                            data-field="quant[1]"
-                                        >
-                                            <i class="fa-solid fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input
-                                        type="text"
-                                        name="quant[1]"
-                                        class="input-number"
-                                        data-min="1"
-                                        data-max="100"
-                                        value="1"
-                                    />
-                                    <div class="button plus">
-                                        <button
-                                            type="button"
-                                            class="btn btn-primary btn-number"
-                                            data-type="plus"
-                                            data-field="quant[1]"
-                                        >
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <!--/ End Input Order -->
-                            </td>
-                            <td class="total-amount" data-title="Total">
-                                <span>$220.88</span>
-                            </td>
-                            <td class="action" data-title="Remove">
-                                <a href="#">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!--/ End Shopping Summery -->
-            </div>
+<!-- Success Message as a Toast -->
+<div
+    *ngIf="successMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-success">Success</strong>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <!-- Total Amount -->
-                <div class="total-amount">
-                    <div class="row">
-                        <div class="col-lg-8 col-md-5 col-12">
-                            <div class="left">
-                                <div class="coupon">
-                                    <form action="#" target="_blank">
-                                        <input
-                                            name="Coupon"
-                                            placeholder="Enter Your Coupon"
-                                        />
-                                        <button class="btn">Apply</button>
-                                    </form>
-                                </div>
-                                <div class="checkbox">
-                                    <label class="checkbox-inline" for="2"
-                                        ><input
-                                            name="news"
-                                            id="2"
-                                            type="checkbox"
-                                        />
-                                        Shipping (+10$)</label
+        <div class="toast-body">
+            <h6>
+                {{ successMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
+<!-- Error Message as a Toast -->
+<div
+    *ngIf="errorMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-danger">Error</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ errorMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center">
+    <div class="row">
+        <div *ngIf="!data || data.length === 0" class="empty-cart my-5">
+            <h3>Your cart is empty 😔</h3>
+            <a routerLink="/products" class="btn_one mt-3">Continue Shopping</a>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="data && data.length > 0">
+    <!-- Shopping Cart -->
+    <div class="shopping-cart section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <table class="table shopping-summery">
+                        <thead>
+                            <tr class="main-hading">
+                                <th>Id</th>
+                                <th>PRODUCT</th>
+                                <th>NAME</th>
+                                <th class="text-center">UNIT PRICE</th>
+                                <th class="text-center">QUANTITY</th>
+                                <th class="text-center">TOTAL</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cart of data">
+                                <td>{{ cart.id }}</td>
+                                <td class="image">
+                                    <a
+                                        routerLink="/products/{{
+                                            cart.product_id
+                                        }}"
                                     >
+                                        <img
+                                            src="assets/riman-san/1.jpg"
+                                            alt="#"
+                                        />
+                                    </a>
+                                </td>
+                                <td>
+                                    <a>{{ cart.product.title }}</a>
+                                </td>
+                                <td class="price" data-title="Price">
+                                    <span>{{
+                                        cart.product.priceAfterDiscount
+                                    }}</span>
+                                </td>
+                                <td class="qty" data-title="Qty">
+                                    <div class="input-group">
+                                        <div class="button minus">
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary btn-number"
+                                                data-type="minus"
+                                                data-field="quant[1]"
+                                                (click)="
+                                                    updateQuantity(
+                                                        cart,
+                                                        cart.quantity - 1
+                                                    )
+                                                "
+                                            >
+                                                <i
+                                                    class="fa-solid fa-minus"
+                                                ></i>
+                                            </button>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            [(ngModel)]="cart.quantity"
+                                            name="quantity"
+                                            class="input-number"
+                                            data-min="1"
+                                            data-max="100"
+                                            (blur)="
+                                                updateQuantity(
+                                                    cart,
+                                                    cart.quantity
+                                                )
+                                            "
+                                            (keypress)="
+                                                preventNonNumeric($event)
+                                            "
+                                        />
+
+                                        <div class="button plus">
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary btn-number"
+                                                data-type="plus"
+                                                data-field="quant[1]"
+                                                (click)="
+                                                    updateQuantity(
+                                                        cart,
+                                                        cart.quantity + 1
+                                                    )
+                                                "
+                                            >
+                                                <i class="fa-solid fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="total-amount" data-title="Total">
+                                    <span>{{ cart.total_price }}</span>
+                                </td>
+                                <td class="action" data-title="Remove">
+                                    <a
+                                        (click)="deleteCartItem(cart.id)"
+                                        style="cursor: pointer"
+                                    >
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <!-- Total Amount -->
+                    <div class="total-amount">
+                        <div class="row">
+                            <div class="col-lg-8 col-md-5 col-12">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="country">
+                                            Choose a country
+                                        </label>
+                                        <select
+                                            id="country"
+                                            class="form-select"
+                                            [(ngModel)]="selectedCountry"
+                                            (change)="onCountryChange()"
+                                            aria-label="Select a country"
+                                        >
+                                            <option
+                                                *ngFor="
+                                                    let country of countries
+                                                "
+                                                [value]="country.id"
+                                            >
+                                                {{ country.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label for="city">
+                                            Choose a city
+                                        </label>
+
+                                        <select
+                                            id="city"
+                                            class="form-select"
+                                            aria-label="Select a city"
+                                            [(ngModel)]="selectedCity"
+                                            (change)="onCityChange()"
+                                        >
+                                            <ng-container
+                                                *ngIf="
+                                                    filteredCities.length > 0;
+                                                    else noCities
+                                                "
+                                            >
+                                                <option
+                                                    *ngFor="
+                                                        let city of filteredCities
+                                                    "
+                                                    [value]="city.id"
+                                                >
+                                                    {{ city.name }}
+                                                </option>
+                                            </ng-container>
+                                            <ng-template #noCities>
+                                                <option disabled>
+                                                    No cities available for
+                                                    shipping
+                                                </option>
+                                            </ng-template>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="address">
+                                            Add Address
+                                        </label>
+                                        <textarea
+                                            name="address"
+                                            placeholder="Add Address"
+                                            class="form-control"
+                                            id="address"
+                                        ></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <label for="code">Add a Coupon</label>
+                                    <div class="col-auto">
+                                        <input
+                                            #couponInput
+                                            name="code"
+                                            placeholder="Enter Your Coupon"
+                                            class="form-control"
+                                            id="code"
+                                        />
+
+                                        <div class="col-auto mt-1">
+                                            <button
+                                                (click)="
+                                                    showCoupon(
+                                                        couponInput.value
+                                                    )
+                                                "
+                                                class="btn rounded"
+                                            >
+                                                Apply
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-7 col-12">
-                            <div class="right">
-                                <ul>
-                                    <li>Cart Subtotal<span>$330.00</span></li>
-                                    <li>Shipping<span>Free</span></li>
-                                    <li>You Save<span>$20.00</span></li>
-                                    <li class="last">
-                                        You Pay<span>$310.00</span>
-                                    </li>
-                                </ul>
-                                <div class="button5">
-                                    <a href="#" class="btn">Checkout</a>
-                                    <a href="#" class="btn"
-                                        >Continue shopping</a
-                                    >
+                            <div class="col-lg-4 col-md-7 col-12">
+                                <div class="right">
+                                    <ul>
+                                        <li>
+                                            Total Price:
+                                            <span> ${{ totalAmount }} </span>
+                                        </li>
+
+                                        <li>
+                                            Shipping<span
+                                                *ngIf="shipmentCost > 0"
+                                                >{{
+                                                    shipmentCost | currency
+                                                }}</span
+                                            >
+                                        </li>
+                                        <li>
+                                            You Save<span>{{
+                                                couponCode?.discount
+                                            }}</span>
+                                        </li>
+                                        <li class="last">
+                                            You Pay<span>{{ finalPrice }}</span>
+                                        </li>
+                                    </ul>
+                                    <div class="button5">
+                                        <a
+                                            (click)="checkout()"
+                                            class="btn"
+                                            >Checkout</a
+                                        >
+                                        <a routerLink="/products" class="btn"
+                                            >Continue shopping</a
+                                        >
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--/ End Total Amount -->
                 </div>
-                <!--/ End Total Amount -->
             </div>
         </div>
     </div>
+
+    <!-- Start Shop Services Area  -->
+    <section class="shop-services section" style="margin-bottom: 60px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="fa-solid fa-rocket"></i>
+                        <h4>Free shiping</h4>
+                        <p>Orders over $100</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="fa-solid fa-arrows-rotate"></i>
+                        <h4>Free Return</h4>
+                        <p>Within 30 days returns</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="fa-solid fa-lock"></i>
+                        <h4>Sucure Payment</h4>
+                        <p>100% secure payment</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="fa-solid fa-tags"></i>
+                        <h4>Best Peice</h4>
+                        <p>Guaranteed price</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-<!--/ End Shopping Cart -->
 
-<!-- Start Shop Services Area  -->
-<section class="shop-services section" style="margin-bottom: 60px">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="fa-solid fa-rocket"></i>
-                    <h4>Free shiping</h4>
-                    <p>Orders over $100</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="fa-solid fa-arrows-rotate"></i>
-                    <h4>Free Return</h4>
-                    <p>Within 30 days returns</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="fa-solid fa-lock"></i>
-                    <h4>Sucure Payment</h4>
-                    <p>100% secure payment</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <!-- Start Single Service -->
-                <div class="single-service">
-                    <i class="fa-solid fa-tags"></i>
-                    <h4>Best Peice</h4>
-                    <p>Guaranteed price</p>
-                </div>
-                <!-- End Single Service -->
-            </div>
-        </div>
-    </div>
-</section>
 <!-- End Shop Newsletter -->
-
 <app-footer />
 
 <app-back-to-top />
+
+
+
