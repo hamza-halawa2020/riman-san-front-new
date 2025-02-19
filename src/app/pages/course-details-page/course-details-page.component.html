@@ -2,6 +2,50 @@
 
 <app-page-banner />
 
+<!-- Success Message as a Toast -->
+<div
+    *ngIf="successMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-success">Success</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ successMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
+<!-- Error Message as a Toast -->
+<div
+    *ngIf="errorMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-danger">Error</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ errorMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
 <section class="our_event section-padding">
     <div class="container">
         <div class="row">
@@ -10,12 +54,12 @@
                     <img
                         alt=""
                         class="img-fluid max-height"
-                        src="{{ image + details.image }}"
+                        src="{{ image + details?.image }}"
                     />
                     <div class="single_event_text_single">
-                        <h4>{{ details.title }}</h4>
+                        <h4>{{ details?.title }}</h4>
                         <p>
-                            {{ details.description }}
+                            {{ details?.description }}
                         </p>
                     </div>
                 </div>
@@ -26,11 +70,11 @@
                     <h4>
                         <i class="fas fa-money-bill"></i> Price
 
-                        <b> {{ details.price }} EGP </b>
+                        <b> {{ details?.price }} EGP </b>
                     </h4>
                 </div>
                 <div class="event_info_price">
-                    <h4 *ngIf="details.certifications == 1; else noCert">
+                    <h4 *ngIf="details?.certifications == 1; else noCert">
                         <i class="fa fa-trophy"></i> Certification
                         <b>Yes</b>
                     </h4>
@@ -41,7 +85,7 @@
                     </ng-template>
                 </div>
                 <div class="event_info_register">
-                    <a class="btn_one" href="#">
+                    <a class="btn_one">
                         <i class="fa fa-graduation-cap"></i> Enroll Now
                     </a>
                 </div>
@@ -53,11 +97,11 @@
                         class="d-flex justify-content-center align-items-center"
                     >
                         <div class="p-2" *ngFor="let social of data">
-                            <a href="{{ social.url }}" target="_blank">
+                            <a href="{{ social?.url }}" target="_blank">
                                 <img
                                     alt=""
                                     class="rounded"
-                                    src="{{ socialImage + social.icon }}"
+                                    src="{{ socialImage + social?.icon }}"
                                     width="30px"
                                     height="30px"
                                 />
@@ -74,7 +118,7 @@
                     >
                         <div class="p-2">
                             <a target="_blank">
-                                {{ details.category }}
+                                {{ details?.category }}
                             </a>
                         </div>
                     </div>
@@ -86,7 +130,7 @@
                     >
                         <div class="p-2">
                             <a target="_blank">
-                                {{ details.tag }}
+                                {{ details?.tag }}
                             </a>
                         </div>
                     </div>
@@ -114,12 +158,16 @@
             <div class="overview text-center">
                 <div class="instructor-item">
                     <div class="">
-                        <a routerLink="/instructor/{{ details.instructor_id }}">
+                        <a
+                            routerLink="/instructor/{{
+                                details?.instructor_id
+                            }}"
+                        >
                             <img
                                 alt=""
                                 class="rounded"
                                 src="{{
-                                    instructorImage + details.instructor_image
+                                    instructorImage + details?.instructor_image
                                 }}"
                                 style="max-width: 450px"
                             />
@@ -127,7 +175,7 @@
                     </div>
                     <div class="instructor-content">
                         <h6 class="title">
-                            {{ details.instructor }}
+                            {{ details?.instructor }}
                         </h6>
                     </div>
                 </div>
@@ -136,11 +184,13 @@
             <div class="course-details-content section-bg">
                 <div class="client-review">
                     <div class="review-comments">
-                        <h6 class="review-title">Reviews (03)</h6>
+                        <h6 class="review-title">
+                            Reviews ({{ details?.courseReviews.length }})
+                        </h6>
                         <ul class="review-contents">
-                            <li *ngFor="let review of details.courseReviews">
+                            <li *ngFor="let review of details?.courseReviews">
                                 <div class="cont">
-                                    <h6 class="subtitle">{{ review.user }}</h6>
+                                    <h6 class="subtitle">{{ review?.user }}</h6>
                                     <div class="ratings cl-theme">
                                         <rating
                                             [(ngModel)]="review.rating"
@@ -152,7 +202,7 @@
                                             "
                                         ></rating>
                                     </div>
-                                    <p>{{ review.review }}</p>
+                                    <p>{{ review?.review }}</p>
                                 </div>
                             </li>
                         </ul>
@@ -169,6 +219,8 @@
                                     <rating
                                         [max]="5"
                                         style="color: #e1b619; font-size: 25px"
+                                        [(ngModel)]="newRate"
+                                        name="newRate"
                                     ></rating>
                                 </div>
                             </div>
@@ -176,12 +228,16 @@
                                 <textarea
                                     rows="5"
                                     placeholder="Type Here Message"
+                                    [(ngModel)]="newReview"
+                                    name="newReview"
+
                                 ></textarea>
                             </div>
                             <div class="col-12 pb-4">
                                 <button
-                                    type="submit"
+                                    type="button"
                                     class="custom-button rounded"
+                                    (click)="addReview(newReview, newRate)"
                                 >
                                     Submit Review
                                 </button>

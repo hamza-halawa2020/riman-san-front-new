@@ -1,0 +1,19 @@
+.navbar-brand {
+    min-width: 80px;
+    border-radius: 50%;
+}
+.navbar-brand .logo {
+    border-radius: 50%;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.home_lc {
+    gap: 5px;
+
+}

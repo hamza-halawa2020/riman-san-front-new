@@ -16,4 +16,7 @@ export class CoursesService {
     allSocial() {
         return this.http.get(`${this.apiUrl}/social-links`);
     }
+    addReview(item: any) {
+        return this.http.post(`${this.apiUrl}/course-reviews`, item);
+    }
 }

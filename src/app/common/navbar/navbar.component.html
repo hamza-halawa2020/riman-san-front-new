@@ -57,123 +57,89 @@
 <!-- END LOGO WITH CONTACT -->
 
 <!-- START NAVBAR -->
-<div id="navigation" class="navbar-light bg-faded site-navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-2 col-md-3 col-sm-4">
-                <div class="navbar-brand">
-                    <a routerLink="/"
-                        ><img
-                            src="/assets/riman-san/logo.svg"
-                            alt=""
-                            style="max-width: 40%; border-radius: 50%"
-                    /></a>
-                </div>
-            </div>
-            <!--- END Col -->
+<nav
+    class="navbar navbar-expand-lg navbar-light bg-light site-navigation d-flex align-items-center"
+>
+    <div class="container d-flex align-items-center justify-content-between">
+        <a class="navbar-brand d-flex align-items-center" routerLink="/">
+            <img src="/assets/riman-san/logo.svg" alt="Logo" class="logo" />
+        </a>
 
-            <div class="col-lg-6 col-md-9 col-sm-8">
-                <div class="header_right">
-                    <nav id="main-menu" class="ms-auto">
-                        <ul>
-                            <li>
-                                <a class="nav-link" routerLink="/"
-                                    >Home <span class="ti-angle-down"></span
-                                ></a>
-                            </li>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                            <li>
-                                <a class="nav-link" routerLink="/about"
-                                    >About Us</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" routerLink="/instructors"
-                                    >Instructor</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" routerLink="/faqs">FAQ's</a>
-                            </li>
-                            <li>
-                                <a class="nav-link" routerLink="/events"
-                                    >Event</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" routerLink="/courses"
-                                    >Courses <span class="ti-angle-down"></span
-                                ></a>
-                            </li>
-                            <li>
-                                <a class="nav-link" routerLink="/products"
-                                    >Shop <span class="ti-angle-down"></span
-                                ></a>
-                            </li>
-                            <li>
-                                <a class="nav-link" routerLink="/posts"
-                                    >Blog <span class="ti-angle-down"></span
-                                ></a>
-                            </li>
-                            <li>
-                                <a class="nav-link" routerLink="/contacts"
-                                    >Contact</a
-                                >
-                            </li>
-                        </ul>
-                    </nav>
-                    <div id="mobile_menu"></div>
-                </div>
-            </div>
-
-            <!--- END Col -->
-
-            <div class="col-lg-4 col-md-3 col-sm-8">
-                <div class="home_lc">
-                    <a *ngIf="isLoggedIn" routerLink="/cart" class="hlc">
-                        <i class="fa-solid fa-cart-plus"></i>
-                        <span class="gactive">{{
-                            data ? data.length : 0
-                        }}</span>
-                    </a>
-                    <a *ngIf="!isLoggedIn" routerLink="/cart" class="hlc">
-                        <i class="fa-solid fa-cart-plus"></i>
-                        <span class="gactive">5</span>
-                    </a>
-                    <a *ngIf="isLoggedIn" routerLink="/wishlist" class="hlc">
-                        <i class="fa-regular fa-heart"></i>
-                        <span class="gactive">0</span>
-                    </a>
-                </div>
-
-                <div class="call_to_action">
-                    <a *ngIf="!isLoggedIn" class="btn_one" routerLink="/login"
-                        >login</a
-                    >
-                    <a
-                        *ngIf="!isLoggedIn"
-                        class="btn_two"
-                        routerLink="/register"
-                        >sign up</a
-                    >
-                    <a *ngIf="isLoggedIn" class="btn_one" routerLink="/profile">
-                        profile</a
-                    >
-
-                    <a
-                        *ngIf="isLoggedIn"
-                        class="btn_two"
-                        style="cursor: pointer"
-                        (click)="logout()"
-                        >Logout</a
-                    >
-                </div>
-                <!--- END SOCIAL PROFILE -->
-            </div>
-            <!--- END Col -->
+        <div
+            class="collapse navbar-collapse justify-content-center"
+            id="navbarSupportedContent"
+        >
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/instructors">Instructor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/faqs">FAQ's</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/events">Event</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/courses">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/products">Shop</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/posts">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/contacts">Contact</a>
+                </li>
+            </ul>
         </div>
-        <!--- END ROW -->
+
+        <div class="d-flex align-items-center home_lc">
+            <a *ngIf="isLoggedIn" routerLink="/cart" class="hlc">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span class="gactive">{{ data ? data.length : 0 }}</span>
+            </a>
+            <a *ngIf="!isLoggedIn" routerLink="/cart" class="hlc">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span class="gactive">5</span>
+            </a>
+            <a *ngIf="isLoggedIn" routerLink="/wishlist" class="hlc">
+                <i class="fa-regular fa-heart"></i>
+                <span class="gactive">0</span>
+            </a>
+
+            <a *ngIf="!isLoggedIn" class="btn_one" routerLink="/login">Login</a>
+            <a *ngIf="!isLoggedIn" class="btn_two" routerLink="/register"
+                >Sign Up</a
+            >
+            <a *ngIf="isLoggedIn" class="btn_one" routerLink="/profile"
+                >Profile</a
+            >
+            <a
+                *ngIf="isLoggedIn"
+                class="btn_two"
+                style="cursor: pointer"
+                (click)="logout()"
+                >Logout</a
+            >
+        </div>
     </div>
-    <!--- END CONTAINER -->
-</div>
-<!-- END NAVBAR -->
+</nav>

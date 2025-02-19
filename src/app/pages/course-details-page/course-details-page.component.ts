@@ -29,7 +29,6 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
         NgIf,
         NgClass,
         TruncateDescriptionPipe,
-
         RatingModule,
         FormsModule,
     ],
@@ -45,8 +44,12 @@ export class CourseDetailsPageComponent implements OnInit {
     details: any;
     data: any;
     videoUrlSafe!: SafeResourceUrl;
-
+    successMessage: string = '';
+    errorMessage: string = '';
     id: any;
+    newReview: string = '';
+    newRate: number = 0;
+
     image = environment.imgUrl + 'Courses/';
     instructorImage = environment.imgUrl + 'instructors/';
     socialImage = environment.imgUrl + 'socials/';
@@ -94,6 +97,38 @@ export class CourseDetailsPageComponent implements OnInit {
                     }
                 }
             });
+        });
+    }
+
+    addReview(reviewText: string, rating: number) {
+        if (!reviewText || reviewText.trim() === '') {
+            this.errorMessage = 'Review cannot be empty!';
+            setTimeout(() => (this.errorMessage = ''), 1000);
+            return;
+        }
+
+        const reviewData = {
+            course_id: this.id,
+            review: reviewText,
+            rating: rating || 0,
+        };
+
+        this.courseService.addReview(reviewData).subscribe({
+            next: (response) => {
+                this.getDetails();
+                this.details.courseReviews.unshift(response);
+                this.successMessage =
+                    'Review added successfully but it is under review!';
+                setTimeout(() => (this.successMessage = ''), 3000);
+
+                this.newReview = '';
+                this.newRate = 0;
+            },
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => (this.errorMessage = ''), 1000);
+            },
         });
     }
 }

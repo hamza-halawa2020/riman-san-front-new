@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment.development';
 import { PostsService } from './posts.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-blog-details-page',
@@ -24,6 +25,7 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
         NgClass,
         BackToTopComponent,
         HttpClientModule,
+        FormsModule,
     ],
     templateUrl: './blog-details-page.component.html',
     styleUrl: './blog-details-page.component.scss',
@@ -32,13 +34,15 @@ export class BlogDetailsPageComponent {
     details: any;
     sliderData: any;
     randomData: any;
-
+    newComment: any;
     data: any;
     id: any;
     image = environment.imgUrl + 'posts/';
     userImage = environment.imgUrl + 'users/';
     socialImage = environment.imgUrl + 'socials/';
     sliderImage = environment.imgUrl + 'side-bar/';
+    successMessage: string = '';
+    errorMessage: string = '';
     constructor(
         private activateRoute: ActivatedRoute,
         private postService: PostsService
@@ -55,7 +59,13 @@ export class BlogDetailsPageComponent {
             next: (response) => {
                 this.data = Object.values(response)[0];
             },
-            error: (error) => {},
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 1000);
+            },
         });
     }
     fetchSiderBarData() {
@@ -63,7 +73,13 @@ export class BlogDetailsPageComponent {
             next: (response) => {
                 this.sliderData = Object.values(response)[0];
             },
-            error: (error) => {},
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 1000);
+            },
         });
     }
     fetchRandomData() {
@@ -71,7 +87,13 @@ export class BlogDetailsPageComponent {
             next: (response) => {
                 this.randomData = Object.values(response)[0];
             },
-            error: (error) => {},
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 1000);
+            },
         });
     }
 
@@ -83,6 +105,41 @@ export class BlogDetailsPageComponent {
             });
         });
     }
+
+    addComment(commentText: string) {
+        if (!commentText || commentText.trim() === '') {
+            this.errorMessage = 'Comment cannot be empty!';
+            setTimeout(() => (this.errorMessage = ''), 1000);
+            return;
+        }
+        const commentData = {
+            post_id: this.id,
+            comment: commentText,
+        };
+
+        this.postService.addComment(commentData).subscribe({
+            next: (response) => {
+                this.details.postComments.push(response);
+                this.getDetails();
+                this.successMessage =
+                    'Comment added successfully but it is under review!';
+
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 2000);
+
+                this.newComment = '';
+            },
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 1000);
+            },
+        });
+    }
+
     ProductSliderSlides: OwlOptions = {
         nav: false,
         loop: true,

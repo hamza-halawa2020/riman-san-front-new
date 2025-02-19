@@ -48,13 +48,18 @@ export class ContactComponent implements OnInit {
         this.contactService.store(this.contactForm.value).subscribe({
             next: (response) => {
                 this.successMessage = 'Message sent successfully!';
-                this.errorMessage = '';
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 3000);
                 this.contactForm.reset();
             },
+
             error: (error) => {
                 this.errorMessage =
-                    'An error occurred while sending your message. Please try again.';
-                this.successMessage = '';
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 3000);
             },
         });
     }

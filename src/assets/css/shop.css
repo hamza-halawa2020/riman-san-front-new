@@ -1184,9 +1184,7 @@
 	background-repeat: no-repeat;
     height: 510px;
 }
-.hero-slider .text-inner {
-	
-}
+
 .hero-slider .hero-text {
 	padding: 0 30px;
 	margin-top:100px;
@@ -4859,7 +4857,6 @@
 .footer .about .logo{
 	margin-bottom:20px;
 }
-.footer .about .logo img{}
 .footer .about .text{
 	color:#fff;
 	font-weight: 400;
@@ -4877,7 +4874,6 @@
 	font-size: 20px;
 	font-weight: 600;
 }
-.footer .links ul{}
 .footer .links ul li {
 	display: block;
 	margin-bottom: 8px;
@@ -4893,9 +4889,7 @@
 	color:#013C4A;
 	padding-left:10px;
 }
-.footer .social{}
-.footer .social .contact{}
-.footer .social .contact ul{}
+
 .footer .social .contact ul li {
 	color: #fff;
 	display: block;
@@ -4924,14 +4918,11 @@
 	color:#013C4A;
 }
 /* Copyright */
-.footer .copyright{
-	
-}
+
 .footer .copyright .inner{
 	border-top:1px solid #eeeeee3d;
 	padding:20px 0;
 }
-.footer .copyright .left{}
 .footer .copyright .right{
 	float:right;
 }

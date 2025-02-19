@@ -21,4 +21,7 @@ export class PostsService {
     randomPosts() {
         return this.http.get(`${this.apiUrl}/random-posts`);
     }
+    addComment(item: any) {
+        return this.http.post(`${this.apiUrl}/comments`, item);
+    }
 }

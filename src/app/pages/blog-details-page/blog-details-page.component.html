@@ -2,15 +2,59 @@
 
 <app-page-banner />
 
+<!-- Success Message as a Toast -->
+<div
+    *ngIf="successMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-success">Success</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ successMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
+<!-- Error Message as a Toast -->
+<div
+    *ngIf="errorMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-danger">Error</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ errorMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
 <!-- START BLOG -->
-<section class="blog-page section-padding">
+<section class="blog-page pt-5 pb-3">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-sm-12 col-xs-12">
                 <div class="arti_single">
                     <div class="arti_img_two">
                         <img
-                            src="{{ image + details.image }}"
+                            src="{{ image + details?.image }}"
                             class="img-fluid"
                             alt="Blog image"
                         />
@@ -18,11 +62,11 @@
 
                     <div class="arti_sp">
                         <h2>
-                            {{ details.title }}
+                            {{ details?.title }}
                         </h2>
 
                         <p>
-                            {{ details.content }}
+                            {{ details?.content }}
                         </p>
                     </div>
                 </div>
@@ -31,10 +75,10 @@
                     <h3 class="blog_head_title">Added By</h3>
                     <div class="single_author d-flex align-items-center">
                         <img
-                            src="{{ userImage + details.admin_image }}"
+                            src="{{ userImage + details?.admin_image }}"
                             alt=""
                         />
-                        <h4>{{ details.admin }}</h4>
+                        <h4>{{ details?.admin }}</h4>
                     </div>
                 </div>
                 <!--- END AUTHOR PART -->
@@ -42,17 +86,17 @@
                     <h3 class="blog_head_title">Comments</h3>
                     <div
                         class="single_comment"
-                        *ngFor="let comment of details.postComments"
+                        *ngFor="let comment of details?.postComments"
                     >
                         <img
-                            src="{{ userImage + comment.user_image }}"
+                            src="{{ userImage + comment?.user_image }}"
                             alt=""
                         />
-                        <h4>
-                            {{ comment.user }}
-                        </h4>
+                        <h5>
+                            {{ comment?.user }}
+                        </h5>
                         <p>
-                            {{ comment.comment }}
+                            {{ comment?.comment }}
                         </p>
                     </div>
 
@@ -61,69 +105,35 @@
                 <!--- END COMMENTS PART -->
                 <div class="comment_form">
                     <h3 class="blog_head_title">Add a Comment</h3>
-                    <div class="contact comment-box">
-                        <form
-                            id="contact-form"
-                            method="post"
-                            enctype="multipart/form-data"
-                        >
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        class="form-control"
-                                        id="first-name"
-                                        placeholder="Name"
-                                        required="required"
-                                    />
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        class="form-control"
-                                        id="first-email"
-                                        placeholder="Email"
-                                        required="required"
-                                    />
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <input
-                                        type="text"
-                                        name="subject"
-                                        class="form-control"
-                                        id="subject"
-                                        placeholder="Subject"
-                                        required="required"
-                                    />
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <textarea
-                                        rows="6"
-                                        name="message"
-                                        class="form-control"
-                                        id="description"
-                                        placeholder="Your Message"
-                                        required="required"
-                                    ></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="actions">
-                                        <button
-                                            type="submit"
-                                            value="Send message"
-                                            name="submit"
-                                            id="submitButton"
-                                            class="btn btn_one"
-                                            title="Submit Your Message!"
-                                        >
-                                            Submit Comment
-                                        </button>
-                                    </div>
+                    <div class="contact">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <textarea
+                                    rows="6"
+                                    name="message"
+                                    class="form-control"
+                                    id="description"
+                                    placeholder="Your Message"
+                                    [(ngModel)]="newComment"
+                                    required="required"
+                                ></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="actions">
+                                    <button
+                                        (click)="addComment(newComment)"
+                                        type="submit"
+                                        value="Send message"
+                                        name="submit"
+                                        id="submitButton"
+                                        class="btn btn_one"
+                                        title="Submit Your Message!"
+                                    >
+                                        Submit Comment
+                                    </button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <!--- END COMMENT FORM -->
@@ -135,9 +145,9 @@
                     <div class="sidebar_title"><h4>Popular post</h4></div>
                     <div class="single_popular" *ngFor="let data of randomData">
                         <a routerLink="/post/{{ data.id }}"
-                            ><img src="{{ image + data.image }}" alt="" />
+                            ><img src="{{ image + data?.image }}" alt="" />
                             <h5>
-                                {{ data.title }}
+                                {{ data?.title }}
                             </h5>
                         </a>
                     </div>
@@ -150,11 +160,11 @@
                         class="d-flex justify-content-center align-items-center"
                     >
                         <div class="p-2" *ngFor="let social of data">
-                            <a href="{{ social.url }}" target="_blank">
+                            <a href="{{ social?.url }}" target="_blank">
                                 <img
                                     alt=""
                                     class="rounded"
-                                    src="{{ socialImage + social.icon }}"
+                                    src="{{ socialImage + social?.icon }}"
                                     width="30px"
                                     height="30px"
                                 />
@@ -167,7 +177,7 @@
                 <div class="sidebar-post">
                     <div class="sidebar_title"><h4>CATEGORIES</h4></div>
                     <div class="single_category">
-                        {{ details.category }}
+                        {{ details?.category }}
                     </div>
                     <!-- END SOCIAL MEDIA POST -->
                 </div>
@@ -175,7 +185,7 @@
                 <div class="sidebar-post">
                     <div class="tag">
                         <div class="sidebar_title"><h4>Popular Tag</h4></div>
-                        {{ details.tag }}
+                        {{ details?.tag }}
                     </div>
                 </div>
                 <div class="sidebar-post">
@@ -187,7 +197,7 @@
                                     carouselSlide
                                     *ngFor="let slide of sliderData"
                                 >
-                                    <a target="_blank" href="{{ slide.link }}">
+                                    <a target="_blank" href="{{ slide?.link }}">
                                         <div
                                             class="single-upcoming-course-box position-relative"
                                         >
@@ -200,7 +210,7 @@
                                                     <img
                                                         src="{{
                                                             sliderImage +
-                                                                slide.image
+                                                                slide?.image
                                                         }}"
                                                         class="bg-image"
                                                         alt="bg-image"
