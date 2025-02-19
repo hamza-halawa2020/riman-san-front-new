@@ -1,26 +1,29 @@
 <div class="upcoming-courses-area border-top border-bottom bg-f3f3f3 pt-5 pb-5">
     <div class="container">
         <div class="section-title text-center">
-            <h2 class="fw-semibold mx-auto mb-0 text-uppercase">Events</h2>
+            <p>
+                Choose Our <span><u>events</u></span>
+            </p>
         </div>
         <div class="upcoming-courses-slides mx-auto">
             <owl-carousel-o [options]="upcomingEventsSlides">
                 <ng-template carouselSlide *ngFor="let slide of sliderData">
-                    <div class="single-upcoming-course-box position-relative">
-                        <div class="image position-relative">
-                            <img
-                                src="{{ image + slide.image }}"
-                                class="bg-image max-height"
-                                alt="bg-image"
-                            />
+                    <a routerLink="/event/{{ slide.id }}">
+                        <div class="event-slide">
+                            <div class="event-img">
+                                <img
+                                    src="{{ image + slide.image }}"
+                                    class="bg-image max-height max-height"
+                                    alt="bg-image"
+                                />
+                            </div>
+                            <div class="event-content">
+                                <h3>
+                                    {{ slide.title }}
+                                </h3>
+                            </div>
                         </div>
-                        <div class="content">
-                            <h3 class="fw-semibold">{{ slide.title }}</h3>
-                        </div>
-                        <a routerLink="/course-details" class="default-btn">
-                            View Event
-                        </a>
-                    </div>
+                    </a>
                 </ng-template>
             </owl-carousel-o>
         </div>

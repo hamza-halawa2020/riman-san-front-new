@@ -7,19 +7,83 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-sm-8 col-xs-12">
-                <div class="single_event_single">
-                    <img
-                        alt=""
-                        class="img-fluid max-height"
-                        src="{{ image + details.image }}"
-                    />
-                    <div class="single_event_text_single">
-                        <h4>{{ details.title }}</h4>
+                <div
+                    class="modal fade bs-example-modal-xl transparent-modal"
+                    id="imageModal"
+                    tabindex="-1"
+                    aria-hidden="true"
+                >
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                ></button>
+                            </div>
+                            <div
+                                class="modal-body text-center position-relative"
+                            >
+                                <button
+                                    *ngIf="currentIndex > 0"
+                                    class="btn btn-light position-absolute start-0 top-50 translate-middle-y"
+                                    (click)="prevImage()"
+                                >
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+
+                                <img [src]="selectedImage" class="img-fluid" />
+
+                                <button
+                                    *ngIf="
+                                        currentIndex <
+                                        details.eventImages.length - 1
+                                    "
+                                    class="btn btn-light position-absolute end-0 top-50 translate-middle-y"
+                                    (click)="nextImage()"
+                                >
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
+
+                <div class="upcoming-courses-slides2 mx-auto">
+                    <owl-carousel-o [options]="eventSliderSlides">
+                        <ng-template
+                            carouselSlide
+                            *ngFor="
+                                let slide of details.eventImages;
+                                let i = index
+                            "
+                        >
+                            <a (click)="openModal(image + slide.image, i)">
+                                <div
+                                    class="single-upcoming-course-box position-relative"
+                                >
+                                    <div class="image position-relative">
+                                        <div class="text-center max-height">
+                                            <img
+                                                src="{{ image + slide.image }}"
+                                                class="bg-image"
+                                                alt="bg-image"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
+
+                <div class="mt-3">
                     {{ details.content }}
                 </div>
+                <!-- <pre class="mt-3">
+                    {{ details.content }}
+                </pre> -->
             </div>
             <!--- END COL -->
             <div class="col-lg-4 col-sm-4 col-xs-12">

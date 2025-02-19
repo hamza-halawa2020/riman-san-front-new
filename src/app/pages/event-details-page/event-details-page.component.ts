@@ -11,7 +11,8 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
 import { FormsModule } from '@angular/forms';
 import { EventService } from './event.service';
-
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+declare var bootstrap: any;
 @Component({
     selector: 'app-event-details-page',
     standalone: true,
@@ -28,6 +29,7 @@ import { EventService } from './event.service';
         NgClass,
         RatingModule,
         FormsModule,
+        CarouselModule,
     ],
     templateUrl: './event-details-page.component.html',
     styleUrl: './event-details-page.component.scss',
@@ -40,7 +42,8 @@ export class EventDetailsPageComponent implements OnInit {
     }
     details: any;
     data: any;
-
+    selectedImage: string = '';
+    currentIndex: number = 0;
     id: any;
     image = environment.imgUrl + 'events/';
     eventImage = environment.imgUrl + 'events/';
@@ -71,4 +74,59 @@ export class EventDetailsPageComponent implements OnInit {
             error: (error) => {},
         });
     }
+
+    openModal(imageUrl: string, index: number) {
+        this.selectedImage = imageUrl;
+        this.currentIndex = index;
+        let modal = new bootstrap.Modal(document.getElementById('imageModal'));
+        modal.show();
+    }
+    nextImage() {
+        if (this.currentIndex < this.details.eventImages.length - 1) {
+            this.currentIndex++;
+            this.selectedImage =
+                this.image +
+                this.details.eventImages[this.currentIndex].image;
+        }
+    }
+
+    prevImage() {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+            this.selectedImage =
+                this.image +
+                this.details.eventImages[this.currentIndex].image;
+        }
+    }
+
+    eventSliderSlides: OwlOptions = {
+        nav: true,
+        loop: true,
+        margin: 25,
+        dots: false,
+        autoplay: true,
+        smartSpeed: 500,
+        autoplayHoverPause: true,
+        navText: [
+            "<i class='fa-solid fa-chevron-left'></i>",
+            "<i class='fa-solid fa-chevron-right'></i>",
+        ],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            515: {
+                items: 1,
+            },
+            695: {
+                items: 2,
+            },
+            935: {
+                items: 2,
+            },
+            1115: {
+                items: 2,
+            },
+        },
+    };
 }

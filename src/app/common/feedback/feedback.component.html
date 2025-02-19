@@ -5,9 +5,9 @@
 >
     <div class="container">
         <div class="section-title text-center">
-            <h2 class="fw-semibold mx-auto mb-0 text-uppercase">
-                What our clients say
-            </h2>
+            <p>
+                What our clients <span><u>say</u></span>
+            </p>
         </div>
         <div class="feedback-slides mx-auto">
             <owl-carousel-o [options]="feedbackSlides">
@@ -42,7 +42,13 @@
                                 <i class="fas fa-calendar-alt me-2"></i>
                                 {{ slide.created_at | date : "MMM d, yyyy" }}
                             </p> -->
-                            <p class="fw-medium" [title]="slide.created_at | date: 'MMM d, yyyy, h:mm a'">
+                            <p
+                                class="fw-medium"
+                                [title]="
+                                    slide.created_at
+                                        | date : 'MMM d, yyyy, h:mm a'
+                                "
+                            >
                                 {{ getRelativeTime(slide.created_at) }}
                             </p>
                         </div>
