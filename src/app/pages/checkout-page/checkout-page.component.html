@@ -27,8 +27,29 @@
                                     >
                                         <span class="product-id"
                                             >Product :
-                                            {{ item.product_id }}</span
-                                        >
+                                            <a
+                                                routerLink="/product/{{
+                                                    item.product_id
+                                                }}"
+                                            >
+                                                <img
+                                                    width="50px"
+                                                    height="50px"
+                                                    [src]="
+                                                        image +
+                                                        getProductDetails(
+                                                            item.product_id
+                                                        ).image
+                                                    "
+                                                    alt="{{
+                                                        getProductDetails(
+                                                            item.product_id
+                                                        ).image
+                                                    }}"
+                                                    class="product-image rounded"
+                                                />
+                                            </a>
+                                        </span>
                                         <span class="quantity"
                                             >Quantity: {{ item.quantity }}</span
                                         >
@@ -64,6 +85,14 @@
                                     class="col address-details order-item"
                                 >
                                     {{ checkoutData.address }}
+                                </div>
+
+                                <span class="detail-label">Notes:</span>
+                                <div
+                                    *ngIf="checkoutData?.notes"
+                                    class="col address-details order-item"
+                                >
+                                    {{ checkoutData.notes }}
                                 </div>
                             </div>
 

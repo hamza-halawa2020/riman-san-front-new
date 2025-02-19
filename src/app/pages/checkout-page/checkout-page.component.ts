@@ -31,8 +31,8 @@ import { CheckoutService } from './checkout.service';
     providers: [CheckoutService],
 })
 export class CheckoutPageComponent implements OnInit {
-    data: any;
-    image = environment.imgUrl + 'checkouts/';
+    products: any;
+    image = environment.imgUrl + 'products/';
     checkoutData: any;
     totalPriceData: any;
 
@@ -42,6 +42,7 @@ export class CheckoutPageComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
+        this.fetchAllProducts();
 
         const storedData = localStorage.getItem('checkoutData');
         if (storedData) {
@@ -66,12 +67,20 @@ export class CheckoutPageComponent implements OnInit {
         }
     }
 
-    fetchdata() {
-        this.checkoutService.index().subscribe({
+    fetchAllProducts() {
+        this.checkoutService.allProducts().subscribe({
             next: (response) => {
-                this.data = Object.values(response)[0];
+                this.products = Object.values(response)[0];
+                console.log(this.products);
             },
             error: (error) => {},
         });
+    }
+
+    getProductDetails(productId: number): { title: string; image: string } {
+        const product = this.products?.find((p: any) => p.id === productId);
+        return product
+            ? { title: product.title, image: product.productImages[0].image }
+            : { title: 'Unknown', image: this.image };
     }
 }

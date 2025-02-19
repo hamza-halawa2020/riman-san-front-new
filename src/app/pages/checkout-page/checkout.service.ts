@@ -7,9 +7,8 @@ import { environment } from '../../../environments/environment.development';
 })
 export class CheckoutService {
     private apiUrl = environment.backEndUrl;
-    private data = '/carts';
     constructor(private http: HttpClient) {}
-    index() {
-        return this.http.get(`${this.apiUrl}${this.data}`);
+    allProducts() {
+        return this.http.get(`${this.apiUrl}/products`);
     }
 }

@@ -217,19 +217,20 @@ export class CartPageComponent implements OnInit {
         }));
 
         const selectedCountryObj = this.countries.find(
-            (country) => country.id === +this.selectedCountry 
+            (country) => country.id === +this.selectedCountry
         );
         const selectedCityObj = this.cities.find(
-            (city) => city.id === +this.selectedCity 
+            (city) => city.id === +this.selectedCity
         );
 
-       
         const checkoutData = {
             orderItems: orderItems,
             coupon_id: this.couponCode?.id || null,
             city_id: this.selectedCity,
             country_id: this.selectedCountry,
             address: (document.getElementById('address') as HTMLTextAreaElement)
+                .value,
+            notes: (document.getElementById('notes') as HTMLTextAreaElement)
                 .value,
         };
         const totalPriceData = {
