@@ -13,6 +13,7 @@ import { CoursesService } from './courses.service';
 import { FormsModule } from '@angular/forms';
 import { TruncateDescriptionPipe } from '../../truncate-description.pipe';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { LoginService } from '../login-page/login.service';
 
 @Component({
     selector: 'app-course-details-page',
@@ -43,6 +44,7 @@ export class CourseDetailsPageComponent implements OnInit {
     }
     details: any;
     data: any;
+    isLoggedIn: boolean = false;
     videoUrlSafe!: SafeResourceUrl;
     successMessage: string = '';
     errorMessage: string = '';
@@ -56,8 +58,11 @@ export class CourseDetailsPageComponent implements OnInit {
     constructor(
         private activateRoute: ActivatedRoute,
         private courseService: CoursesService,
-        private sanitizer: DomSanitizer
-    ) {}
+        private sanitizer: DomSanitizer,
+        private loginService: LoginService
+    ) {
+        this.isLoggedIn = !!loginService.isLoggedIn();
+    }
 
     ngOnInit(): void {
         this.getDetails();

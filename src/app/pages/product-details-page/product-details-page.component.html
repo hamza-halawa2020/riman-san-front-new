@@ -79,7 +79,7 @@
                             <button
                                 *ngIf="
                                     currentIndex <
-                                    details.productImages.length - 1
+                                    details?.productImages.length - 1
                                 "
                                 class="btn btn-light position-absolute end-0 top-50 translate-middle-y"
                                 (click)="nextImage()"
@@ -96,18 +96,18 @@
                     <ng-template
                         carouselSlide
                         *ngFor="
-                            let slide of details.productImages;
+                            let slide of details?.productImages;
                             let i = index
                         "
                     >
-                        <a (click)="openModal(image + slide.image, i)">
+                        <a (click)="openModal(image + slide?.image, i)">
                             <div
                                 class="single-upcoming-course-box position-relative"
                             >
                                 <div class="image position-relative">
                                     <div class="text-center max-height">
                                         <img
-                                            src="{{ image + slide.image }}"
+                                            src="{{ image + slide?.image }}"
                                             class="bg-image"
                                             alt="bg-image"
                                         />
@@ -122,21 +122,21 @@
             <!-- Product Details Content -->
             <div class="col-md-6 col-xs-12">
                 <div class="row mt-4">
-                    <a class="pd_title"> {{ details.title }} </a>
+                    <a class="pd_title"> {{ details?.title }} </a>
                     <div class="my-1">
                         <!-- Product Price -->
                         <div class="pd_price">
                             <span class="new"
-                                >{{ details.priceAfterDiscount }} EGP
+                                >{{ details?.priceAfterDiscount }} EGP
                             </span>
                             <span class="old"
-                                >({{ details.priceBeforeDiscount }} EGP)</span
+                                >({{ details?.priceBeforeDiscount }} EGP)</span
                             >
                         </div>
                     </div>
                     <div class="mt-4">
                         <p>
-                            {{ details.description }}
+                            {{ details?.description }}
                         </p>
                     </div>
 
@@ -149,6 +149,7 @@
                         >
                         <a
                             *ngIf="isLoggedIn"
+                            (click)="addToFavoutite(details.id)"
                             class="btn btn-default acc_btn btn_icn"
                             ><i class="fa fa-heart"></i
                         ></a>
@@ -157,14 +158,16 @@
             </div>
         </div>
 
-        <div class="course-details-content section-bg p-3">
-            <div class="client-review">
+        <div class="course-details-content section-bg">
+            <div class="client-review p-4">
                 <div class="review-comments">
-                    <h6 class="review-title">Reviews (03)</h6>
+                    <h6 class="review-title">
+                        Reviews ({{ details?.productReviews.length }})
+                    </h6>
                     <ul class="review-contents">
-                        <li *ngFor="let review of details.productReviews">
+                        <li *ngFor="let review of details?.productReviews">
                             <div class="cont">
-                                <h6 class="subtitle">{{ review.user }}</h6>
+                                <h6 class="subtitle">{{ review?.user }}</h6>
                                 <div class="ratings cl-theme">
                                     <rating
                                         [(ngModel)]="review.rating"
@@ -173,7 +176,7 @@
                                         style="color: #e1b619; font-size: 25px"
                                     ></rating>
                                 </div>
-                                <p>{{ review.review }}</p>
+                                <p>{{ review?.review }}</p>
                             </div>
                         </li>
                     </ul>
@@ -188,6 +191,8 @@
                                 <rating
                                     [max]="5"
                                     style="color: #e1b619; font-size: 25px"
+                                    [(ngModel)]="newRate"
+                                    name="newRate"
                                 ></rating>
                             </div>
                         </div>
@@ -195,10 +200,16 @@
                             <textarea
                                 rows="5"
                                 placeholder="Type Here Message"
+                                [(ngModel)]="newReview"
+                                name="newReview"
                             ></textarea>
                         </div>
                         <div class="col-12 pb-4">
-                            <button type="submit" class="custom-button rounded">
+                            <button
+                                type="button"
+                                class="custom-button rounded"
+                                (click)="addReview(newReview, newRate)"
+                            >
                                 Submit Review
                             </button>
                         </div>
@@ -210,60 +221,82 @@
 </div>
 
 <!-- Related Product Area -->
-<div class="related_prdct_area text-center">
+<div
+    class="related_prdct_area text-center"
+    *ngIf="details?.relatedProducts?.length"
+    >
     <div class="container">
         <!-- Section Title -->
         <div class="rp_title text-center"><h3>Related products</h3></div>
 
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div
+                class="col-lg-3 col-md-4 col-sm-6 mix sale"
+                *ngFor="let related of details?.relatedProducts"
+            >
                 <div class="product-grid">
                     <div class="product-image">
-                        <a href="#">
+                        <a routerLink="/product/{{ related.id }}">
                             <img
-                                class="pic-1"
-                                src="assets/images/shop/1.jpg"
-                                alt="Product Image"
-                            />
-                            <img
-                                class="pic-2"
-                                src="assets/images/shop/2.jpg"
-                                alt="Product Image"
+                                class="pic-1 imageClass"
+                                src="{{
+                                    image + related.productImages[0].image
+                                }}"
+                                alt="product image"
                             />
                         </a>
                         <ul class="social">
                             <li>
-                                <a href="" data-tip="Quick View"
-                                    ><i class="ti-zoom-in"></i
+                                <a
+                                    *ngIf="isLoggedIn"
+                                    style="cursor: pointer"
+                                    (click)="addToFavoutite(related.id)"
+                                    data-tip="Add to Wishlist"
+                                    ><i class="fa-regular fa-heart"></i
                                 ></a>
                             </li>
                             <li>
-                                <a href="" data-tip="Add to Wishlist"
-                                    ><i class="ti-bag"></i
-                                ></a>
-                            </li>
-                            <li>
-                                <a href="" data-tip="Add to Cart"
-                                    ><i class="ti-shopping-cart"></i
+                                <a
+                                    style="cursor: pointer"
+                                    (click)="addToCart(related.id)"
+                                    data-tip="Add to Cart"
+                                >
+                                    <i class="fa-solid fa-cart-plus"></i
                                 ></a>
                             </li>
                         </ul>
-                        <span class="product-new-label">Sale</span>
+                        <span
+                            class="product-new-label"
+                            *ngIf="related.discount"
+                        >
+                            discount: {{ related.discount }} EGP
+                        </span>
                     </div>
-                    <ul class="rating">
-                        <li class="fa fa-star"></li>
-                        <li class="fa fa-star"></li>
-                        <li class="fa fa-star"></li>
-                        <li class="fa fa-star"></li>
-                        <li class="fa fa-star"></li>
-                    </ul>
+                    <!-- <ul class="rating">
+                            <li class="fa fa-star"></li>
+                            <li class="fa fa-star"></li>
+                            <li class="fa fa-star"></li>
+                            <li class="fa fa-star"></li>
+                            <li class="fa fa-star"></li>
+                        </ul> -->
                     <div class="product-content">
-                        <h3 class="title"><a href="#">Product Title</a></h3>
+                        <h3 class="title">
+                            <a routerLink="/product/{{ related.id }}">
+                                {{ related.title }}</a
+                            >
+                        </h3>
                         <div class="price">
-                            $16.00
-                            <span>$20.00</span>
+                            {{ related.priceAfterDiscount }} EGP
+                            <span *ngIf="related.priceBeforeDiscount"
+                                >{{ related.priceBeforeDiscount }} EGP</span
+                            >
                         </div>
-                        <a class="add-to-cart" href="">+ Add To Cart</a>
+                        <a
+                            class="add-to-cart"
+                            style="cursor: pointer"
+                            (click)="addToCart(related.id)"
+                            >+ Add To Cart</a
+                        >
                     </div>
                 </div>
             </div>

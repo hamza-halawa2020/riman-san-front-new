@@ -10,6 +10,7 @@ import { PostsService } from './posts.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoginService } from '../login-page/login.service';
 
 @Component({
     selector: 'app-blog-details-page',
@@ -32,6 +33,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class BlogDetailsPageComponent {
     details: any;
+    isLoggedIn: boolean = false;
+
     sliderData: any;
     randomData: any;
     newComment: any;
@@ -45,8 +48,11 @@ export class BlogDetailsPageComponent {
     errorMessage: string = '';
     constructor(
         private activateRoute: ActivatedRoute,
-        private postService: PostsService
-    ) {}
+        private postService: PostsService,
+        private loginService: LoginService
+    ) {
+        this.isLoggedIn = !!loginService.isLoggedIn();
+    }
     ngOnInit(): void {
         this.getDetails();
         this.fetchdata();
@@ -58,13 +64,6 @@ export class BlogDetailsPageComponent {
         this.postService.allSocial().subscribe({
             next: (response) => {
                 this.data = Object.values(response)[0];
-            },
-            error: (error) => {
-                this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 1000);
             },
         });
     }

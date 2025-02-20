@@ -10,25 +10,25 @@
                 <div class="single_agent">
                     <div class="single_agent_image">
                         <img
-                            src="{{ image + details.image }}"
+                            src="{{ image + details?.image }}"
                             class="img-fluid"
                             alt=""
                         />
                     </div>
                     <div class="single_agent_content">
-                        <h4>{{ details.name }}</h4>
-                        <h5>{{ details.job_title }}</h5>
+                        <h4>{{ details?.name }}</h4>
+                        <h5>{{ details?.job_title }}</h5>
                         <p>
-                            {{ details.description }}
+                            {{ details?.description }}
                         </p>
                         <ul>
                             <li>
                                 <i class="fa-regular fa-envelope"></i>
-                                {{ details.email }}
+                                {{ details?.email }}
                             </li>
                             <li>
                                 <i class="fa-solid fa-phone"></i>
-                                {{ details.phone }}
+                                {{ details?.phone }}
                             </li>
                         </ul>
                     </div>
@@ -58,14 +58,14 @@
                 data-wow-duration="1s"
                 data-wow-delay="0.1s"
                 data-wow-offset="0"
-                *ngFor="let course of details.courses"
+                *ngFor="let course of details?.courses"
             >
                 <div class="course-slide">
                     <div class="video-box position-relative">
                         <div class="content">
                             <button
                                 type="button"
-                                (click)="openPopup(course.video_url)"
+                                (click)="openPopup(course?.video_url)"
                                 class="video-btn"
                             >
                                 <img
@@ -111,7 +111,7 @@
                     <div class="course-img">
                         <a routerLink="/course/{{ course.id }}">
                             <img
-                                src="{{ courseImage + course.image }}"
+                                src="{{ courseImage + course?.image }}"
                                 class="max-height img-fluid"
                                 alt=""
                                 style="min-height: 350px"
@@ -120,20 +120,20 @@
                         <div class="course-date">
                             <span class="month"
                                 ><i class="fas fa-money-bill"></i>
-                                {{ course.price }} EGP</span
+                                {{ course?.price }} EGP</span
                             >
                         </div>
                     </div>
                     <div class="course-content">
-                        <p class="c_btn m-1">{{ course.category }}</p>
-                        <p class="c_btn m-1">{{ course.tag }}</p>
+                        <p class="c_btn m-1">{{ course?.category }}</p>
+                        <p class="c_btn m-1">{{ course?.tag }}</p>
                         <h3>
                             <a routerLink="/course/{{ course.id }}">{{
-                                course.title
+                                course?.title
                             }}</a>
                         </h3>
                         <p class="">
-                            {{ course.description | truncateDescription : 5 }}
+                            {{ course?.description | truncateDescription : 5 }}
                         </p>
                     </div>
                 </div>

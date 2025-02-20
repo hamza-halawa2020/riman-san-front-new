@@ -11,6 +11,7 @@ import { environment } from '../../../environments/environment.development';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { ProductService } from './product.service';
 import { CartService } from '../cart-page/cart.service';
+import { FavouriteService } from '../favourite-page/favourite.service';
 
 @Component({
     selector: 'app-product-page',
@@ -42,6 +43,7 @@ export class ProductPageComponent implements OnInit {
         public router: Router,
         private productService: ProductService,
         private cartService: CartService,
+        private FavouriteService: FavouriteService,
         private loginService: LoginService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
@@ -63,6 +65,29 @@ export class ProductPageComponent implements OnInit {
                     this.successMessage = '';
                 }, 1000);
                 this.cartService.notifyCartUpdate();
+            },
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 1000);
+            },
+        });
+    }
+
+    addToFavoutite(product_id: any) {
+        const payload = {
+            product_id: product_id,
+        };
+
+        this.FavouriteService.add(payload).subscribe({
+            next: (response) => {
+                this.successMessage = 'Product added to WishList successfully!';
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 1000);
+                this.FavouriteService.notifyUpdate();
             },
             error: (error) => {
                 this.errorMessage =

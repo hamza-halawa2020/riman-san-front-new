@@ -28,6 +28,9 @@ import { CartPageWrapperComponent } from './pages/cart-page-wrapper/cart-page-wr
 import { CartResolver } from './pages/cart-page-wrapper/cart.resolver';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { PaymentStatusPageComponent } from './pages/payment-status-page/payment-status-page.component';
+import { VerificationCodePageComponent } from './pages/verification-code-page/verification-code-page.component';
+import { SendVerificationCodePageComponent } from './pages/send-verification-code-page/send-verification-code-page.component';
+import { ResetpasswordPageComponent } from './pages/resetPassword-page/resetPassword-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -44,8 +47,30 @@ export const routes: Routes = [
     { path: 'event/:id', component: EventDetailsPageComponent },
     { path: 'checkout', component: CheckoutPageComponent },
     { path: 'faqs', component: FaqsPageComponent },
-    { path: 'forget-password', component: ForgetpasswordPageComponent },
     { path: 'payment-status', component: PaymentStatusPageComponent },
+    { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
+    { path: 'terms-conditions', component: TermsConditionsPageComponent },
+    { path: 'contacts', component: ContactPageComponent },
+    {
+        path: 'forget-password',
+        component: ForgetpasswordPageComponent,
+        canActivate: [unAuthGuard],
+    },
+    {
+        path: 'password-reset',
+        component: ResetpasswordPageComponent,
+        canActivate: [unAuthGuard],
+    },
+    {
+        path: 'verify',
+        component: VerificationCodePageComponent,
+        canActivate: [unAuthGuard],
+    },
+    {
+        path: 'send-verify',
+        component: SendVerificationCodePageComponent,
+        canActivate: [unAuthGuard],
+    },
     {
         path: 'wishlist',
         component: FavouritePageComponent,
@@ -72,9 +97,7 @@ export const routes: Routes = [
         component: RegisterPageComponent,
         canActivate: [unAuthGuard],
     },
-    { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
-    { path: 'terms-conditions', component: TermsConditionsPageComponent },
-    { path: 'contacts', component: ContactPageComponent },
+
     // Here add new pages component
 
     { path: '**', component: ErrorPageComponent }, // This line will remain down from the whole pages component list

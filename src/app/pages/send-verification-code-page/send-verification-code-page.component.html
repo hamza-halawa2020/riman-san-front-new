@@ -1,0 +1,84 @@
+<app-navbar />
+
+<app-page-banner />
+
+<!-- Success Message as a Toast -->
+<div
+    *ngIf="successMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-success">Success</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ successMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
+<!-- Error Message as a Toast -->
+<div
+    *ngIf="errorMessage"
+    class="toast-container position-fixed top-0 end-0 p-3"
+>
+    <div
+        class="toast show"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+    >
+        <div class="toast-header">
+            <strong class="me-auto text-danger">Error</strong>
+        </div>
+        <div class="toast-body">
+            <h6>
+                {{ errorMessage }}
+            </h6>
+        </div>
+    </div>
+</div>
+
+<!-- Login -->
+<div class="login-area bg-fbfbfb pt-5 pb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="login-content">
+                    <h3 class="fw-medium">Send Verify Code</h3>
+
+                    <form [formGroup]="verifyForm" (ngSubmit)="verify()">
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control shadow-none"
+                                placeholder="email"
+                                formControlName="email"
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="default-btn d-block w-100"
+                            [disabled]="verifyForm.invalid"
+                        >
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Login -->
+
+<app-footer />
+
+<app-back-to-top />

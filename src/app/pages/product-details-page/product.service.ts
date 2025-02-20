@@ -20,4 +20,8 @@ export class ProductService {
     allSocial() {
         return this.http.get(`${this.apiUrl}/social-links`);
     }
+
+    addReview(item: any) {
+        return this.http.post(`${this.apiUrl}/product-reviews`, item);
+    }
 }

@@ -102,13 +102,13 @@ export class RegisterPageComponent {
     }
 
     register() {
-        if (this.registerForm.invalid) {
-            this.errorMessage =
-                'Please fill out all required fields correctly.';
-            setTimeout(() => (this.errorMessage = ''), 1000);
+        // if (this.registerForm.invalid) {
+        //     this.errorMessage =
+        //         'Please fill out all required fields correctly.';
+        //     setTimeout(() => (this.errorMessage = ''), 1000);
 
-            return;
-        }
+        //     return;
+        // }
 
         const formData = new FormData();
         formData.append('name', this.registerForm.get('name')?.value);
@@ -128,13 +128,11 @@ export class RegisterPageComponent {
                 this.successMessage = 'Registered successfully!';
                 setTimeout(() => (this.successMessage = ''), 1000);
                 this.registerForm.reset();
-                this.router.navigate(['/login']);
+                this.router.navigate(['/verify']);
             },
             error: (err) => {
-                this.errorMessage =
-                    'An error occurred . Please try again. ' +
-                    this.extractErrorMessage(err);
-                setTimeout(() => (this.errorMessage = ''), 1000);
+                this.errorMessage = this.extractErrorMessage(err);
+                setTimeout(() => (this.errorMessage = ''), 2000);
             },
         });
     }

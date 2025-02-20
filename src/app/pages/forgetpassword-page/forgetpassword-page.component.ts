@@ -35,7 +35,7 @@ import { ForgetpasswordService } from './forgetpassword.service';
     providers: [ForgetpasswordService],
 })
 export class ForgetpasswordPageComponent {
-    loginForm: FormGroup;
+    verifyForm: FormGroup;
     passwordVisible = false;
     passwordConfirmationVisible = false;
     successMessage: string = '';
@@ -44,46 +44,34 @@ export class ForgetpasswordPageComponent {
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        private loginService: ForgetpasswordService
+        private forgetService: ForgetpasswordService
     ) {
-        this.loginForm = this.fb.group({
+        this.verifyForm = this.fb.group({
             emailOrPhone: ['', [Validators.required]],
-            password: ['', [Validators.required, Validators.minLength(8)]],
-            password_confirmation: [
-                '',
-                [Validators.required, this.passwordMatchValidator()],
-            ],
         });
     }
 
-    passwordMatchValidator(): (
-        control: AbstractControl
-    ) => { [key: string]: boolean } | null {
-        return (control: AbstractControl) => {
-            if (this.loginForm) {
-                const password = this.loginForm.get('password')?.value;
-                const confirmPassword = control.value;
-                return password === confirmPassword
-                    ? null
-                    : { passwordMismatch: true };
-            }
-            return null;
-        };
-    }
-
-    togglePasswordVisibility() {
-        this.passwordVisible = !this.passwordVisible;
-    }
-
-    togglePasswordConfirmationVisibility() {
-        this.passwordConfirmationVisible = !this.passwordConfirmationVisible;
-    }
-
-    extractErrorMessage(error: any): string {
-        let errorMessage = 'An error occurred';
-        if (error && error.error && error.error.errors) {
-            errorMessage = Object.values(error.error.errors).flat().join(', ');
+    verify() {
+        if (this.verifyForm.valid) {
+            this.forgetService.verify(this.verifyForm.value).subscribe({
+                next: (response: any) => {
+                    this.successMessage = 'Please check your email';
+                    setTimeout(() => {
+                        this.successMessage = '';
+                    }, 4000);
+                },
+                error: (error) => {
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
+                    setTimeout(() => {
+                        this.errorMessage = '';
+                    }, 3000);
+                },
+            });
+        } else {
+            this.errorMessage =
+                'Form is invalid. Please fill all the required fields.';
+            setTimeout(() => (this.errorMessage = ''), 1000);
         }
-        return errorMessage;
     }
 }

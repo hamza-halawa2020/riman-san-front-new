@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment.development';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { formatDistanceToNow } from 'date-fns';
 import { FavouriteService } from './favourite.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-favourite-page',
@@ -19,6 +20,10 @@ import { FavouriteService } from './favourite.service';
         PageBannerComponent,
         FooterComponent,
         BackToTopComponent,
+        RouterLink,
+        NgIf,
+        NgClass,
+        CommonModule,
     ],
     templateUrl: './favourite-page.component.html',
     styleUrl: './favourite-page.component.scss',
@@ -26,8 +31,9 @@ import { FavouriteService } from './favourite.service';
 })
 export class FavouritePageComponent implements OnInit {
     data: any;
-    image = environment.imgUrl + 'favourites/';
-
+    image = environment.imgUrl + 'products/';
+    successMessage: string = '';
+    errorMessage: string = '';
     constructor(
         public router: Router,
         private favouriteService: FavouriteService
@@ -43,6 +49,93 @@ export class FavouritePageComponent implements OnInit {
                 this.data = Object.values(response)[0];
             },
             error: (error) => {},
+        });
+    }
+
+    deleteItem(id: number) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to remove this item from the Whishlist?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, remove it!',
+            cancelButtonText: 'Cancel',
+        }).then((result: any) => {
+            if (result.isConfirmed) {
+                this.favouriteService.delete(id).subscribe({
+                    next: () => {
+                        this.data = this.data.filter(
+                            (item: any) => item.id !== id
+                        );
+
+                        Swal.fire({
+                            title: 'Removed!',
+                            text: 'Product removed from Whishlist successfully.',
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+
+                        this.favouriteService.notifyUpdate();
+                    },
+                    error: (error) => {
+                        Swal.fire({
+                            title: 'Error!',
+                            text:
+                                error.error?.message ||
+                                'An unexpected error occurred.',
+                            icon: 'error',
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+                    },
+                });
+            }
+        });
+    }
+
+    clearFav() {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you really want to clear the Whishlist?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, clear it!',
+            cancelButtonText: 'Cancel',
+        }).then((result: any) => {
+            if (result.isConfirmed) {
+                this.favouriteService.clearCart().subscribe({
+                    next: () => {
+                        this.favouriteService.notifyUpdate();
+                        this.fetchdata();
+
+                        Swal.fire({
+                            title: 'clear!',
+                            text: 'Your Whishlist is clear.',
+                            icon: 'success',
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+
+                        this.favouriteService.notifyUpdate();
+                    },
+                    error: (error) => {
+                        Swal.fire({
+                            title: 'Error!',
+                            text:
+                                error.error?.message ||
+                                'An unexpected error occurred.',
+                            icon: 'error',
+                            timer: 1500,
+                            showConfirmButton: false,
+                        });
+                    },
+                });
+            }
         });
     }
 }

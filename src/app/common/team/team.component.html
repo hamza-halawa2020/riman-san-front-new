@@ -6,7 +6,9 @@
             <p>
                 Our Expert <span><u>Instructors</u></span>
             </p>
+            <a routerLink="/instructors" class="default-btn"> Explore All Instructors </a>
         </div>
+
         <div class="row text-center">
             <div
                 class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp"
@@ -19,8 +21,9 @@
                     <a routerLink="/instructor/{{ instructor.id }}">
                         <div class="team_img">
                             <img
-                                src="assets/riman-san/1.jpg"
+                                src="{{ image + instructor.image }}"
                                 alt="team-image"
+                                class="max-height"
                             />
                             <ul class="social">
                                 <li>

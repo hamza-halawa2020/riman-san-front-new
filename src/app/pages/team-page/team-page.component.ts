@@ -7,8 +7,8 @@ import { BackToTopComponent } from '../../common/back-to-top/back-to-top.compone
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { InstructorService } from './instructor.service';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { TeamComponent } from '../../common/team/team.component';
+import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
     selector: 'app-team-page',
@@ -21,14 +21,34 @@ import { TeamComponent } from '../../common/team/team.component';
         FooterComponent,
         BackToTopComponent,
         HttpClientModule,
-        TeamComponent,
+
+        CommonModule,
+        NgIf,
+        NgClass,
     ],
     templateUrl: './team-page.component.html',
     styleUrl: './team-page.component.scss',
     providers: [InstructorService],
 })
 export class TeamPageComponent implements OnInit {
-    constructor(public router: Router) {}
+    data: any;
+    image = environment.imgUrl + 'instructors/';
 
-    ngOnInit(): void {}
+    constructor(
+        public router: Router,
+        private instructorService: InstructorService
+    ) {}
+
+    ngOnInit(): void {
+        this.fetchdata();
+    }
+
+    fetchdata() {
+        this.instructorService.index().subscribe({
+            next: (response) => {
+                this.data = Object.values(response)[0];
+            },
+            error: (error) => {},
+        });
+    }
 }

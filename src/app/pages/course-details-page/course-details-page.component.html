@@ -207,7 +207,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="review-form">
+                    <div class="review-form" *ngIf="isLoggedIn">
                         <h6 class="review-title">Add a Review</h6>
                         <form class="row client-form align-items-center">
                             <div class="col-md-4 col-12">
@@ -230,7 +230,6 @@
                                     placeholder="Type Here Message"
                                     [(ngModel)]="newReview"
                                     name="newReview"
-
                                 ></textarea>
                             </div>
                             <div class="col-12 pb-4">

@@ -119,11 +119,11 @@
             </a>
             <a *ngIf="!isLoggedIn" routerLink="/cart" class="hlc">
                 <i class="fa-solid fa-cart-plus"></i>
-                <span class="gactive">5</span>
+                <span class="gactive">9</span>
             </a>
             <a *ngIf="isLoggedIn" routerLink="/wishlist" class="hlc">
                 <i class="fa-regular fa-heart"></i>
-                <span class="gactive">0</span>
+                <span class="gactive">{{ favouriteData ? favouriteData.length : 0 }}</span>
             </a>
 
             <a *ngIf="!isLoggedIn" class="btn_one" routerLink="/login">Login</a>

@@ -83,7 +83,8 @@
                                     <li>
                                         <a
                                             *ngIf="isLoggedIn"
-                                            routerLink=""
+                                            style="cursor: pointer"
+                                            (click)="addToFavoutite(product.id)"
                                             data-tip="Add to Wishlist"
                                             ><i class="fa-regular fa-heart"></i
                                         ></a>

@@ -4,6 +4,7 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { LoginService } from '../../pages/login-page/login.service';
 import { CartService } from '../../pages/cart-page/cart.service';
 import { Subscription } from 'rxjs';
+import { FavouriteService } from '../../pages/favourite-page/favourite.service';
 @Component({
     selector: 'app-navbar',
     standalone: true,
@@ -14,25 +15,37 @@ import { Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit {
     ngOnInit(): void {
         this.fetchCartData();
+        this.fetchFavData();
         this.cartSub = this.cartService
             .getCartUpdateListener()
             .subscribe(() => {
                 this.fetchCartData();
+            });
+        this.favSub = this.favouriteService
+            .getUpdateListener()
+            .subscribe(() => {
+                this.fetchFavData();
             });
     }
     ngOnDestroy() {
         if (this.cartSub) {
             this.cartSub.unsubscribe();
         }
+        if (this.favSub) {
+            this.favSub.unsubscribe();
+        }
     }
 
     isLoggedIn: boolean = false;
     data: any;
+    favouriteData: any;
     private cartSub!: Subscription;
+    private favSub!: Subscription;
     constructor(
         public router: Router,
         public loginService: LoginService,
-        private cartService: CartService
+        private cartService: CartService,
+        private favouriteService: FavouriteService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
     }
@@ -57,6 +70,13 @@ export class NavbarComponent implements OnInit {
         this.cartService.index().subscribe({
             next: (response) => {
                 this.data = Object.values(response)[0];
+            },
+        });
+    }
+    fetchFavData() {
+        this.favouriteService.index().subscribe({
+            next: (response) => {
+                this.favouriteData = Object.values(response)[0];
             },
         });
     }

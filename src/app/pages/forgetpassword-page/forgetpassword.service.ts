@@ -8,11 +8,9 @@ import { Router } from '@angular/router';
 })
 export class ForgetpasswordService {
     private apiUrl = environment.backEndUrl;
-    private data = '/login';
+    private data = '/forgot-password';
     constructor(private http: HttpClient) {}
-    login(data: any) {
-        return this.http.post(`${this.apiUrl}${this.data}`, data, {
-            withCredentials: true,
-        });
+    verify(item: any) {
+        return this.http.post(`${this.apiUrl}${this.data}`, item);
     }
 }

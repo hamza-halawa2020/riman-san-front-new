@@ -14,6 +14,7 @@ import { ProductService } from './product.service';
 import { LoginService } from '../login-page/login.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CartService } from '../cart-page/cart.service';
+import { FavouriteService } from '../favourite-page/favourite.service';
 declare var bootstrap: any;
 @Component({
     selector: 'app-product-details-page',
@@ -43,6 +44,8 @@ export class ProductDetailsPageComponent implements OnInit {
     switchTab(tab: string) {
         this.activeTab = tab;
     }
+    newReview: string = '';
+    newRate: number = 0;
     details: any;
     data: any;
     isLoggedIn: boolean = false;
@@ -58,6 +61,7 @@ export class ProductDetailsPageComponent implements OnInit {
         private activateRoute: ActivatedRoute,
         private productService: ProductService,
         private cartService: CartService,
+        private FavouriteService: FavouriteService,
         private loginService: LoginService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
@@ -89,6 +93,28 @@ export class ProductDetailsPageComponent implements OnInit {
             },
         });
     }
+    addToFavoutite(product_id: any) {
+        const payload = {
+            product_id: product_id,
+        };
+
+        this.FavouriteService.add(payload).subscribe({
+            next: (response) => {
+                this.successMessage = 'Product added to WishList successfully!';
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 1000);
+                this.FavouriteService.notifyUpdate();
+            },
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 1000);
+            },
+        });
+    }
 
     openModal(imageUrl: string, index: number) {
         this.selectedImage = imageUrl;
@@ -101,6 +127,7 @@ export class ProductDetailsPageComponent implements OnInit {
             this.id = +params['id'];
             this.productService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
+                console.log(this.details);
             });
         });
     }
@@ -121,6 +148,38 @@ export class ProductDetailsPageComponent implements OnInit {
                 this.image +
                 this.details.productImages[this.currentIndex].image;
         }
+    }
+
+    addReview(reviewText: string, rating: number) {
+        if (!reviewText || reviewText.trim() === '') {
+            this.errorMessage = 'Review cannot be empty!';
+            setTimeout(() => (this.errorMessage = ''), 1000);
+            return;
+        }
+
+        const reviewData = {
+            product_id: this.id,
+            review: reviewText,
+            rating: rating || 0,
+        };
+
+        this.productService.addReview(reviewData).subscribe({
+            next: (response) => {
+                this.getDetails();
+                this.details.productReviews.unshift(response);
+                this.successMessage =
+                    'Review added successfully but it is under review!';
+                setTimeout(() => (this.successMessage = ''), 3000);
+
+                this.newReview = '';
+                this.newRate = 0;
+            },
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => (this.errorMessage = ''), 1000);
+            },
+        });
     }
 
     ProductSliderSlides: OwlOptions = {

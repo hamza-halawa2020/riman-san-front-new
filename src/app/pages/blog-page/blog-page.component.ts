@@ -8,6 +8,8 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { PostService } from './post.service';
 import { CommonModule } from '@angular/common';
 import { BlogComponent } from '../../common/blog/blog.component';
+import { formatDistanceToNow } from 'date-fns';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
     selector: 'app-blog-page',
@@ -26,4 +28,27 @@ import { BlogComponent } from '../../common/blog/blog.component';
     styleUrl: './blog-page.component.scss',
     providers: [PostService],
 })
-export class BlogPageComponent {}
+export class BlogPageComponent {
+    data: any;
+    image = environment.imgUrl + 'posts/';
+
+    constructor(public router: Router, private postService: PostService) {}
+
+    ngOnInit(): void {
+        this.fetchData();
+    }
+
+    getRelativeTime(dateString: string): string {
+        const date = new Date(dateString);
+        return formatDistanceToNow(date, { addSuffix: true }); // e.g., "2 days ago"
+    }
+
+    fetchData() {
+        this.postService.index().subscribe({
+            next: (response) => {
+                this.data = Object.values(response)[0];
+            },
+            error: (error) => {},
+        });
+    }
+}
