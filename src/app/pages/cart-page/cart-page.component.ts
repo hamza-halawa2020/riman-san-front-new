@@ -1,4 +1,3 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { Router, RouterLink } from '@angular/router';
@@ -6,11 +5,12 @@ import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { environment } from '../../../environments/environment.development';
-import { CommonModule, NgClass, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { CartService } from './cart.service';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CheckoutService } from '../checkout-page/checkout.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'app-cart-page',
@@ -45,7 +45,8 @@ export class CartPageComponent implements OnInit {
     constructor(
         public router: Router,
         private cartService: CartService,
-        private checkoutService: CheckoutService
+        private checkoutService: CheckoutService,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnInit(): void {
@@ -117,6 +118,7 @@ export class CartPageComponent implements OnInit {
                 }, 1000);
                 localStorage.setItem('appliedCoupon', code);
                 this.cartService.notifyCartUpdate();
+                this.cdr.detectChanges();
             },
             error: (error) => {
                 this.errorMessage =
@@ -129,7 +131,6 @@ export class CartPageComponent implements OnInit {
             },
         });
     }
-
     get finalPrice(): number {
         return (
             this.totalAmount +
@@ -168,6 +169,7 @@ export class CartPageComponent implements OnInit {
                 s.city_id == this.selectedCity
         );
         this.shipmentCost = shipment ? Number(shipment.cost) : 0;
+        this.cdr.detectChanges();
     }
 
     get totalAmount(): number {
@@ -225,6 +227,7 @@ export class CartPageComponent implements OnInit {
                         });
 
                         this.cartService.notifyCartUpdate();
+                        this.cdr.detectChanges();
                     },
                     error: (error) => {
                         Swal.fire({
@@ -326,6 +329,7 @@ export class CartPageComponent implements OnInit {
                         });
 
                         this.cartService.notifyCartUpdate();
+                        this.cdr.detectChanges();
                     },
                     error: (error) => {
                         Swal.fire({

@@ -30,7 +30,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { PaymentStatusPageComponent } from './pages/payment-status-page/payment-status-page.component';
 import { VerificationCodePageComponent } from './pages/verification-code-page/verification-code-page.component';
 import { SendVerificationCodePageComponent } from './pages/send-verification-code-page/send-verification-code-page.component';
-import { ResetpasswordPageComponent } from './pages/resetPassword-page/resetPassword-page.component';
+import { ResetpasswordPageComponent } from './pages/resetPassword-page/resetpassword-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
