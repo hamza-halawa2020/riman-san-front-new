@@ -104,9 +104,8 @@ export class CheckoutPageComponent implements OnInit {
                             this.checkoutData = null;
                             this.totalPriceData = null;
 
-                            this.checkoutService.clearCart().subscribe({
+                            this.cartService.clearCart().subscribe({
                                 next: () => {
-                                    this.cartService.notifyCartUpdate();
                                 },
                             });
                         },

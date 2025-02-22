@@ -117,7 +117,6 @@ export class CartPageComponent implements OnInit {
                     this.successMessage = '';
                 }, 1000);
                 localStorage.setItem('appliedCoupon', code);
-                this.cartService.notifyCartUpdate();
                 this.cdr.detectChanges();
             },
             error: (error) => {
@@ -226,7 +225,6 @@ export class CartPageComponent implements OnInit {
                             showConfirmButton: false,
                         });
 
-                        this.cartService.notifyCartUpdate();
                         this.cdr.detectChanges();
                     },
                     error: (error) => {
@@ -312,14 +310,15 @@ export class CartPageComponent implements OnInit {
             cancelButtonText: 'Cancel',
         }).then((result: any) => {
             if (result.isConfirmed) {
-                this.checkoutService.clearCart().subscribe({
+                this.cartService.clearCart().subscribe({
                     next: () => {
-                        this.cartService.notifyCartUpdate();
                         this.fetchdata();
 
                         localStorage.removeItem('checkoutData');
                         localStorage.removeItem('totalPriceData');
                         localStorage.removeItem('appliedCoupon');
+                        localStorage.removeItem('cart');
+
                         Swal.fire({
                             title: 'clear!',
                             text: 'Your cart is clear.',
@@ -328,7 +327,6 @@ export class CartPageComponent implements OnInit {
                             showConfirmButton: false,
                         });
 
-                        this.cartService.notifyCartUpdate();
                         this.cdr.detectChanges();
                     },
                     error: (error) => {

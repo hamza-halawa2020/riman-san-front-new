@@ -22,11 +22,7 @@ export class CheckoutService {
     allProducts() {
         return this.http.get(`${this.apiUrl}/products`);
     }
-    clearCart() {
-        return this.http.delete(`${this.apiUrl}/cart_clear`, {
-            headers: this.getHeaders(),
-        });
-    }
+  
 
     storeOrder(item: any) {
         return this.http.post(`${this.apiUrl}/orders`, item, {

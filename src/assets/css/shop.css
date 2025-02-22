@@ -208,7 +208,7 @@
 }
 /* Main Menu */
 .navbar-expand-lg .navbar-collapse{
-	display:block !important;
+	/* display:block !important; */
 }
 .header.v3 .navbar-expand-lg .navbar-collapse{
 	display:block !important;

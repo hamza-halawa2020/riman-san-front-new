@@ -1,46 +1,50 @@
 import { NgClass, NgIf } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { LoginService } from '../../pages/login-page/login.service';
 import { CartService } from '../../pages/cart-page/cart.service';
 import { Subscription } from 'rxjs';
 import { FavouriteService } from '../../pages/favourite-page/favourite.service';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 @Component({
     selector: 'app-navbar',
     standalone: true,
-    imports: [RouterLink, RouterLinkActive, NgIf, NgClass],
+    imports: [RouterLink, RouterLinkActive, NgIf, NgClass, NgbCollapseModule],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
+    isCollapsed = true;
+    cartData: any[] = [];
+    favData: any[] = [];
+
+    public cartSubscription!: Subscription;
+    public favSubscription!: Subscription;
+
     ngOnInit(): void {
-        this.fetchCartData();
-        this.fetchFavData();
-        this.cartSub = this.cartService
-            .getCartUpdateListener()
-            .subscribe(() => {
-                this.fetchCartData();
-            });
-        this.favSub = this.favouriteService
-            .getUpdateListener()
-            .subscribe(() => {
-                this.fetchFavData();
-            });
+        this.cartSubscription = this.cartService.cart$.subscribe((cart) => {
+            this.cartData = cart;
+        });
+        this.favSubscription = this.favouriteService.fav$.subscribe((fav) => {
+            this.favData = fav;
+        });
+
+        this.router.events.subscribe(() => {
+            this.cartService.refreshCart();
+        });
+        this.router.events.subscribe(() => {
+            this.favouriteService.refreshFav();
+        });
     }
     ngOnDestroy() {
-        if (this.cartSub) {
-            this.cartSub.unsubscribe();
-        }
-        if (this.favSub) {
-            this.favSub.unsubscribe();
+        if (this.cartSubscription) {
+            this.cartSubscription.unsubscribe();
         }
     }
 
     isLoggedIn: boolean = false;
     data: any;
     favouriteData: any;
-    private cartSub!: Subscription;
-    private favSub!: Subscription;
     constructor(
         public router: Router,
         public loginService: LoginService,
@@ -64,21 +68,6 @@ export class NavbarComponent implements OnInit {
         } else {
             this.isSticky = false;
         }
-    }
-
-    fetchCartData() {
-        this.cartService.index().subscribe({
-            next: (response) => {
-                this.data = Object.values(response)[0];
-            },
-        });
-    }
-    fetchFavData() {
-        this.favouriteService.index().subscribe({
-            next: (response) => {
-                this.favouriteData = Object.values(response)[0];
-            },
-        });
     }
 
     logout() {

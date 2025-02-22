@@ -45,9 +45,8 @@ export class PaymentStatusPageComponent implements OnInit {
                 localStorage.removeItem('checkoutData');
                 localStorage.removeItem('totalPriceData');
                 localStorage.removeItem('appliedCoupon');
-                this.checkoutService.clearCart().subscribe({
+                this.cartService.clearCart().subscribe({
                     next: () => {
-                        this.cartService.notifyCartUpdate();
                     },
                 });
             }

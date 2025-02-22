@@ -82,7 +82,6 @@ export class ProductDetailsPageComponent implements OnInit {
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
-                this.cartService.notifyCartUpdate();
             },
             error: (error) => {
                 this.errorMessage =
@@ -104,7 +103,6 @@ export class ProductDetailsPageComponent implements OnInit {
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
-                this.FavouriteService.notifyUpdate();
             },
             error: (error) => {
                 this.errorMessage =

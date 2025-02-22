@@ -77,8 +77,6 @@ export class FavouritePageComponent implements OnInit {
                             timer: 1500,
                             showConfirmButton: false,
                         });
-
-                        this.favouriteService.notifyUpdate();
                     },
                     error: (error) => {
                         Swal.fire({
@@ -108,9 +106,8 @@ export class FavouritePageComponent implements OnInit {
             cancelButtonText: 'Cancel',
         }).then((result: any) => {
             if (result.isConfirmed) {
-                this.favouriteService.clearCart().subscribe({
+                this.favouriteService.clearFav().subscribe({
                     next: () => {
-                        this.favouriteService.notifyUpdate();
                         this.fetchdata();
 
                         Swal.fire({
@@ -120,8 +117,6 @@ export class FavouritePageComponent implements OnInit {
                             timer: 1500,
                             showConfirmButton: false,
                         });
-
-                        this.favouriteService.notifyUpdate();
                     },
                     error: (error) => {
                         Swal.fire({
