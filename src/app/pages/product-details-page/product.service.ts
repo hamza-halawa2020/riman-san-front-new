@@ -24,4 +24,7 @@ export class ProductService {
     addReview(item: any) {
         return this.http.post(`${this.apiUrl}/product-reviews`, item);
     }
+    addClientReview(item: any) {
+        return this.http.post(`${this.apiUrl}/product-reviews-store`, item);
+    }
 }

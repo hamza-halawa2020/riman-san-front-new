@@ -167,7 +167,7 @@
                     <ul class="review-contents">
                         <li *ngFor="let review of details?.productReviews">
                             <div class="cont">
-                                <h6 class="subtitle">{{ review?.user }}</h6>
+                                <h6 class="subtitle">{{ review?.user||review?.client }}</h6>
                                 <div class="ratings cl-theme">
                                     <rating
                                         [(ngModel)]="review.rating"
@@ -183,7 +183,10 @@
                 </div>
                 <div class="review-form">
                     <h6 class="review-title">Add a Review</h6>
-                    <form class="row client-form align-items-center">
+                    <form
+                        class="row client-form align-items-center"
+                        *ngIf="isLoggedIn"
+                    >
                         <div class="col-md-4 col-12">
                             <div class="rating">
                                 <span class="rating-title">Your Rating : </span>
@@ -214,6 +217,68 @@
                             </button>
                         </div>
                     </form>
+
+                    <form
+                        class="row client-form align-items-center"
+                        *ngIf="!isLoggedIn"
+                    >
+                        <div class="col-md-4 col-12">
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Full Name"
+                                [(ngModel)]="name"
+
+                            />
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Email Adress"
+                                [(ngModel)]="email"
+
+                            />
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <input
+                                type="text"
+                                name="phone"
+                                placeholder="Phone Number"
+                                [(ngModel)]="phone"
+
+                            />
+                        </div>
+                        <div class="col-md-4 col-12">
+                            <div class="rating">
+                                <span class="rating-title">Your Rating : </span>
+
+                                <rating
+                                    [max]="5"
+                                    style="color: #e1b619; font-size: 25px"
+                                    [(ngModel)]="newRate"
+                                    name="newRate"
+                                ></rating>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-12 d-inline-flex">
+                            <textarea
+                                rows="5"
+                                placeholder="Type Here Message"
+                                [(ngModel)]="newReview"
+                                name="newReview"
+                            ></textarea>
+                        </div>
+                        <div class="col-12 pb-4">
+                            <button
+                                type="button"
+                                class="custom-button rounded"
+                                (click)="addClientReview(newReview, newRate,name,email,phone)"
+                            >
+                                Submit Review
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -224,7 +289,7 @@
 <div
     class="related_prdct_area text-center"
     *ngIf="details?.relatedProducts?.length"
-    >
+>
     <div class="container">
         <!-- Section Title -->
         <div class="rp_title text-center"><h3>Related products</h3></div>

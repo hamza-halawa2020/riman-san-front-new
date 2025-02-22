@@ -44,6 +44,9 @@ export class ProductDetailsPageComponent implements OnInit {
     switchTab(tab: string) {
         this.activeTab = tab;
     }
+    name: string = '';
+    email: string = '';
+    phone: string = '';
     newReview: string = '';
     newRate: number = 0;
     details: any;
@@ -126,6 +129,7 @@ export class ProductDetailsPageComponent implements OnInit {
             this.productService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
                 console.log(this.details);
+                
             });
         });
     }
@@ -162,6 +166,46 @@ export class ProductDetailsPageComponent implements OnInit {
         };
 
         this.productService.addReview(reviewData).subscribe({
+            next: (response) => {
+                this.getDetails();
+                this.details.productReviews.unshift(response);
+                this.successMessage =
+                    'Review added successfully but it is under review!';
+                setTimeout(() => (this.successMessage = ''), 3000);
+
+                this.newReview = '';
+                this.newRate = 0;
+            },
+            error: (error) => {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => (this.errorMessage = ''), 1000);
+            },
+        });
+    }
+    addClientReview(
+        reviewText: string,
+        rating: number,
+        nameText: string,
+        emailText: string,
+        phoneText: string,
+    ) {
+        if (!reviewText || reviewText.trim() === '') {
+            this.errorMessage = 'Review cannot be empty!';
+            setTimeout(() => (this.errorMessage = ''), 1000);
+            return;
+        }
+
+        const reviewData = {
+            product_id: this.id,
+            review: reviewText,
+            rating: rating || 0,
+            name: nameText,
+            email: emailText,
+            phone: phoneText,
+        };
+
+        this.productService.addClientReview(reviewData).subscribe({
             next: (response) => {
                 this.getDetails();
                 this.details.productReviews.unshift(response);
