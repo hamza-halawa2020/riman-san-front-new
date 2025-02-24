@@ -50,10 +50,6 @@ export class FavouriteClientService {
         return client_fav ? JSON.parse(client_fav) : [];
     }
 
-    getProductById(productId: number) {
-        return this.http.get(`${this.apiUrl}/products/${productId}`);
-    }
-
     updateQuantity(productId: number, change: number) {
         let fav = this.getFavFromLocalStorage();
         fav = fav.map((item) => {

@@ -49,14 +49,14 @@
 <!-- Shopping Cart -->
 <div class="container text-center">
     <div class="row">
-        <div *ngIf="!data || data.length === 0" class="empty-cart my-5">
+        <div *ngIf="!favItems || favItems.length === 0" class="empty-fav my-5">
             <h3>Your Whishlist is empty</h3>
             <a routerLink="/products" class="btn_one mt-3">Continue Shopping</a>
         </div>
     </div>
 </div>
 
-<div *ngIf="data && data.length > 0">
+<div *ngIf="favItems && favItems.length > 0">
     <!-- Shopping Cart -->
     <div class="shopping-cart section">
         <div class="container">
@@ -80,8 +80,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let fav of data">
-                                <td class="text-center">{{ fav.id }}</td>
+                            <tr *ngFor="let fav of favItems">
+                                <td class="text-center">{{ fav.product_id }}</td>
 
                                 <td class="image text-center">
                                     <a
@@ -121,7 +121,7 @@
                                 </td>
                                 <td
                                     class="action text-center"
-                                    (click)="deleteItem(fav.id)"
+                                    (click)="deleteItem(fav.product.id)"
                                     data-title="Remove"
                                 >
                                     <a style="cursor: pointer">

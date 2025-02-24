@@ -29,7 +29,6 @@ import { ClientCartService } from '../client-cart/client-cart.service';
     providers: [FavouriteClientService],
 })
 export class FavouriteClientPageComponent implements OnInit {
-    data: any;
     favItems: any[] = [];
     image = environment.imgUrl + 'products/';
 
@@ -49,6 +48,7 @@ export class FavouriteClientPageComponent implements OnInit {
     fetchFavData() {
         this.clientFavService.client_fav$.subscribe((client_fav) => {
             this.favItems = client_fav || [];
+            
         });
     }
 

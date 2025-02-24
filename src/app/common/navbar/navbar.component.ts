@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { FavouriteService } from '../../pages/favourite-page/favourite.service';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClientCartService } from '../../pages/client-cart/client-cart.service';
+import { FavouriteClientService } from '../../pages/favourite-client-page/favourite-client.service';
 @Component({
     selector: 'app-navbar',
     standalone: true,
@@ -18,11 +19,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     isCollapsed = true;
     cartData: any[] = [];
     cartClientData: any[] = [];
+    favClientData: any[] = [];
     favData: any[] = [];
 
     public cartSubscription!: Subscription;
     public cartClientSubscription!: Subscription;
     public favSubscription!: Subscription;
+    public favClientSubscription!: Subscription;
 
     // ngOnInit(): void {
     //     this.cartSubscription = this.cartService.cart$.subscribe((cart) => {
@@ -61,6 +64,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.favSubscription = this.favouriteService.fav$.subscribe((fav) => {
             this.favData = fav;
         });
+        this.favClientSubscription = this.favClientouriteService.fav$.subscribe(
+            (favClient) => {
+                this.favClientData = favClient;
+            }
+        );
 
         this.router.events.subscribe(() => {
             this.cartService.refreshCart();
@@ -68,6 +76,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         });
         this.router.events.subscribe(() => {
             this.favouriteService.refreshFav();
+            this.favClientouriteService.refreshFav();
         });
     }
 
@@ -81,6 +90,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
         if (this.favSubscription) {
             this.favSubscription.unsubscribe();
         }
+        if (this.favClientSubscription) {
+            this.favClientSubscription.unsubscribe();
+        }
     }
 
     isLoggedIn: boolean = false;
@@ -91,7 +103,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
         public loginService: LoginService,
         private cartService: CartService,
         private cartClientService: ClientCartService,
-        private favouriteService: FavouriteService
+        private favouriteService: FavouriteService,
+        private favClientouriteService: FavouriteClientService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
     }

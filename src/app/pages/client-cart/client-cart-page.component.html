@@ -87,7 +87,7 @@
                             <tr *ngFor="let cart of cartItems">
                                 <td class="text-center">{{ cart.product.id }}</td>
                                 <td class="image text-center" data-title="No">
-                                    <a href="/product/{{ cart.product.id }}">
+                                    <a routerLink="/product/{{ cart.product.id }}">
                                         <img
                                             src="{{
                                                 image +
