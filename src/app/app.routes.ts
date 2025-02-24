@@ -33,6 +33,8 @@ import { SendVerificationCodePageComponent } from './pages/send-verification-cod
 import { ResetpasswordPageComponent } from './pages/resetPassword-page/resetpassword-page.component';
 import { CertificationPageComponent } from './pages/certification-page/certification-page.component';
 import { FactoryPageComponent } from './pages/factory-page/factory-page.component';
+import { FavouritePageWrapperComponent } from './pages/favourite-page-wrapper/favourite-page-wrapper.component';
+import { FavouriteResolver } from './pages/favourite-page-wrapper/favourite.resolver';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -75,12 +77,12 @@ export const routes: Routes = [
         component: SendVerificationCodePageComponent,
         canActivate: [unAuthGuard],
     },
+
     {
         path: 'wishlist',
-        component: FavouritePageComponent,
-        canActivate: [AuthGuard],
+        component: FavouritePageWrapperComponent,
+        resolve: { userType: FavouriteResolver },
     },
-
     {
         path: 'cart',
         component: CartPageWrapperComponent,
