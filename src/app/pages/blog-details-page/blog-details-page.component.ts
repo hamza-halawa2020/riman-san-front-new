@@ -80,7 +80,7 @@ export class BlogDetailsPageComponent {
                         .flat()
                         .join(' | ');
                 } else {
-                    error.error?.message || 'An unexpected error occurred.';
+                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
 
                 }
                 setTimeout(() => {
@@ -102,7 +102,7 @@ export class BlogDetailsPageComponent {
                         .flat()
                         .join(' | ');
                 } else {
-                    error.error?.message || 'An unexpected error occurred.';
+                    this.errorMessage =  error.error?.message || 'An unexpected error occurred.';
 
                 }
                 setTimeout(() => {
@@ -153,7 +153,7 @@ export class BlogDetailsPageComponent {
                         .flat()
                         .join(' | ');
                 } else {
-                    error.error?.message || 'An unexpected error occurred.';
+                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
 
                 }
                 setTimeout(() => {

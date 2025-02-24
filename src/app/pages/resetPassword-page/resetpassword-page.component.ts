@@ -14,7 +14,7 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
-import { ResetpasswordService } from './resetPassword.service';
+import { ResetpasswordService } from './resetpassword.service';
 
 @Component({
     selector: 'app-resetpassword-page',

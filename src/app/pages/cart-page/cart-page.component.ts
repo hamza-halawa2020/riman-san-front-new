@@ -127,7 +127,7 @@ export class CartPageComponent implements OnInit {
                         .flat()
                         .join(' | ');
                 } else {
-                    error.error?.message || 'An unexpected error occurred.';
+                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
 
                 }
                 setTimeout(() => {
@@ -203,7 +203,7 @@ export class CartPageComponent implements OnInit {
                         .flat()
                         .join(' | ');
                 } else {
-                    error.error?.message || 'An unexpected error occurred.';
+                    this.errorMessage =  error.error?.message || 'An unexpected error occurred.';
 
                 }
                 setTimeout(() => {
