@@ -102,9 +102,15 @@
                                     <li>
                                         <a
                                             style="cursor: pointer"
-                                            (click)="
-                                                addToClientCart(product)
-                                            "
+                                            (click)="addToFavoutite(product.id)"
+                                            data-tip="Add to Wishlist"
+                                            ><i class="fa-regular fa-heart"></i
+                                        ></a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            style="cursor: pointer"
+                                            (click)="addToClientCart(product)"
                                             data-tip="Add to Cart"
                                         >
                                             <i class="fa-solid fa-cart-plus"></i

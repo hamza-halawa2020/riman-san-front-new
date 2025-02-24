@@ -132,6 +132,10 @@
                 <i class="fa-regular fa-heart"></i>
                 <span class="gactive">{{ favData.length }}</span>
             </a>
+            <a *ngIf="!isLoggedIn" routerLink="/wishlist" class="hlc">
+                <i class="fa-regular fa-heart"></i>
+                <span class="gactive">{{ favData.length }}</span>
+            </a>
 
             <a *ngIf="!isLoggedIn" class="btn_one" routerLink="/login">Login</a>
             <a *ngIf="!isLoggedIn" class="btn_two" routerLink="/register"

@@ -73,11 +73,19 @@ export class BlogDetailsPageComponent {
                 this.sliderData = Object.values(response)[0];
             },
             error: (error) => {
-                this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                if (error.error?.errors) {
+                    this.errorMessage = Object.values(
+                        error.error.errors
+                    )
+                        .flat()
+                        .join(' | ');
+                } else {
+                    this.errorMessage =
+                        'An unexpected error occurred.';
+                }
                 setTimeout(() => {
                     this.errorMessage = '';
-                }, 1000);
+                }, 3000);
             },
         });
     }
@@ -87,11 +95,19 @@ export class BlogDetailsPageComponent {
                 this.randomData = Object.values(response)[0];
             },
             error: (error) => {
-                this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                if (error.error?.errors) {
+                    this.errorMessage = Object.values(
+                        error.error.errors
+                    )
+                        .flat()
+                        .join(' | ');
+                } else {
+                    this.errorMessage =
+                        'An unexpected error occurred.';
+                }
                 setTimeout(() => {
                     this.errorMessage = '';
-                }, 1000);
+                }, 3000);
             },
         });
     }
@@ -130,11 +146,19 @@ export class BlogDetailsPageComponent {
                 this.newComment = '';
             },
             error: (error) => {
-                this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                if (error.error?.errors) {
+                    this.errorMessage = Object.values(
+                        error.error.errors
+                    )
+                        .flat()
+                        .join(' | ');
+                } else {
+                    this.errorMessage =
+                        'An unexpected error occurred.';
+                }
                 setTimeout(() => {
                     this.errorMessage = '';
-                }, 1000);
+                }, 3000);
             },
         });
     }

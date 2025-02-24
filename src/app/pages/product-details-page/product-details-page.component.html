@@ -141,14 +141,25 @@
                     </div>
 
                     <!-- Product Action -->
-                    <div class="">
+                    <div class="" *ngIf="isLoggedIn">
                         <a
                             class="btn btn-default acc_btn"
                             (click)="addToCart(details.id)"
                             >add to cart</a
                         >
                         <a
-                            *ngIf="isLoggedIn"
+                            (click)="addToFavoutite(details.id)"
+                            class="btn btn-default acc_btn btn_icn"
+                            ><i class="fa fa-heart"></i
+                        ></a>
+                    </div>
+                    <div class="" *ngIf="!isLoggedIn">
+                        <a
+                            class="btn btn-default acc_btn"
+                            (click)="addToClientCart(details)"
+                            >add to cart</a
+                        >
+                        <a
                             (click)="addToFavoutite(details.id)"
                             class="btn btn-default acc_btn btn_icn"
                             ><i class="fa fa-heart"></i
@@ -167,7 +178,9 @@
                     <ul class="review-contents">
                         <li *ngFor="let review of details?.productReviews">
                             <div class="cont">
-                                <h6 class="subtitle">{{ review?.user||review?.client }}</h6>
+                                <h6 class="subtitle">
+                                    {{ review?.user || review?.client }}
+                                </h6>
                                 <div class="ratings cl-theme">
                                     <rating
                                         [(ngModel)]="review.rating"
@@ -228,7 +241,6 @@
                                 name="name"
                                 placeholder="Full Name"
                                 [(ngModel)]="name"
-
                             />
                         </div>
                         <div class="col-md-4 col-12">
@@ -237,7 +249,6 @@
                                 name="email"
                                 placeholder="Email Adress"
                                 [(ngModel)]="email"
-
                             />
                         </div>
                         <div class="col-md-4 col-12">
@@ -246,7 +257,6 @@
                                 name="phone"
                                 placeholder="Phone Number"
                                 [(ngModel)]="phone"
-
                             />
                         </div>
                         <div class="col-md-4 col-12">
@@ -273,7 +283,15 @@
                             <button
                                 type="button"
                                 class="custom-button rounded"
-                                (click)="addClientReview(newReview, newRate,name,email,phone)"
+                                (click)="
+                                    addClientReview(
+                                        newReview,
+                                        newRate,
+                                        name,
+                                        email,
+                                        phone
+                                    )
+                                "
                             >
                                 Submit Review
                             </button>
@@ -310,10 +328,9 @@
                                 alt="product image"
                             />
                         </a>
-                        <ul class="social">
+                        <ul class="social" *ngIf="isLoggedIn">
                             <li>
                                 <a
-                                    *ngIf="isLoggedIn"
                                     style="cursor: pointer"
                                     (click)="addToFavoutite(related.id)"
                                     data-tip="Add to Wishlist"
@@ -324,6 +341,25 @@
                                 <a
                                     style="cursor: pointer"
                                     (click)="addToCart(related.id)"
+                                    data-tip="Add to Cart"
+                                >
+                                    <i class="fa-solid fa-cart-plus"></i
+                                ></a>
+                            </li>
+                        </ul>
+                        <ul class="social" *ngIf="!isLoggedIn">
+                            <li>
+                                <a
+                                    style="cursor: pointer"
+                                    (click)="addToFavoutite(related.id)"
+                                    data-tip="Add to Wishlist"
+                                    ><i class="fa-regular fa-heart"></i
+                                ></a>
+                            </li>
+                            <li>
+                                <a
+                                    style="cursor: pointer"
+                                    (click)="addToClientCart(related)"
                                     data-tip="Add to Cart"
                                 >
                                     <i class="fa-solid fa-cart-plus"></i

@@ -115,9 +115,16 @@ export class CheckoutPageComponent implements OnInit {
                             });
                         },
                         error: (error) => {
-                            this.errorMessage =
-                                error.error?.message ||
-                                'An unexpected error occurred.';
+                            if (error.error?.errors) {
+                                this.errorMessage = Object.values(
+                                    error.error.errors
+                                )
+                                    .flat()
+                                    .join(' | ');
+                            } else {
+                                this.errorMessage =
+                                    'An unexpected error occurred.';
+                            }
                             setTimeout(() => {
                                 this.errorMessage = '';
                             }, 3000);
@@ -150,9 +157,16 @@ export class CheckoutPageComponent implements OnInit {
                                 });
                         },
                         error: (error) => {
-                            this.errorMessage =
-                                error.error?.message ||
-                                'An unexpected error occurred.';
+                            if (error.error?.errors) {
+                                this.errorMessage = Object.values(
+                                    error.error.errors
+                                )
+                                    .flat()
+                                    .join(' | ');
+                            } else {
+                                this.errorMessage =
+                                    'An unexpected error occurred.';
+                            }
                             setTimeout(() => {
                                 this.errorMessage = '';
                             }, 3000);
@@ -160,8 +174,16 @@ export class CheckoutPageComponent implements OnInit {
                     });
                 }
             } catch (error: any) {
-                this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                if (error.error?.errors) {
+                    this.errorMessage = Object.values(
+                        error.error.errors
+                    )
+                        .flat()
+                        .join(' | ');
+                } else {
+                    this.errorMessage =
+                        'An unexpected error occurred.';
+                }
                 setTimeout(() => {
                     this.errorMessage = '';
                 }, 3000);
@@ -180,73 +202,100 @@ export class CheckoutPageComponent implements OnInit {
                 let checkoutData = JSON.parse(storedData);
 
                 if (checkoutData.payment_method === 'cash_on_delivery') {
-                    this.checkoutService.storeClientOrder(checkoutData).subscribe({
-                        next: () => {
-                            this.successMessage =
-                                'Your order has been placed successfully with Cash on Delivery!';
-                            setTimeout(() => {
-                                this.successMessage = '';
-                            }, 3000);
-                            localStorage.removeItem('checkoutData');
-                            localStorage.removeItem('totalPriceData');
-                            localStorage.removeItem('appliedCoupon');
+                    this.checkoutService
+                        .storeClientOrder(checkoutData)
+                        .subscribe({
+                            next: () => {
+                                this.successMessage =
+                                    'Your order has been placed successfully with Cash on Delivery!';
+                                setTimeout(() => {
+                                    this.successMessage = '';
+                                }, 3000);
+                                localStorage.removeItem('checkoutData');
+                                localStorage.removeItem('totalPriceData');
+                                localStorage.removeItem('appliedCoupon');
 
-                            // Reset component state
-                            this.checkoutData = null;
-                            this.totalPriceData = null;
+                                // Reset component state
+                                this.checkoutData = null;
+                                this.totalPriceData = null;
 
-                            this.cartService.clearCart().subscribe({
-                                next: () => {},
-                            });
-                        },
-                        error: (error) => {
-                            this.errorMessage =
-                                error.error?.message ||
-                                'An unexpected error occurred.';
-                            setTimeout(() => {
-                                this.errorMessage = '';
-                            }, 3000);
-                        },
-                    });
-                } else if (checkoutData.payment_method === 'visa') {
-                    this.checkoutService.storeClientOrder(checkoutData).subscribe({
-                        next: (orderResponse: any) => {
-                            const payLoad = {
-                                orderID: orderResponse.data.id,
-                            };
-
-                            this.checkoutService
-                                .getPaymentLink(payLoad)
-                                .subscribe({
-                                    next: (paymentResponse: any) => {
-                                        window.open(
-                                            paymentResponse.iframe_url,
-                                            '_blank'
-                                        );
-                                    },
-                                    error: (error) => {
-                                        this.errorMessage =
-                                            error.error?.message ||
-                                            'Error fetching payment link.';
-                                        setTimeout(() => {
-                                            this.errorMessage = '';
-                                        }, 3000);
-                                    },
+                                this.cartService.clearCart().subscribe({
+                                    next: () => {},
                                 });
-                        },
-                        error: (error) => {
-                            this.errorMessage =
-                                error.error?.message ||
-                                'An unexpected error occurred.';
-                            setTimeout(() => {
-                                this.errorMessage = '';
-                            }, 3000);
-                        },
-                    });
+                            },
+                            error: (error) => {
+                                if (error.error?.errors) {
+                                    this.errorMessage = Object.values(
+                                        error.error.errors
+                                    )
+                                        .flat()
+                                        .join(' | ');
+                                } else {
+                                    this.errorMessage =
+                                        'An unexpected error occurred.';
+                                }
+                                setTimeout(() => {
+                                    this.errorMessage = '';
+                                }, 3000);
+                            },
+                        });
+                } else if (checkoutData.payment_method === 'visa') {
+                    this.checkoutService
+                        .storeClientOrder(checkoutData)
+                        .subscribe({
+                            next: (orderResponse: any) => {
+                                const payLoad = {
+                                    orderID: orderResponse.data.id,
+                                };
+
+                                this.checkoutService
+                                    .getPaymentLink(payLoad)
+                                    .subscribe({
+                                        next: (paymentResponse: any) => {
+                                            window.open(
+                                                paymentResponse.iframe_url,
+                                                '_blank'
+                                            );
+                                        },
+                                        error: (error) => {
+                                            this.errorMessage =
+                                                error.error?.message ||
+                                                'Error fetching payment link.';
+                                            setTimeout(() => {
+                                                this.errorMessage = '';
+                                            }, 3000);
+                                        },
+                                    });
+                            },
+                            error: (error) => {
+                                if (error.error?.errors) {
+                                    this.errorMessage = Object.values(
+                                        error.error.errors
+                                    )
+                                        .flat()
+                                        .join(' | ');
+                                } else {
+                                    this.errorMessage =
+                                        'An unexpected error occurred.';
+                                }
+                                setTimeout(() => {
+                                    this.errorMessage = '';
+                                }, 3000);
+                            },
+
+                        });
                 }
             } catch (error: any) {
-                this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                if (error.error?.errors) {
+                    this.errorMessage = Object.values(
+                        error.error.errors
+                    )
+                        .flat()
+                        .join(' | ');
+                } else {
+                    this.errorMessage =
+                        'An unexpected error occurred.';
+                }
                 setTimeout(() => {
                     this.errorMessage = '';
                 }, 3000);

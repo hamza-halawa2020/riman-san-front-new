@@ -15,6 +15,7 @@ import { LoginService } from '../login-page/login.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CartService } from '../cart-page/cart.service';
 import { FavouriteService } from '../favourite-page/favourite.service';
+import { ClientCartService } from '../client-cart/client-cart.service';
 declare var bootstrap: any;
 @Component({
     selector: 'app-product-details-page',
@@ -65,6 +66,7 @@ export class ProductDetailsPageComponent implements OnInit {
         private productService: ProductService,
         private cartService: CartService,
         private FavouriteService: FavouriteService,
+        private cartClientService: ClientCartService,
         private loginService: LoginService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
@@ -72,6 +74,34 @@ export class ProductDetailsPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.getDetails();
+    }
+
+    addToClientCart(product: any) {
+        const client_cart = this.cartClientService.cartSubject.value;
+
+        if (!client_cart || !Array.isArray(client_cart)) {
+            this.errorMessage = 'Cart data is not available yet.';
+            return;
+        }
+
+        const exists = client_cart.some(
+            (item) => item && item.product_id === product.id
+        );
+
+        if (exists) {
+            this.errorMessage = 'Product is already in the cart!';
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 1000);
+        } else {
+            const productToAdd = { ...product, quantity: 1 };
+            this.cartClientService.addToClientCart(productToAdd);
+
+            this.successMessage = 'Product added to cart successfully!';
+            setTimeout(() => {
+                this.successMessage = '';
+            }, 1000);
+        }
     }
 
     addToCart(product_id: any) {
@@ -87,11 +117,19 @@ export class ProductDetailsPageComponent implements OnInit {
                 }, 1000);
             },
             error: (error) => {
-                this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                if (error.error?.errors) {
+                    this.errorMessage = Object.values(
+                        error.error.errors
+                    )
+                        .flat()
+                        .join(' | ');
+                } else {
+                    this.errorMessage =
+                        'An unexpected error occurred.';
+                }
                 setTimeout(() => {
                     this.errorMessage = '';
-                }, 1000);
+                }, 3000);
             },
         });
     }
@@ -108,11 +146,19 @@ export class ProductDetailsPageComponent implements OnInit {
                 }, 1000);
             },
             error: (error) => {
-                this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                if (error.error?.errors) {
+                    this.errorMessage = Object.values(
+                        error.error.errors
+                    )
+                        .flat()
+                        .join(' | ');
+                } else {
+                    this.errorMessage =
+                        'An unexpected error occurred.';
+                }
                 setTimeout(() => {
                     this.errorMessage = '';
-                }, 1000);
+                }, 3000);
             },
         });
     }
@@ -128,8 +174,6 @@ export class ProductDetailsPageComponent implements OnInit {
             this.id = +params['id'];
             this.productService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
-                console.log(this.details);
-                
             });
         });
     }
@@ -188,7 +232,7 @@ export class ProductDetailsPageComponent implements OnInit {
         rating: number,
         nameText: string,
         emailText: string,
-        phoneText: string,
+        phoneText: string
     ) {
         if (!reviewText || reviewText.trim() === '') {
             this.errorMessage = 'Review cannot be empty!';
