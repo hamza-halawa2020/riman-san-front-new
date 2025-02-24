@@ -32,10 +32,10 @@ export class CartPageComponent implements OnInit {
     data: any;
     countries: any[] = [];
     cities: any[] = [];
-    couponCode: any;
     shipments: any[] = [];
-
     shipmentCost: number = 0;
+    couponCode: any;
+
     filteredCities: any[] = [];
     selectedCountry: any = '';
     selectedCity: any = '';
@@ -122,8 +122,6 @@ export class CartPageComponent implements OnInit {
             error: (error) => {
                 this.errorMessage =
                     error.error?.message || 'An unexpected error occurred.';
-                console.error('Coupon error:', error);
-
                 setTimeout(() => {
                     this.errorMessage = '';
                 }, 1000);

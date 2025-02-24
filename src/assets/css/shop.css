@@ -3031,11 +3031,11 @@
 	background:#fff;
 	color:#013C4A;
 }
-.shopping-cart .total-amount .left label{
+/* .shopping-cart .total-amount .left label{
 	font-size:22px;
 	font-weight:500;
 	color:#333;
-}
+} */
 .shopping-cart .total-amount .left .checkbox {
 	text-align: left;
 	margin: 0;

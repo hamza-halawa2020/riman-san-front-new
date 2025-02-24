@@ -79,12 +79,10 @@ export class CartService {
                 const updatedCart = [...currentCart, response.data];
                 this.cartSubject.next(updatedCart);
                 localStorage.setItem('cart', JSON.stringify(updatedCart));
-                
             })
         );
     }
 
-    
 
     delete(id: any) {
         return this.http

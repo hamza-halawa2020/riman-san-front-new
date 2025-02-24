@@ -101,6 +101,13 @@
                     <a class="nav-link" routerLink="/courses">Courses</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" routerLink="/certifications">Certifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/factory">Factory</a>
+                </li>
+                
+                <li class="nav-item">
                     <a class="nav-link" routerLink="/products">Shop</a>
                 </li>
                 <li class="nav-item">
@@ -119,7 +126,7 @@
             </a>
             <a *ngIf="!isLoggedIn" routerLink="/cart" class="hlc">
                 <i class="fa-solid fa-cart-plus"></i>
-                <span class="gactive">9</span>
+                <span class="gactive">{{ cartClientData.length }}</span>
             </a>
             <a *ngIf="isLoggedIn" routerLink="/wishlist" class="hlc">
                 <i class="fa-regular fa-heart"></i>

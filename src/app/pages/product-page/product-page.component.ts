@@ -12,6 +12,7 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { ProductService } from './product.service';
 import { CartService } from '../cart-page/cart.service';
 import { FavouriteService } from '../favourite-page/favourite.service';
+import { ClientCartService } from '../client-cart/client-cart.service';
 
 @Component({
     selector: 'app-product-page',
@@ -43,6 +44,7 @@ export class ProductPageComponent implements OnInit {
         public router: Router,
         private productService: ProductService,
         private cartService: CartService,
+        private cartClientService: ClientCartService,
         private FavouriteService: FavouriteService,
         private loginService: LoginService
     ) {
@@ -51,6 +53,34 @@ export class ProductPageComponent implements OnInit {
 
     ngOnInit(): void {
         this.fetchdata();
+    }
+
+    addToClientCart(product: any) {
+        const client_cart = this.cartClientService.cartSubject.value;
+
+        if (!client_cart || !Array.isArray(client_cart)) {
+            this.errorMessage = 'Cart data is not available yet.';
+            return;
+        }
+
+        const exists = client_cart.some(
+            (item) => item && item.product_id === product.id
+        );
+
+        if (exists) {
+            this.errorMessage = 'Product is already in the cart!';
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 1000);
+        } else {
+            const productToAdd = { ...product, quantity: 1 };
+            this.cartClientService.addToClientCart(productToAdd);
+
+            this.successMessage = 'Product added to cart successfully!';
+            setTimeout(() => {
+                this.successMessage = '';
+            }, 1000);
+        }
     }
 
     addToCart(product_id: any) {

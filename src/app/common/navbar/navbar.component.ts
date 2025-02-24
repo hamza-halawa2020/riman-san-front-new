@@ -6,6 +6,7 @@ import { CartService } from '../../pages/cart-page/cart.service';
 import { Subscription } from 'rxjs';
 import { FavouriteService } from '../../pages/favourite-page/favourite.service';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClientCartService } from '../../pages/client-cart/client-cart.service';
 @Component({
     selector: 'app-navbar',
     standalone: true,
@@ -16,29 +17,69 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 export class NavbarComponent implements OnInit, OnDestroy {
     isCollapsed = true;
     cartData: any[] = [];
+    cartClientData: any[] = [];
     favData: any[] = [];
 
     public cartSubscription!: Subscription;
+    public cartClientSubscription!: Subscription;
     public favSubscription!: Subscription;
+
+    // ngOnInit(): void {
+    //     this.cartSubscription = this.cartService.cart$.subscribe((cart) => {
+    //         this.cartData = cart;
+    //     });
+
+    //     this.cartClientSubscription = this.cartClientService.cart$.subscribe(
+    //         (cart) => {
+    //             this.cartClientData = cart; // Assign to cartClientData
+    //         }
+    //     );
+
+    //     this.favSubscription = this.favouriteService.fav$.subscribe((fav) => {
+    //         this.favData = fav;
+    //     });
+
+    //     this.router.events.subscribe(() => {
+    //         this.cartService.refreshCart();
+    //     });
+    //     this.router.events.subscribe(() => {
+    //         this.favouriteService.refreshFav();
+    //     });
+    // }
 
     ngOnInit(): void {
         this.cartSubscription = this.cartService.cart$.subscribe((cart) => {
             this.cartData = cart;
         });
+
+        this.cartClientSubscription = this.cartClientService.cart$.subscribe(
+            (cart) => {
+                this.cartClientData = cart; // Assign to cartClientData
+            }
+        );
+
         this.favSubscription = this.favouriteService.fav$.subscribe((fav) => {
             this.favData = fav;
         });
 
         this.router.events.subscribe(() => {
             this.cartService.refreshCart();
+            this.cartClientService.refreshCart(); // Add this line
         });
         this.router.events.subscribe(() => {
             this.favouriteService.refreshFav();
         });
     }
+
     ngOnDestroy() {
         if (this.cartSubscription) {
             this.cartSubscription.unsubscribe();
+        }
+        if (this.cartClientSubscription) {
+            this.cartClientSubscription.unsubscribe();
+        }
+        if (this.favSubscription) {
+            this.favSubscription.unsubscribe();
         }
     }
 
@@ -49,6 +90,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         public router: Router,
         public loginService: LoginService,
         private cartService: CartService,
+        private cartClientService: ClientCartService,
         private favouriteService: FavouriteService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();

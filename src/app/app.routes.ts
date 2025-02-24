@@ -31,6 +31,8 @@ import { PaymentStatusPageComponent } from './pages/payment-status-page/payment-
 import { VerificationCodePageComponent } from './pages/verification-code-page/verification-code-page.component';
 import { SendVerificationCodePageComponent } from './pages/send-verification-code-page/send-verification-code-page.component';
 import { ResetpasswordPageComponent } from './pages/resetPassword-page/resetpassword-page.component';
+import { CertificationPageComponent } from './pages/certification-page/certification-page.component';
+import { FactoryPageComponent } from './pages/factory-page/factory-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -50,6 +52,8 @@ export const routes: Routes = [
     { path: 'payment-status', component: PaymentStatusPageComponent },
     { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
     { path: 'terms-conditions', component: TermsConditionsPageComponent },
+    { path: 'certifications', component: CertificationPageComponent },
+    { path: 'factory', component: FactoryPageComponent },
     { path: 'contacts', component: ContactPageComponent },
     {
         path: 'forget-password',

@@ -29,6 +29,11 @@ export class CheckoutService {
             headers: this.getHeaders(),
         });
     }
+    storeClientOrder(item: any) {
+        return this.http.post(`${this.apiUrl}/orders-store`, item, {
+            headers: this.getHeaders(),
+        });
+    }
 
     getPaymentLink(orderID: any) {
         return this.http.post(`${this.apiUrl}/payment/credit`, orderID);

@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment.development';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { CheckoutService } from './checkout.service';
 import { CartService } from '../cart-page/cart.service';
+import { LoginService } from '../login-page/login.service';
 
 @Component({
     selector: 'app-checkout-page',
@@ -37,11 +38,16 @@ export class CheckoutPageComponent implements OnInit {
     totalPriceData: any;
     successMessage: string = '';
     errorMessage: string = '';
+    isLoggedIn: boolean = false;
+
     constructor(
         public router: Router,
         private checkoutService: CheckoutService,
-        private cartService: CartService
-    ) {}
+        private cartService: CartService,
+        private loginService: LoginService
+    ) {
+        this.isLoggedIn = !!loginService.isLoggedIn();
+    }
 
     ngOnInit(): void {
         this.fetchAllProducts();
@@ -105,8 +111,7 @@ export class CheckoutPageComponent implements OnInit {
                             this.totalPriceData = null;
 
                             this.cartService.clearCart().subscribe({
-                                next: () => {
-                                },
+                                next: () => {},
                             });
                         },
                         error: (error) => {
@@ -120,6 +125,91 @@ export class CheckoutPageComponent implements OnInit {
                     });
                 } else if (checkoutData.payment_method === 'visa') {
                     this.checkoutService.storeOrder(checkoutData).subscribe({
+                        next: (orderResponse: any) => {
+                            const payLoad = {
+                                orderID: orderResponse.data.id,
+                            };
+
+                            this.checkoutService
+                                .getPaymentLink(payLoad)
+                                .subscribe({
+                                    next: (paymentResponse: any) => {
+                                        window.open(
+                                            paymentResponse.iframe_url,
+                                            '_blank'
+                                        );
+                                    },
+                                    error: (error) => {
+                                        this.errorMessage =
+                                            error.error?.message ||
+                                            'Error fetching payment link.';
+                                        setTimeout(() => {
+                                            this.errorMessage = '';
+                                        }, 3000);
+                                    },
+                                });
+                        },
+                        error: (error) => {
+                            this.errorMessage =
+                                error.error?.message ||
+                                'An unexpected error occurred.';
+                            setTimeout(() => {
+                                this.errorMessage = '';
+                            }, 3000);
+                        },
+                    });
+                }
+            } catch (error: any) {
+                this.errorMessage =
+                    error.error?.message || 'An unexpected error occurred.';
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 3000);
+            }
+        } else {
+            this.errorMessage = 'No checkoutData found in localStorage.';
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 3000);
+        }
+    }
+    proceedToClientCheckout() {
+        const storedData = localStorage.getItem('checkoutData');
+        if (storedData) {
+            try {
+                let checkoutData = JSON.parse(storedData);
+
+                if (checkoutData.payment_method === 'cash_on_delivery') {
+                    this.checkoutService.storeClientOrder(checkoutData).subscribe({
+                        next: () => {
+                            this.successMessage =
+                                'Your order has been placed successfully with Cash on Delivery!';
+                            setTimeout(() => {
+                                this.successMessage = '';
+                            }, 3000);
+                            localStorage.removeItem('checkoutData');
+                            localStorage.removeItem('totalPriceData');
+                            localStorage.removeItem('appliedCoupon');
+
+                            // Reset component state
+                            this.checkoutData = null;
+                            this.totalPriceData = null;
+
+                            this.cartService.clearCart().subscribe({
+                                next: () => {},
+                            });
+                        },
+                        error: (error) => {
+                            this.errorMessage =
+                                error.error?.message ||
+                                'An unexpected error occurred.';
+                            setTimeout(() => {
+                                this.errorMessage = '';
+                            }, 3000);
+                        },
+                    });
+                } else if (checkoutData.payment_method === 'visa') {
+                    this.checkoutService.storeClientOrder(checkoutData).subscribe({
                         next: (orderResponse: any) => {
                             const payLoad = {
                                 orderID: orderResponse.data.id,
