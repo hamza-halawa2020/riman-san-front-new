@@ -83,7 +83,7 @@
                                     <li>
                                         <a
                                             style="cursor: pointer"
-                                            (click)="addToFavoutite(product.id)"
+                                            (click)="addToFavourite(product.id)"
                                             data-tip="Add to Wishlist"
                                             ><i class="fa-regular fa-heart"></i
                                         ></a>
@@ -102,7 +102,9 @@
                                     <li>
                                         <a
                                             style="cursor: pointer"
-                                            (click)="addToFavoutite(product.id)"
+                                            (click)="
+                                                addToClientFavourite(product)
+                                            "
                                             data-tip="Add to Wishlist"
                                             ><i class="fa-regular fa-heart"></i
                                         ></a>

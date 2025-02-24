@@ -8,8 +8,8 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { environment } from '../../../environments/environment.development';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import Swal from 'sweetalert2';
-import { CartService } from '../cart-page/cart.service';
 import { FavouriteClientService } from './favourite-client.service';
+import { ClientCartService } from '../client-cart/client-cart.service';
 
 @Component({
     selector: 'app-favourite-client-page',
@@ -30,32 +30,32 @@ import { FavouriteClientService } from './favourite-client.service';
 })
 export class FavouriteClientPageComponent implements OnInit {
     data: any;
+    favItems: any[] = [];
     image = environment.imgUrl + 'products/';
+
     successMessage: string = '';
     errorMessage: string = '';
+
     constructor(
         public router: Router,
-        private favouriteService: FavouriteClientService,
-        private cartService: CartService
+        private clientFavService: FavouriteClientService,
+        private clientCartService: ClientCartService
     ) {}
 
     ngOnInit(): void {
-        this.fetchdata();
+        this.fetchFavData();
     }
 
-    fetchdata() {
-        this.favouriteService.index().subscribe({
-            next: (response) => {
-                this.data = Object.values(response)[0];
-            },
-            error: (error) => {},
+    fetchFavData() {
+        this.clientFavService.client_fav$.subscribe((client_fav) => {
+            this.favItems = client_fav || [];
         });
     }
 
-    deleteItem(id: number) {
+    deleteItem(productId: number) {
         Swal.fire({
             title: 'Are you sure?',
-            text: 'Do you really want to remove this item from the Whishlist?',
+            text: 'Do you really want to remove this item from the fav?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -64,32 +64,26 @@ export class FavouriteClientPageComponent implements OnInit {
             cancelButtonText: 'Cancel',
         }).then((result: any) => {
             if (result.isConfirmed) {
-                this.favouriteService.delete(id).subscribe({
-                    next: () => {
-                        this.data = this.data.filter(
-                            (item: any) => item.id !== id
-                        );
+                try {
+                    this.clientFavService.removeFromFav(productId);
+                    this.clientFavService.refreshFav();
 
-                        Swal.fire({
-                            title: 'Removed!',
-                            text: 'Product removed from Whishlist successfully.',
-                            icon: 'success',
-                            timer: 1500,
-                            showConfirmButton: false,
-                        });
-                    },
-                    error: (error) => {
-                        Swal.fire({
-                            title: 'Error!',
-                            text:
-                                error.error?.message ||
-                                'An unexpected error occurred.',
-                            icon: 'error',
-                            timer: 1500,
-                            showConfirmButton: false,
-                        });
-                    },
-                });
+                    Swal.fire({
+                        title: 'Removed!',
+                        text: 'Product removed from fav successfully.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false,
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An unexpected error occurred.',
+                        icon: 'error',
+                        timer: 1500,
+                        showConfirmButton: false,
+                    });
+                }
             }
         });
     }
@@ -97,7 +91,7 @@ export class FavouriteClientPageComponent implements OnInit {
     clearFav() {
         Swal.fire({
             title: 'Are you sure?',
-            text: 'Do you really want to clear the Whishlist?',
+            text: 'Do you really want to clear the fav?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
@@ -106,30 +100,28 @@ export class FavouriteClientPageComponent implements OnInit {
             cancelButtonText: 'Cancel',
         }).then((result: any) => {
             if (result.isConfirmed) {
-                this.favouriteService.clearFav().subscribe({
-                    next: () => {
-                        this.fetchdata();
+                try {
+                    this.clientFavService.clearFav();
+                    this.clientFavService.refreshFav();
 
-                        Swal.fire({
-                            title: 'clear!',
-                            text: 'Your Whishlist is clear.',
-                            icon: 'success',
-                            timer: 1500,
-                            showConfirmButton: false,
-                        });
-                    },
-                    error: (error) => {
-                        Swal.fire({
-                            title: 'Error!',
-                            text:
-                                error.error?.message ||
-                                'An unexpected error occurred.',
-                            icon: 'error',
-                            timer: 1500,
-                            showConfirmButton: false,
-                        });
-                    },
-                });
+                    localStorage.removeItem('checkoutData');
+                    localStorage.removeItem('totalPriceData');
+                    Swal.fire({
+                        title: 'clear!',
+                        text: 'Your fav is clear.',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false,
+                    });
+                } catch (error) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'An unexpected error occurred.',
+                        icon: 'error',
+                        timer: 1500,
+                        showConfirmButton: false,
+                    });
+                }
             }
         });
     }
@@ -137,47 +129,47 @@ export class FavouriteClientPageComponent implements OnInit {
     addToCart(product_id: any) {
         const payload = { product_id: product_id };
 
-        this.cartService.addToCart(payload).subscribe({
-            next: (response) => {
-                this.successMessage = 'Product added to cart successfully!';
-                setTimeout(() => {
-                    this.successMessage = '';
-                }, 1000);
+        // this.clientCartService.addToCart(payload).subscribe({
+        //     next: (response) => {
+        //         this.successMessage = 'Product added to cart successfully!';
+        //         setTimeout(() => {
+        //             this.successMessage = '';
+        //         }, 1000);
 
-                // البحث عن العنصر في قائمة الـ favorites
-                const itemIndex = this.data.findIndex(
-                    (item: any) => item.product_id === product_id
-                );
+        //         // البحث عن العنصر في قائمة الـ favorites
+        //         const itemIndex = this.data.findIndex(
+        //             (item: any) => item.product_id === product_id
+        //         );
 
-                if (itemIndex !== -1) {
-                    const favouriteId = this.data[itemIndex].id; // ID الخاص بالـ Favourite
+        //         if (itemIndex !== -1) {
+        //             const favouriteId = this.data[itemIndex].id; // ID الخاص بالـ Favourite
 
-                    this.favouriteService.delete(favouriteId).subscribe({
-                        next: () => {
-                            this.data.splice(itemIndex, 1);
-                        },
-                        error: (error) => {
-                            console.log(
-                                'Error deleting from favourites:',
-                                error
-                            );
-                        },
-                    });
-                }
-            },
-            error: (error) => {
-                if (error.error?.errors) {
-                    this.errorMessage = Object.values(error.error.errors)
-                        .flat()
-                        .join(' | ');
-                } else {
-                    this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
-                }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
-            },
-        });
+        //             this.favouriteService.delete(favouriteId).subscribe({
+        //                 next: () => {
+        //                     this.data.splice(itemIndex, 1);
+        //                 },
+        //                 error: (error) => {
+        //                     console.log(
+        //                         'Error deleting from favourites:',
+        //                         error
+        //                     );
+        //                 },
+        //             });
+        //         }
+        //     },
+        //     error: (error) => {
+        //         if (error.error?.errors) {
+        //             this.errorMessage = Object.values(error.error.errors)
+        //                 .flat()
+        //                 .join(' | ');
+        //         } else {
+        //             this.errorMessage =
+        //                 error.error?.message || 'An unexpected error occurred.';
+        //         }
+        //         setTimeout(() => {
+        //             this.errorMessage = '';
+        //         }, 3000);
+        //     },
+        // });
     }
 }

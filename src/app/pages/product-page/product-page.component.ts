@@ -13,6 +13,7 @@ import { ProductService } from './product.service';
 import { CartService } from '../cart-page/cart.service';
 import { FavouriteService } from '../favourite-page/favourite.service';
 import { ClientCartService } from '../client-cart/client-cart.service';
+import { FavouriteClientService } from '../favourite-client-page/favourite-client.service';
 
 @Component({
     selector: 'app-product-page',
@@ -46,6 +47,7 @@ export class ProductPageComponent implements OnInit {
         private cartService: CartService,
         private cartClientService: ClientCartService,
         private FavouriteService: FavouriteService,
+        private favClientService: FavouriteClientService,
         private loginService: LoginService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
@@ -101,7 +103,8 @@ export class ProductPageComponent implements OnInit {
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -110,7 +113,7 @@ export class ProductPageComponent implements OnInit {
         });
     }
 
-    addToFavoutite(product_id: any) {
+    addToFavourite(product_id: any) {
         const payload = {
             product_id: product_id,
         };
@@ -128,13 +131,42 @@ export class ProductPageComponent implements OnInit {
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage =  error.error?.message || 'An unexpected error occurred.';
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
                 }, 3000);
             },
         });
+    }
+
+    addToClientFavourite(product: any) {
+        const client_fav = this.favClientService.favSubject.value;
+
+        if (!client_fav || !Array.isArray(client_fav)) {
+            this.errorMessage = 'Fav data is not available yet.';
+            return;
+        }
+
+        const exists = client_fav.some(
+            (item) => item && item.product_id === product.id
+        );
+
+        if (exists) {
+            this.errorMessage = 'Product is already in the fav!';
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 1000);
+        } else {
+            const productToAdd = { ...product, quantity: 1 };
+            this.favClientService.addToClientFav(productToAdd);
+
+            this.successMessage = 'Product added to fav successfully!';
+            setTimeout(() => {
+                this.successMessage = '';
+            }, 1000);
+        }
     }
 
     fetchdata() {

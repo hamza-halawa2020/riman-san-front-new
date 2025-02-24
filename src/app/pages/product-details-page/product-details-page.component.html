@@ -148,7 +148,7 @@
                             >add to cart</a
                         >
                         <a
-                            (click)="addToFavoutite(details.id)"
+                            (click)="addToFavourite(details.id)"
                             class="btn btn-default acc_btn btn_icn"
                             ><i class="fa fa-heart"></i
                         ></a>
@@ -160,7 +160,7 @@
                             >add to cart</a
                         >
                         <a
-                            (click)="addToFavoutite(details.id)"
+                            (click)=" addToClientFavourite(details)"
                             class="btn btn-default acc_btn btn_icn"
                             ><i class="fa fa-heart"></i
                         ></a>
@@ -332,7 +332,7 @@
                             <li>
                                 <a
                                     style="cursor: pointer"
-                                    (click)="addToFavoutite(related.id)"
+                                    (click)="addToFavourite(related.id)"
                                     data-tip="Add to Wishlist"
                                     ><i class="fa-regular fa-heart"></i
                                 ></a>
@@ -351,7 +351,7 @@
                             <li>
                                 <a
                                     style="cursor: pointer"
-                                    (click)="addToFavoutite(related.id)"
+                                    (click)=" addToClientFavourite(related)"
                                     data-tip="Add to Wishlist"
                                     ><i class="fa-regular fa-heart"></i
                                 ></a>

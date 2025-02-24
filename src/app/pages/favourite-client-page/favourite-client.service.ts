@@ -9,68 +9,80 @@ import { tap } from 'rxjs/operators';
 })
 export class FavouriteClientService {
     private apiUrl = environment.backEndUrl;
-    private data = '/favourites';
-    private favSubject = new BehaviorSubject<any[]>([]);
+    public favSubject = new BehaviorSubject<any[]>(
+        this.getFavFromLocalStorage()
+    );
+    client_fav$ = this.favSubject.asObservable();
+
     fav$ = this.favSubject.asObservable();
 
-    constructor(private http: HttpClient) {
-        this.loadInitialFavData();
-    }
+    constructor(private http: HttpClient) {}
 
-    private loadInitialFavData() {
-        const fav = localStorage.getItem('fav');
-        if (fav) {
-            this.favSubject.next(JSON.parse(fav));
+    addToClientFav(product: any) {
+        const currentFav = this.favSubject.getValue();
+
+        const existingItem = currentFav.find(
+            (item) => item.product_id === product.id
+        );
+
+        if (existingItem) {
+            this.updateQuantity(product.id, 1);
         } else {
-            this.index().subscribe({
-                next: (response: any) => {
-                    this.favSubject.next(response.data);
-                    localStorage.setItem('fav', JSON.stringify(response.data));
-                },
-                error: (error) => {
-                    console.error('Failed to load fav data:', error);
-                },
-            });
+            const newItem = {
+                product_id: product.id,
+                quantity: 1,
+                product: product,
+            };
+
+            const updatedFav = [...currentFav, newItem];
+            this.updateFav(updatedFav);
         }
+        this.refreshFav();
     }
 
-    index() {
-        return this.http.get(`${this.apiUrl}${this.data}`);
+    updateFav(updatedFav: any[]) {
+        this.favSubject.next(updatedFav);
+        localStorage.setItem('client_fav', JSON.stringify(updatedFav));
     }
 
-    add(id: any) {
-        return this.http.post(`${this.apiUrl}${this.data}`, id).pipe(
-            tap((response: any) => {
-                const currentFav = this.favSubject.value;
-                const updatedFav = [...currentFav, response.data];
-                this.favSubject.next(updatedFav);
-                localStorage.setItem('fav', JSON.stringify(updatedFav));
-            })
-        );
+    private getFavFromLocalStorage(): any[] {
+        const client_fav = localStorage.getItem('client_fav');
+        return client_fav ? JSON.parse(client_fav) : [];
     }
 
-    delete(id: any) {
-        return this.http.delete(`${this.apiUrl}${this.data}/${id}`).pipe(
-            tap(() => {
-                const currentFav = this.favSubject.value;
-                const updatedFav = currentFav.filter((item) => item.id !== id);
-                this.favSubject.next(updatedFav);
-                localStorage.setItem('fav', JSON.stringify(updatedFav));
-                this.refreshFav();
-            })
-        );
+    getProductById(productId: number) {
+        return this.http.get(`${this.apiUrl}/products/${productId}`);
     }
+
+    updateQuantity(productId: number, change: number) {
+        let fav = this.getFavFromLocalStorage();
+        fav = fav.map((item) => {
+            if (item.product_id === productId) {
+                return {
+                    ...item,
+                    quantity: Math.max(1, item.quantity + change),
+                };
+            }
+            return item;
+        });
+
+        this.updateFav(fav);
+    }
+
+    removeFromFav(productId: number) {
+        let fav = this.getFavFromLocalStorage();
+        fav = fav.filter((item) => item.product_id !== productId);
+        this.updateFav(fav);
+        this.refreshFav();
+    }
+
     clearFav() {
-        return this.http.delete(`${this.apiUrl}/fav_clear`).pipe(
-            tap(() => {
-                this.favSubject.next([]);
-                localStorage.setItem('fav', JSON.stringify([]));
-                this.refreshFav();
-            })
-        );
+        this.updateFav([]);
+        this.refreshFav();
     }
+
     refreshFav() {
-        const fav = localStorage.getItem('fav');
+        const fav = localStorage.getItem('client_fav');
         if (fav) {
             this.favSubject.next(JSON.parse(fav));
         }
