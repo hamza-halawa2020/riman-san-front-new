@@ -65,10 +65,11 @@
                     <table class="table shopping-summery">
                         <thead>
                             <tr class="main-hading">
-                                <th>Id</th>
-                                <th>PRODUCT</th>
-                                <th>NAME</th>
+                                <th class="text-center">Id</th>
+                                <th class="text-center">PRODUCT</th>
+                                <th class="text-center">NAME</th>
                                 <th class="text-center">UNIT PRICE</th>
+                                <th class="text-center">Add To Cart</th>
                                 <th
                                     class="text-center"
                                     style="cursor: pointer"
@@ -80,9 +81,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let fav of data">
-                                <td>{{ fav.id }}</td>
+                                <td class="text-center">{{ fav.id }}</td>
 
-                                <td class="image">
+                                <td class="image text-center">
                                     <a
                                         routerLink="/product/{{
                                             fav.product_id
@@ -99,18 +100,27 @@
                                     </a>
                                 </td>
 
-                                <td>
+                                <td class="text-center">
                                     <a>{{ fav.product.title }}</a>
                                 </td>
 
-                                <td class="price" data-title="Price">
+                                <td class="price text-center" data-title="Price">
                                     <span>{{
                                         fav.product.priceAfterDiscount
                                     }}</span>
                                 </td>
 
                                 <td
-                                    class="action"
+                                    class="action text-center"
+                                    (click)="deleteItem(fav.id)"
+                                    data-title="Remove"
+                                >
+                                    <a style="cursor: pointer">
+                                        <i class="fa-solid fa-cart-plus"></i>
+                                    </a>
+                                </td>
+                                <td
+                                    class="action text-center"
                                     (click)="deleteItem(fav.id)"
                                     data-title="Remove"
                                 >

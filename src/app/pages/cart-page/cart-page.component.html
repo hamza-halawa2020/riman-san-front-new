@@ -64,9 +64,9 @@
                     <table class="table shopping-summery">
                         <thead>
                             <tr class="main-hading">
-                                <th>Id</th>
-                                <th>PRODUCT</th>
-                                <th>NAME</th>
+                                <th class="text-center">Id</th>
+                                <th class="text-center">PRODUCT</th>
+                                <th class="text-center">NAME</th>
                                 <th class="text-center">UNIT PRICE</th>
                                 <th class="text-center">QUANTITY</th>
                                 <th class="text-center">TOTAL</th>
@@ -81,8 +81,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let cart of data">
-                                <td>{{ cart.id }}</td>
-                                <td class="image">
+                                <td class="text-center">{{ cart.id }}</td>
+                                <td class="image text-center">
                                     <a
                                         routerLink="/product/{{
                                             cart.product_id
@@ -97,15 +97,15 @@
                                         />
                                     </a>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <a>{{ cart.product.title }}</a>
                                 </td>
-                                <td class="price" data-title="Price">
+                                <td class="price text-center" data-title="Price">
                                     <span>{{
                                         cart.product.priceAfterDiscount
                                     }}</span>
                                 </td>
-                                <td class="qty" data-title="Qty">
+                                <td class="qty text-center" data-title="Qty">
                                     <div class="input-group">
                                         <div class="button minus">
                                             <button
@@ -161,10 +161,10 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="total-amount" data-title="Total">
+                                <td class="total-amount text-center" data-title="Total">
                                     <span>{{ cart.total_price }}</span>
                                 </td>
-                                <td class="action" data-title="Remove">
+                                <td class="action text-center" data-title="Remove">
                                     <a
                                         (click)="deleteCartItem(cart.id)"
                                         style="cursor: pointer"
