@@ -97,14 +97,11 @@ export class ProductPageComponent implements OnInit {
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage =
-                        'An unexpected error occurred.';
+                    error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -127,14 +124,11 @@ export class ProductPageComponent implements OnInit {
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage =
-                        'An unexpected error occurred.';
+                    error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';

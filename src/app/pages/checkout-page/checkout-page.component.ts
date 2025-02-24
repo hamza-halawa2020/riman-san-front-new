@@ -122,8 +122,7 @@ export class CheckoutPageComponent implements OnInit {
                                     .flat()
                                     .join(' | ');
                             } else {
-                                this.errorMessage =
-                                    'An unexpected error occurred.';
+                                error.error?.message || 'An unexpected error occurred.';
                             }
                             setTimeout(() => {
                                 this.errorMessage = '';
@@ -164,8 +163,8 @@ export class CheckoutPageComponent implements OnInit {
                                     .flat()
                                     .join(' | ');
                             } else {
-                                this.errorMessage =
-                                    'An unexpected error occurred.';
+                                error.error?.message || 'An unexpected error occurred.';
+
                             }
                             setTimeout(() => {
                                 this.errorMessage = '';
@@ -181,8 +180,8 @@ export class CheckoutPageComponent implements OnInit {
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage =
-                        'An unexpected error occurred.';
+                    error.error?.message || 'An unexpected error occurred.';
+
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -231,8 +230,8 @@ export class CheckoutPageComponent implements OnInit {
                                         .flat()
                                         .join(' | ');
                                 } else {
-                                    this.errorMessage =
-                                        'An unexpected error occurred.';
+                                    error.error?.message || 'An unexpected error occurred.';
+
                                 }
                                 setTimeout(() => {
                                     this.errorMessage = '';
@@ -275,8 +274,8 @@ export class CheckoutPageComponent implements OnInit {
                                         .flat()
                                         .join(' | ');
                                 } else {
-                                    this.errorMessage =
-                                        'An unexpected error occurred.';
+                                    error.error?.message || 'An unexpected error occurred.';
+
                                 }
                                 setTimeout(() => {
                                     this.errorMessage = '';
@@ -293,8 +292,8 @@ export class CheckoutPageComponent implements OnInit {
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage =
-                        'An unexpected error occurred.';
+                    error.error?.message || 'An unexpected error occurred.';
+
                 }
                 setTimeout(() => {
                     this.errorMessage = '';

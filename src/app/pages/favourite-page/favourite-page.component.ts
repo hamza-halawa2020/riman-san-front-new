@@ -11,6 +11,7 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { formatDistanceToNow } from 'date-fns';
 import { FavouriteService } from './favourite.service';
 import Swal from 'sweetalert2';
+import { CartService } from '../cart-page/cart.service';
 
 @Component({
     selector: 'app-favourite-page',
@@ -36,7 +37,8 @@ export class FavouritePageComponent implements OnInit {
     errorMessage: string = '';
     constructor(
         public router: Router,
-        private favouriteService: FavouriteService
+        private favouriteService: FavouriteService,
+        private cartService: CartService
     ) {}
 
     ngOnInit(): void {
@@ -131,6 +133,34 @@ export class FavouritePageComponent implements OnInit {
                     },
                 });
             }
+        });
+    }
+
+    addToCart(product_id: any) {
+        const payload = {
+            product_id: product_id,
+        };
+
+        this.cartService.addToCart(payload).subscribe({
+            next: (response) => {
+                this.successMessage = 'Product added to cart successfully!';
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 1000);
+            },
+            error: (error) => {
+                if (error.error?.errors) {
+                    this.errorMessage = Object.values(error.error.errors)
+                        .flat()
+                        .join(' | ');
+                } else {
+                    error.error?.message || 'An unexpected error occurred.';
+
+                }
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 3000);
+            },
         });
     }
 }
