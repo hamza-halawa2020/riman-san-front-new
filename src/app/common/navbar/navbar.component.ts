@@ -54,7 +54,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
         this.cartClientSubscription = this.cartClientService.cart$.subscribe(
             (cart) => {
-                this.cartClientData = cart; // Assign to cartClientData
+                this.cartClientData = cart;
             }
         );
 
