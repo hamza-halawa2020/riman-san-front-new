@@ -121,14 +121,12 @@ export class CartPageComponent implements OnInit {
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
-
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -197,14 +195,12 @@ export class CartPageComponent implements OnInit {
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage =  error.error?.message || 'An unexpected error occurred.';
-
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -331,7 +327,7 @@ export class CartPageComponent implements OnInit {
                         localStorage.removeItem('checkoutData');
                         localStorage.removeItem('totalPriceData');
                         localStorage.removeItem('appliedCoupon');
-                        localStorage.removeItem('cart');
+                        localStorage.setItem('cart', JSON.stringify([]));
 
                         Swal.fire({
                             title: 'clear!',

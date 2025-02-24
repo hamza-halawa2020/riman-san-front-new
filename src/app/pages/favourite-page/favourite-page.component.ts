@@ -137,9 +137,7 @@ export class FavouritePageComponent implements OnInit {
     }
 
     addToCart(product_id: any) {
-        const payload = {
-            product_id: product_id,
-        };
+        const payload = { product_id: product_id };
 
         this.cartService.addToCart(payload).subscribe({
             next: (response) => {
@@ -147,6 +145,27 @@ export class FavouritePageComponent implements OnInit {
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
+
+                // البحث عن العنصر في قائمة الـ favorites
+                const itemIndex = this.data.findIndex(
+                    (item: any) => item.product_id === product_id
+                );
+
+                if (itemIndex !== -1) {
+                    const favouriteId = this.data[itemIndex].id; // ID الخاص بالـ Favourite
+
+                    this.favouriteService.delete(favouriteId).subscribe({
+                        next: () => {
+                            this.data.splice(itemIndex, 1);
+                        },
+                        error: (error) => {
+                            console.log(
+                                'Error deleting from favourites:',
+                                error
+                            );
+                        },
+                    });
+                }
             },
             error: (error) => {
                 if (error.error?.errors) {
