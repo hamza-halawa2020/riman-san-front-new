@@ -11,6 +11,7 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { CheckoutService } from './checkout.service';
 import { CartService } from '../cart-page/cart.service';
 import { LoginService } from '../login-page/login.service';
+import { ClientCartService } from '../client-cart/client-cart.service';
 
 @Component({
     selector: 'app-checkout-page',
@@ -44,6 +45,7 @@ export class CheckoutPageComponent implements OnInit {
         public router: Router,
         private checkoutService: CheckoutService,
         private cartService: CartService,
+        private cartClientService: ClientCartService,
         private loginService: LoginService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
@@ -122,7 +124,9 @@ export class CheckoutPageComponent implements OnInit {
                                     .flat()
                                     .join(' | ');
                             } else {
-                                this.errorMessage = error.error?.message || 'An unexpected error occurred.';
+                                this.errorMessage =
+                                    error.error?.message ||
+                                    'An unexpected error occurred.';
                             }
                             setTimeout(() => {
                                 this.errorMessage = '';
@@ -140,10 +144,11 @@ export class CheckoutPageComponent implements OnInit {
                                 .getPaymentLink(payLoad)
                                 .subscribe({
                                     next: (paymentResponse: any) => {
-                                        window.open(
-                                            paymentResponse.iframe_url,
-                                            '_blank'
-                                        );
+                                        window.open(paymentResponse.iframe_url);
+                                        // window.open(
+                                        //     paymentResponse.iframe_url,
+                                        //     '_blank'
+                                        // );
                                     },
                                     error: (error) => {
                                         this.errorMessage =
@@ -163,8 +168,9 @@ export class CheckoutPageComponent implements OnInit {
                                     .flat()
                                     .join(' | ');
                             } else {
-                                this.errorMessage = error.error?.message || 'An unexpected error occurred.';
-
+                                this.errorMessage =
+                                    error.error?.message ||
+                                    'An unexpected error occurred.';
                             }
                             setTimeout(() => {
                                 this.errorMessage = '';
@@ -174,14 +180,12 @@ export class CheckoutPageComponent implements OnInit {
                 }
             } catch (error: any) {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
-
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -218,9 +222,7 @@ export class CheckoutPageComponent implements OnInit {
                                 this.checkoutData = null;
                                 this.totalPriceData = null;
 
-                                this.cartService.clearCart().subscribe({
-                                    next: () => {},
-                                });
+                                this.cartClientService.clearCart();
                             },
                             error: (error) => {
                                 if (error.error?.errors) {
@@ -230,8 +232,9 @@ export class CheckoutPageComponent implements OnInit {
                                         .flat()
                                         .join(' | ');
                                 } else {
-                                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
-
+                                    this.errorMessage =
+                                        error.error?.message ||
+                                        'An unexpected error occurred.';
                                 }
                                 setTimeout(() => {
                                     this.errorMessage = '';
@@ -252,9 +255,12 @@ export class CheckoutPageComponent implements OnInit {
                                     .subscribe({
                                         next: (paymentResponse: any) => {
                                             window.open(
-                                                paymentResponse.iframe_url,
-                                                '_blank'
+                                                paymentResponse.iframe_url
                                             );
+                                            // window.open(
+                                            //     paymentResponse.iframe_url,
+                                            //     '_blank'
+                                            // );
                                         },
                                         error: (error) => {
                                             this.errorMessage =
@@ -274,26 +280,24 @@ export class CheckoutPageComponent implements OnInit {
                                         .flat()
                                         .join(' | ');
                                 } else {
-                                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
-
+                                    this.errorMessage =
+                                        error.error?.message ||
+                                        'An unexpected error occurred.';
                                 }
                                 setTimeout(() => {
                                     this.errorMessage = '';
                                 }, 3000);
                             },
-
                         });
                 }
             } catch (error: any) {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage =  error.error?.message || 'An unexpected error occurred.';
-
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';

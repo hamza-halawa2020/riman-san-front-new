@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from '../cart-page/cart.service';
 import { CheckoutService } from '../checkout-page/checkout.service';
+import { ClientCartService } from '../client-cart/client-cart.service';
 
 @Component({
     selector: 'app-payment-status-page',
@@ -33,6 +34,7 @@ export class PaymentStatusPageComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private checkoutService: CheckoutService,
+        private cartClientService: ClientCartService,
         private cartService: CartService
     ) {}
 
@@ -46,14 +48,14 @@ export class PaymentStatusPageComponent implements OnInit {
                 localStorage.removeItem('totalPriceData');
                 localStorage.removeItem('appliedCoupon');
                 this.cartService.clearCart().subscribe({
-                    next: () => {
-                    },
+                    next: () => {},
                 });
+                this.cartClientService.clearCart();
             }
         });
 
         setTimeout(() => {
-            this.router.navigate(['/profile']);
+            this.router.navigate(['/products']);
         }, 5000);
     }
 }

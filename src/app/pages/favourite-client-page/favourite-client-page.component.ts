@@ -48,7 +48,6 @@ export class FavouriteClientPageComponent implements OnInit {
     fetchFavData() {
         this.clientFavService.client_fav$.subscribe((client_fav) => {
             this.favItems = client_fav || [];
-            
         });
     }
 
@@ -126,50 +125,69 @@ export class FavouriteClientPageComponent implements OnInit {
         });
     }
 
-    addToCart(product_id: any) {
-        const payload = { product_id: product_id };
+    addToCart(product: any) {
+        const client_cart = this.clientCartService.cartSubject.value;
 
-        // this.clientCartService.addToCart(payload).subscribe({
-        //     next: (response) => {
-        //         this.successMessage = 'Product added to cart successfully!';
-        //         setTimeout(() => {
-        //             this.successMessage = '';
-        //         }, 1000);
+        if (!client_cart || !Array.isArray(client_cart)) {
+            this.errorMessage = 'Cart data is not available yet.';
+            return;
+        }
 
-        //         // البحث عن العنصر في قائمة الـ favorites
-        //         const itemIndex = this.data.findIndex(
-        //             (item: any) => item.product_id === product_id
-        //         );
+        const exists = client_cart.some(
+            (item) => item && item.product_id === product.id
+        );
 
-        //         if (itemIndex !== -1) {
-        //             const favouriteId = this.data[itemIndex].id; // ID الخاص بالـ Favourite
+        if (exists) {
+            this.errorMessage = 'Product is already in the cart!';
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 1000);
+        } else {
+            const productToAdd = { ...product, quantity: 1 };
+            this.clientCartService.addToClientCart(productToAdd);
 
-        //             this.favouriteService.delete(favouriteId).subscribe({
-        //                 next: () => {
-        //                     this.data.splice(itemIndex, 1);
-        //                 },
-        //                 error: (error) => {
-        //                     console.log(
-        //                         'Error deleting from favourites:',
-        //                         error
-        //                     );
-        //                 },
-        //             });
-        //         }
-        //     },
-        //     error: (error) => {
-        //         if (error.error?.errors) {
-        //             this.errorMessage = Object.values(error.error.errors)
-        //                 .flat()
-        //                 .join(' | ');
-        //         } else {
-        //             this.errorMessage =
-        //                 error.error?.message || 'An unexpected error occurred.';
-        //         }
-        //         setTimeout(() => {
-        //             this.errorMessage = '';
-        //         }, 3000);
-        //     },
-        // });
+            this.successMessage = 'Product added to cart successfully!';
+            setTimeout(() => {
+                this.successMessage = '';
+            }, 1000);
+        }
     }
+
+    // addToCart(product: any) {
+    //     const client_cart = this.clientCartService.cartSubject.value;
+
+    //     if (!client_cart || !Array.isArray(client_cart)) {
+    //         this.errorMessage = 'Cart data is not available yet.';
+    //         return;
+    //     }
+
+    //     const exists = client_cart.some(
+    //         (item) => item && item.product_id === product.id
+    //     );
+
+    //     if (exists) {
+    //         this.errorMessage = 'Product is already in the cart!';
+    //         setTimeout(() => {
+    //             this.errorMessage = '';
+    //         }, 1000);
+
+    //         // const itemIndex = this.data.findIndex(
+    //         //     (item: any) => item.product_id === product_id
+    //         // );
+
+    //         // if (itemIndex !== -1) {
+    //         //     const favouriteId = this.data[itemIndex].id; // ID الخاص بالـ Favourite
+
+    //         //     this.clientFavService.removeFromFav(favouriteId);
+    //         // }
+    //     } else {
+    //         const productToAdd = { ...product, quantity: 1 };
+    //         this.clientCartService.addToClientCart(productToAdd);
+
+    //         this.successMessage = 'Product added to cart successfully!';
+    //         setTimeout(() => {
+    //             this.successMessage = '';
+    //         }, 1000);
+    //     }
+    // }
 }
