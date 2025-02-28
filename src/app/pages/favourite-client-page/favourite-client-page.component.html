@@ -69,7 +69,6 @@
                                 <th class="text-center">PRODUCT</th>
                                 <th class="text-center">NAME</th>
                                 <th class="text-center">UNIT PRICE</th>
-                                <th class="text-center">Add To Cart</th>
                                 <th
                                     class="text-center"
                                     style="cursor: pointer"
@@ -81,7 +80,9 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let fav of favItems">
-                                <td class="text-center">{{ fav.product_id }}</td>
+                                <td class="text-center">
+                                    {{ fav.product_id }}
+                                </td>
 
                                 <td class="image text-center">
                                     <a
@@ -104,21 +105,15 @@
                                     <a>{{ fav.product.title }}</a>
                                 </td>
 
-                                <td class="price text-center" data-title="Price">
+                                <td
+                                    class="price text-center"
+                                    data-title="Price"
+                                >
                                     <span>{{
                                         fav.product.priceAfterDiscount
                                     }}</span>
                                 </td>
 
-                                <td
-                                    class="action text-center"
-                                    (click)="addToCart(fav.product.id)"
-                                    data-title="Remove"
-                                >
-                                    <a style="cursor: pointer">
-                                        <i class="fa-solid fa-cart-plus"></i>
-                                    </a>
-                                </td>
                                 <td
                                     class="action text-center"
                                     (click)="deleteItem(fav.product.id)"
