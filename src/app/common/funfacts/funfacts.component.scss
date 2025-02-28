@@ -41,7 +41,7 @@
         color: var(--whiteColor);
 
         span {
-            color: var(--primaryColor);
+            color: #fbe8fe;
         }
     }
     p {
@@ -55,7 +55,7 @@
         right: -15px;
         position: absolute;
         border-radius: 30px;
-        background: var(--primaryColor);
+        background: #fbe8fe;
     }
 }
 
@@ -65,7 +65,7 @@
     .funfacts-area {
         &.bg-image {
             margin-top: 0;
-            background: #013C4A;
+            background: #4c0048;
             padding: {
                 top: 60px;
                 bottom: 60px;
@@ -108,7 +108,7 @@
     .funfacts-area {
         &.bg-image {
             margin-top: 0;
-            background: #013C4A;
+            background: #4c0048;
             padding: {
                 top: 80px;
                 bottom: 80px;

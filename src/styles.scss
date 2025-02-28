@@ -11,8 +11,8 @@
     --fontFamily: "LyonArabic";
     --headingFontFamily: "LyonArabic";
     --primaryColor: #c4edff;
-    --secondaryColor: #013c4a;
-    --paragraphColor: #214f81;
+    --secondaryColor: #4c0048;
+    --paragraphColor: #000;
     --whiteColor: #ffffff;
     --blackColor: #000000;
     --transition: 0.5s;
@@ -21,7 +21,7 @@
 body {
     margin: 0;
     padding: 0;
-    color: #013c4a;
+    color: #4c0048;
 }
 .h1,
 .h2,
@@ -35,11 +35,11 @@ h3,
 h4,
 h5,
 h6 {
-    color: #013c4a;
+    color: #4c0048;
 }
 a {
     transition: var(--transition);
-    color: #013c4a;
+    color: #4c0048;
     text-decoration: none;
     outline: 0 !important;
 
@@ -135,14 +135,14 @@ p {
         color: var(--whiteColor);
 
         &:hover {
-            color: var(--primaryColor);
+            color: #fbe8fe;
         }
     }
     p {
         color: #f3f3f3;
     }
     .default-btn {
-        color: #013c4a;
+        color: #4c0048;
 
         &:hover {
             color: var(--whiteColor);
@@ -165,13 +165,13 @@ p {
     padding: 15px 30px;
     border-radius: 5px;
     display: inline-block;
-    color: #013c4a;
+    color: #4c0048;
     transition: var(--transition);
-    background-color: var(--primaryColor);
+    background-color: #fbe8fe;
 
     &:hover {
         color: var(--whiteColor);
-        background-color: #013c4a;
+        background-color: #4c0048;
     }
 }
 
@@ -209,7 +209,7 @@ p {
         width: 160px;
         height: 160px;
         padding-top: 34px;
-        background-color: var(--primaryColor);
+        background-color: #fbe8fe;
 
         span {
             margin-bottom: 5px;
@@ -233,7 +233,7 @@ p {
     width: 60px;
     overflow: hidden;
     position: absolute;
-    border-left: 1px solid #013c4a;
+    border-left: 1px solid #4c0048;
 
     div {
         margin-left: -64px;
@@ -253,7 +253,7 @@ p {
         left: 0;
         border: {
             left-width: 0;
-            right: 1px solid #013c4a;
+            right: 1px solid #4c0048;
         }
     }
 }

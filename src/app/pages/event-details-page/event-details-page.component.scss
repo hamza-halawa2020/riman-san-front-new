@@ -127,10 +127,10 @@
                     margin-top: 25px;
                     position: absolute;
                     border-radius: 50%;
-                    color: #013c4a;
+                    color: #4c0048;
                     transform: translateY(-50%);
                     transition: var(--transition);
-                    background-color: var(--primaryColor);
+                    background-color: #fbe8fe;
 
                     i {
                         left: 0;
@@ -145,7 +145,7 @@
                     }
                     // &:hover {
                     //     color: var(--whiteColor);
-                    //     background-color: #013C4A;
+                    //     background-color: #4c0048;
                     // }
                 }
             }
@@ -210,7 +210,7 @@
             }
         }
         // &:hover {
-        //     background: var(--primaryColor);
+        //     background: #fbe8fe;
 
         //     .default-btn {
         //         opacity: 1;

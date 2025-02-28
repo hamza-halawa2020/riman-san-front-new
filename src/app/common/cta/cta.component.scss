@@ -1,10 +1,10 @@
 .cta-area {
     &.bg-color {
-        background-color: #013C4A;
+        background-color: #4c0048;
     }
 }
 .cta-content {
-    background-color: #013C4A;
+    background-color: #4c0048;
     margin-right: -103px;
     padding: {
         top: 100px;
@@ -47,10 +47,10 @@
                         border: 1px solid var(--whiteColor);
                     }
                     &:hover {
-                        background-color: #013C4A;
+                        background-color: #4c0048;
 
                         &::before {
-                            border-color: #013C4A;
+                            border-color: #4c0048;
                         }
                     }
                 }
@@ -93,8 +93,8 @@
         right: -80px;
         padding-top: 50px;
         position: absolute;
-        color: #013C4A;
-        background-color: var(--primaryColor);
+        color: #4c0048;
+        background-color: #fbe8fe;
 
         span {
             margin-bottom: 5px;
@@ -103,7 +103,7 @@
             transition: var(--transition);
         }
         &:hover {
-            color: #013C4A;
+            color: #4c0048;
 
             img {
                 transform: translateY(5px);

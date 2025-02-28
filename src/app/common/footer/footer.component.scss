@@ -21,7 +21,7 @@
                 height: 60px;
                 box-shadow: unset;
                 border-radius: 5px;
-                color: #013c4a;
+                color: #4c0048;
                 border: 1px solid #c3c3c3;
                 background-color: #fbfbfb;
                 padding: {
@@ -45,14 +45,14 @@
                 border: 0;
                 padding: 12px 30px;
                 position: absolute;
-                color: #013c4a;
+                color: #4c0048;
                 border-radius: 0 5px 5px 0;
                 transition: var(--transition);
-                background-color: var(--primaryColor);
+                background-color: #fbe8fe;
 
                 &:hover {
                     color: var(--whiteColor);
-                    background-color: #013c4a;
+                    background-color: #4c0048;
                 }
             }
         }
@@ -75,7 +75,7 @@
                 color: var(--paragraphColor);
 
                 &:hover {
-                    color: #013c4a;
+                    color: #4c0048;
                 }
             }
             &:last-child {
@@ -103,8 +103,8 @@
                 transform: translateY(-50%);
             }
             &:hover {
-                color: #013c4a;
-                background-color: var(--primaryColor);
+                color: #4c0048;
+                background-color: #fbe8fe;
             }
             &:last-child {
                 margin-right: 0;
@@ -130,7 +130,7 @@
                 // font-size: 16px;
                 box-shadow: unset;
                 border-radius: 5px;
-                color: #013c4a;
+                color: #4c0048;
                 border: 1px solid #c3c3c3;
                 background-color: #fbfbfb;
                 padding: {
@@ -154,17 +154,17 @@
                 border: 0;
                 padding: 12px 30px;
                 position: absolute;
-                color: #013c4a;
+                color: #4c0048;
                 border-radius: 0 5px 5px 0;
                 transition: var(--transition);
-                background-color: var(--primaryColor);
+                background-color: #fbe8fe;
                 // font: {
                 //     size: 20px;
                 //     weight: 500;
                 // };
                 &:hover {
                     color: var(--whiteColor);
-                    background-color: #013c4a;
+                    background-color: #4c0048;
                 }
             }
         }
@@ -227,7 +227,7 @@
         border-bottom: 1px solid #c3c3c3;
 
         &:hover {
-            color: var(--primaryColor);
+            color: #fbe8fe;
         }
         &:last-child {
             border-bottom-width: 0;
@@ -265,7 +265,7 @@
                 color: #f3f3f3;
 
                 &:hover {
-                    color: var(--primaryColor);
+                    color: #fbe8fe;
                 }
             }
             &:last-child {
@@ -315,8 +315,8 @@
                 transform: translateY(-50%);
             }
             &:hover {
-                color: #013c4a;
-                background-color: var(--primaryColor);
+                color: #4c0048;
+                background-color: #fbe8fe;
             }
             &:last-child {
                 margin-right: 0;

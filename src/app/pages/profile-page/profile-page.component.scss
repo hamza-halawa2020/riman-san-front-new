@@ -16,7 +16,7 @@ a {
         overflow: hidden;
 
         .sidebar-header {
-            background: #007bff;
+            background: #70416f;
             color: white;
             padding: 1.5rem;
             text-align: center;
@@ -38,7 +38,7 @@ a {
                 }
 
                 &.active {
-                    background: #007bff;
+                    background: #4c0048;
                     color: white;
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 }
@@ -58,9 +58,9 @@ a {
         min-height: 500px;
 
         .section-title {
-            color: #007bff;
+            color: #4c0048;
             margin-bottom: 2rem;
-            border-bottom: 2px solid #007bff;
+            border-bottom: 2px solid #4c0048;
             padding-bottom: 0.5rem;
         }
     }
@@ -83,7 +83,7 @@ a {
                 width: 120px;
                 height: 120px;
                 border-radius: 50%;
-                border: 4px solid #007bff;
+                border: 4px solid #4c0048;
                 object-fit: cover;
                 transition: transform 0.3s ease;
 
@@ -147,7 +147,7 @@ a {
                 background: none;
 
                 &:hover {
-                    color: #007bff;
+                    color: #4c0048;
                 }
             }
 
@@ -181,7 +181,7 @@ a {
             .detail-label {
                 width: 120px;
                 font-weight: 600;
-                color: #007bff;
+                color: #4c0048;
                 display: flex;
                 align-items: center;
 
@@ -212,7 +212,7 @@ a {
                     }
 
                     &::-webkit-scrollbar-thumb {
-                        background: #007bff;
+                        background: #4c0048;
                         border-radius: 4px;
 
                         &:hover {
@@ -243,7 +243,7 @@ a {
 
                             .address-number {
                                 font-weight: 600;
-                                color: #007bff;
+                                color: #4c0048;
                             }
 
                             .address-date {
@@ -258,7 +258,7 @@ a {
                                 color: #333;
 
                                 i {
-                                    color: #007bff;
+                                    color: #4c0048;
                                     width: 20px;
                                 }
                             }
@@ -324,7 +324,7 @@ a {
                     background: #f8f9fa;
 
                     .modal-title {
-                        color: #007bff;
+                        color: #4c0048;
                     }
 
                     .btn-close {
@@ -345,14 +345,14 @@ a {
                     }
 
                     .form-label {
-                        color: #007bff;
+                        color: #4c0048;
                         font-weight: 600;
                     }
 
                     .form-control {
                         border-radius: 5px;
                         &:focus {
-                            border-color: #007bff;
+                            border-color: #4c0048;
                             box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
                         }
                     }
@@ -369,7 +369,7 @@ a {
                         padding: 8px 20px;
                         border-radius: 25px;
                         transition: all 0.3s ease;
-                        background-color: #007bff;
+                        background-color: #4c0048;
                         color: white;
 
                         &:hover {
