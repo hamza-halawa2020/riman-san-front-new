@@ -15,6 +15,7 @@ import { PageBannerComponent } from './page-banner/page-banner.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { ResetpasswordService } from './resetpassword.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-resetpassword-page',
@@ -29,6 +30,7 @@ import { ResetpasswordService } from './resetpassword.service';
         FooterComponent,
         BackToTopComponent,
         HttpClientModule,
+        TranslateModule, // Add TranslateModule
     ],
     templateUrl: './resetpassword-page.component.html',
     styleUrls: ['./resetpassword-page.component.scss'],
@@ -45,7 +47,8 @@ export class ResetpasswordPageComponent {
         private fb: FormBuilder,
         private router: Router,
         private resetService: ResetpasswordService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public translate: TranslateService // Add TranslateService
     ) {
         const token = this.route.snapshot.queryParamMap.get('token') || '';
         this.verifyForm = this.fb.group({
@@ -56,7 +59,12 @@ export class ResetpasswordPageComponent {
                 [Validators.required, this.passwordMatchValidator()],
             ],
         });
+
+        // Set default language
+        this.translate.setDefaultLang('en');
+        this.translate.use('en'); // Default to English, switchable to 'ar'
     }
+
     passwordMatchValidator(): (
         control: AbstractControl
     ) => { [key: string]: boolean } | null {
@@ -72,11 +80,19 @@ export class ResetpasswordPageComponent {
         };
     }
 
+    togglePasswordVisibility() {
+        this.passwordVisible = !this.passwordVisible;
+    }
+
+    togglePasswordConfirmationVisibility() {
+        this.passwordConfirmationVisible = !this.passwordConfirmationVisible;
+    }
+
     verify() {
         if (this.verifyForm.valid) {
             this.resetService.verify(this.verifyForm.value).subscribe({
                 next: (response: any) => {
-                    this.successMessage = 'Done!';
+                    this.successMessage = this.translate.instant('DONE');
                     setTimeout(() => {
                         this.successMessage = '';
                     }, 3000);
@@ -84,16 +100,21 @@ export class ResetpasswordPageComponent {
                 },
                 error: (error) => {
                     this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
+                        error.error?.message ||
+                        this.translate.instant('UNEXPECTED_ERROR');
                     setTimeout(() => {
                         this.errorMessage = '';
                     }, 3000);
                 },
             });
         } else {
-            this.errorMessage =
-                'Form is invalid. Please fill all the required fields.';
+            this.errorMessage = this.translate.instant('FORM_INVALID');
             setTimeout(() => (this.errorMessage = ''), 1000);
         }
+    }
+
+    // Optional: Method to switch language
+    switchLanguage(lang: string) {
+        this.translate.use(lang);
     }
 }

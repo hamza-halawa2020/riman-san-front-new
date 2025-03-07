@@ -1,27 +1,47 @@
 .login-area {
     .container {
         max-width: 1032px;
+
+        &.text-center {
+            h1 {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+        }
     }
 }
-.login-image {
-    margin-right: -45px;
-}
+
 .login-content {
-    padding-left: 80px;
+    &[dir="rtl"] {
+        padding-right: 80px;
+    }
+    &[dir="ltr"] {
+        padding-left: 80px; /* LTR for English */
+    }
 
     .links {
         margin-bottom: 25px;
         border-bottom: 1px solid #ededed;
 
         li {
-            margin-right: 15px;
+            &[dir="rtl"] {
+                margin-left: 15px;
+            }
+            &[dir="ltr"] {
+                margin-right: 15px; /* LTR for English */
+            }
 
             a {
                 color: var(--paragraphColor);
                 padding-bottom: 6px;
 
                 &::before {
-                    left: 0;
+                    &[dir="rtl"] {
+                        right: 0;
+                    }
+                    &[dir="ltr"] {
+                        left: 0; /* LTR for English */
+                    }
                     width: 0;
                     bottom: 0;
                     height: 1px;
@@ -30,7 +50,8 @@
                     transition: var(--transition);
                     background: #4c0048;
                 }
-                &:hover, &.active {
+                &:hover,
+                &.active {
                     color: #4c0048;
 
                     &::before {
@@ -39,10 +60,16 @@
                 }
             }
             &:last-child {
-                margin-right: 0;
+                &[dir="rtl"] {
+                    margin-left: 0;
+                }
+                &[dir="ltr"] {
+                    margin-right: 0; /* LTR for English */
+                }
             }
         }
     }
+
     h3 {
         margin-bottom: 25px;
         font: {
@@ -50,6 +77,7 @@
             family: var(--fontFamily);
         };
     }
+
     form {
         .form-group {
             margin-bottom: 20px;
@@ -60,10 +88,18 @@
                 border-radius: 5px;
                 color: #4c0048;
                 border: 1px solid #EDF5F8;
-                padding: {
-                    left: 19px;
-                    right: 19px;
-                };
+                &[dir="rtl"] {
+                    padding: {
+                        right: 19px;
+                        left: 19px;
+                    };
+                }
+                &[dir="ltr"] {
+                    padding: {
+                        left: 19px;
+                        right: 19px; /* LTR for English */
+                    };
+                }
                 &::placeholder {
                     color: var(--paragraphColor);
                     transition: var(--transition);
@@ -74,21 +110,8 @@
                     }
                 }
             }
-            button {
-                top: 50%;
-                right: 19px;
-                font-size: 16px;
-                margin-top: 1px;
-                color: #C3C3C3;
-                position: absolute;
-                transform: translateY(-50%);
-                transition: var(--transition);
-
-                &:hover {
-                    color: #4c0048;
-                }
-            }
         }
+
         .forgot-password {
             font-size: 16px;
             text-decoration: underline;
@@ -98,6 +121,7 @@
                 text-decoration: none;
             }
         }
+
         .default-btn {
             padding: {
                 top: 12.5px;
@@ -108,63 +132,32 @@
                 bottom: 24px;
             };
         }
-        p {
-            font-size: 16px;
-        }
-        .socials {
-            margin-top: 23px;
-
-            button {
-                width: 40px;
-                height: 40px;
-                font-size: 17px;
-                border-radius: 5px;
-                background-color: #f3f3f3;
-                color: var(--paragraphColor);
-                transition: var(--transition);
-                margin: {
-                    left: 5px;
-                    right: 5px;
-                };
-                i {
-                    left: 0;
-                    right: 0;
-                    top: 50%;
-                    position: absolute;
-                    transform: translateY(-50%);
-                }
-                &:hover {
-                    color: #4c0048;
-                    background-color: #fbe8fe;
-                }
-                &:first-child {
-                    margin-left: 0;
-                }
-                &:last-child {
-                    margin-right: 0;
-                }
-            }
-        }
     }
 }
 
 /* Max width 767px */
-@media only screen and (max-width : 767px) {
-
+@media only screen and (max-width: 767px) {
     .login-area {
         .container {
             max-width: 100%;
+
+            &.text-center {
+                h1 {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+            }
         }
     }
-    .login-image {
-        margin: {
-            right: 0;
-            top: 25px;
-        };
-    }
+
     .login-content {
-        padding-left: 0;
-    
+        &[dir="rtl"] {
+            padding-right: 0;
+        }
+        &[dir="ltr"] {
+            padding-left: 0; /* LTR for English */
+        }
+
         .links {
             margin-bottom: 20px;
         }
@@ -175,14 +168,22 @@
         form {
             .form-group {
                 margin-bottom: 15px;
-    
+
                 .form-control {
                     height: 50px;
                     font-size: 14px;
-                    padding: {
-                        left: 15px;
-                        right: 15px;
-                    };
+                    &[dir="rtl"] {
+                        padding: {
+                            right: 15px;
+                            left: 15px;
+                        };
+                    }
+                    &[dir="ltr"] {
+                        padding: {
+                            left: 15px;
+                            right: 15px; /* LTR for English */
+                        };
+                    }
                 }
             }
             .forgot-password {
@@ -194,55 +195,41 @@
                     bottom: 18px;
                 };
             }
-            p {
-                font-size: 14px;
-            }
-            .socials {
-                margin-top: 18px;
-    
-                button {
-                    width: 35px;
-                    height: 35px;
-                    font-size: 15px;
-                    margin: {
-                        left: 2px;
-                        right: 2px;
-                    };
-                }
-            }
         }
     }
-
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {
-
+@media only screen and (min-width: 576px) and (max-width: 767px) {
     .login-area {
         .container {
             max-width: 540px;
         }
     }
-
 }
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {
-
+@media only screen and (min-width: 768px) and (max-width: 991px) {
     .login-area {
         .container {
             max-width: 720px;
+
+            &.text-center {
+                h1 {
+                    font-size: 20px;
+                }
+            }
         }
     }
-    .login-image {
-        margin: {
-            right: 0;
-            top: 25px;
-        };
-    }
+
     .login-content {
-        padding-left: 0;
-    
+        &[dir="rtl"] {
+            padding-right: 0;
+        }
+        &[dir="ltr"] {
+            padding-left: 0; /* LTR for English */
+        }
+
         form {
             .form-group {
                 .form-control {
@@ -258,31 +245,32 @@
                     bottom: 20px;
                 };
             }
-            p {
-                font-size: 15px;
-            }
-            .socials {
-                margin-top: 20px;
-            }
         }
     }
-
 }
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {
-
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
     .login-area {
         .container {
             max-width: 960px;
+
+            &.text-center {
+                h1 {
+                    font-size: 22px;
+                }
+            }
         }
     }
-    .login-image {
-        margin-right: -35px;
-    }
+
     .login-content {
-        padding-left: 45px;
-    
+        &[dir="rtl"] {
+            padding-right: 45px;
+        }
+        &[dir="ltr"] {
+            padding-left: 45px; /* LTR for English */
+        }
+
         form {
             .default-btn {
                 margin: {
@@ -290,12 +278,8 @@
                     bottom: 20px;
                 };
             }
-            .socials {
-                margin-top: 20px;
-            }
         }
     }
-
 }
 
 /* Min width 1200px to Max width 1399px */

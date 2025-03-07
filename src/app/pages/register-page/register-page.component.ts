@@ -14,6 +14,7 @@ import { PageBannerComponent } from './page-banner/page-banner.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { NgClass, NgIf } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-register-page',
@@ -28,6 +29,7 @@ import { NgClass, NgIf } from '@angular/common';
         ReactiveFormsModule,
         NgIf,
         NgClass,
+        TranslateModule, // Add TranslateModule
     ],
     templateUrl: './register-page.component.html',
     styleUrl: './register-page.component.scss',
@@ -44,7 +46,8 @@ export class RegisterPageComponent {
     constructor(
         public router: Router,
         private fb: FormBuilder,
-        private registerService: RegisterService
+        private registerService: RegisterService,
+        public translate: TranslateService // Add TranslateService
     ) {
         this.registerForm = this.fb.group({
             name: ['', [Validators.required, Validators.minLength(3)]],
@@ -60,6 +63,10 @@ export class RegisterPageComponent {
                 [Validators.required, this.passwordMatchValidator()],
             ],
         });
+
+        // Set default language
+        this.translate.setDefaultLang('en');
+        this.translate.use('en'); // Default to English, switchable to 'ar'
     }
 
     passwordMatchValidator(): (
@@ -78,7 +85,7 @@ export class RegisterPageComponent {
     }
 
     extractErrorMessage(error: any): string {
-        let errorMessage = 'An error occurred';
+        let errorMessage = this.translate.instant('ERROR');
         if (error && error.error && error.error.errors) {
             errorMessage = Object.values(error.error.errors).flat().join(', ');
         }
@@ -102,13 +109,11 @@ export class RegisterPageComponent {
     }
 
     register() {
-        // if (this.registerForm.invalid) {
-        //     this.errorMessage =
-        //         'Please fill out all required fields correctly.';
-        //     setTimeout(() => (this.errorMessage = ''), 1000);
-
-        //     return;
-        // }
+        if (this.registerForm.invalid) {
+            this.errorMessage = this.translate.instant('FORM_INVALID');
+            setTimeout(() => (this.errorMessage = ''), 1000);
+            return;
+        }
 
         const formData = new FormData();
         formData.append('name', this.registerForm.get('name')?.value);
@@ -125,15 +130,23 @@ export class RegisterPageComponent {
 
         this.registerService.register(formData).subscribe({
             next: (response: any) => {
-                this.successMessage = 'Registered successfully!';
+                this.successMessage = this.translate.instant('REGISTER_SUCCESS');
                 setTimeout(() => (this.successMessage = ''), 1000);
                 this.registerForm.reset();
                 this.router.navigate(['/verify']);
             },
             error: (err) => {
-                this.errorMessage = this.extractErrorMessage(err);
+                this.errorMessage =
+                    this.translate.instant('REGISTER_FAILED') +
+                    ' ' +
+                    this.extractErrorMessage(err);
                 setTimeout(() => (this.errorMessage = ''), 2000);
             },
         });
+    }
+
+    // Optional: Method to switch language
+    switchLanguage(lang: string) {
+        this.translate.use(lang);
     }
 }

@@ -65,6 +65,7 @@ export class ProductDetailsPageComponent implements OnInit {
     socialImage = environment.imgUrl + 'socials/';
     selectedImage: string = '';
     currentIndex: number = 0;
+    currentOptions: OwlOptions;
 
     constructor(
         private activateRoute: ActivatedRoute,
@@ -77,6 +78,16 @@ export class ProductDetailsPageComponent implements OnInit {
         private translateService: TranslateService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
+        this.currentOptions =
+            this.translateService.currentLang === 'ar'
+                ? this.ProductSliderSlides2
+                : this.ProductSliderSlides;
+        this.translateService.onLangChange.subscribe((event) => {
+            this.currentOptions =
+                event.lang === 'ar'
+                    ? this.ProductSliderSlides2
+                    : this.ProductSliderSlides;
+        });
     }
 
     ngOnInit(): void {
@@ -324,6 +335,37 @@ export class ProductDetailsPageComponent implements OnInit {
         loop: true,
         margin: 25,
         dots: false,
+        autoplay: true,
+        smartSpeed: 500,
+        autoplayHoverPause: true,
+        navText: [
+            "<i class='fa-solid fa-chevron-left'></i>",
+            "<i class='fa-solid fa-chevron-right'></i>",
+        ],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            515: {
+                items: 1,
+            },
+            695: {
+                items: 2,
+            },
+            935: {
+                items: 2,
+            },
+            1115: {
+                items: 2,
+            },
+        },
+    };
+    ProductSliderSlides2: OwlOptions = {
+        nav: true,
+        loop: true,
+        margin: 25,
+        dots: false,
+        rtl: true,
         autoplay: true,
         smartSpeed: 500,
         autoplayHoverPause: true,

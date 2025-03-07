@@ -1,6 +1,6 @@
 .why-us-image {
     height: 100%;
-    margin-right: 30px;
+    // margin-right: 30px;
     background: {
         image: url(/assets/riman-san/4.jpg);
         position: center center;
@@ -14,21 +14,23 @@
 .why-us-content {
     background-color: #fbe8fe;
     margin-left: -30px;
+    margin-right: -30px;
     padding: {
         left: 60px;
+        right: 60px;
         top: 100px;
         bottom: 100px;
     };
     .content {
         max-width: 620px;
-
+        
         h2 {
             line-height: 1.25;
             // font-size: 48px;
         }
         .features-list {
             margin-top: 40px;
-
+            
             li {
                 margin-bottom: 35px;
                 
@@ -36,6 +38,7 @@
                     width: 180px;
                     height: 100px;
                     margin-right: 20px;
+                    margin-left: 20px;
                     border-radius: 15px;
                     background-color: #fbfbfb;
                 }

@@ -15,6 +15,7 @@ import { PageBannerComponent } from './page-banner/page-banner.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { ForgetpasswordService } from './forgetpassword.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-forgetpassword-page',
@@ -29,6 +30,7 @@ import { ForgetpasswordService } from './forgetpassword.service';
         FooterComponent,
         BackToTopComponent,
         HttpClientModule,
+        TranslateModule, // Add TranslateModule
     ],
     templateUrl: './forgetpassword-page.component.html',
     styleUrls: ['./forgetpassword-page.component.scss'],
@@ -44,34 +46,45 @@ export class ForgetpasswordPageComponent {
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        private forgetService: ForgetpasswordService
+        private forgetService: ForgetpasswordService,
+        public translate: TranslateService // Add TranslateService
     ) {
         this.verifyForm = this.fb.group({
             emailOrPhone: ['', [Validators.required]],
         });
+
+        // Set default language
+        this.translate.setDefaultLang('en');
+        this.translate.use('en'); // Default to English, switchable to 'ar'
     }
 
     verify() {
         if (this.verifyForm.valid) {
             this.forgetService.verify(this.verifyForm.value).subscribe({
                 next: (response: any) => {
-                    this.successMessage = 'Please check your email';
+                    this.successMessage =
+                        this.translate.instant('CHECK_YOUR_EMAIL');
                     setTimeout(() => {
                         this.successMessage = '';
                     }, 4000);
                 },
                 error: (error) => {
                     this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
+                        error.error?.message ||
+                        this.translate.instant('UNEXPECTED_ERROR');
                     setTimeout(() => {
                         this.errorMessage = '';
                     }, 3000);
                 },
             });
         } else {
-            this.errorMessage =
-                'Form is invalid. Please fill all the required fields.';
+            this.errorMessage = this.translate.instant('FORM_INVALID');
             setTimeout(() => (this.errorMessage = ''), 1000);
         }
+    }
+
+    // Optional: Method to switch language
+    switchLanguage(lang: string) {
+        this.translate.use(lang);
     }
 }

@@ -5,7 +5,7 @@ import { RouterLink, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { EventSliderService } from './event-slider.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-upcoming-events',
@@ -28,23 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class UpcomingEventsComponent implements OnInit {
     sliderData: any;
     image = environment.imgUrl + 'events/';
-    constructor(
-        public router: Router,
-        private eventSliderService: EventSliderService
-    ) {}
-
-    ngOnInit(): void {
-        this.fetchSliderData();
-    }
-
-    fetchSliderData() {
-        this.eventSliderService.index().subscribe({
-            next: (response) => {
-                this.sliderData = Object.values(response)[0];
-            },
-            error: (error) => {},
-        });
-    }
+    currentOptions: OwlOptions;
 
     upcomingEventsSlides: OwlOptions = {
         nav: true,
@@ -76,4 +60,64 @@ export class UpcomingEventsComponent implements OnInit {
             },
         },
     };
+    upcomingEventsSlides2: OwlOptions = {
+        nav: true,
+        loop: true,
+        margin: 25,
+        dots: false,
+        autoplay: true,
+        smartSpeed: 500,
+        rtl: true,
+        autoplayHoverPause: true,
+        navText: [
+            "<i class='fa-solid fa-chevron-left'></i>",
+            "<i class='fa-solid fa-chevron-right'></i>",
+        ],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            515: {
+                items: 1,
+            },
+            695: {
+                items: 2,
+            },
+            935: {
+                items: 2,
+            },
+            1115: {
+                items: 2,
+            },
+        },
+    };
+    constructor(
+        public router: Router,
+        private eventSliderService: EventSliderService,
+        private translate: TranslateService
+    ) {
+        this.currentOptions =
+            this.translate.currentLang === 'ar'
+                ? this.upcomingEventsSlides2
+                : this.upcomingEventsSlides;
+        this.translate.onLangChange.subscribe((event) => {
+            this.currentOptions =
+                event.lang === 'ar'
+                    ? this.upcomingEventsSlides2
+                    : this.upcomingEventsSlides;
+        });
+    }
+
+    ngOnInit(): void {
+        this.fetchSliderData();
+    }
+
+    fetchSliderData() {
+        this.eventSliderService.index().subscribe({
+            next: (response) => {
+                this.sliderData = Object.values(response)[0];
+            },
+            error: (error) => {},
+        });
+    }
 }

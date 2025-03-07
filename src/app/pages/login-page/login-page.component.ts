@@ -15,6 +15,7 @@ import { PageBannerComponent } from './page-banner/page-banner.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { LoginService } from './login.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-login-page',
@@ -29,6 +30,7 @@ import { LoginService } from './login.service';
         FooterComponent,
         BackToTopComponent,
         HttpClientModule,
+        TranslateModule,
     ],
     templateUrl: './login-page.component.html',
     styleUrls: ['./login-page.component.scss'],
@@ -44,7 +46,8 @@ export class LoginPageComponent {
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        private loginService: LoginService
+        private loginService: LoginService,
+        public translate: TranslateService // Make public for template binding
     ) {
         this.loginForm = this.fb.group({
             emailOrPhone: ['', [Validators.required]],
@@ -54,6 +57,10 @@ export class LoginPageComponent {
                 [Validators.required, this.passwordMatchValidator()],
             ],
         });
+
+        // Set default language and direction
+        this.translate.setDefaultLang('en');
+        this.translate.use('en'); // Default to English, switchable to 'ar'
     }
 
     passwordMatchValidator(): (
@@ -80,7 +87,7 @@ export class LoginPageComponent {
     }
 
     extractErrorMessage(error: any): string {
-        let errorMessage = 'An error occurred';
+        let errorMessage = this.translate.instant('ERROR');
         if (error && error.error && error.error.errors) {
             errorMessage = Object.values(error.error.errors).flat().join(', ');
         }
@@ -91,21 +98,26 @@ export class LoginPageComponent {
         if (this.loginForm.valid) {
             this.loginService.login(this.loginForm.value).subscribe({
                 next: (response: any) => {
-                    const token = response.token; // Adjust based on your API response
+                    const token = response.token;
                     this.loginService.setTokenInCookie(token);
                     this.router.navigate(['/']);
                 },
                 error: (err) => {
                     this.errorMessage =
-                        'Login failed. Please try again. ' +
+                        this.translate.instant('LOGIN_FAILED') +
+                        ' ' +
                         this.extractErrorMessage(err);
                     setTimeout(() => (this.errorMessage = ''), 1000);
                 },
             });
         } else {
-            this.errorMessage =
-                'Form is invalid. Please fill all the required fields.';
+            this.errorMessage = this.translate.instant('FORM_INVALID');
             setTimeout(() => (this.errorMessage = ''), 1000);
         }
+    }
+
+    // Optional: Method to switch language (can be called from a language switcher)
+    switchLanguage(lang: string) {
+        this.translate.use(lang);
     }
 }

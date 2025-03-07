@@ -5,14 +5,14 @@
 }
 .cta-content {
     background-color: #4c0048;
-    margin-right: -103px;
+    // margin-right: -103px;
     padding: {
         top: 100px;
-        right: 60px;
+        right: 30px;
         bottom: 100px;
     }
     .content {
-        margin-left: auto;
+        margin-left: 30px;
         max-width: 696px;
 
         h2 {
@@ -30,7 +30,8 @@
             .default-btn {
                 &:nth-child(2) {
                     z-index: 1;
-                    margin-left: 40px;
+                    margin-left: 20px;
+                    margin-right: 20px;
                     position: relative;
                     color: var(--whiteColor);
                     background-color: transparent;
@@ -60,7 +61,7 @@
 }
 .cta-image {
     height: 100%;
-    margin-left: 103px;
+    // margin-left: 103px;
     background: {
         image: url(/assets/riman-san/1.jpg);
         position: center center;
