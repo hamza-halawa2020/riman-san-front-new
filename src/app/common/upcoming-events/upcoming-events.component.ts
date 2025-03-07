@@ -5,6 +5,7 @@ import { RouterLink, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { EventSliderService } from './event-slider.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-upcoming-events',
@@ -18,6 +19,7 @@ import { EventSliderService } from './event-slider.service';
         NgIf,
         NgClass,
         HttpClientModule,
+        TranslateModule,
     ],
     templateUrl: './upcoming-events.component.html',
     styleUrl: './upcoming-events.component.scss',
@@ -40,8 +42,7 @@ export class UpcomingEventsComponent implements OnInit {
             next: (response) => {
                 this.sliderData = Object.values(response)[0];
             },
-            error: (error) => {
-            },
+            error: (error) => {},
         });
     }
 

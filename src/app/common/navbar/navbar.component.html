@@ -8,57 +8,52 @@
                     <h4>+880 1934 781924</h4>
                 </div>
             </div>
-            <!--- END COL -->
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="single-top-contact">
                     <i class="fa fa-envelope"></i>
                     <h4>
-                        <a routerLink="mailto:example@gmail.com"
-                            >examplemail.com</a
-                        >
+                        <a href="mailto:example@gmail.com">{{
+                            "EMAIL" | translate
+                        }}</a>
                     </h4>
                 </div>
             </div>
-            <!--- END COL -->
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="single-top-contact">
                     <i class="fa-solid fa-clock"></i>
-                    <h4>sat to thu Open: 9am - 6pm</h4>
+                    <h4>{{ "OPENING_HOURS" | translate }}</h4>
                 </div>
             </div>
-            <!--- END COL -->
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="top_social_profile">
                     <ul>
                         <li>
-                            <a routerLink="#" class="top_f_facebook"
-                                ><i class="fa-brands fa-facebook"></i
-                            ></a>
+                            <a href="#" class="top_f_facebook">
+                                <i class="fa-brands fa-facebook"></i>
+                            </a>
                         </li>
                         <li>
-                            <a routerLink="#" class="top_f_instagram"
-                                ><i class="fa-brands fa-instagram"></i
-                            ></a>
+                            <a href="#" class="top_f_instagram">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
                         </li>
                         <li>
-                            <a routerLink="#" class="top_youtube"
-                                ><i class="fa-brands fa-youtube"></i
-                            ></a>
+                            <a href="#" class="top_youtube">
+                                <i class="fa-brands fa-youtube"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
-            <!--- END COL -->
         </div>
-        <!--- END ROW -->
     </div>
-    <!--- END CONTAINER -->
 </section>
 <!-- END LOGO WITH CONTACT -->
 
 <!-- START NAVBAR -->
 <nav
     class="navbar navbar-expand-lg navbar-light bg-light site-navigation d-flex align-items-center"
+    [ngClass]="{ sticky: isSticky }"
 >
     <div class="container d-flex align-items-center justify-content-between">
         <a class="navbar-brand d-flex align-items-center" routerLink="/">
@@ -83,54 +78,109 @@
         >
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/">Home</a>
+                    <a class="nav-link" routerLink="/">{{
+                        "HOME" | translate
+                    }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/about">About Us</a>
+                    <a class="nav-link" routerLink="/about">{{
+                        "ABOUT_US" | translate
+                    }}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/instructors">Instructor</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/faqs">FAQ's</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/events">Event</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/courses">Courses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/certifications"
-                        >Certifications</a
+                <!-- Dropdown for Education with Submenu -->
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="educationDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                     >
+                        {{ "EDUCATION" | translate }}
+                    </a>
+                    <ul
+                        class="dropdown-menu"
+                        aria-labelledby="educationDropdown"
+                    >
+                        <li>
+                            <a class="dropdown-item" routerLink="/courses">
+                                {{ "COURSES" | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="/instructors">
+                                {{ "INSTRUCTORS" | translate }}
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                routerLink="/certifications"
+                            >
+                                {{ "CERTIFICATIONS" | translate }}
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/factory">Factory</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/products">Shop</a>
+                    <a class="nav-link" routerLink="/faqs">{{
+                        "FAQS" | translate
+                    }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/posts">Blog</a>
+                    <a class="nav-link" routerLink="/events">{{
+                        "EVENTS" | translate
+                    }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/contacts">Contact</a>
+                    <a class="nav-link" routerLink="/factory">{{
+                        "FACTORY" | translate
+                    }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/products">{{
+                        "SHOP" | translate
+                    }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/posts">{{
+                        "BLOG" | translate
+                    }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/contacts">{{
+                        "CONTACT" | translate
+                    }}</a>
                 </li>
             </ul>
         </div>
 
         <div class="d-flex align-items-center home_lc">
-            <a routerLink="/cart" class="hlc">
-                <i class="fa-solid fa-earth-asia"></i>
-                <span class="gactive">ع</span>
-            </a>
+            <!-- Language Switch -->
+            <div class="language-switch">
+                <a
+                    *ngIf="getCurrentLanguage() === 'ar'"
+                    class="hlc"
+                    (click)="switchLanguage('en')"
+                >
+                    <i class="fa-solid fa-earth-asia"></i>
+                    <span class="gactive">EN</span>
+                </a>
+                <a
+                    *ngIf="getCurrentLanguage() === 'en'"
+                    class="hlc"
+                    (click)="switchLanguage('ar')"
+                >
+                    <i class="fa-solid fa-earth-asia"></i>
+                    <span class="gactive">ع</span>
+                </a>
+            </div>
+
             <a *ngIf="isLoggedIn" routerLink="/cart" class="hlc">
                 <i class="fa-solid fa-cart-plus"></i>
                 <span class="gactive">{{ cartData.length }}</span>
             </a>
-
             <a *ngIf="!isLoggedIn" routerLink="/cart" class="hlc">
                 <i class="fa-solid fa-cart-plus"></i>
                 <span class="gactive">{{ cartClientData.length }}</span>
@@ -144,19 +194,21 @@
                 <span class="gactive">{{ favClientData.length }}</span>
             </a>
 
-            <a *ngIf="!isLoggedIn" class="btn_one" routerLink="/login">Login</a>
-            <a *ngIf="!isLoggedIn" class="btn_two" routerLink="/register"
-                >Sign Up</a
-            >
-            <a *ngIf="isLoggedIn" class="btn_one" routerLink="/profile"
-                >Profile</a
-            >
+            <a *ngIf="!isLoggedIn" class="btn_one" routerLink="/login">{{
+                "LOGIN" | translate
+            }}</a>
+            <a *ngIf="!isLoggedIn" class="btn_two" routerLink="/register">{{
+                "SIGN_UP" | translate
+            }}</a>
+            <a *ngIf="isLoggedIn" class="btn_one" routerLink="/profile">{{
+                "PROFILE" | translate
+            }}</a>
             <a
                 *ngIf="isLoggedIn"
                 class="btn_two"
                 style="cursor: pointer"
                 (click)="logout()"
-                >Logout</a
+                >{{ "LOGOUT" | translate }}</a
             >
         </div>
     </div>

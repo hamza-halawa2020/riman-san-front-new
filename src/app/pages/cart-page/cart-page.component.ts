@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CheckoutService } from '../checkout-page/checkout.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-cart-page',
@@ -23,6 +24,7 @@ import { ChangeDetectorRef } from '@angular/core';
         RouterLink,
         CommonModule,
         FormsModule,
+        TranslateModule,
     ],
     templateUrl: './cart-page.component.html',
     styleUrl: './cart-page.component.scss',

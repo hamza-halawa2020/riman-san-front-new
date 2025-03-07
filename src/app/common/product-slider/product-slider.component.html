@@ -2,14 +2,12 @@
     <div class="container">
         <div class="section-title position-relative">
             <div class="section-title">
-                <h2>Our Products</h2>
-                <p>
-                    Choose Our <span><u>Products</u></span>
-                </p>
+                <h2>{{ "OUR_PRODUCTS" | translate }}</h2>
+                <p [innerHTML]="'CHOOSE_OUR_PRODUCTS' | translate"></p>
             </div>
 
             <a routerLink="/products" class="default-btn">
-                Explore All Products
+                {{ "EXPLORE_ALL_PRODUCTS" | translate }}
             </a>
         </div>
         <div class="upcoming-courses-slides2 mx-auto">

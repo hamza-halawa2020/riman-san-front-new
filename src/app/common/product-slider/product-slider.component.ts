@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-product-slider',
@@ -16,6 +17,7 @@ import { environment } from '../../../environments/environment.development';
         NgIf,
         NgClass,
         HttpClientModule,
+        TranslateModule
     ],
     templateUrl: './product-slider.component.html',
     styleUrl: './product-slider.component.scss',

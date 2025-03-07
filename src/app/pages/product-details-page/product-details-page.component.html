@@ -14,7 +14,9 @@
         aria-atomic="true"
     >
         <div class="toast-header">
-            <strong class="me-auto text-success">Success</strong>
+            <strong class="me-auto text-success">{{
+                "SUCCESS" | translate
+            }}</strong>
         </div>
         <div class="toast-body">
             <h6>
@@ -36,7 +38,9 @@
         aria-atomic="true"
     >
         <div class="toast-header">
-            <strong class="me-auto text-danger">Error</strong>
+            <strong class="me-auto text-danger">{{
+                "ERROR" | translate
+            }}</strong>
         </div>
         <div class="toast-body">
             <h6>
@@ -46,7 +50,7 @@
     </div>
 </div>
 
-<!-- Product Details Area  -->
+<!-- Product Details Area -->
 <div class="prdct_dtls_page_area section-padding">
     <div class="container">
         <div class="row">
@@ -63,6 +67,7 @@
                                 type="button"
                                 class="btn-close"
                                 data-bs-dismiss="modal"
+                                [attr.aria-label]="'CLOSE' | translate"
                             ></button>
                         </div>
                         <div class="modal-body text-center position-relative">
@@ -70,12 +75,11 @@
                                 *ngIf="currentIndex > 0"
                                 class="btn btn-light position-absolute start-0 top-50 translate-middle-y"
                                 (click)="prevImage()"
+                                [title]="'PREVIOUS_IMAGE' | translate"
                             >
                                 <i class="fa fa-chevron-left"></i>
                             </button>
-
                             <img [src]="selectedImage" class="img-fluid" />
-
                             <button
                                 *ngIf="
                                     currentIndex <
@@ -83,6 +87,7 @@
                                 "
                                 class="btn btn-light position-absolute end-0 top-50 translate-middle-y"
                                 (click)="nextImage()"
+                                [title]="'NEXT_IMAGE' | translate"
                             >
                                 <i class="fa fa-chevron-right"></i>
                             </button>
@@ -122,21 +127,24 @@
             <!-- Product Details Content -->
             <div class="col-md-6 col-xs-12">
                 <div class="row mt-4">
-                    <a class="pd_title"> {{ details?.title }} </a>
+                    <a class="pd_title"> {{ details?.translatedName }} </a>
+
                     <div class="my-1">
                         <!-- Product Price -->
                         <div class="pd_price">
                             <span class="new"
-                                >{{ details?.priceAfterDiscount }} EGP
-                            </span>
+                                >{{ details?.priceAfterDiscount }}
+                                {{ "EGP" | translate }}</span
+                            >
                             <span class="old"
-                                >({{ details?.priceBeforeDiscount }} EGP)</span
+                                >({{ details?.priceBeforeDiscount }}
+                                {{ "EGP" | translate }})</span
                             >
                         </div>
                     </div>
                     <div class="mt-4">
                         <p>
-                            {{ details?.description }}
+                            {{ details?.translatedDescription }}
                         </p>
                     </div>
 
@@ -145,25 +153,33 @@
                         <a
                             class="btn btn-default acc_btn"
                             (click)="addToCart(details.id)"
-                            >add to cart</a
+                            [title]="'ADD_TO_CART' | translate"
                         >
+                            {{ "ADD_TO_CART" | translate }}
+                        </a>
                         <a
                             (click)="addToFavourite(details.id)"
                             class="btn btn-default acc_btn btn_icn"
-                            ><i class="fa fa-heart"></i
-                        ></a>
+                            [title]="'ADD_TO_WISHLIST' | translate"
+                        >
+                            <i class="fa fa-heart"></i>
+                        </a>
                     </div>
                     <div class="" *ngIf="!isLoggedIn">
                         <a
                             class="btn btn-default acc_btn"
                             (click)="addToClientCart(details)"
-                            >add to cart</a
+                            [title]="'ADD_TO_CART' | translate"
                         >
+                            {{ "ADD_TO_CART" | translate }}
+                        </a>
                         <a
-                            (click)=" addToClientFavourite(details)"
+                            (click)="addToClientFavourite(details)"
                             class="btn btn-default acc_btn btn_icn"
-                            ><i class="fa fa-heart"></i
-                        ></a>
+                            [title]="'ADD_TO_WISHLIST' | translate"
+                        >
+                            <i class="fa fa-heart"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -173,7 +189,9 @@
             <div class="client-review p-4">
                 <div class="review-comments">
                     <h6 class="review-title">
-                        Reviews ({{ details?.productReviews.length }})
+                        {{ "REVIEWS" | translate }} ({{
+                            details?.productReviews.length
+                        }})
                     </h6>
                     <ul class="review-contents">
                         <li *ngFor="let review of details?.productReviews">
@@ -195,15 +213,18 @@
                     </ul>
                 </div>
                 <div class="review-form">
-                    <h6 class="review-title">Add a Review</h6>
+                    <h6 class="review-title">
+                        {{ "ADD_A_REVIEW" | translate }}
+                    </h6>
                     <form
                         class="row client-form align-items-center"
                         *ngIf="isLoggedIn"
                     >
                         <div class="col-md-4 col-12">
                             <div class="rating">
-                                <span class="rating-title">Your Rating : </span>
-
+                                <span class="rating-title"
+                                    >{{ "YOUR_RATING" | translate }}:
+                                </span>
                                 <rating
                                     [max]="5"
                                     style="color: #e1b619; font-size: 25px"
@@ -215,7 +236,7 @@
                         <div class="col-md-12 col-12 d-inline-flex">
                             <textarea
                                 rows="5"
-                                placeholder="Type Here Message"
+                                [placeholder]="'TYPE_HERE_MESSAGE' | translate"
                                 [(ngModel)]="newReview"
                                 name="newReview"
                             ></textarea>
@@ -226,7 +247,7 @@
                                 class="custom-button rounded"
                                 (click)="addReview(newReview, newRate)"
                             >
-                                Submit Review
+                                {{ "SUBMIT_REVIEW" | translate }}
                             </button>
                         </div>
                     </form>
@@ -239,7 +260,7 @@
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Full Name"
+                                [placeholder]="'FULL_NAME' | translate"
                                 [(ngModel)]="name"
                             />
                         </div>
@@ -247,7 +268,7 @@
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="Email Adress"
+                                [placeholder]="'EMAIL_ADDRESS' | translate"
                                 [(ngModel)]="email"
                             />
                         </div>
@@ -255,14 +276,15 @@
                             <input
                                 type="text"
                                 name="phone"
-                                placeholder="Phone Number"
+                                [placeholder]="'PHONE_NUMBER' | translate"
                                 [(ngModel)]="phone"
                             />
                         </div>
                         <div class="col-md-4 col-12">
                             <div class="rating">
-                                <span class="rating-title">Your Rating : </span>
-
+                                <span class="rating-title"
+                                    >{{ "YOUR_RATING" | translate }}:
+                                </span>
                                 <rating
                                     [max]="5"
                                     style="color: #e1b619; font-size: 25px"
@@ -274,7 +296,7 @@
                         <div class="col-md-12 col-12 d-inline-flex">
                             <textarea
                                 rows="5"
-                                placeholder="Type Here Message"
+                                [placeholder]="'TYPE_HERE_MESSAGE' | translate"
                                 [(ngModel)]="newReview"
                                 name="newReview"
                             ></textarea>
@@ -293,7 +315,7 @@
                                     )
                                 "
                             >
-                                Submit Review
+                                {{ "SUBMIT_REVIEW" | translate }}
                             </button>
                         </div>
                     </form>
@@ -310,7 +332,9 @@
 >
     <div class="container">
         <!-- Section Title -->
-        <div class="rp_title text-center"><h3>Related products</h3></div>
+        <div class="rp_title text-center">
+            <h3>{{ "RELATED_PRODUCTS" | translate }}</h3>
+        </div>
 
         <div class="row">
             <div
@@ -333,71 +357,74 @@
                                 <a
                                     style="cursor: pointer"
                                     (click)="addToFavourite(related.id)"
-                                    data-tip="Add to Wishlist"
-                                    ><i class="fa-regular fa-heart"></i
-                                ></a>
+                                    [attr.data-tip]="
+                                        'ADD_TO_WISHLIST' | translate
+                                    "
+                                >
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
                             </li>
                             <li>
                                 <a
                                     style="cursor: pointer"
                                     (click)="addToCart(related.id)"
-                                    data-tip="Add to Cart"
+                                    [attr.data-tip]="'ADD_TO_CART' | translate"
                                 >
-                                    <i class="fa-solid fa-cart-plus"></i
-                                ></a>
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </a>
                             </li>
                         </ul>
                         <ul class="social" *ngIf="!isLoggedIn">
                             <li>
                                 <a
                                     style="cursor: pointer"
-                                    (click)=" addToClientFavourite(related)"
-                                    data-tip="Add to Wishlist"
-                                    ><i class="fa-regular fa-heart"></i
-                                ></a>
+                                    (click)="addToClientFavourite(related)"
+                                    [attr.data-tip]="
+                                        'ADD_TO_WISHLIST' | translate
+                                    "
+                                >
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
                             </li>
                             <li>
                                 <a
                                     style="cursor: pointer"
                                     (click)="addToClientCart(related)"
-                                    data-tip="Add to Cart"
+                                    [attr.data-tip]="'ADD_TO_CART' | translate"
                                 >
-                                    <i class="fa-solid fa-cart-plus"></i
-                                ></a>
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                </a>
                             </li>
                         </ul>
                         <span
                             class="product-new-label"
                             *ngIf="related.discount"
                         >
-                            discount: {{ related.discount }} EGP
+                            {{ "DISCOUNT" | translate }}:
+                            {{ related.discount }} {{ "EGP" | translate }}
                         </span>
                     </div>
-                    <!-- <ul class="rating">
-                            <li class="fa fa-star"></li>
-                            <li class="fa fa-star"></li>
-                            <li class="fa fa-star"></li>
-                            <li class="fa fa-star"></li>
-                            <li class="fa fa-star"></li>
-                        </ul> -->
                     <div class="product-content">
                         <h3 class="title">
                             <a routerLink="/product/{{ related.id }}">
-                                {{ related.title }}</a
-                            >
+                                {{ related.title }}
+                            </a>
                         </h3>
                         <div class="price">
-                            {{ related.priceAfterDiscount }} EGP
-                            <span *ngIf="related.priceBeforeDiscount"
-                                >{{ related.priceBeforeDiscount }} EGP</span
-                            >
+                            {{ related.priceAfterDiscount }}
+                            {{ "EGP" | translate }}
+                            <span *ngIf="related.priceBeforeDiscount">
+                                {{ related.priceBeforeDiscount }}
+                                {{ "EGP" | translate }}
+                            </span>
                         </div>
                         <a
                             class="add-to-cart"
                             style="cursor: pointer"
                             (click)="addToCart(related.id)"
-                            >+ Add To Cart</a
                         >
+                            {{ "ADD_TO_CART" | translate }}
+                        </a>
                     </div>
                 </div>
             </div>

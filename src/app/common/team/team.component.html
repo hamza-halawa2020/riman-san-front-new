@@ -2,11 +2,11 @@
 <section class="team_member section-padding">
     <div class="container">
         <div class="section-title">
-            <h2>Our Instructor</h2>
-            <p>
-                Our Expert <span><u>Instructors</u></span>
-            </p>
-            <a routerLink="/instructors" class="default-btn"> Explore All Instructors </a>
+            <h2>{{ "OUR_INSTRUCTOR" | translate }}</h2>
+            <p [innerHTML]="'OUR_EXPERT_INSTRUCTORS' | translate"></p>
+            <a routerLink="/instructors" class="default-btn">
+                {{ "EXPLORE_ALL_INSTRUCTORS" | translate }}
+            </a>
         </div>
 
         <div class="row text-center">
@@ -27,12 +27,14 @@
                             />
                             <ul class="social">
                                 <li>
-                                    <a
+                                    <a [title]="'EMAIL' | translate"
                                         ><i class="fa-regular fa-envelope"></i
                                     ></a>
                                 </li>
                                 <li>
-                                    <a><i class="fa-solid fa-phone"></i></a>
+                                    <a [title]="'PHONE' | translate"
+                                        ><i class="fa-solid fa-phone"></i
+                                    ></a>
                                 </li>
                             </ul>
                         </div>
@@ -45,9 +47,10 @@
                         <div class="sth_det2">
                             <span class="fa-regular fa-file">
                                 <u>
-                                    {{ instructor.courses.length }} Courses</u
-                                ></span
-                            >
+                                    {{ instructor.courses.length }}
+                                    {{ "COURSES" | translate }}
+                                </u>
+                            </span>
                         </div>
                     </div>
                 </div>

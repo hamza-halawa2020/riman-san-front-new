@@ -4,11 +4,19 @@ import { RouterLink, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { InstructorService } from './instructor.service';
 import { environment } from '../../../environments/environment.development';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-team',
     standalone: true,
-    imports: [RouterLink, CommonModule, NgIf, NgClass, HttpClientModule],
+    imports: [
+        RouterLink,
+        CommonModule,
+        NgIf,
+        NgClass,
+        HttpClientModule,
+        TranslateModule,
+    ],
     templateUrl: './team.component.html',
     styleUrl: './team.component.scss',
     providers: [InstructorService],

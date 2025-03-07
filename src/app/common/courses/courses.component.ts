@@ -6,6 +6,7 @@ import { CoursesService } from './courses.service';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
 import { TruncateDescriptionPipe } from '../../truncate-description.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-courses',
@@ -20,6 +21,7 @@ import { TruncateDescriptionPipe } from '../../truncate-description.pipe';
         RouterModule,
         HttpClientModule,
         TruncateDescriptionPipe,
+        TranslateModule
     ],
 })
 export class CoursesComponent implements OnInit {

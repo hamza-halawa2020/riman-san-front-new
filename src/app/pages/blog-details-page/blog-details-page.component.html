@@ -14,7 +14,9 @@
         aria-atomic="true"
     >
         <div class="toast-header">
-            <strong class="me-auto text-success">Success</strong>
+            <strong class="me-auto text-success">{{
+                "SUCCESS" | translate
+            }}</strong>
         </div>
         <div class="toast-body">
             <h6>
@@ -36,7 +38,9 @@
         aria-atomic="true"
     >
         <div class="toast-header">
-            <strong class="me-auto text-danger">Error</strong>
+            <strong class="me-auto text-danger">{{
+                "ERROR" | translate
+            }}</strong>
         </div>
         <div class="toast-body">
             <h6>
@@ -72,7 +76,9 @@
                 </div>
                 <!-- END ARTI SINGLE  -->
                 <div class="author_part">
-                    <h3 class="blog_head_title">Added By</h3>
+                    <h3 class="blog_head_title">
+                        {{ "ADDED_BY" | translate }}
+                    </h3>
                     <div class="single_author d-flex align-items-center">
                         <img
                             src="{{ userImage + details?.admin_image }}"
@@ -83,7 +89,9 @@
                 </div>
                 <!--- END AUTHOR PART -->
                 <div class="comments_part">
-                    <h3 class="blog_head_title">Comments</h3>
+                    <h3 class="blog_head_title">
+                        {{ "COMMENTS" | translate }}
+                    </h3>
                     <div
                         class="single_comment"
                         *ngFor="let comment of details?.postComments"
@@ -104,7 +112,9 @@
                 </div>
                 <!--- END COMMENTS PART -->
                 <div class="comment_form" *ngIf="isLoggedIn">
-                    <h3 class="blog_head_title">Add a Comment</h3>
+                    <h3 class="blog_head_title">
+                        {{ "ADD_A_COMMENT" | translate }}
+                    </h3>
                     <div class="contact">
                         <div class="row">
                             <div class="form-group col-md-12">
@@ -113,7 +123,7 @@
                                     name="message"
                                     class="form-control"
                                     id="description"
-                                    placeholder="Your Message"
+                                    [placeholder]="'YOUR_MESSAGE' | translate"
                                     [(ngModel)]="newComment"
                                     required="required"
                                 ></textarea>
@@ -127,9 +137,11 @@
                                         name="submit"
                                         id="submitButton"
                                         class="btn btn_one"
-                                        title="Submit Your Message!"
+                                        [title]="
+                                            'SUBMIT_YOUR_MESSAGE' | translate
+                                        "
                                     >
-                                        Submit Comment
+                                        {{ "SUBMIT_COMMENT" | translate }}
                                     </button>
                                 </div>
                             </div>
@@ -142,10 +154,12 @@
             <div class="col-lg-5 col-sm-12 col-xs-12">
                 <!-- END SINGLE POST -->
                 <div class="sidebar-post">
-                    <div class="sidebar_title"><h4>Popular post</h4></div>
+                    <div class="sidebar_title">
+                        <h4>{{ "POPULAR_POST" | translate }}</h4>
+                    </div>
                     <div class="single_popular" *ngFor="let data of randomData">
-                        <a routerLink="/post/{{ data.id }}"
-                            ><img src="{{ image + data?.image }}" alt="" />
+                        <a routerLink="/post/{{ data.id }}">
+                            <img src="{{ image + data?.image }}" alt="" />
                             <h5>
                                 {{ data?.title }}
                             </h5>
@@ -155,7 +169,9 @@
                 </div>
                 <!-- END SIDEBAR POST -->
                 <div class="sidebar-post">
-                    <div class="sidebar_title"><h4>Follow us</h4></div>
+                    <div class="sidebar_title">
+                        <h4>{{ "FOLLOW_US" | translate }}</h4>
+                    </div>
                     <div
                         class="d-flex justify-content-center align-items-center"
                     >
@@ -175,7 +191,9 @@
                 </div>
                 <!-- END SIDEBAR POST -->
                 <div class="sidebar-post">
-                    <div class="sidebar_title"><h4>CATEGORIES</h4></div>
+                    <div class="sidebar_title">
+                        <h4>{{ "CATEGORIES" | translate }}</h4>
+                    </div>
                     <div class="single_category">
                         {{ details?.category }}
                     </div>
@@ -184,12 +202,16 @@
                 <!-- END SIDEBAR POST -->
                 <div class="sidebar-post">
                     <div class="tag">
-                        <div class="sidebar_title"><h4>Popular Tag</h4></div>
+                        <div class="sidebar_title">
+                            <h4>{{ "POPULAR_TAG" | translate }}</h4>
+                        </div>
                         {{ details?.tag }}
                     </div>
                 </div>
                 <div class="sidebar-post">
-                    <div class="sidebar_title"><h4>Ad Banner</h4></div>
+                    <div class="sidebar_title">
+                        <h4>{{ "AD_BANNER" | translate }}</h4>
+                    </div>
                     <div class="sidebar-banner">
                         <div class="upcoming-courses-slides2 mx-auto">
                             <owl-carousel-o [options]="ProductSliderSlides">

@@ -12,7 +12,7 @@
             </div>
             <div class="col-lg-6 col-md-12">
                 <h2 class="fw-semibold">
-                    Delving into Our Linguistic Odysse
+                    {{ 'LINGUISTIC_ODYSSEY' | translate }}
                 </h2>
                 <div class="about-us-content">
                     <div class="video-btn m-2">
@@ -24,14 +24,10 @@
                             <img src="assets/riman-san/play.svg" alt="play" />
                         </button>
                     </div>
-                    <p>
-                        We are dedicated to fostering a vibrant community of
-                        language learners committed to linguistic proficiency
-                        and cultural appreciation. Established in 2002.
-                    </p>
+                    <p>{{ 'ABOUT_US_DESC' | translate }}</p>
                 
                     <a routerLink="/courses" class="default-btn">
-                        Enroll Now
+                        {{ 'ENROLL_NOW' | translate }}
                     </a>
                 </div>
             </div>
@@ -51,15 +47,15 @@
             <div class="mfp-iframe-scaler">
                 <button
                     (click)="closePopup()"
-                    title="Close (Esc)"
+                    title="{{ 'CLOSE' | translate }}"
                     type="button"
                     class="mfp-close"
                 >
-                    Close
+                    {{ 'CLOSE' | translate }}
                 </button>
                 <iframe
                     src="https://www.youtube.com/embed/SfyQJXpNRuE?si=L1ypN_x1ILUzuprO"
-                    title="Riman San"
+                    title="{{ 'RIMAN_SAN' | translate }}"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin"

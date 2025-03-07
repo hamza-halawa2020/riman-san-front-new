@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { environment } from '../../../environments/environment.development';
 import { EventsService } from './events.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-events',
@@ -15,6 +16,7 @@ import { EventsService } from './events.service';
         NgIf,
         NgClass,
         HttpClientModule,
+        TranslateModule
         
     ],
     templateUrl: './events.component.html',

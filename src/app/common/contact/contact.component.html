@@ -10,7 +10,9 @@
         aria-atomic="true"
     >
         <div class="toast-header">
-            <strong class="me-auto text-success">Success</strong>
+            <strong class="me-auto text-success">{{
+                "SUCCESS" | translate
+            }}</strong>
         </div>
         <div class="toast-body">
             <h6>
@@ -32,7 +34,9 @@
         aria-atomic="true"
     >
         <div class="toast-header">
-            <strong class="me-auto text-danger">Error</strong>
+            <strong class="me-auto text-danger">{{
+                "ERROR" | translate
+            }}</strong>
         </div>
         <div class="toast-body">
             <h6>
@@ -41,16 +45,14 @@
         </div>
     </div>
 </div>
-<!-- Default -->
+
+<!-- Contact Form -->
 <div class="contact-area bg-f3f3f3 border-top pb-5 pt-5">
     <div class="container">
         <div class="section-title text-center">
-            <p>
-                Get In <span><u>Touch</u></span>
-            </p>
-            <div class="">
-                Your email address will not be published. Required field are
-                marked*
+            <p [innerHTML]="'GET_IN_TOUCH' | translate"></p>
+            <div>
+                {{ "EMAIL_DISCLAIMER" | translate }}
             </div>
         </div>
         <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
@@ -60,7 +62,7 @@
                         <div class="form-group">
                             <input
                                 type="text"
-                                placeholder="Full name *"
+                                [placeholder]="'FULL_NAME' | translate"
                                 class="form-control"
                                 formControlName="name"
                             />
@@ -70,7 +72,7 @@
                         <div class="form-group">
                             <input
                                 type="email"
-                                placeholder="Email address *"
+                                [placeholder]="'EMAIL_ADDRESS' | translate"
                                 class="form-control"
                                 formControlName="email"
                             />
@@ -80,7 +82,7 @@
                         <div class="form-group">
                             <input
                                 type="text"
-                                placeholder="Phone *"
+                                [placeholder]="'PHONE' | translate"
                                 class="form-control"
                                 formControlName="phone"
                             />
@@ -90,7 +92,7 @@
                         <div class="form-group">
                             <input
                                 type="text"
-                                placeholder="Title *"
+                                [placeholder]="'TITLE' | translate"
                                 class="form-control"
                                 formControlName="title"
                             />
@@ -100,13 +102,15 @@
                         <div class="form-group mb-0">
                             <textarea
                                 class="form-control"
-                                placeholder="Write your message *"
+                                [placeholder]="'WRITE_MESSAGE' | translate"
                                 formControlName="message"
                             ></textarea>
                         </div>
                     </div>
                 </div>
-                <button class="default-btn" type="submit">Send Message</button>
+                <button class="default-btn" type="submit">
+                    {{ "SEND_MESSAGE" | translate }}
+                </button>
             </div>
         </form>
     </div>

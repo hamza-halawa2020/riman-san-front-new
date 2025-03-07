@@ -2,13 +2,13 @@
     <div class="container">
         <div class="section-title position-relative">
             <div class="section-title">
-                <h2>Our Courses</h2>
-                <p>
-                    Choose Our <span><u>events</u></span>
-                </p>
+                <h2>{{ 'OUR_EVENTS' | translate }}</h2>
+                <p [innerHTML]="'CHOOSE_OUR_EVENTS' | translate"></p>
             </div>
 
-            <a routerLink="/events" class="default-btn"> Explore All Events </a>
+            <a routerLink="/events" class="default-btn">
+                {{ 'EXPLORE_ALL_EVENTS' | translate }}
+            </a>
         </div>
         <div class="upcoming-courses-slides mx-auto">
             <owl-carousel-o [options]="upcomingEventsSlides">

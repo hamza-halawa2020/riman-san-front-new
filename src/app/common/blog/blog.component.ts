@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { PostService } from './post.service';
 import { formatDistanceToNow } from 'date-fns';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-blog',
@@ -16,6 +17,7 @@ import { formatDistanceToNow } from 'date-fns';
         NgIf,
         NgClass,
         HttpClientModule,
+        TranslateModule
     ],
     templateUrl: './blog.component.html',
     styleUrl: './blog.component.scss',

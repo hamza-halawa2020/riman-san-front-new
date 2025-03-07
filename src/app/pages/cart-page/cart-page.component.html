@@ -14,7 +14,9 @@
         aria-atomic="true"
     >
         <div class="toast-header">
-            <strong class="me-auto text-success">Success</strong>
+            <strong class="me-auto text-success">{{
+                "SUCCESS" | translate
+            }}</strong>
         </div>
         <div class="toast-body">
             <h6>
@@ -36,7 +38,9 @@
         aria-atomic="true"
     >
         <div class="toast-header">
-            <strong class="me-auto text-danger">Error</strong>
+            <strong class="me-auto text-danger">{{
+                "ERROR" | translate
+            }}</strong>
         </div>
         <div class="toast-body">
             <h6>
@@ -49,8 +53,10 @@
 <div class="container text-center">
     <div class="row">
         <div *ngIf="!data || data.length === 0" class="empty-cart my-5">
-            <h3>Your cart is empty</h3>
-            <a routerLink="/products" class="btn_one mt-3">Continue Shopping</a>
+            <h3>{{ "YOUR_CART_IS_EMPTY" | translate }}</h3>
+            <a routerLink="/products" class="btn_one mt-3">{{
+                "CONTINUE_SHOPPING" | translate
+            }}</a>
         </div>
     </div>
 </div>
@@ -64,16 +70,29 @@
                     <table class="table shopping-summery">
                         <thead>
                             <tr class="main-hading">
-                                <th class="text-center">Id</th>
-                                <th class="text-center">PRODUCT</th>
-                                <th class="text-center">NAME</th>
-                                <th class="text-center">UNIT PRICE</th>
-                                <th class="text-center">QUANTITY</th>
-                                <th class="text-center">TOTAL</th>
+                                <th class="text-center">
+                                    {{ "ID" | translate }}
+                                </th>
+                                <th class="text-center">
+                                    {{ "PRODUCT" | translate }}
+                                </th>
+                                <th class="text-center">
+                                    {{ "NAME" | translate }}
+                                </th>
+                                <th class="text-center">
+                                    {{ "UNIT_PRICE" | translate }}
+                                </th>
+                                <th class="text-center">
+                                    {{ "QUANTITY" | translate }}
+                                </th>
+                                <th class="text-center">
+                                    {{ "TOTAL" | translate }}
+                                </th>
                                 <th
                                     class="text-center"
                                     (click)="clearCart()"
                                     style="cursor: pointer"
+                                    [title]="'CLEAR_CART' | translate"
                                 >
                                     <i class="fa-regular fa-trash-can"></i>
                                 </th>
@@ -91,7 +110,8 @@
                                         <img
                                             src="{{
                                                 image +
-                                                    cart.product.productImages[0].image
+                                                    cart.product
+                                                        .productImages[0].image
                                             }}"
                                             alt="#"
                                         />
@@ -100,12 +120,18 @@
                                 <td class="text-center">
                                     <a>{{ cart.product.title }}</a>
                                 </td>
-                                <td class="price text-center" data-title="Price">
+                                <td
+                                    class="price text-center"
+                                    data-title="{{ 'PRICE' | translate }}"
+                                >
                                     <span>{{
                                         cart.product.priceAfterDiscount
                                     }}</span>
                                 </td>
-                                <td class="qty text-center" data-title="Qty">
+                                <td
+                                    class="qty text-center"
+                                    data-title="{{ 'QUANTITY' | translate }}"
+                                >
                                     <div class="input-group">
                                         <div class="button minus">
                                             <button
@@ -142,7 +168,6 @@
                                                 preventNonNumeric($event)
                                             "
                                         />
-
                                         <div class="button plus">
                                             <button
                                                 type="button"
@@ -161,13 +186,20 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="total-amount text-center" data-title="Total">
+                                <td
+                                    class="total-amount text-center"
+                                    data-title="{{ 'TOTAL' | translate }}"
+                                >
                                     <span>{{ cart.total_price }}</span>
                                 </td>
-                                <td class="action text-center" data-title="Remove">
+                                <td
+                                    class="action text-center"
+                                    data-title="{{ 'REMOVE' | translate }}"
+                                >
                                     <a
                                         (click)="deleteCartItem(cart.id)"
                                         style="cursor: pointer"
+                                        [title]="'REMOVE_ITEM' | translate"
                                     >
                                         <i class="fa-regular fa-trash-can"></i>
                                     </a>
@@ -185,15 +217,17 @@
                             <div class="col-lg-8 col-md-5 col-12">
                                 <div class="row">
                                     <div class="col">
-                                        <label for="country">
-                                            Choose a country
-                                        </label>
+                                        <label for="country">{{
+                                            "CHOOSE_A_COUNTRY" | translate
+                                        }}</label>
                                         <select
                                             id="country"
                                             class="form-select"
                                             [(ngModel)]="selectedCountry"
                                             (change)="onCountryChange()"
-                                            aria-label="Select a country"
+                                            [attr.aria-label]="
+                                                'SELECT_A_COUNTRY' | translate
+                                            "
                                         >
                                             <option
                                                 *ngFor="
@@ -206,14 +240,15 @@
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <label for="city">
-                                            Choose a city
-                                        </label>
-
+                                        <label for="city">{{
+                                            "CHOOSE_A_CITY" | translate
+                                        }}</label>
                                         <select
                                             id="city"
                                             class="form-select"
-                                            aria-label="Select a city"
+                                            [attr.aria-label]="
+                                                'SELECT_A_CITY' | translate
+                                            "
                                             [(ngModel)]="selectedCity"
                                             (change)="onCityChange()"
                                         >
@@ -234,8 +269,10 @@
                                             </ng-container>
                                             <ng-template #noCities>
                                                 <option disabled>
-                                                    No cities available for
-                                                    shipping
+                                                    {{
+                                                        "NO_CITIES_AVAILABLE"
+                                                            | translate
+                                                    }}
                                                 </option>
                                             </ng-template>
                                         </select>
@@ -243,12 +280,14 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <label for="address">
-                                            Add Address
-                                        </label>
+                                        <label for="address">{{
+                                            "ADD_ADDRESS" | translate
+                                        }}</label>
                                         <textarea
                                             name="address"
-                                            placeholder="Add Address"
+                                            [placeholder]="
+                                                'ADD_ADDRESS' | translate
+                                            "
                                             class="form-control"
                                             id="address"
                                         ></textarea>
@@ -256,28 +295,34 @@
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col">
-                                        <label for="notes"> Add Note </label>
+                                        <label for="notes">{{
+                                            "ADD_NOTE" | translate
+                                        }}</label>
                                         <textarea
                                             name="notes"
-                                            placeholder="Add Yoir Notes"
+                                            [placeholder]="
+                                                'ADD_YOUR_NOTES' | translate
+                                            "
                                             class="form-control"
                                             id="notes"
                                         ></textarea>
                                     </div>
                                 </div>
-
                                 <div class="row mt-2">
-                                    <label for="code">Add a Coupon</label>
+                                    <label for="code">{{
+                                        "ADD_A_COUPON" | translate
+                                    }}</label>
                                     <div class="col-auto">
                                         <input
                                             #couponInput
                                             name="code"
-                                            placeholder="Enter Your Coupon"
+                                            [placeholder]="
+                                                'ENTER_YOUR_COUPON' | translate
+                                            "
                                             class="form-control"
                                             id="code"
                                             [value]="couponCode?.code || ''"
                                         />
-
                                         <div class="col-auto mt-1">
                                             <button
                                                 (click)="
@@ -287,7 +332,7 @@
                                                 "
                                                 class="btn rounded"
                                             >
-                                                Apply
+                                                {{ "APPLY" | translate }}
                                             </button>
                                         </div>
                                     </div>
@@ -297,34 +342,33 @@
                                 <div class="right">
                                     <ul>
                                         <li>
-                                            Total Price:
+                                            {{ "TOTAL_PRICE" | translate }}:
                                             <span> ${{ totalAmount }} </span>
                                         </li>
-
                                         <li>
-                                            Shipping<span
-                                                *ngIf="shipmentCost > 0"
-                                                >{{
-                                                    shipmentCost | currency
-                                                }}</span
-                                            >
+                                            {{ "SHIPPING" | translate
+                                            }}<span *ngIf="shipmentCost > 0">{{
+                                                shipmentCost | currency
+                                            }}</span>
                                         </li>
                                         <li>
-                                            You Save<span>{{
+                                            {{ "YOU_SAVE" | translate
+                                            }}<span>{{
                                                 couponCode?.discount
                                             }}</span>
                                         </li>
                                         <li class="last">
-                                            You Pay<span>{{ finalPrice }}</span>
+                                            {{ "YOU_PAY" | translate
+                                            }}<span>{{ finalPrice }}</span>
                                         </li>
                                     </ul>
                                     <div class="button5">
-                                        <a (click)="checkout()" class="btn"
-                                            >Checkout</a
-                                        >
-                                        <a routerLink="/products" class="btn"
-                                            >Continue shopping</a
-                                        >
+                                        <a (click)="checkout()" class="btn">{{
+                                            "CHECKOUT" | translate
+                                        }}</a>
+                                        <a routerLink="/products" class="btn">{{
+                                            "CONTINUE_SHOPPING" | translate
+                                        }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -344,8 +388,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="fa-solid fa-rocket"></i>
-                        <h4>Free shiping</h4>
-                        <p>Orders over $100</p>
+                        <h4>{{ "FREE_SHIPPING" | translate }}</h4>
+                        <p>{{ "FREE_SHIPPING_DESC" | translate }}</p>
                     </div>
                     <!-- End Single Service -->
                 </div>
@@ -353,8 +397,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="fa-solid fa-arrows-rotate"></i>
-                        <h4>Free Return</h4>
-                        <p>Within 30 days returns</p>
+                        <h4>{{ "FREE_RETURN" | translate }}</h4>
+                        <p>{{ "FREE_RETURN_DESC" | translate }}</p>
                     </div>
                     <!-- End Single Service -->
                 </div>
@@ -362,8 +406,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="fa-solid fa-lock"></i>
-                        <h4>Sucure Payment</h4>
-                        <p>100% secure payment</p>
+                        <h4>{{ "SECURE_PAYMENT" | translate }}</h4>
+                        <p>{{ "SECURE_PAYMENT_DESC" | translate }}</p>
                     </div>
                     <!-- End Single Service -->
                 </div>
@@ -371,8 +415,8 @@
                     <!-- Start Single Service -->
                     <div class="single-service">
                         <i class="fa-solid fa-tags"></i>
-                        <h4>Best Peice</h4>
-                        <p>Guaranteed price</p>
+                        <h4>{{ "BEST_PRICE" | translate }}</h4>
+                        <p>{{ "BEST_PRICE_DESC" | translate }}</p>
                     </div>
                     <!-- End Single Service -->
                 </div>

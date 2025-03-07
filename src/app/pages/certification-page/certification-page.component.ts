@@ -11,6 +11,7 @@ import { CertificationService } from './certification.service';
 import { environment } from '../../../environments/environment.development';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
     selector: 'app-certification-page',
     standalone: true,
@@ -24,6 +25,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
         FooterComponent,
         BackToTopComponent,
         HttpClientModule,
+        TranslateModule,
     ],
     templateUrl: './certification-page.component.html',
     styleUrls: ['./certification-page.component.scss'],

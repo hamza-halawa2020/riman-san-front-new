@@ -4,17 +4,15 @@
             <div class="col-lg-6 col-md-12">
                 <div class="who-we-are-content">
                     <h2 class="text-uppercase fw-semibold">
-                        Who We Are: Leaders in Multilingual Education 
+                        {{ 'WHO_WE_ARE_TITLE' | translate }}
                     </h2>
-                    <p>
-                        We believe in the transformative power of language. Established with a vision to bridge cultural divides and foster global understanding, our institute is dedicated to providing unparalleled language education experiences. With a diverse team of passionate educators.
-                    </p>
+                    <p>{{ 'WHO_WE_ARE_DESC' | translate }}</p>
                     <div class="funfacts">
                         <h3 class="fw-semibold">
                             250<span>+</span>
                         </h3>
                         <p class="fw-medium">
-                            Trusted partners
+                            {{ 'TRUSTED_PARTNERS' | translate }}
                         </p>
                     </div>
                 </div>
@@ -32,7 +30,7 @@
                             1000+
                         </span>
                         <p>
-                            Positive feedback by our students
+                            {{ 'POSITIVE_FEEDBACK' | translate }}
                         </p>
                     </div>
                     <div class="image position-relative">
@@ -41,6 +39,7 @@
                             class="video-btn popup-youtube rounded-circle d-flex align-items-center justify-content-center border-0 p-0"
                             (click)="openPopup()"
                             type="button"
+                            [title]="'PLAY_VIDEO' | translate"
                         >
                             <i class="fa-solid fa-play"></i>
                         </button>
@@ -63,13 +62,20 @@
             <div class="mfp-iframe-scaler">
                 <button
                     (click)="closePopup()"
-                    title="Close (Esc)"
+                    [title]="'CLOSE' | translate"
                     type="button"
                     class="mfp-close"
                 >
                     ×
                 </button>
-                <iframe src="https://www.youtube.com/embed/YDXQ_nociO4" title="Web Design Trends 2024" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe
+                    src="https://www.youtube.com/embed/YDXQ_nociO4"
+                    [title]="'WEB_DESIGN_TRENDS' | translate"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                ></iframe>
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@ import { BackToTopComponent } from '../../common/back-to-top/back-to-top.compone
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { FaqsComponent } from '../../common/faqs/faqs.component';
 import * as bootstrap from 'bootstrap';
-
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
     selector: 'app-about-page',
     standalone: true,
@@ -22,6 +22,7 @@ import * as bootstrap from 'bootstrap';
         FooterComponent,
         BackToTopComponent,
         FaqsComponent,
+        TranslateModule,
     ],
     templateUrl: './about-page.component.html',
     styleUrls: ['./about-page.component.scss'],

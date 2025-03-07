@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { FeedBackService } from './feed-back.service';
 import { formatDistanceToNow } from 'date-fns';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-feedback',
@@ -18,6 +19,7 @@ import { formatDistanceToNow } from 'date-fns';
         CarouselModule,
         NgIf,
         NgClass,
+        TranslateModule,
         HttpClientModule,
     ],
     templateUrl: './feedback.component.html',

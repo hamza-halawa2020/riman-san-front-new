@@ -1,6 +1,6 @@
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { ContactComponent } from '../../common/contact/contact.component';
@@ -17,6 +17,8 @@ import { CartService } from '../cart-page/cart.service';
 import { FavouriteService } from '../favourite-page/favourite.service';
 import { ClientCartService } from '../client-cart/client-cart.service';
 import { FavouriteClientService } from '../favourite-client-page/favourite-client.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 declare var bootstrap: any;
 @Component({
     selector: 'app-product-details-page',
@@ -35,6 +37,7 @@ declare var bootstrap: any;
         RatingModule,
         FormsModule,
         CarouselModule,
+        TranslateModule,
     ],
 
     templateUrl: './product-details-page.component.html',
@@ -62,6 +65,7 @@ export class ProductDetailsPageComponent implements OnInit {
     socialImage = environment.imgUrl + 'socials/';
     selectedImage: string = '';
     currentIndex: number = 0;
+
     constructor(
         private activateRoute: ActivatedRoute,
         private productService: ProductService,
@@ -69,13 +73,42 @@ export class ProductDetailsPageComponent implements OnInit {
         private FavouriteService: FavouriteService,
         private favClientService: FavouriteClientService,
         private cartClientService: ClientCartService,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private translateService: TranslateService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
     }
 
     ngOnInit(): void {
         this.getDetails();
+
+        this.translateService.onLangChange.subscribe(() => {
+            this.translateData();
+        });
+    }
+
+    getDetails(): void {
+        this.activateRoute.params.subscribe((params) => {
+            this.id = +params['id'];
+            this.productService.show(this.id).subscribe((data) => {
+                this.details = Object.values(data)[0];
+
+                console.log(this.details);
+
+                this.translateData();
+            });
+        });
+    }
+
+    translateData() {
+        if (!this.details) return;
+        this.details.translatedName =
+            this.translateService.instant(this.details.title) ||
+            this.details.title;
+
+        this.details.translatedDescription =
+            this.translateService.instant(this.details.description) ||
+            this.details.description;
     }
 
     addToClientCart(product: any) {
@@ -166,14 +199,6 @@ export class ProductDetailsPageComponent implements OnInit {
         this.currentIndex = index;
         let modal = new bootstrap.Modal(document.getElementById('imageModal'));
         modal.show();
-    }
-    getDetails(): void {
-        this.activateRoute.params.subscribe((params) => {
-            this.id = +params['id'];
-            this.productService.show(this.id).subscribe((data) => {
-                this.details = Object.values(data)[0];
-            });
-        });
     }
 
     nextImage() {

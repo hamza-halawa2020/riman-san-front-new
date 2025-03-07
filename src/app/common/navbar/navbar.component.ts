@@ -8,10 +8,19 @@ import { FavouriteService } from '../../pages/favourite-page/favourite.service';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClientCartService } from '../../pages/client-cart/client-cart.service';
 import { FavouriteClientService } from '../../pages/favourite-client-page/favourite-client.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
 @Component({
     selector: 'app-navbar',
     standalone: true,
-    imports: [RouterLink, RouterLinkActive, NgIf, NgClass, NgbCollapseModule],
+    imports: [
+        RouterLink,
+        RouterLinkActive,
+        NgIf,
+        NgClass,
+        NgbCollapseModule,
+        TranslateModule,
+    ],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.scss',
 })
@@ -27,28 +36,33 @@ export class NavbarComponent implements OnInit, OnDestroy {
     public favSubscription!: Subscription;
     public favClientSubscription!: Subscription;
 
-    // ngOnInit(): void {
-    //     this.cartSubscription = this.cartService.cart$.subscribe((cart) => {
-    //         this.cartData = cart;
-    //     });
+    isLoggedIn: boolean = false;
+    data: any;
+    favouriteData: any;
 
-    //     this.cartClientSubscription = this.cartClientService.cart$.subscribe(
-    //         (cart) => {
-    //             this.cartClientData = cart; // Assign to cartClientData
-    //         }
-    //     );
+    constructor(
+        public router: Router,
+        public loginService: LoginService,
+        private cartService: CartService,
+        private cartClientService: ClientCartService,
+        private favouriteService: FavouriteService,
+        private favouriteClientService: FavouriteClientService,
+        private translate: TranslateService
+    ) {
+        this.isLoggedIn = !!loginService.isLoggedIn();
 
-    //     this.favSubscription = this.favouriteService.fav$.subscribe((fav) => {
-    //         this.favData = fav;
-    //     });
+        // Initialize languages
+        this.translate.addLangs(['en', 'ar']);
+        this.translate.setDefaultLang('en');
 
-    //     this.router.events.subscribe(() => {
-    //         this.cartService.refreshCart();
-    //     });
-    //     this.router.events.subscribe(() => {
-    //         this.favouriteService.refreshFav();
-    //     });
-    // }
+        // Load saved language from localStorage or use browser language
+        const savedLang = localStorage.getItem('language');
+        const browserLang = this.translate.getBrowserLang();
+        const initialLang =
+            savedLang || (browserLang?.match(/en|ar/) ? browserLang : 'en');
+        this.translate.use(initialLang);
+        this.applyLanguageDirection(initialLang);
+    }
 
     ngOnInit(): void {
         this.cartSubscription = this.cartService.cart$.subscribe((cart) => {
@@ -64,7 +78,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.favSubscription = this.favouriteService.fav$.subscribe((fav) => {
             this.favData = fav;
         });
-        this.favClientSubscription = this.favClientouriteService.fav$.subscribe(
+
+        this.favClientSubscription = this.favouriteClientService.fav$.subscribe(
             (favClient) => {
                 this.favClientData = favClient;
             }
@@ -72,44 +87,23 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
         this.router.events.subscribe(() => {
             this.cartService.refreshCart();
-            this.cartClientService.refreshCart(); // Add this line
+            this.cartClientService.refreshCart();
         });
         this.router.events.subscribe(() => {
             this.favouriteService.refreshFav();
-            this.favClientouriteService.refreshFav();
+            this.favouriteClientService.refreshFav();
         });
     }
 
     ngOnDestroy() {
-        if (this.cartSubscription) {
-            this.cartSubscription.unsubscribe();
-        }
-        if (this.cartClientSubscription) {
+        if (this.cartSubscription) this.cartSubscription.unsubscribe();
+        if (this.cartClientSubscription)
             this.cartClientSubscription.unsubscribe();
-        }
-        if (this.favSubscription) {
-            this.favSubscription.unsubscribe();
-        }
-        if (this.favClientSubscription) {
+        if (this.favSubscription) this.favSubscription.unsubscribe();
+        if (this.favClientSubscription)
             this.favClientSubscription.unsubscribe();
-        }
     }
 
-    isLoggedIn: boolean = false;
-    data: any;
-    favouriteData: any;
-    constructor(
-        public router: Router,
-        public loginService: LoginService,
-        private cartService: CartService,
-        private cartClientService: ClientCartService,
-        private favouriteService: FavouriteService,
-        private favClientouriteService: FavouriteClientService
-    ) {
-        this.isLoggedIn = !!loginService.isLoggedIn();
-    }
-
-    // Navbar Sticky
     isSticky: boolean = false;
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
@@ -127,5 +121,21 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     logout() {
         this.loginService.logout();
+    }
+
+    switchLanguage(lang: string) {
+        this.translate.use(lang);
+        this.applyLanguageDirection(lang);
+        localStorage.setItem('language', lang); // Save to localStorage
+    }
+
+    getCurrentLanguage(): string {
+        return this.translate.currentLang || this.translate.getDefaultLang();
+    }
+
+    // Helper method to apply language direction
+    private applyLanguageDirection(lang: string) {
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.lang = lang;
     }
 }

@@ -1,4 +1,3 @@
-<!-- Default -->
 <div
     class="feedback-area mt-4 mb-4 position-relative z-1"
     [ngClass]="{ 'd-none': router.url === '/index-3' }"
@@ -6,7 +5,7 @@
     <div class="container">
         <div class="section-title text-center">
             <p>
-                What our clients <span><u>say</u></span>
+                {{ "FEEDBACK_TITLE" | translate }}
             </p>
         </div>
         <div class="feedback-slides mx-auto">
@@ -35,18 +34,12 @@
                             <h3 class="fw-semibold">
                                 {{ slide.user || slide.client }}
                             </h3>
-                            <span class="d-block">
-                                {{ slide.review }}
-                            </span>
-                            <!-- <p class="fw-medium">
-                                <i class="fas fa-calendar-alt me-2"></i>
-                                {{ slide.created_at | date : "MMM d, yyyy" }}
-                            </p> -->
+                            <span class="d-block">{{ slide.review }}</span>
                             <p
                                 class="fw-medium"
                                 [title]="
                                     slide.created_at
-                                        | date : 'MMM d, yyyy, h:mm a'
+                                        | date : ('DATE_FORMAT' | translate)
                                 "
                             >
                                 {{ getRelativeTime(slide.created_at) }}

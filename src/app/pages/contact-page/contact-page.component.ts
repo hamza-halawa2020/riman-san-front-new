@@ -9,6 +9,7 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactService } from './contact.service';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-contact-page',
@@ -17,6 +18,7 @@ import { ContactService } from './contact.service';
         CommonModule,
         NgIf,
         NgClass,
+        TranslateModule,
         ReactiveFormsModule,
         RouterLink,
         NavbarComponent,

@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { BlogComponent } from '../../common/blog/blog.component';
 import { formatDistanceToNow } from 'date-fns';
 import { environment } from '../../../environments/environment.development';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-blog-page',
@@ -23,6 +24,7 @@ import { environment } from '../../../environments/environment.development';
         FooterComponent,
         BackToTopComponent,
         BlogComponent,
+        TranslateModule
     ],
     templateUrl: './blog-page.component.html',
     styleUrl: './blog-page.component.scss',

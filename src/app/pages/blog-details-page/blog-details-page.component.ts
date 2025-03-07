@@ -11,6 +11,7 @@ import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../login-page/login.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-blog-details-page',
@@ -27,6 +28,7 @@ import { LoginService } from '../login-page/login.service';
         BackToTopComponent,
         HttpClientModule,
         FormsModule,
+        TranslateModule,
     ],
     templateUrl: './blog-details-page.component.html',
     styleUrl: './blog-details-page.component.scss',
@@ -74,14 +76,12 @@ export class BlogDetailsPageComponent {
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
-
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -96,14 +96,12 @@ export class BlogDetailsPageComponent {
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage =  error.error?.message || 'An unexpected error occurred.';
-
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -147,14 +145,12 @@ export class BlogDetailsPageComponent {
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(
-                        error.error.errors
-                    )
+                    this.errorMessage = Object.values(error.error.errors)
                         .flat()
                         .join(' | ');
                 } else {
-                    this.errorMessage = error.error?.message || 'An unexpected error occurred.';
-
+                    this.errorMessage =
+                        error.error?.message || 'An unexpected error occurred.';
                 }
                 setTimeout(() => {
                     this.errorMessage = '';

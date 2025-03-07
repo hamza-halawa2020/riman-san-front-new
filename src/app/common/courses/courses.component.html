@@ -3,19 +3,16 @@
     <div class="container">
         <div class="section-title position-relative">
             <div class="section-title">
-                <h2>Our Courses</h2>
-                <p>
-                    Choose Our <span><u>Courses</u></span>
-                </p>
+                <h2>{{ 'OUR_COURSES' | translate }}</h2>
+                <p [innerHTML]="'CHOOSE_OUR_COURSES' | translate"></p>
             </div>
 
             <a routerLink="/courses" class="default-btn">
-                Explore All Courses
+                {{ 'EXPLORE_ALL_COURSES' | translate }}
             </a>
         </div>
         <div class="row justify-content-center">
             <div
-                v
                 class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp"
                 data-wow-duration="1s"
                 data-wow-delay="0.1s"
@@ -51,11 +48,11 @@
                                 <div class="mfp-iframe-scaler">
                                     <button
                                         (click)="closePopup()"
-                                        title="Close (Esc)"
+                                        title="{{ 'CLOSE' | translate }}"
                                         type="button"
                                         class="mfp-close"
                                     >
-                                        Close
+                                        {{ 'CLOSE' | translate }}
                                     </button>
 
                                     <iframe
@@ -81,21 +78,19 @@
                             />
                         </a>
                         <div class="course-date">
-                            <span class="month"
-                                ><i class="fas fa-money-bill"></i>
-                                {{ course.price }} EGP</span
-                            >
+                            <span class="month">
+                                <i class="fas fa-money-bill"></i>
+                                {{ course.price }} {{ 'EGP' | translate }}
+                            </span>
                         </div>
                     </div>
                     <div class="course-content">
                         <p class="c_btn m-1">{{ course.category }}</p>
                         <p class="c_btn m-1">{{ course.tag }}</p>
                         <h3>
-                            <a routerLink="/course/{{ course.id }}">{{
-                                course.title
-                            }}</a>
+                            <a routerLink="/course/{{ course.id }}">{{ course.title }}</a>
                         </h3>
-                        <p class="">{{ course.description | truncateDescription: 5 }}</p>
+                        <p>{{ course.description | truncateDescription: 5 }}</p>
                     </div>
                 </div>
             </div>

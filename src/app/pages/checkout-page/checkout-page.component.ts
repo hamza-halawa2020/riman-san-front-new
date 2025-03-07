@@ -12,6 +12,7 @@ import { CheckoutService } from './checkout.service';
 import { CartService } from '../cart-page/cart.service';
 import { LoginService } from '../login-page/login.service';
 import { ClientCartService } from '../client-cart/client-cart.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-checkout-page',
@@ -27,6 +28,7 @@ import { ClientCartService } from '../client-cart/client-cart.service';
         NgClass,
         FooterComponent,
         BackToTopComponent,
+        TranslateModule,
     ],
     templateUrl: './checkout-page.component.html',
     styleUrl: './checkout-page.component.scss',
