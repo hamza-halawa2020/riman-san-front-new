@@ -364,5 +364,13 @@
   "VERIFY_CODE": "Verify Code",
   "CODE": "Code",
   "MESSAGE_NOT_SENT": "Message not sent ?",
-  "ACCOUNT_VERIFIED": "Your account has been verified"
+  "ACCOUNT_VERIFIED": "Your account has been verified",
+  "ALL": "All",
+  "PRODUCT_ALREADY_IN_CART": "Product is already in the cart!",
+  "PRODUCT_ADDED_TO_CART": "Product added to cart successfully!",
+  "PRODUCT_ALREADY_IN_FAV": "Product is already in the fav!",
+  "PRODUCT_ADDED_TO_FAV": "Product added to fav successfully!",
+  "PRODUCT_ADDED_TO_WISHLIST": "Product added to WishList successfully!",
+  "FAV_DATA_NOT_AVAILABLE": "Fav data is not available yet.",
+  "CART_DATA_NOT_AVAILABLE": "Cart data is not available yet."
 }

@@ -20,6 +20,7 @@ import { FavouriteClientService } from '../favourite-client-page/favourite-clien
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 declare var bootstrap: any;
+
 @Component({
     selector: 'app-product-details-page',
     standalone: true,
@@ -39,9 +40,8 @@ declare var bootstrap: any;
         CarouselModule,
         TranslateModule,
     ],
-
     templateUrl: './product-details-page.component.html',
-    styleUrl: './product-details-page.component.scss',
+    styleUrls: ['./product-details-page.component.scss'],
 })
 export class ProductDetailsPageComponent implements OnInit {
     activeTab: string = 'overview'; // Default active tab
@@ -49,6 +49,7 @@ export class ProductDetailsPageComponent implements OnInit {
     switchTab(tab: string) {
         this.activeTab = tab;
     }
+
     name: string = '';
     email: string = '';
     phone: string = '';
@@ -71,11 +72,11 @@ export class ProductDetailsPageComponent implements OnInit {
         private activateRoute: ActivatedRoute,
         private productService: ProductService,
         private cartService: CartService,
-        private FavouriteService: FavouriteService,
+        private favouriteService: FavouriteService,
         private favClientService: FavouriteClientService,
         private cartClientService: ClientCartService,
         private loginService: LoginService,
-        private translateService: TranslateService
+        public translateService: TranslateService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
         this.currentOptions =
@@ -103,9 +104,6 @@ export class ProductDetailsPageComponent implements OnInit {
             this.id = +params['id'];
             this.productService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
-
-                console.log(this.details);
-
                 this.translateData();
             });
         });
@@ -120,13 +118,24 @@ export class ProductDetailsPageComponent implements OnInit {
         this.details.translatedDescription =
             this.translateService.instant(this.details.description) ||
             this.details.description;
+
+        // Translate related products
+        if (this.details.relatedProducts) {
+            this.details.relatedProducts.forEach((product: any) => {
+                product.translatedName =
+                    this.translateService.instant(product.title) ||
+                    product.title;
+            });
+        }
     }
 
     addToClientCart(product: any) {
         const client_cart = this.cartClientService.cartSubject.value;
 
         if (!client_cart || !Array.isArray(client_cart)) {
-            this.errorMessage = 'Cart data is not available yet.';
+            this.errorMessage = this.translateService.instant(
+                'UNEXPECTED_ERROR'
+            );
             return;
         }
 
@@ -135,7 +144,9 @@ export class ProductDetailsPageComponent implements OnInit {
         );
 
         if (exists) {
-            this.errorMessage = 'Product is already in the cart!';
+            this.errorMessage = this.translateService.instant(
+                'Product is already in the cart.'
+            );
             setTimeout(() => {
                 this.errorMessage = '';
             }, 1000);
@@ -143,7 +154,9 @@ export class ProductDetailsPageComponent implements OnInit {
             const productToAdd = { ...product, quantity: 1 };
             this.cartClientService.addToClientCart(productToAdd);
 
-            this.successMessage = 'Product added to cart successfully!';
+            this.successMessage = this.translateService.instant(
+                'Product added to cart successfully!'
+            );
             setTimeout(() => {
                 this.successMessage = '';
             }, 1000);
@@ -157,7 +170,9 @@ export class ProductDetailsPageComponent implements OnInit {
 
         this.cartService.addToCart(payload).subscribe({
             next: (response) => {
-                this.successMessage = 'Product added to cart successfully!';
+                this.successMessage = this.translateService.instant(
+                    'Product added to cart successfully!'
+                );
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
@@ -169,7 +184,8 @@ export class ProductDetailsPageComponent implements OnInit {
                         .join(' | ');
                 } else {
                     this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
+                        error.error?.message ||
+                        this.translateService.instant('UNEXPECTED_ERROR');
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -177,14 +193,17 @@ export class ProductDetailsPageComponent implements OnInit {
             },
         });
     }
+
     addToFavourite(product_id: any) {
         const payload = {
             product_id: product_id,
         };
 
-        this.FavouriteService.add(payload).subscribe({
+        this.favouriteService.add(payload).subscribe({
             next: (response) => {
-                this.successMessage = 'Product added to WishList successfully!';
+                this.successMessage = this.translateService.instant(
+                    'Product added to WishList successfully!'
+                );
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
@@ -196,7 +215,8 @@ export class ProductDetailsPageComponent implements OnInit {
                         .join(' | ');
                 } else {
                     this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
+                        error.error?.message ||
+                        this.translateService.instant('UNEXPECTED_ERROR');
                 }
                 setTimeout(() => {
                     this.errorMessage = '';
@@ -232,7 +252,9 @@ export class ProductDetailsPageComponent implements OnInit {
 
     addReview(reviewText: string, rating: number) {
         if (!reviewText || reviewText.trim() === '') {
-            this.errorMessage = 'Review cannot be empty!';
+            this.errorMessage = this.translateService.instant(
+                'Review cannot be empty!'
+            );
             setTimeout(() => (this.errorMessage = ''), 1000);
             return;
         }
@@ -247,8 +269,9 @@ export class ProductDetailsPageComponent implements OnInit {
             next: (response) => {
                 this.getDetails();
                 this.details.productReviews.unshift(response);
-                this.successMessage =
-                    'Review added successfully but it is under review!';
+                this.successMessage = this.translateService.instant(
+                    'Review added successfully but it is under review!'
+                );
                 setTimeout(() => (this.successMessage = ''), 3000);
 
                 this.newReview = '';
@@ -256,11 +279,13 @@ export class ProductDetailsPageComponent implements OnInit {
             },
             error: (error) => {
                 this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                    error.error?.message ||
+                    this.translateService.instant('UNEXPECTED_ERROR');
                 setTimeout(() => (this.errorMessage = ''), 1000);
             },
         });
     }
+
     addClientReview(
         reviewText: string,
         rating: number,
@@ -269,7 +294,9 @@ export class ProductDetailsPageComponent implements OnInit {
         phoneText: string
     ) {
         if (!reviewText || reviewText.trim() === '') {
-            this.errorMessage = 'Review cannot be empty!';
+            this.errorMessage = this.translateService.instant(
+                'Review cannot be empty!'
+            );
             setTimeout(() => (this.errorMessage = ''), 1000);
             return;
         }
@@ -287,8 +314,9 @@ export class ProductDetailsPageComponent implements OnInit {
             next: (response) => {
                 this.getDetails();
                 this.details.productReviews.unshift(response);
-                this.successMessage =
-                    'Review added successfully but it is under review!';
+                this.successMessage = this.translateService.instant(
+                    'Review added successfully but it is under review!'
+                );
                 setTimeout(() => (this.successMessage = ''), 3000);
 
                 this.newReview = '';
@@ -296,7 +324,8 @@ export class ProductDetailsPageComponent implements OnInit {
             },
             error: (error) => {
                 this.errorMessage =
-                    error.error?.message || 'An unexpected error occurred.';
+                    error.error?.message ||
+                    this.translateService.instant('UNEXPECTED_ERROR');
                 setTimeout(() => (this.errorMessage = ''), 1000);
             },
         });
@@ -306,7 +335,9 @@ export class ProductDetailsPageComponent implements OnInit {
         const client_fav = this.favClientService.favSubject.value;
 
         if (!client_fav || !Array.isArray(client_fav)) {
-            this.errorMessage = 'Fav data is not available yet.';
+            this.errorMessage = this.translateService.instant(
+                'UNEXPECTED_ERROR'
+            );
             return;
         }
 
@@ -315,7 +346,9 @@ export class ProductDetailsPageComponent implements OnInit {
         );
 
         if (exists) {
-            this.errorMessage = 'Product is already in the fav!';
+            this.errorMessage = this.translateService.instant(
+                'Product is already in the fav!'
+            );
             setTimeout(() => {
                 this.errorMessage = '';
             }, 1000);
@@ -323,7 +356,9 @@ export class ProductDetailsPageComponent implements OnInit {
             const productToAdd = { ...product, quantity: 1 };
             this.favClientService.addToClientFav(productToAdd);
 
-            this.successMessage = 'Product added to fav successfully!';
+            this.successMessage = this.translateService.instant(
+                'Product added to fav successfully!'
+            );
             setTimeout(() => {
                 this.successMessage = '';
             }, 1000);
@@ -360,6 +395,7 @@ export class ProductDetailsPageComponent implements OnInit {
             },
         },
     };
+
     ProductSliderSlides2: OwlOptions = {
         nav: true,
         loop: true,
