@@ -372,5 +372,21 @@
   "PRODUCT_ADDED_TO_FAV": "Product added to fav successfully!",
   "PRODUCT_ADDED_TO_WISHLIST": "Product added to WishList successfully!",
   "FAV_DATA_NOT_AVAILABLE": "Fav data is not available yet.",
-  "CART_DATA_NOT_AVAILABLE": "Cart data is not available yet."
+  "CART_DATA_NOT_AVAILABLE": "Cart data is not available yet.",
+  "CERTIFICATION": "Certification",
+  "YES": "Yes",
+  "NO_CERTIFICATION": "No certification available",
+  "CATEGORY": "Category",
+  "TAG": "Tag",
+  "REVIEW_UNDER_REVIEW": "Review added successfully but it is under review!",
+  "REVIEW_CANNOT_BE_EMPTY": "Review cannot be empty!",
+  "POPULAR_COURSES": "Popular Courses",
+  "CHOOSE_OUR_TOP_COURSES": "Choose Our Top Courses",
+  "VIEW_ALL_COURSES": "View All Courses",
+  "FREQUENTLY_ASKED_QUESTIONS": "Frequently Asked Questions",
+  "OUR_FAQS": "Our FAQs",
+  "OUR_LATEST_EVENTS": "Our Latest Events",
+  "UPCOMING_EVENTS": "Upcoming Events",
+  "JOIN_WITH_US_OUR_EVENTS": "Join With Us Our Events",
+  "COMMENT_ADDED": "Comment added successfully but it is under review!"
 }

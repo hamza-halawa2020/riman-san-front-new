@@ -1,60 +1,64 @@
-<!-- Default -->
-<section class="team_member section-padding">
-    <div class="container">
-        <div class="section-title">
-            <h2>{{ "OUR_INSTRUCTOR" | translate }}</h2>
-            <p [innerHTML]="'OUR_EXPERT_INSTRUCTORS' | translate"></p>
-            <a routerLink="/instructors" class="default-btn">
-                {{ "EXPLORE_ALL_INSTRUCTORS" | translate }}
-            </a>
-        </div>
+<div [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Default -->
+    <section class="team_member section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>{{ "OUR_INSTRUCTOR" | translate }}</h2>
+                <p [innerHTML]="'OUR_EXPERT_INSTRUCTORS' | translate"></p>
+                <a routerLink="/instructors" class="default-btn">
+                    {{ "EXPLORE_ALL_INSTRUCTORS" | translate }}
+                </a>
+            </div>
 
-        <div class="row text-center">
-            <div
-                class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp"
-                *ngFor="let instructor of data"
-                data-wow-duration="1s"
-                data-wow-delay="0.1s"
-                data-wow-offset="0"
-            >
-                <div class="our-team">
-                    <a routerLink="/instructor/{{ instructor.id }}">
-                        <div class="team_img">
-                            <img
-                                src="{{ image + instructor.image }}"
-                                alt="team-image"
-                                class="max-height"
-                            />
-                            <ul class="social">
-                                <li>
-                                    <a [title]="'EMAIL' | translate"
-                                        ><i class="fa-regular fa-envelope"></i
-                                    ></a>
-                                </li>
-                                <li>
-                                    <a [title]="'PHONE' | translate"
-                                        ><i class="fa-solid fa-phone"></i
-                                    ></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </a>
-                    <div class="team-content">
-                        <div class="title">
-                            {{ instructor.name }}
-                        </div>
-                        <div class="post">{{ instructor.job_title }}</div>
-                        <div class="sth_det2">
-                            <span class="fa-regular fa-file">
-                                <u>
-                                    {{ instructor.courses.length }}
-                                    {{ "COURSES" | translate }}
-                                </u>
-                            </span>
+            <div class="row text-center">
+                <div
+                    class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp"
+                    *ngFor="let instructor of data"
+                    data-wow-duration="1s"
+                    data-wow-delay="0.1s"
+                    data-wow-offset="0"
+                >
+                    <div class="our-team">
+                        <a routerLink="/instructor/{{ instructor.id }}">
+                            <div class="team_img">
+                                <img
+                                    src="{{ image + instructor.image }}"
+                                    alt="team-image"
+                                    class="max-height"
+                                />
+                                <ul class="social">
+                                    <li>
+                                        <a [title]="'EMAIL' | translate">
+                                            <i class="fa-regular fa-envelope"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a [title]="'PHONE' | translate">
+                                            <i class="fa-solid fa-phone"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </a>
+                        <div class="team-content">
+                            <div class="title">
+                                {{ instructor.translatedName || instructor.name }}
+                            </div>
+                            <div class="post">
+                                {{ instructor.translatedJobTitle || instructor.job_title }}
+                            </div>
+                            <div class="sth_det2">
+                                <span class="fa-regular fa-file">
+                                    <u>
+                                        {{ instructor.courses.length }}
+                                        {{ "COURSES" | translate }}
+                                    </u>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>

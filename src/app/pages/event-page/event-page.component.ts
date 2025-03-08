@@ -11,6 +11,7 @@ import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { formatDistanceToNow } from 'date-fns';
 import { EventService } from './event.service';
 import { EventsComponent } from '../../common/events/events.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-event-page',
@@ -27,27 +28,14 @@ import { EventsComponent } from '../../common/events/events.component';
         FooterComponent,
         BackToTopComponent,
         EventsComponent,
+        TranslateModule,
     ],
     templateUrl: './event-page.component.html',
     styleUrl: './event-page.component.scss',
     providers: [EventService],
 })
 export class EventPageComponent implements OnInit {
-    data: any;
-    image = environment.imgUrl + 'events/';
+    constructor(public translateService:TranslateService) {}
 
-    constructor(public router: Router, private eventService: EventService) {}
-
-    ngOnInit(): void {
-        this.fetchdata();
-    }
-
-    fetchdata() {
-        this.eventService.index().subscribe({
-            next: (response) => {
-                this.data = Object.values(response)[0];
-            },
-            error: (error) => {},
-        });
-    }
+    ngOnInit(): void {}
 }

@@ -1,26 +1,26 @@
-<app-navbar />
+<div [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <app-navbar />
 
-<app-page-banner />
+    <app-page-banner />
 
-<!-- START EVENT -->
-<section class="our-event section-padding">
-    <div class="container">
-        <div class="section-title">
-            <h2>Upcoming Events</h2>
-            <p>
-                Join With Us <span><u>Our Events</u></span>
-            </p>
+    <!-- START EVENT -->
+    <section class="our-event section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>{{ "UPCOMING_EVENTS" | translate }}</h2>
+                <p [innerHTML]="'JOIN_WITH_US_OUR_EVENTS' | translate"></p>
+            </div>
+            <div class="row">
+                <app-events />
+                <!-- END COL -->
+            </div>
+            <!-- END ROW -->
         </div>
-        <div class="row">
-           <app-events />
-            <!-- END COL -->
-        </div>
-        <!-- END ROW -->
-    </div>
-    <!-- END CONTAINER -->
-</section>
-<!-- END EVENT -->
+        <!-- END CONTAINER -->
+    </section>
+    <!-- END EVENT -->
 
-<app-footer />
+    <app-footer />
 
-<app-back-to-top />
+    <app-back-to-top />
+</div>

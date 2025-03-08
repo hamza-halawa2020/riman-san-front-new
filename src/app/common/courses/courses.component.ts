@@ -6,7 +6,7 @@ import { CoursesService } from './courses.service';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { environment } from '../../../environments/environment.development';
 import { TruncateDescriptionPipe } from '../../truncate-description.pipe';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-courses',
@@ -21,22 +21,27 @@ import { TranslateModule } from '@ngx-translate/core';
         RouterModule,
         HttpClientModule,
         TruncateDescriptionPipe,
-        TranslateModule
+        TranslateModule,
     ],
 })
 export class CoursesComponent implements OnInit {
-    data: any;
+    data: any[] = []; // Explicitly typed as an array
     videoUrlSafe!: SafeResourceUrl;
     image = environment.imgUrl + 'Courses/';
     imageInstructor = environment.imgUrl + 'instructors/';
+
     constructor(
         public router: Router,
         private coursesService: CoursesService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        public translateService: TranslateService // Injected TranslateService
     ) {}
 
     ngOnInit(): void {
         this.fetchData();
+        this.translateService.onLangChange.subscribe(() => {
+            this.translateData();
+        });
     }
 
     isOpen = false;
@@ -50,8 +55,7 @@ export class CoursesComponent implements OnInit {
 
             if (videoId) {
                 let safeUrl = `https://www.youtube.com/embed/${videoId}`;
-                this.videoUrlSafe =
-                    this.sanitizer.bypassSecurityTrustResourceUrl(safeUrl);
+                this.videoUrlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(safeUrl);
             }
         }
     }
@@ -63,28 +67,19 @@ export class CoursesComponent implements OnInit {
     fetchData() {
         this.coursesService.index().subscribe({
             next: (response) => {
-                this.data = Object.values(response)[0];
-
-                if (this.data?.video_url) {
-                    if (this.data.video_url.includes('youtube.com/watch')) {
-                        try {
-                            const url = new URL(this.data.video_url);
-                            const videoId = url.searchParams.get('v');
-
-                            if (videoId) {
-                                let safeUrl = `https://www.youtube.com/embed/${videoId}`;
-                                this.videoUrlSafe =
-                                    this.sanitizer.bypassSecurityTrustResourceUrl(
-                                        safeUrl
-                                    );
-                            }
-                        } catch (error) {
-                            console.error('Invalid URL:', error);
-                        }
-                    }
-                }
+                this.data = Object.values(response)[0] as any[];
+                this.translateData();
             },
             error: (error) => console.error('Error fetching data:', error),
+        });
+    }
+
+    translateData() {
+        if (!this.data || !Array.isArray(this.data)) return;
+
+        this.data.forEach((course: any) => {
+            course.translatedTitle = this.translateService.instant(course.title) || course.title;
+            course.translatedDescription = this.translateService.instant(course.description) || course.description;
         });
     }
 }

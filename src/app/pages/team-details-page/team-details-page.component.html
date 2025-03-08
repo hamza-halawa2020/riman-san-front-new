@@ -1,157 +1,218 @@
-<app-navbar />
+<div [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <app-navbar />
 
-<app-page-banner />
+    <app-page-banner />
 
-<!-- START AGENT PROFILE -->
-<section class="template_agent section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-sm-12 col-xs-12">
-                <div class="single_agent">
-                    <div class="single_agent_image">
-                        <img
-                            src="{{ image + details?.image }}"
-                            class="img-fluid"
-                            alt=""
-                        />
-                    </div>
-                    <div class="single_agent_content">
-                        <h4>{{ details?.name }}</h4>
-                        <h5>{{ details?.job_title }}</h5>
-                        <p>
-                            {{ details?.description }}
-                        </p>
-                        <ul>
-                            <li>
-                                <i class="fa-regular fa-envelope"></i>
-                                {{ details?.email }}
-                            </li>
-                            <li>
-                                <i class="fa-solid fa-phone"></i>
-                                {{ details?.phone }}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!--- END SINGLE ITEM -->
+    <!-- Success Message as a Toast -->
+    <div
+        *ngIf="successMessage"
+        class="toast-container position-fixed top-0"
+        [class.start-0]="translateService.currentLang === 'ar'"
+        [class.end-0]="translateService.currentLang !== 'ar'"
+        p-3
+    >
+        <div
+            class="toast show"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+        >
+            <div class="toast-header">
+                <strong
+                    [class.ms-auto]="translateService.currentLang === 'ar'"
+                    [class.me-auto]="translateService.currentLang !== 'ar'"
+                    class="text-success"
+                >
+                    {{ "SUCCESS" | translate }}
+                </strong>
             </div>
-            <!--- END COL -->
+            <div class="toast-body">
+                <h6>{{ successMessage }}</h6>
+            </div>
         </div>
-        <!--- END ROW -->
     </div>
-    <!--- END CONTAINER -->
-</section>
-<!-- END AGENT PROFILE -->
 
-<!--START COURSE -->
-<div class="best-cpurse section-padding">
-    <div class="container">
-        <div class="section-title">
-            <h2>Popular Courses</h2>
-            <p>
-                Choose Our <span><u>Top Courses</u></span>
-            </p>
+    <!-- Error Message as a Toast -->
+    <div
+        *ngIf="errorMessage"
+        class="toast-container position-fixed top-0"
+        [class.start-0]="translateService.currentLang === 'ar'"
+        [class.end-0]="translateService.currentLang !== 'ar'"
+        p-3
+    >
+        <div
+            class="toast show"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+        >
+            <div class="toast-header">
+                <strong
+                    [class.ms-auto]="translateService.currentLang === 'ar'"
+                    [class.me-auto]="translateService.currentLang !== 'ar'"
+                    class="text-danger"
+                >
+                    {{ "ERROR" | translate }}
+                </strong>
+            </div>
+            <div class="toast-body">
+                <h6>{{ errorMessage }}</h6>
+            </div>
         </div>
-        <div class="row">
-            <div
-                class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp"
-                data-wow-duration="1s"
-                data-wow-delay="0.1s"
-                data-wow-offset="0"
-                *ngFor="let course of details?.courses"
-            >
-                <div class="course-slide">
-                    <div class="video-box position-relative">
-                        <div class="content">
-                            <button
-                                type="button"
-                                (click)="openPopup(course?.video_url)"
-                                class="video-btn"
-                            >
-                                <img
-                                    src="assets/riman-san/play.svg"
-                                    alt="play"
-                                    class="img-fluid"
-                                />
-                            </button>
+    </div>
+
+    <!-- START AGENT PROFILE -->
+    <section class="template_agent section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <div class="single_agent">
+                        <div class="single_agent_image">
+                            <img
+                                src="{{ image + details?.image }}"
+                                class="img-fluid"
+                                alt=""
+                            />
+                        </div>
+                        <div class="single_agent_content">
+                            <h4>{{ details?.translatedName || details?.name }}</h4>
+                            <h5>{{ details?.translatedJobTitle || details?.job_title }}</h5>
+                            <p>
+                                {{ details?.translatedDescription || details?.description }}
+                            </p>
+                            <ul>
+                                <li>
+                                    <i class="fa-regular fa-envelope"></i>
+                                    {{ details?.email }}
+                                </li>
+                                <li>
+                                    <i class="fa-solid fa-phone"></i>
+                                    {{ details?.phone }}
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    <!--- END SINGLE ITEM -->
+                </div>
+                <!--- END COL -->
+            </div>
+            <!--- END ROW -->
+        </div>
+        <!--- END CONTAINER -->
+    </section>
+    <!-- END AGENT PROFILE -->
 
-                    <!-- Video Popup -->
-                    <div class="mfp-bg mfp-fade mfp-ready" *ngIf="isOpen"></div>
-                    <div
-                        class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-fade mfp-ready"
-                        *ngIf="isOpen"
-                        tabindex="-1"
-                    >
-                        <div class="mfp-container mfp-iframe-holder">
-                            <div class="mfp-content">
-                                <div class="mfp-iframe-scaler">
-                                    <button
-                                        (click)="closePopup()"
-                                        title="Close (Esc)"
-                                        type="button"
-                                        class="mfp-close"
-                                    >
-                                        Close
-                                    </button>
-                                    <iframe
-                                        *ngIf="isOpen && videoUrlSafe"
-                                        [src]="videoUrlSafe"
-                                        width="560"
-                                        height="315"
-                                        frameborder="0"
-                                        allowfullscreen
-                                    ></iframe>
+    <!--START COURSE -->
+    <div class="best-cpurse section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>{{ "POPULAR_COURSES" | translate }}</h2>
+                <p [innerHTML]="'CHOOSE_OUR_TOP_COURSES' | translate"></p>
+            </div>
+            <div class="row">
+                <div
+                    class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp"
+                    data-wow-duration="1s"
+                    data-wow-delay="0.1s"
+                    data-wow-offset="0"
+                    *ngFor="let course of details?.courses"
+                >
+                    <div class="course-slide">
+                        <div class="video-box position-relative">
+                            <div class="content">
+                                <button
+                                    type="button"
+                                    (click)="openPopup(course?.video_url)"
+                                    class="video-btn"
+                                >
+                                    <img
+                                        src="assets/riman-san/play.svg"
+                                        alt="play"
+                                        class="img-fluid"
+                                    />
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Video Popup -->
+                        <div class="mfp-bg mfp-fade mfp-ready" *ngIf="isOpen"></div>
+                        <div
+                            class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-fade mfp-ready"
+                            *ngIf="isOpen"
+                            tabindex="-1"
+                        >
+                            <div class="mfp-container mfp-iframe-holder">
+                                <div class="mfp-content">
+                                    <div class="mfp-iframe-scaler">
+                                        <button
+                                            (click)="closePopup()"
+                                            title="{{ 'CLOSE' | translate }}"
+                                            type="button"
+                                            class="mfp-close"
+                                        >
+                                            {{ 'CLOSE' | translate }}
+                                        </button>
+                                        <iframe
+                                            *ngIf="isOpen && videoUrlSafe"
+                                            [src]="videoUrlSafe"
+                                            width="560"
+                                            height="315"
+                                            frameborder="0"
+                                            allowfullscreen
+                                        ></iframe>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="course-img">
-                        <a routerLink="/course/{{ course.id }}">
-                            <img
-                                src="{{ courseImage + course?.image }}"
-                                class="max-height img-fluid"
-                                alt=""
-                                style="min-height: 350px"
-                            />
-                        </a>
-                        <div class="course-date">
-                            <span class="month"
-                                ><i class="fas fa-money-bill"></i>
-                                {{ course?.price }} EGP</span
-                            >
+                        <div class="course-img">
+                            <a routerLink="/course/{{ course.id }}">
+                                <img
+                                    src="{{ courseImage + course?.image }}"
+                                    class="max-height img-fluid"
+                                    alt=""
+                                    style="min-height: 350px"
+                                />
+                            </a>
+                            <div class="course-date">
+                                <span class="month"
+                                    ><i class="fas fa-money-bill"></i>
+                                    {{ course?.price }} {{ 'EGP' | translate }}</span
+                                >
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <p class="c_btn m-1">{{ course?.category }}</p>
+                            <p class="c_btn m-1">{{ course?.tag }}</p>
+                            <h3>
+                                <a routerLink="/course/{{ course.id }}">
+                                    {{ course?.translatedTitle || course?.title }}
+                                </a>
+                            </h3>
+                            <p class="">
+                                {{ course?.translatedDescription || course?.description | truncateDescription : 5 }}
+                            </p>
                         </div>
                     </div>
-                    <div class="course-content">
-                        <p class="c_btn m-1">{{ course?.category }}</p>
-                        <p class="c_btn m-1">{{ course?.tag }}</p>
-                        <h3>
-                            <a routerLink="/course/{{ course.id }}">{{
-                                course?.title
-                            }}</a>
-                        </h3>
-                        <p class="">
-                            {{ course?.description | truncateDescription : 5 }}
-                        </p>
+                </div>
+
+                <!--END COL -->
+                <div class="col-lg-12 text-center">
+                    <div class="cc_btn">
+                        <a class="btn_one" routerLink="/courses">
+                            {{ "VIEW_ALL_COURSES" | translate }}
+                        </a>
                     </div>
                 </div>
+                <!--END COL -->
             </div>
-
-            <!--END COL -->
-            <div class="col-lg-12 text-center">
-                <div class="cc_btn">
-                    <a class="btn_one" routerLink="/courses">View All Course</a>
-                </div>
-            </div>
-            <!--END COL -->
+            <!--END ROW -->
         </div>
-        <!--END ROW -->
+        <!--END CONTAINER -->
     </div>
-    <!--END CONTAINER -->
-</div>
-<!--END COURSE -->
-<app-footer />
+    <!--END COURSE -->
 
-<app-back-to-top />
+    <app-footer />
+
+    <app-back-to-top />
+</div>

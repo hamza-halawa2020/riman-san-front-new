@@ -7,10 +7,11 @@ import { BackToTopComponent } from '../../common/back-to-top/back-to-top.compone
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { PostService } from './post.service';
 import { CommonModule } from '@angular/common';
-import { BlogComponent } from '../../common/blog/blog.component';
 import { formatDistanceToNow } from 'date-fns';
 import { environment } from '../../../environments/environment.development';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ar } from 'date-fns/locale'; // Import Arabic locale
+import { enUS } from 'date-fns/locale'; // Import English locale
 
 @Component({
     selector: 'app-blog-page',
@@ -23,34 +24,59 @@ import { TranslateModule } from '@ngx-translate/core';
         PageBannerComponent,
         FooterComponent,
         BackToTopComponent,
-        BlogComponent,
-        TranslateModule
+        TranslateModule,
     ],
     templateUrl: './blog-page.component.html',
     styleUrl: './blog-page.component.scss',
     providers: [PostService],
 })
-export class BlogPageComponent {
-    data: any;
+export class BlogPageComponent implements OnInit {
+    data: any[] = []; // Explicitly typed as an array
     image = environment.imgUrl + 'posts/';
+    successMessage: string = '';
+    errorMessage: string = '';
 
-    constructor(public router: Router, private postService: PostService) {}
+    constructor(
+        public router: Router,
+        private postService: PostService,
+        public translateService: TranslateService // Injected TranslateService
+    ) {}
 
     ngOnInit(): void {
         this.fetchData();
+        this.translateService.onLangChange.subscribe(() => {
+            this.translateData();
+        });
     }
 
     getRelativeTime(dateString: string): string {
         const date = new Date(dateString);
-        return formatDistanceToNow(date, { addSuffix: true }); // e.g., "2 days ago"
+        const locale = this.translateService.currentLang === 'ar' ? ar : enUS;
+        return formatDistanceToNow(date, { addSuffix: true, locale }); // e.g., "2 days ago" or "منذ يومين"
     }
 
     fetchData() {
         this.postService.index().subscribe({
             next: (response) => {
-                this.data = Object.values(response)[0];
+                this.data = Object.values(response)[0] as any[];
+                this.translateData();
             },
-            error: (error) => {},
+            error: (error) => {
+                this.errorMessage = this.translateService.instant('UNEXPECTED_ERROR');
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 3000);
+            },
+        });
+    }
+
+    translateData() {
+        if (!this.data || !Array.isArray(this.data)) return;
+
+        this.data.forEach((post: any) => {
+            post.translatedTitle = this.translateService.instant(post.title) || post.title;
+            post.translatedAdmin = this.translateService.instant(post.admin) || post.admin;
+            post.translatedRelativeTime = this.getRelativeTime(post.created_at); // Update relative time on language change
         });
     }
 }

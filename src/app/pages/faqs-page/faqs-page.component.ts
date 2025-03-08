@@ -9,6 +9,7 @@ import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { NgClass, NgIf } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FaqsComponent } from '../../common/faqs/faqs.component';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
     selector: 'app-faqs-page',
     standalone: true,
@@ -24,6 +25,7 @@ import { FaqsComponent } from '../../common/faqs/faqs.component';
         NgIf,
         NgbModule,
         FaqsComponent,
+        TranslateModule
     ],
     templateUrl: './faqs-page.component.html',
     styleUrl: './faqs-page.component.scss',

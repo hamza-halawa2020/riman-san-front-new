@@ -12,7 +12,9 @@ import { environment } from '../../../environments/environment.development';
 import { FormsModule } from '@angular/forms';
 import { EventService } from './event.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 declare var bootstrap: any;
+
 @Component({
     selector: 'app-event-details-page',
     standalone: true,
@@ -30,48 +32,85 @@ declare var bootstrap: any;
         RatingModule,
         FormsModule,
         CarouselModule,
+        TranslateModule, // Added TranslateModule
     ],
     templateUrl: './event-details-page.component.html',
     styleUrl: './event-details-page.component.scss',
 })
 export class EventDetailsPageComponent implements OnInit {
     activeTab: string = 'overview'; // Default active tab
-
-    switchTab(tab: string) {
-        this.activeTab = tab;
-    }
     details: any;
-    data: any;
+    data: any[] = []; // Explicitly typed as an array for social links
     selectedImage: string = '';
     currentIndex: number = 0;
     id: any;
     image = environment.imgUrl + 'events/';
     eventImage = environment.imgUrl + 'events/';
     socialImage = environment.imgUrl + 'socials/';
+    successMessage: string = '';
+    errorMessage: string = '';
+    currentOptions: OwlOptions;
+
     constructor(
         private activateRoute: ActivatedRoute,
-        private eventService: EventService
-    ) {}
+        private eventService: EventService,
+        public translateService: TranslateService // Injected TranslateService
+    ) {
+        this.currentOptions =
+            this.translateService.currentLang === 'ar'
+                ? this.eventSliderSlides2
+                : this.eventSliderSlides;
+        this.translateService.onLangChange.subscribe((event) => {
+            this.currentOptions =
+                event.lang === 'ar'
+                    ? this.eventSliderSlides2
+                    : this.eventSliderSlides;
+        });
+    }
 
     ngOnInit(): void {
         this.getDetails();
         this.fetchdata();
+        this.translateService.onLangChange.subscribe(() => {
+            this.translateData();
+        });
+    }
+
+    switchTab(tab: string) {
+        this.activeTab = tab;
     }
 
     getDetails(): void {
         this.activateRoute.params.subscribe((params) => {
             this.id = +params['id'];
-            this.eventService.show(this.id).subscribe((data) => {
-                this.details = Object.values(data)[0];
+            this.eventService.show(this.id).subscribe({
+                next: (data) => {
+                    this.details = Object.values(data)[0];
+                    this.translateData();
+                },
+                error: (error) => {
+                    this.errorMessage =
+                        this.translateService.instant('UNEXPECTED_ERROR');
+                    setTimeout(() => {
+                        this.errorMessage = '';
+                    }, 3000);
+                },
             });
         });
     }
+
     fetchdata() {
         this.eventService.allSocial().subscribe({
             next: (response) => {
-                this.data = Object.values(response)[0];
+                this.data = Object.values(response)[0] as any[];
             },
-            error: (error) => {},
+            error: (error) => {
+                this.errorMessage =
+                    this.translateService.instant('UNEXPECTED_ERROR');
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 3000);
+            },
         });
     }
 
@@ -81,12 +120,12 @@ export class EventDetailsPageComponent implements OnInit {
         let modal = new bootstrap.Modal(document.getElementById('imageModal'));
         modal.show();
     }
+
     nextImage() {
         if (this.currentIndex < this.details.eventImages.length - 1) {
             this.currentIndex++;
             this.selectedImage =
-                this.image +
-                this.details.eventImages[this.currentIndex].image;
+                this.image + this.details.eventImages[this.currentIndex].image;
         }
     }
 
@@ -94,8 +133,7 @@ export class EventDetailsPageComponent implements OnInit {
         if (this.currentIndex > 0) {
             this.currentIndex--;
             this.selectedImage =
-                this.image +
-                this.details.eventImages[this.currentIndex].image;
+                this.image + this.details.eventImages[this.currentIndex].image;
         }
     }
 
@@ -129,4 +167,51 @@ export class EventDetailsPageComponent implements OnInit {
             },
         },
     };
+    eventSliderSlides2: OwlOptions = {
+        nav: true,
+        loop: true,
+        margin: 25,
+        dots: false,
+        autoplay: true,
+        smartSpeed: 500,
+        rtl: true,
+        autoplayHoverPause: true,
+        navText: [
+            "<i class='fa-solid fa-chevron-left'></i>",
+            "<i class='fa-solid fa-chevron-right'></i>",
+        ],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            515: {
+                items: 1,
+            },
+            695: {
+                items: 2,
+            },
+            935: {
+                items: 2,
+            },
+            1115: {
+                items: 2,
+            },
+        },
+    };
+
+    translateData() {
+        if (!this.details) return;
+
+        this.details.translatedTitle =
+            this.translateService.instant(this.details.title) ||
+            this.details.title;
+        this.details.translatedCategory =
+            this.translateService.instant(this.details.category) ||
+            this.details.category;
+        this.details.translatedTag =
+            this.translateService.instant(this.details.tag) || this.details.tag;
+        this.details.translatedContent =
+            this.translateService.instant(this.details.content) ||
+            this.details.content;
+    }
 }

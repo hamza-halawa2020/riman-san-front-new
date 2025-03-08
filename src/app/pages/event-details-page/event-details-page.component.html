@@ -1,152 +1,223 @@
-<app-navbar />
+<div [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <app-navbar />
 
-<app-page-banner />
+    <app-page-banner />
 
-<!-- START EVENT -->
-<section class="our_event section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-sm-8 col-xs-12">
-                <div class="text-center mb-4">
-                    <img
-                        src="{{ image + details?.image }}"
-                        class="bg-image"
-                        alt="bg-image"
-                    />
-                </div>
-            </div>
-            <!--- END COL -->
-            <div class="col-lg-4 col-sm-4 col-xs-12">
-                <!-- END SIDEBAR POST -->
-                <div class="sidebar-post">
-                    <div class="sidebar_title"><h4>Follow us</h4></div>
-                    <div
-                        class="d-flex justify-content-center align-items-center"
-                    >
-                        <div class="p-2" *ngFor="let social of data">
-                            <a href="{{ social?.url }}" target="_blank">
-                                <img
-                                    alt=""
-                                    class="rounded"
-                                    src="{{ socialImage + social?.icon }}"
-                                    width="30px"
-                                    height="30px"
-                                />
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- END SOCIAL MEDIA POST -->
-                </div>
-                <div class="sidebar-post mt-4">
-                    <div class="sidebar_title"><h4>Category</h4></div>
-                    <div
-                        class="d-flex justify-content-center align-items-center"
-                    >
-                        <div class="p-2">
-                            <a target="_blank">
-                                {{ details?.category }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="sidebar-post mt-4">
-                    <div class="sidebar_title"><h4>Tag</h4></div>
-                    <div
-                        class="d-flex justify-content-center align-items-center"
-                    >
-                        <div class="p-2">
-                            <a target="_blank">
-                                {{ details?.tag }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- END SIDEBAR POST -->
-            </div>
-            <!--- END COL -->
-        </div>
-        <!-- END ROW -->
-
+    <!-- Success Message as a Toast -->
+    <div
+        *ngIf="successMessage"
+        class="toast-container position-fixed top-0"
+        [class.start-0]="translateService.currentLang === 'ar'"
+        [class.end-0]="translateService.currentLang !== 'ar'"
+        p-3
+    >
         <div
-            class="modal fade bs-example-modal-xl transparent-modal"
-            id="imageModal"
-            tabindex="-1"
-            aria-hidden="true"
+            class="toast show"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
         >
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                        ></button>
-                    </div>
-                    <div class="modal-body text-center position-relative">
-                        <button
-                            *ngIf="currentIndex > 0"
-                            class="btn btn-light position-absolute start-0 top-50 translate-middle-y"
-                            (click)="prevImage()"
-                        >
-                            <i class="fa fa-chevron-left"></i>
-                        </button>
-
-                        <img [src]="selectedImage" class="img-fluid" />
-
-                        <button
-                            *ngIf="
-                                currentIndex < details?.eventImages.length - 1
-                            "
-                            class="btn btn-light position-absolute end-0 top-50 translate-middle-y"
-                            (click)="nextImage()"
-                        >
-                            <i class="fa fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container text-center">
-            <h1 class="my-3">
-                {{ details?.title }}
-            </h1>
-        </div>
-
-        <div class="upcoming-courses-slides2 mx-auto">
-            <owl-carousel-o [options]="eventSliderSlides">
-                <ng-template
-                    carouselSlide
-                    *ngFor="let slide of details?.eventImages; let i = index"
+            <div class="toast-header">
+                <strong
+                    [class.ms-auto]="translateService.currentLang === 'ar'"
+                    [class.me-auto]="translateService.currentLang !== 'ar'"
+                    class="text-success"
                 >
-                    <a (click)="openModal(image + slide?.image, i)">
-                        <div
-                            class="single-upcoming-course-box position-relative"
-                        >
-                            <div class="image position-relative">
-                                <div class="text-center max-height">
-                                    <img
-                                        src="{{ image + slide?.image }}"
-                                        class="bg-image"
-                                        alt="bg-image"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </ng-template>
-            </owl-carousel-o>
-        </div>
-
-        <div class="mt-3">
-            {{ details?.content }}
+                    {{ "SUCCESS" | translate }}
+                </strong>
+            </div>
+            <div class="toast-body">
+                <h6>{{ successMessage }}</h6>
+            </div>
         </div>
     </div>
-    <!-- END CONTAINER -->
-</section>
 
-<!-- END EVENT -->
-<app-footer />
+    <!-- Error Message as a Toast -->
+    <div
+        *ngIf="errorMessage"
+        class="toast-container position-fixed top-0"
+        [class.start-0]="translateService.currentLang === 'ar'"
+        [class.end-0]="translateService.currentLang !== 'ar'"
+        p-3
+    >
+        <div
+            class="toast show"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+        >
+            <div class="toast-header">
+                <strong
+                    [class.ms-auto]="translateService.currentLang === 'ar'"
+                    [class.me-auto]="translateService.currentLang !== 'ar'"
+                    class="text-danger"
+                >
+                    {{ "ERROR" | translate }}
+                </strong>
+            </div>
+            <div class="toast-body">
+                <h6>{{ errorMessage }}</h6>
+            </div>
+        </div>
+    </div>
 
-<app-back-to-top />
+    <!-- START EVENT -->
+    <section class="our_event section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-sm-8 col-xs-12">
+                    <div class="text-center mb-4">
+                        <img
+                            src="{{ image + details?.image }}"
+                            class="bg-image"
+                            alt="bg-image"
+                        />
+                    </div>
+                </div>
+                <!--- END COL -->
+                <div class="col-lg-4 col-sm-4 col-xs-12">
+                    <!-- END SIDEBAR POST -->
+                    <div class="sidebar-post">
+                        <div class="sidebar_title">
+                            <h4>{{ "FOLLOW_US" | translate }}</h4>
+                        </div>
+                        <div
+                            class="d-flex justify-content-center align-items-center"
+                        >
+                            <div class="p-2" *ngFor="let social of data">
+                                <a href="{{ social?.url }}" target="_blank">
+                                    <img
+                                        alt=""
+                                        class="rounded"
+                                        src="{{ socialImage + social?.icon }}"
+                                        width="30px"
+                                        height="30px"
+                                    />
+                                </a>
+                            </div>
+                        </div>
+                        <!-- END SOCIAL MEDIA POST -->
+                    </div>
+                    <div class="sidebar-post mt-4">
+                        <div class="sidebar_title">
+                            <h4>{{ "CATEGORY" | translate }}</h4>
+                        </div>
+                        <div
+                            class="d-flex justify-content-center align-items-center"
+                        >
+                            <div class="p-2">
+                                <a target="_blank">
+                                    {{
+                                        details?.translatedCategory ||
+                                            details?.category
+                                    }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-post mt-4">
+                        <div class="sidebar_title">
+                            <h4>{{ "TAG" | translate }}</h4>
+                        </div>
+                        <div
+                            class="d-flex justify-content-center align-items-center"
+                        >
+                            <div class="p-2">
+                                <a target="_blank">
+                                    {{ details?.translatedTag || details?.tag }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END SIDEBAR POST -->
+                </div>
+                <!--- END COL -->
+            </div>
+            <!-- END ROW -->
+
+            <div
+                class="modal fade bs-example-modal-xl transparent-modal"
+                id="imageModal"
+                tabindex="-1"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                            ></button>
+                        </div>
+                        <div class="modal-body text-center position-relative">
+                            <button
+                                *ngIf="currentIndex > 0"
+                                class="btn btn-light position-absolute start-0 top-50 translate-middle-y"
+                                (click)="prevImage()"
+                            >
+                                <i class="fa fa-chevron-left"></i>
+                            </button>
+
+                            <img [src]="selectedImage" class="img-fluid" />
+
+                            <button
+                                *ngIf="
+                                    currentIndex < details?.eventImages.length - 1
+                                "
+                                class="btn btn-light position-absolute end-0 top-50 translate-middle-y"
+                                (click)="nextImage()"
+                            >
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container text-center">
+                <h1 class="my-3">
+                    {{ details?.translatedTitle || details?.title }}
+                </h1>
+            </div>
+
+            <div class="upcoming-courses-slides2 mx-auto">
+                <owl-carousel-o [options]="currentOptions">
+                    <ng-template
+                        carouselSlide
+                        *ngFor="
+                            let slide of details?.eventImages;
+                            let i = index
+                        "
+                    >
+                        <a (click)="openModal(image + slide?.image, i)">
+                            <div
+                                class="single-upcoming-course-box position-relative"
+                            >
+                                <div class="image position-relative">
+                                    <div class="text-center max-height">
+                                        <img
+                                            src="{{ image + slide?.image }}"
+                                            class="bg-image"
+                                            alt="bg-image"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </ng-template>
+                </owl-carousel-o>
+            </div>
+
+            <div class="mt-3">
+                {{ details?.translatedContent || details?.content }}
+            </div>
+        </div>
+        <!-- END CONTAINER -->
+    </section>
+    <!-- END EVENT -->
+
+    <app-footer />
+
+    <app-back-to-top />
+</div>

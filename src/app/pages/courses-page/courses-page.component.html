@@ -1,113 +1,111 @@
-<app-navbar />
+<div [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <app-navbar />
 
-<app-page-banner />
+    <app-page-banner />
 
-<!-- Courses -->
-
-<div class="border-bottom border-top bg-f3f3f3 pt-5 pb-5">
-    <div class="container">
-        <div class="section-title position-relative">
-            <div class="section-title">
-                <h2>Our Courses</h2>
-                <p>
-                    Choose Our <span><u>Courses</u></span>
-                </p>
+    <!-- Courses -->
+    <div class="border-bottom border-top bg-f3f3f3 pt-5 pb-5">
+        <div class="container">
+            <div class="section-title position-relative">
+                <div class="section-title">
+                    <h2>{{ "OUR_COURSES" | translate }}</h2>
+                    <p [innerHTML]="'CHOOSE_OUR_COURSES' | translate"></p>
+                </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-            <div
-                v
-                class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp"
-                data-wow-duration="1s"
-                data-wow-delay="0.1s"
-                data-wow-offset="0"
-                *ngFor="let course of data"
-            >
-                <div class="course-slide">
-                    <div class="video-box position-relative">
-                        <div class="content">
-                            <button
-                                type="button"
-                                (click)="openPopup(course.video_url)"
-                                class="video-btn"
-                            >
-                                <img
-                                    src="assets/riman-san/play.svg"
-                                    alt="play"
-                                    class="img-fluid"
-                                />
-                            </button>
+            <div class="row justify-content-center">
+                <div
+                    class="col-lg-4 col-sm-6 col-xs-12 wow fadeInUp"
+                    data-wow-duration="1s"
+                    data-wow-delay="0.1s"
+                    data-wow-offset="0"
+                    *ngFor="let course of data"
+                >
+                    <div class="course-slide">
+                        <div class="video-box position-relative">
+                            <div class="content">
+                                <button
+                                    type="button"
+                                    (click)="openPopup(course.video_url)"
+                                    class="video-btn"
+                                >
+                                    <img
+                                        src="assets/riman-san/play.svg"
+                                        alt="play"
+                                        class="img-fluid"
+                                    />
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Video Popup -->
-                    <div class="mfp-bg mfp-fade mfp-ready" *ngIf="isOpen"></div>
-                    <div
-                        class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-fade mfp-ready"
-                        *ngIf="isOpen"
-                        tabindex="-1"
-                    >
-                        <div class="mfp-container mfp-iframe-holder">
-                            <div class="mfp-content">
-                                <div class="mfp-iframe-scaler">
-                                    <button
-                                        (click)="closePopup()"
-                                        title="Close (Esc)"
-                                        type="button"
-                                        class="mfp-close"
-                                    >
-                                        Close
-                                    </button>
+                        <!-- Video Popup -->
+                        <div class="mfp-bg mfp-fade mfp-ready" *ngIf="isOpen"></div>
+                        <div
+                            class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-fade mfp-ready"
+                            *ngIf="isOpen"
+                            tabindex="-1"
+                        >
+                            <div class="mfp-container mfp-iframe-holder">
+                                <div class="mfp-content">
+                                    <div class="mfp-iframe-scaler">
+                                        <button
+                                            (click)="closePopup()"
+                                            title="Close (Esc)"
+                                            type="button"
+                                            class="mfp-close"
+                                            [attr.aria-label]="'CLOSE' | translate"
+                                        >
+                                            {{ "CLOSE" | translate }}
+                                        </button>
 
-                                    <iframe
-                                        *ngIf="isOpen && videoUrlSafe"
-                                        [src]="videoUrlSafe"
-                                        width="560"
-                                        height="315"
-                                        frameborder="0"
-                                        allowfullscreen
-                                    ></iframe>
+                                        <iframe
+                                            *ngIf="isOpen && videoUrlSafe"
+                                            [src]="videoUrlSafe"
+                                            width="560"
+                                            height="315"
+                                            frameborder="0"
+                                            allowfullscreen
+                                        ></iframe>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="course-img">
-                        <a routerLink="/course/{{ course.id }}">
-                            <img
-                                src="{{ image + course.image }}"
-                                class="max-height img-fluid"
-                                alt=""
-                                style="min-height: 350px"
-                            />
-                        </a>
-                        <div class="course-date">
-                            <span class="month"
-                                ><i class="fas fa-money-bill"></i>
-                                {{ course.price }} EGP</span
-                            >
+                        <div class="course-img">
+                            <a routerLink="/course/{{ course.id }}">
+                                <img
+                                    src="{{ image + course.image }}"
+                                    class="max-height img-fluid"
+                                    alt=""
+                                    style="min-height: 350px"
+                                />
+                            </a>
+                            <div class="course-date">
+                                <span class="month"
+                                    ><i class="fas fa-money-bill"></i>
+                                    {{ course.price }} {{ "EGP" | translate }}</span
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div class="course-content">
-                        <p class="c_btn m-1">{{ course.category }}</p>
-                        <p class="c_btn m-1">{{ course.tag }}</p>
-                        <h3>
-                            <a routerLink="/course/{{ course.id }}">{{
-                                course.title
-                            }}</a>
-                        </h3>
-                        <p class="">
-                            {{ course.description | truncateDescription : 5 }}
-                        </p>
+                        <div class="course-content">
+                            <p class="c_btn m-1">{{ course.category }}</p>
+                            <p class="c_btn m-1">{{ course.tag }}</p>
+                            <h3>
+                                <a routerLink="/course/{{ course.id }}">{{
+                                    course.translatedTitle || course.title
+                                }}</a>
+                            </h3>
+                            <p class="">
+                                {{ course.translatedDescription || course.description | truncateDescription : 5 }}
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- End Courses -->
+
+    <app-footer />
+
+    <app-back-to-top />
 </div>
-
-<!-- End Courses -->
-
-<app-footer />
-
-<app-back-to-top />

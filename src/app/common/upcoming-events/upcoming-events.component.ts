@@ -13,9 +13,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     imports: [
         RouterLink,
         CarouselModule,
-        RouterLink,
         CommonModule,
-        CarouselModule,
         NgIf,
         NgClass,
         HttpClientModule,
@@ -26,9 +24,11 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     providers: [EventSliderService],
 })
 export class UpcomingEventsComponent implements OnInit {
-    sliderData: any;
+    sliderData: any[] = []; // Explicitly typed as an array
     image = environment.imgUrl + 'events/';
     currentOptions: OwlOptions;
+    successMessage: string = '';
+    errorMessage: string = '';
 
     upcomingEventsSlides: OwlOptions = {
         nav: true,
@@ -60,6 +60,7 @@ export class UpcomingEventsComponent implements OnInit {
             },
         },
     };
+
     upcomingEventsSlides2: OwlOptions = {
         nav: true,
         loop: true,
@@ -91,10 +92,11 @@ export class UpcomingEventsComponent implements OnInit {
             },
         },
     };
+
     constructor(
         public router: Router,
         private eventSliderService: EventSliderService,
-        private translate: TranslateService
+        public translate: TranslateService // Injected as public for template access
     ) {
         this.currentOptions =
             this.translate.currentLang === 'ar'
@@ -105,6 +107,7 @@ export class UpcomingEventsComponent implements OnInit {
                 event.lang === 'ar'
                     ? this.upcomingEventsSlides2
                     : this.upcomingEventsSlides;
+            this.translateData(); // Re-translate data on language change
         });
     }
 
@@ -115,9 +118,23 @@ export class UpcomingEventsComponent implements OnInit {
     fetchSliderData() {
         this.eventSliderService.index().subscribe({
             next: (response) => {
-                this.sliderData = Object.values(response)[0];
+                this.sliderData = Object.values(response)[0] as any[];
+                this.translateData();
             },
-            error: (error) => {},
+            error: (error) => {
+                this.errorMessage = this.translate.instant('UNEXPECTED_ERROR');
+                setTimeout(() => {
+                    this.errorMessage = '';
+                }, 3000);
+            },
+        });
+    }
+
+    translateData() {
+        if (!this.sliderData || !Array.isArray(this.sliderData)) return;
+
+        this.sliderData.forEach((slide: any) => {
+            slide.translatedTitle = this.translate.instant(slide.title) || slide.title;
         });
     }
 }
