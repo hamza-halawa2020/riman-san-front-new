@@ -12,7 +12,7 @@ import { CheckoutService } from './checkout.service';
 import { CartService } from '../cart-page/cart.service';
 import { LoginService } from '../login-page/login.service';
 import { ClientCartService } from '../client-cart/client-cart.service';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-checkout-page',
@@ -47,8 +47,9 @@ export class CheckoutPageComponent implements OnInit {
         public router: Router,
         private checkoutService: CheckoutService,
         private cartService: CartService,
-        private cartClientService: ClientCartService,
-        private loginService: LoginService
+        private clientCartService: ClientCartService,
+        private loginService: LoginService,
+        public translateService: TranslateService // Injected for translation
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
     }
@@ -72,6 +73,9 @@ export class CheckoutPageComponent implements OnInit {
             next: (response) => {
                 this.products = Object.values(response)[0];
             },
+            error: (error) => {
+                this.handleError(error);
+            },
         });
     }
 
@@ -79,12 +83,11 @@ export class CheckoutPageComponent implements OnInit {
         const product = this.products?.find((p: any) => p.id === productId);
         return product
             ? { title: product.title, image: product.productImages[0].image }
-            : { title: 'Unknown', image: 'default.png' };
+            : { title: this.translateService.instant('Unknown'), image: 'default.png' };
     }
 
     updatePaymentMethod(method: string) {
         let storedData = localStorage.getItem('checkoutData');
-
         if (storedData) {
             let checkoutData = JSON.parse(storedData);
             checkoutData.payment_method = method;
@@ -98,218 +101,118 @@ export class CheckoutPageComponent implements OnInit {
             try {
                 let checkoutData = JSON.parse(storedData);
 
+                if (!checkoutData.payment_method) {
+                    this.errorMessage = this.translateService.instant('PLEASE_SELECT_PAYMENT_METHOD');
+                    setTimeout(() => { this.errorMessage = ''; }, 3000);
+                    return;
+                }
+
                 if (checkoutData.payment_method === 'cash_on_delivery') {
                     this.checkoutService.storeOrder(checkoutData).subscribe({
                         next: () => {
-                            this.successMessage =
-                                'Your order has been placed successfully with Cash on Delivery!';
-                            setTimeout(() => {
-                                this.successMessage = '';
-                            }, 3000);
+                            this.successMessage = this.translateService.instant('ORDER_PLACED_CASH_SUCCESS');
+                            setTimeout(() => { this.successMessage = ''; }, 3000);
                             localStorage.removeItem('checkoutData');
                             localStorage.removeItem('totalPriceData');
                             localStorage.removeItem('appliedCoupon');
-
-                            // Reset component state
                             this.checkoutData = null;
                             this.totalPriceData = null;
-
-                            this.cartService.clearCart().subscribe({
-                                next: () => {},
-                            });
+                            this.cartService.clearCart().subscribe();
                         },
                         error: (error) => {
-                            if (error.error?.errors) {
-                                this.errorMessage = Object.values(
-                                    error.error.errors
-                                )
-                                    .flat()
-                                    .join(' | ');
-                            } else {
-                                this.errorMessage =
-                                    error.error?.message ||
-                                    'An unexpected error occurred.';
-                            }
-                            setTimeout(() => {
-                                this.errorMessage = '';
-                            }, 3000);
+                            this.handleError(error);
                         },
                     });
                 } else if (checkoutData.payment_method === 'visa') {
                     this.checkoutService.storeOrder(checkoutData).subscribe({
                         next: (orderResponse: any) => {
-                            const payLoad = {
-                                orderID: orderResponse.data.id,
-                            };
-
-                            this.checkoutService
-                                .getPaymentLink(payLoad)
-                                .subscribe({
-                                    next: (paymentResponse: any) => {
-                                        window.open(paymentResponse.iframe_url);
-                                        // window.open(
-                                        //     paymentResponse.iframe_url,
-                                        //     '_blank'
-                                        // );
-                                    },
-                                    error: (error) => {
-                                        this.errorMessage =
-                                            error.error?.message ||
-                                            'Error fetching payment link.';
-                                        setTimeout(() => {
-                                            this.errorMessage = '';
-                                        }, 3000);
-                                    },
-                                });
+                            const payLoad = { orderID: orderResponse.data.id };
+                            this.checkoutService.getPaymentLink(payLoad).subscribe({
+                                next: (paymentResponse: any) => {
+                                    window.open(paymentResponse.iframe_url, '_blank');
+                                },
+                                error: (error) => {
+                                    this.handleError(error);
+                                },
+                            });
                         },
                         error: (error) => {
-                            if (error.error?.errors) {
-                                this.errorMessage = Object.values(
-                                    error.error.errors
-                                )
-                                    .flat()
-                                    .join(' | ');
-                            } else {
-                                this.errorMessage =
-                                    error.error?.message ||
-                                    'An unexpected error occurred.';
-                            }
-                            setTimeout(() => {
-                                this.errorMessage = '';
-                            }, 3000);
+                            this.handleError(error);
                         },
                     });
                 }
             } catch (error: any) {
-                if (error.error?.errors) {
-                    this.errorMessage = Object.values(error.error.errors)
-                        .flat()
-                        .join(' | ');
-                } else {
-                    this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
-                }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                this.handleError(error);
             }
         } else {
-            this.errorMessage = 'No checkoutData found in localStorage.';
-            setTimeout(() => {
-                this.errorMessage = '';
-            }, 3000);
+            this.errorMessage = this.translateService.instant('NO_CHECKOUT_DATA');
+            setTimeout(() => { this.errorMessage = ''; }, 3000);
         }
     }
+
     proceedToClientCheckout() {
         const storedData = localStorage.getItem('checkoutData');
         if (storedData) {
             try {
                 let checkoutData = JSON.parse(storedData);
 
+                if (!checkoutData.payment_method) {
+                    this.errorMessage = this.translateService.instant('PLEASE_SELECT_PAYMENT_METHOD');
+                    setTimeout(() => { this.errorMessage = ''; }, 3000);
+                    return;
+                }
+
                 if (checkoutData.payment_method === 'cash_on_delivery') {
-                    this.checkoutService
-                        .storeClientOrder(checkoutData)
-                        .subscribe({
-                            next: () => {
-                                this.successMessage =
-                                    'Your order has been placed successfully with Cash on Delivery!';
-                                setTimeout(() => {
-                                    this.successMessage = '';
-                                }, 3000);
-                                localStorage.removeItem('checkoutData');
-                                localStorage.removeItem('totalPriceData');
-                                localStorage.removeItem('appliedCoupon');
-
-                                // Reset component state
-                                this.checkoutData = null;
-                                this.totalPriceData = null;
-
-                                this.cartClientService.clearCart();
-                            },
-                            error: (error) => {
-                                if (error.error?.errors) {
-                                    this.errorMessage = Object.values(
-                                        error.error.errors
-                                    )
-                                        .flat()
-                                        .join(' | ');
-                                } else {
-                                    this.errorMessage =
-                                        error.error?.message ||
-                                        'An unexpected error occurred.';
-                                }
-                                setTimeout(() => {
-                                    this.errorMessage = '';
-                                }, 3000);
-                            },
-                        });
+                    this.checkoutService.storeClientOrder(checkoutData).subscribe({
+                        next: () => {
+                            this.successMessage = this.translateService.instant('ORDER_PLACED_CASH_SUCCESS');
+                            setTimeout(() => { this.successMessage = ''; }, 3000);
+                            localStorage.removeItem('checkoutData');
+                            localStorage.removeItem('totalPriceData');
+                            localStorage.removeItem('appliedCoupon');
+                            this.checkoutData = null;
+                            this.totalPriceData = null;
+                            this.clientCartService.clearCart();
+                        },
+                        error: (error) => {
+                            this.handleError(error);
+                        },
+                    });
                 } else if (checkoutData.payment_method === 'visa') {
-                    this.checkoutService
-                        .storeClientOrder(checkoutData)
-                        .subscribe({
-                            next: (orderResponse: any) => {
-                                const payLoad = {
-                                    orderID: orderResponse.data.id,
-                                };
-
-                                this.checkoutService
-                                    .getPaymentLink(payLoad)
-                                    .subscribe({
-                                        next: (paymentResponse: any) => {
-                                            window.open(
-                                                paymentResponse.iframe_url
-                                            );
-                                            // window.open(
-                                            //     paymentResponse.iframe_url,
-                                            //     '_blank'
-                                            // );
-                                        },
-                                        error: (error) => {
-                                            this.errorMessage =
-                                                error.error?.message ||
-                                                'Error fetching payment link.';
-                                            setTimeout(() => {
-                                                this.errorMessage = '';
-                                            }, 3000);
-                                        },
-                                    });
-                            },
-                            error: (error) => {
-                                if (error.error?.errors) {
-                                    this.errorMessage = Object.values(
-                                        error.error.errors
-                                    )
-                                        .flat()
-                                        .join(' | ');
-                                } else {
-                                    this.errorMessage =
-                                        error.error?.message ||
-                                        'An unexpected error occurred.';
-                                }
-                                setTimeout(() => {
-                                    this.errorMessage = '';
-                                }, 3000);
-                            },
-                        });
+                    this.checkoutService.storeClientOrder(checkoutData).subscribe({
+                        next: (orderResponse: any) => {
+                            const payLoad = { orderID: orderResponse.data.id };
+                            this.checkoutService.getPaymentLink(payLoad).subscribe({
+                                next: (paymentResponse: any) => {
+                                    window.open(paymentResponse.iframe_url, '_blank');
+                                },
+                                error: (error) => {
+                                    this.handleError(error);
+                                },
+                            });
+                        },
+                        error: (error) => {
+                            this.handleError(error);
+                        },
+                    });
                 }
             } catch (error: any) {
-                if (error.error?.errors) {
-                    this.errorMessage = Object.values(error.error.errors)
-                        .flat()
-                        .join(' | ');
-                } else {
-                    this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
-                }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                this.handleError(error);
             }
         } else {
-            this.errorMessage = 'No checkoutData found in localStorage.';
-            setTimeout(() => {
-                this.errorMessage = '';
-            }, 3000);
+            this.errorMessage = this.translateService.instant('NO_CHECKOUT_DATA');
+            setTimeout(() => { this.errorMessage = ''; }, 3000);
         }
+    }
+
+    private handleError(error: any) {
+        if (error.error?.errors) {
+            this.errorMessage = Object.values(error.error.errors)
+                .flat()
+                .join(' | ');
+        } else {
+            this.errorMessage = error.error?.message || this.translateService.instant('UNEXPECTED_ERROR');
+        }
+        setTimeout(() => { this.errorMessage = ''; }, 3000);
     }
 }

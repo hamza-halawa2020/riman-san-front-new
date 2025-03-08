@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CheckoutService } from '../checkout-page/checkout.service';
 import { ChangeDetectorRef } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-cart-page',
@@ -31,24 +31,25 @@ import { TranslateModule } from '@ngx-translate/core';
     providers: [CartService],
 })
 export class CartPageComponent implements OnInit {
-    data: any;
-    countries: any[] = [];
-    cities: any[] = [];
-    shipments: any[] = [];
+    data: any[] = []; // Array of cart items
+    countries: any[] = []; // Array of countries
+    cities: any[] = []; // Array of cities
+    shipments: any[] = []; // Array of shipments
     shipmentCost: number = 0;
     couponCode: any;
-
-    filteredCities: any[] = [];
-    selectedCountry: any = '';
-    selectedCity: any = '';
+    filteredCities: any[] = []; // Array of filtered cities
+    selectedCountry: string = ''; // ID of selected country
+    selectedCity: string = ''; // ID of selected city
     image = environment.imgUrl + 'products/';
     successMessage: string = '';
     errorMessage: string = '';
+
     constructor(
         public router: Router,
         private cartService: CartService,
         private checkoutService: CheckoutService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        public translateService: TranslateService // Injected as public for template access
     ) {}
 
     ngOnInit(): void {
@@ -82,6 +83,9 @@ export class CartPageComponent implements OnInit {
         if (savedCoupon) {
             this.showCoupon(savedCoupon);
         }
+        this.translateService.onLangChange.subscribe(() => {
+            this.translateData(); // Re-translate data on language change
+        });
     }
 
     preventNonNumeric(event: KeyboardEvent) {
@@ -93,14 +97,23 @@ export class CartPageComponent implements OnInit {
     fetchdata() {
         this.cartService.index().subscribe({
             next: (response) => {
-                this.data = Object.values(response)[0];
+                this.data = Object.values(response)[0] as any[];
+                this.translateData();
+            },
+            error: (error) => {
+                this.handleError(error);
             },
         });
     }
+
     fetchCountries() {
         this.cartService.allCountries().subscribe({
             next: (response) => {
-                this.countries = Object.values(response)[0];
+                this.countries = Object.values(response)[0] as any[];
+                this.translateData();
+            },
+            error: (error) => {
+                this.handleError(error);
             },
         });
     }
@@ -111,10 +124,9 @@ export class CartPageComponent implements OnInit {
         this.cartService.showCoupon(payload).subscribe({
             next: (response: any) => {
                 this.couponCode = Object.values(response)[0];
-
                 this.successMessage =
-                    response.message || 'Coupon applied successfully!';
-
+                    response.message ||
+                    this.translateService.instant('SUCCESS');
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
@@ -122,20 +134,11 @@ export class CartPageComponent implements OnInit {
                 this.cdr.detectChanges();
             },
             error: (error) => {
-                if (error.error?.errors) {
-                    this.errorMessage = Object.values(error.error.errors)
-                        .flat()
-                        .join(' | ');
-                } else {
-                    this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
-                }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                this.handleError(error);
             },
         });
     }
+
     get finalPrice(): number {
         return (
             this.totalAmount +
@@ -147,14 +150,23 @@ export class CartPageComponent implements OnInit {
     fetchCitiess() {
         this.cartService.allCities().subscribe({
             next: (response) => {
-                this.cities = Object.values(response)[0];
+                this.cities = Object.values(response)[0] as any[];
+                this.translateData();
+            },
+            error: (error) => {
+                this.handleError(error);
             },
         });
     }
+
     fetchShipment() {
         this.cartService.allShipments().subscribe({
             next: (response) => {
-                this.shipments = Object.values(response)[0];
+                this.shipments = Object.values(response)[0] as any[];
+                this.translateData();
+            },
+            error: (error) => {
+                this.handleError(error);
             },
         });
     }
@@ -180,7 +192,7 @@ export class CartPageComponent implements OnInit {
     get totalAmount(): number {
         return (
             this.data?.reduce(
-                (sum: any, cart: any) => sum + cart.total_price,
+                (sum: number, cart: any) => sum + cart.total_price,
                 0
             ) || 0
         );
@@ -196,31 +208,32 @@ export class CartPageComponent implements OnInit {
                 this.fetchdata();
             },
             error: (error) => {
-                if (error.error?.errors) {
-                    this.errorMessage = Object.values(error.error.errors)
-                        .flat()
-                        .join(' | ');
-                } else {
-                    this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
-                }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                this.handleError(error);
             },
         });
     }
 
     deleteCartItem(id: number) {
+        const areYouSure = this.translateService.instant('ARE_YOU_SURE');
+        const removeItemConfirm = this.translateService.instant(
+            'REMOVE_ITEM_CONFIRM'
+        );
+        const yesRemoveIt = this.translateService.instant('YES_REMOVE_IT');
+        const cancel = this.translateService.instant('CANCEL');
+        const removed = this.translateService.instant('REMOVED');
+        const productRemovedSuccess = this.translateService.instant(
+            'PRODUCT_REMOVED_SUCCESS'
+        );
+
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'Do you really want to remove this item from the cart?',
+            title: areYouSure,
+            text: removeItemConfirm,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, remove it!',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: yesRemoveIt,
+            cancelButtonText: cancel,
         }).then((result: any) => {
             if (result.isConfirmed) {
                 this.cartService.delete(id).subscribe({
@@ -228,31 +241,22 @@ export class CartPageComponent implements OnInit {
                         this.data = this.data.filter(
                             (item: any) => item.id !== id
                         );
-
                         Swal.fire({
-                            title: 'Removed!',
-                            text: 'Product removed from cart successfully.',
+                            title: removed,
+                            text: productRemovedSuccess,
                             icon: 'success',
                             timer: 1500,
                             showConfirmButton: false,
                         });
-
                         this.cdr.detectChanges();
                     },
                     error: (error) => {
-                        Swal.fire({
-                            title: 'Error!',
-                            text:
-                                error.error?.message ||
-                                'An unexpected error occurred.',
-                            icon: 'error',
-                            timer: 1500,
-                            showConfirmButton: false,
-                        });
+                        this.handleError(error);
                     },
                 });
             }
         });
+        // }
     }
 
     checkout() {
@@ -276,8 +280,9 @@ export class CartPageComponent implements OnInit {
         )?.value.trim();
 
         if (!this.selectedCountry || !this.selectedCity || !address) {
-            this.errorMessage =
-                'Please add your address {country, city, address}';
+            this.errorMessage = this.translateService.instant(
+                'Please add your address {country, city, address}'
+            );
             setTimeout(() => {
                 this.errorMessage = '';
             }, 3000);
@@ -294,8 +299,12 @@ export class CartPageComponent implements OnInit {
         };
 
         const totalPriceData = {
-            country: selectedCountryObj ? selectedCountryObj.name : 'N/A',
-            city: selectedCityObj ? selectedCityObj.name : 'N/A',
+            country: selectedCountryObj
+                ? selectedCountryObj.translatedName || selectedCountryObj.name
+                : 'N/A',
+            city: selectedCityObj
+                ? selectedCityObj.translatedName || selectedCityObj.name
+                : 'N/A',
             coupon: this.couponCode?.code || 'N/A',
             couponName: this.couponCode?.code || 'N/A',
             totalAmount: this.totalAmount,
@@ -310,50 +319,126 @@ export class CartPageComponent implements OnInit {
         this.router.navigate(['/checkout']);
     }
 
+    // clearCart() {
+    //     Swal.fire({
+    //         title: this.translateService.instant('Are you sure?'),
+    //         text: this.translateService.instant(
+    //             'Do you really want to clear the cart?'
+    //         ),
+    //         icon: 'warning',
+    //         showCancelButton: true,
+    //         confirmButtonColor: '#d33',
+    //         cancelButtonColor: '#3085d6',
+    //         confirmButtonText: this.translateService.instant('Yes, clear it!'),
+    //         cancelButtonText: this.translateService.instant('Cancel'),
+    //     }).then((result: any) => {
+    //         if (result.isConfirmed) {
+    //             this.cartService.clearCart().subscribe({
+    //                 next: () => {
+    //                     this.fetchdata();
+    //                     localStorage.removeItem('checkoutData');
+    //                     localStorage.removeItem('totalPriceData');
+    //                     localStorage.removeItem('appliedCoupon');
+    //                     localStorage.setItem('cart', JSON.stringify([]));
+    //                     Swal.fire({
+    //                         title: this.translateService.instant('clear!'),
+    //                         text: this.translateService.instant(
+    //                             'Your cart is clear.'
+    //                         ),
+    //                         icon: 'success',
+    //                         timer: 1500,
+    //                         showConfirmButton: false,
+    //                     });
+    //                     this.cdr.detectChanges();
+    //                 },
+    //                 error: (error) => {
+    //                     this.handleError(error);
+    //                 },
+    //             });
+    //         }
+    //     });
+    // }
+
     clearCart() {
+        const areYouSure = this.translateService.instant('ARE_YOU_SURE');
+        const clearCartConfirm =
+            this.translateService.instant('CLEAR_CART_CONFIRM');
+        const yesClearIt = this.translateService.instant('YES_CLEAR_IT');
+        const cancel = this.translateService.instant('CANCEL');
+        const cleared = this.translateService.instant('CLEAR');
+        const cartClearedSuccess = this.translateService.instant(
+            'CART_CLEARED_SUCCESS'
+        );
+
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'Do you really want to clear the cart?',
+            title: areYouSure,
+            text: clearCartConfirm,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, clear it!',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: yesClearIt,
+            cancelButtonText: cancel,
         }).then((result: any) => {
             if (result.isConfirmed) {
                 this.cartService.clearCart().subscribe({
                     next: () => {
                         this.fetchdata();
-
                         localStorage.removeItem('checkoutData');
                         localStorage.removeItem('totalPriceData');
                         localStorage.removeItem('appliedCoupon');
                         localStorage.setItem('cart', JSON.stringify([]));
-
                         Swal.fire({
-                            title: 'clear!',
-                            text: 'Your cart is clear.',
+                            title: cleared,
+                            text: cartClearedSuccess,
                             icon: 'success',
                             timer: 1500,
                             showConfirmButton: false,
                         });
-
                         this.cdr.detectChanges();
                     },
                     error: (error) => {
-                        Swal.fire({
-                            title: 'Error!',
-                            text:
-                                error.error?.message ||
-                                'An unexpected error occurred.',
-                            icon: 'error',
-                            timer: 1500,
-                            showConfirmButton: false,
-                        });
+                        this.handleError(error);
                     },
                 });
             }
+        });
+    }
+
+    private handleError(error: any) {
+        if (error.error?.errors) {
+            this.errorMessage = Object.values(error.error.errors)
+                .flat()
+                .join(' | ');
+        } else {
+            this.errorMessage =
+                error.error?.message ||
+                this.translateService.instant('UNEXPECTED_ERROR');
+        }
+        setTimeout(() => {
+            this.errorMessage = '';
+        }, 3000);
+    }
+
+    translateData() {
+        // Translate countries
+        this.countries.forEach((country) => {
+            country.translatedName =
+                this.translateService.instant(`${country.name}`) ||
+                country.name;
+        });
+
+        // Translate cities
+        this.cities.forEach((city) => {
+            city.translatedName =
+                this.translateService.instant(`${city.name}`) || city.name;
+        });
+
+        // Translate product titles in cart (if needed)
+        this.data.forEach((cart) => {
+            cart.product.translatedTitle =
+                this.translateService.instant(cart.product.title) ||
+                cart.product.title;
         });
     }
 }

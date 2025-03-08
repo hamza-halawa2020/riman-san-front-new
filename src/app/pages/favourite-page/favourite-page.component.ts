@@ -12,6 +12,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { FavouriteService } from './favourite.service';
 import Swal from 'sweetalert2';
 import { CartService } from '../cart-page/cart.service';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-favourite-page',
@@ -25,6 +26,7 @@ import { CartService } from '../cart-page/cart.service';
         NgIf,
         NgClass,
         CommonModule,
+        TranslateModule, // Added for translations
     ],
     templateUrl: './favourite-page.component.html',
     styleUrl: './favourite-page.component.scss',
@@ -35,35 +37,60 @@ export class FavouritePageComponent implements OnInit {
     image = environment.imgUrl + 'products/';
     successMessage: string = '';
     errorMessage: string = '';
+
     constructor(
         public router: Router,
         private favouriteService: FavouriteService,
-        private cartService: CartService
+        private cartService: CartService,
+        public translateService: TranslateService // Injected for translation
     ) {}
 
     ngOnInit(): void {
         this.fetchdata();
+        this.translateService.onLangChange.subscribe(() => {
+            this.translateData(); // Re-translate data on language change
+        });
     }
 
     fetchdata() {
         this.favouriteService.index().subscribe({
             next: (response) => {
                 this.data = Object.values(response)[0];
+                this.translateData();
             },
-            error: (error) => {},
+            error: (error) => {
+                this.handleError(error);
+            },
         });
     }
 
     deleteItem(id: number) {
+        const areYouSure = this.translateService.instant('ARE_YOU_SURE');
+        const removeItemConfirm = this.translateService.instant(
+            'REMOVE_ITEM_CONFIRM'
+        );
+        const yesRemoveIt = this.translateService.instant('YES_REMOVE_IT');
+        const cancel = this.translateService.instant('CANCEL');
+        const removed = this.translateService.instant('REMOVED');
+        const productRemovedSuccess = this.translateService.instant(
+            'PRODUCT_REMOVED_SUCCESS'
+        );
+
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'Do you really want to remove this item from the Whishlist?',
+            title: areYouSure,
+            text: removeItemConfirm,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, remove it!',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: yesRemoveIt,
+            cancelButtonText: cancel,
+            customClass: {
+                popup:
+                    this.translateService.currentLang === 'ar'
+                        ? 'swal-rtl'
+                        : 'swal-ltr',
+            },
         }).then((result: any) => {
             if (result.isConfirmed) {
                 this.favouriteService.delete(id).subscribe({
@@ -71,25 +98,22 @@ export class FavouritePageComponent implements OnInit {
                         this.data = this.data.filter(
                             (item: any) => item.id !== id
                         );
-
                         Swal.fire({
-                            title: 'Removed!',
-                            text: 'Product removed from Whishlist successfully.',
+                            title: removed,
+                            text: productRemovedSuccess,
                             icon: 'success',
                             timer: 1500,
                             showConfirmButton: false,
+                            customClass: {
+                                popup:
+                                    this.translateService.currentLang === 'ar'
+                                        ? 'swal-rtl'
+                                        : 'swal-ltr',
+                            },
                         });
                     },
                     error: (error) => {
-                        Swal.fire({
-                            title: 'Error!',
-                            text:
-                                error.error?.message ||
-                                'An unexpected error occurred.',
-                            icon: 'error',
-                            timer: 1500,
-                            showConfirmButton: false,
-                        });
+                        this.handleError(error);
                     },
                 });
             }
@@ -97,39 +121,53 @@ export class FavouritePageComponent implements OnInit {
     }
 
     clearFav() {
+        const areYouSure = this.translateService.instant('ARE_YOU_SURE');
+        const clearWishlistConfirm = this.translateService.instant(
+            'CLEAR_WISHLIST_CONFIRM'
+        );
+        const yesClearIt = this.translateService.instant('YES_CLEAR_IT');
+        const cancel = this.translateService.instant('CANCEL');
+        const cleared = this.translateService.instant('CLEAR');
+        const wishlistClearedSuccess = this.translateService.instant(
+            'WISHLIST_CLEARED_SUCCESS'
+        );
+
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'Do you really want to clear the Whishlist?',
+            title: areYouSure,
+            text: clearWishlistConfirm,
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#d33',
             cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Yes, clear it!',
-            cancelButtonText: 'Cancel',
+            confirmButtonText: yesClearIt,
+            cancelButtonText: cancel,
+            customClass: {
+                popup:
+                    this.translateService.currentLang === 'ar'
+                        ? 'swal-rtl'
+                        : 'swal-ltr',
+            },
         }).then((result: any) => {
             if (result.isConfirmed) {
                 this.favouriteService.clearFav().subscribe({
                     next: () => {
                         this.fetchdata();
-
                         Swal.fire({
-                            title: 'clear!',
-                            text: 'Your Whishlist is clear.',
+                            title: cleared,
+                            text: wishlistClearedSuccess,
                             icon: 'success',
                             timer: 1500,
                             showConfirmButton: false,
+                            customClass: {
+                                popup:
+                                    this.translateService.currentLang === 'ar'
+                                        ? 'swal-rtl'
+                                        : 'swal-ltr',
+                            },
                         });
                     },
                     error: (error) => {
-                        Swal.fire({
-                            title: 'Error!',
-                            text:
-                                error.error?.message ||
-                                'An unexpected error occurred.',
-                            icon: 'error',
-                            timer: 1500,
-                            showConfirmButton: false,
-                        });
+                        this.handleError(error);
                     },
                 });
             }
@@ -141,19 +179,18 @@ export class FavouritePageComponent implements OnInit {
 
         this.cartService.addToCart(payload).subscribe({
             next: (response) => {
-                this.successMessage = 'Product added to cart successfully!';
+                this.successMessage = this.translateService.instant(
+                    'PRODUCT_ADDED_TO_CART'
+                );
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
 
-                // البحث عن العنصر في قائمة الـ favorites
                 const itemIndex = this.data.findIndex(
                     (item: any) => item.product_id === product_id
                 );
-
                 if (itemIndex !== -1) {
-                    const favouriteId = this.data[itemIndex].id; // ID الخاص بالـ Favourite
-
+                    const favouriteId = this.data[itemIndex].id;
                     this.favouriteService.delete(favouriteId).subscribe({
                         next: () => {
                             this.data.splice(itemIndex, 1);
@@ -168,18 +205,34 @@ export class FavouritePageComponent implements OnInit {
                 }
             },
             error: (error) => {
-                if (error.error?.errors) {
-                    this.errorMessage = Object.values(error.error.errors)
-                        .flat()
-                        .join(' | ');
-                } else {
-                    this.errorMessage =
-                        error.error?.message || 'An unexpected error occurred.';
-                }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                this.handleError(error);
             },
         });
+    }
+
+    private handleError(error: any) {
+        if (error.error?.errors) {
+            this.errorMessage = Object.values(error.error.errors)
+                .flat()
+                .join(' | ');
+        } else {
+            this.errorMessage =
+                error.error?.message ||
+                this.translateService.instant('UNEXPECTED_ERROR');
+        }
+        setTimeout(() => {
+            this.errorMessage = '';
+        }, 3000);
+    }
+
+    private translateData() {
+        // Translate product titles if needed (optional, based on your data structure)
+        if (this.data) {
+            this.data.forEach((item: any) => {
+                item.product.translatedTitle =
+                    this.translateService.instant(item.product.title) ||
+                    item.product.title;
+            });
+        }
     }
 }

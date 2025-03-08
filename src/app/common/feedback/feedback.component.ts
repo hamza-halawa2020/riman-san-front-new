@@ -7,6 +7,8 @@ import { environment } from '../../../environments/environment.development';
 import { FeedBackService } from './feed-back.service';
 import { formatDistanceToNow } from 'date-fns';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ar } from 'date-fns/locale'; // Import Arabic locale
+import { enUS } from 'date-fns/locale'; // Import English locale
 
 @Component({
     selector: 'app-feedback',
@@ -108,6 +110,8 @@ export class FeedbackComponent implements OnInit {
 
     getRelativeTime(dateString: string): string {
         const date = new Date(dateString);
-        return formatDistanceToNow(date, { addSuffix: true }); // e.g., "2 days ago"
+        const locale = this.translate.currentLang === 'ar' ? ar : enUS;
+
+        return formatDistanceToNow(date, { addSuffix: true,locale }); // e.g., "2 days ago"
     }
 }
