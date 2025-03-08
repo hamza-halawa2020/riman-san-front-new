@@ -78,6 +78,7 @@ a {
 
         .profile-image-wrapper {
             margin-right: 2rem;
+            margin-left: 2rem;
 
             .profile-img {
                 width: 120px;
@@ -179,7 +180,8 @@ a {
             }
 
             .detail-label {
-                width: 120px;
+                // width: 95px;
+                padding: 0 10px;
                 font-weight: 600;
                 color: #4c0048;
                 display: flex;

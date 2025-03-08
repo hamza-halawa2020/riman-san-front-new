@@ -1,8 +1,8 @@
-<div class="orders-container">
+<div class="orders-container" [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
     <!-- Loading State -->
     <div class="loading" *ngIf="isLoading">
         <i class="fas fa-spinner fa-spin fa-2x"></i>
-        <p>Loading your orders...</p>
+        <p>{{ "LOADING_ORDERS" | translate }}</p>
     </div>
 
     <!-- Orders List -->
@@ -12,7 +12,7 @@
                 <!-- Order Header -->
                 <div class="order-header" (click)="toggleOrderDetails(order.id)">
                     <div class="order-number">
-                        <span>Order #{{ order.order_number }}</span>
+                        <span>{{ "ORDER_NUMBER" | translate }}{{ order.order_number }}</span>
                     </div>
                     <div class="order-status">
                         <span class="badge" [ngClass]="{
@@ -24,10 +24,10 @@
                         </span>
                     </div>
                     <div class="order-date">
-                        Placed: {{ order.created_at | date: 'medium' }}
+                        {{ "PLACED" | translate }}: {{ getLocalizedDate(order.created_at) }}
                     </div>
                     <div class="order-total">
-                        Total: ${{ order.total_price }}
+                        {{ "TOTAL" | translate }}: {{ order.total_price }}
                     </div>
                     <div class="toggle-icon">
                         <i class="fas" [ngClass]="expandedOrderId === order.id ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
@@ -39,40 +39,40 @@
                     <div class="row">
                         <!-- Order Info -->
                         <div class="col-md-6">
-                            <h5>Order Information</h5>
+                            <h5>{{ "ORDER_INFORMATION" | translate }}</h5>
                             <div class="info-item">
-                                <strong>Payment Method:</strong> {{ order.payment_method | titlecase }}
+                                <strong>{{ "PAYMENT_METHOD" | translate }}:</strong> {{ order.payment_method | titlecase }}
                             </div>
                             <div class="info-item">
-                                <strong>Shipping Cost:</strong> ${{ order.shipment_cost }}
+                                <strong>{{ "SHIPPING_COST" | translate }}:</strong> {{ order.shipment_cost }}
                             </div>
                             <div class="info-item" *ngIf="order.coupon_discount !== '0.00'">
-                                <strong>Coupon Discount:</strong> ${{ order.coupon_discount }}
+                                <strong>{{ "COUPON_DISCOUNT" | translate }}:</strong> {{ order.coupon_discount }}
                             </div>
                             <div class="info-item" *ngIf="order.notes">
-                                <strong>Notes:</strong> {{ order.notes }}
+                                <strong>{{ "NOTES" | translate }}:</strong> {{ order.notes }}
                             </div>
                             <div class="info-item">
-                                <strong>Shipping Address:</strong>
+                                <strong>{{ "SHIPPING_ADDRESS" | translate }}:</strong>
                                 <p>{{ order.address.address }}, {{ order.address.city }}, {{ order.address.country }}</p>
                             </div>
                         </div>
 
                         <!-- Order Items -->
                         <div class="col-md-6">
-                            <h5>Items</h5>
+                            <h5>{{ "ITEMS" | translate }}</h5>
                             <div class="items-list">
                                 <div class="item-card" *ngFor="let item of order.orderItems">
                                     <img 
                                         [src]="item.product.productImages[0]?.image ? image + item.product.productImages[0].image : 'assets/placeholder.jpg'" 
-                                        alt="{{ item.product.title }}" 
+                                        [alt]="item.product.title | translate"
                                         class="item-image"
                                     >
-                                    <div class="item-details">
+                                    <div class="item-details px-3">
                                         <h6>{{ item.product.title }}</h6>
-                                        <p>Quantity: {{ item.quantity }}</p>
-                                        <p>Price: ${{ item.product.priceAfterDiscount }}</p>
-                                        <p>Total: ${{ item.total }}</p>
+                                        <p>{{ "QUANTITY" | translate }}: {{ item.quantity }}</p>
+                                        <p>{{ "PRICE" | translate }}: {{ item.product.priceAfterDiscount }}</p>
+                                        <p>{{ "TOTAL" | translate }}: {{ item.total }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -87,8 +87,8 @@
     <ng-template #noOrders>
         <div class="no-orders" *ngIf="!isLoading">
             <i class="fas fa-shopping-bag fa-3x mb-3"></i>
-            <h4>No Orders Found</h4>
-            <p>You haven't placed any orders yet.</p>
+            <h4>{{ "NO_ORDERS_FOUND" | translate }}</h4>
+            <p>{{ "YOU_HAVENT_PLACED_ORDERS" | translate }}</p>
         </div>
     </ng-template>
 </div>

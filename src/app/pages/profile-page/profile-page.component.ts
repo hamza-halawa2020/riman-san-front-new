@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
@@ -8,8 +8,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../environments/environment.development';
 import { OrderComponent } from './orders/orders.component';
-import { ChangeDetectorRef } from '@angular/core';
-
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { formatDistanceToNow } from 'date-fns';
+import { ar } from 'date-fns/locale'; // Import Arabic locale
+import { enUS } from 'date-fns/locale'; // Import English locale
 @Component({
     selector: 'app-profile-page',
     standalone: true,
@@ -21,6 +23,7 @@ import { ChangeDetectorRef } from '@angular/core';
         CommonModule,
         OrderComponent,
         FormsModule,
+        TranslateModule, // Added for translations
     ],
     templateUrl: './profile-page.component.html',
     styleUrl: './profile-page.component.scss',
@@ -33,15 +36,17 @@ export class ProfilePageComponent implements OnInit {
     selectedAddress: any = null;
     showEditModal: boolean = false;
     showDeleteModal: boolean = false;
-    showProfileEditModal: boolean = false; // New modal for profile edit
-    editedProfile: any = {}; // Object to hold edited profile data
+    showProfileEditModal: boolean = false;
+    editedProfile: any = {};
     successMessage: string = '';
     errorMessage: string = '';
 
     constructor(
         private profileService: ProfileService,
-        private cdr: ChangeDetectorRef
-    ) {}
+        private cdr: ChangeDetectorRef,
+        public translateService: TranslateService // Added for translations
+    ) // private dateLocalizationService: DateLocalizationService // Added for localized dates
+    {}
 
     ngOnInit(): void {
         this.fetchdata();
@@ -53,7 +58,9 @@ export class ProfilePageComponent implements OnInit {
                 this.data = Object.values(response)[0];
             },
             error: (err) => {
-                (this.errorMessage = 'Error fetching profile address'), err;
+                this.errorMessage = this.translateService.instant(
+                    'ERROR_FETCHING_PROFILE'
+                );
                 setTimeout(() => {
                     this.errorMessage = '';
                 }, 3000);
@@ -93,15 +100,18 @@ export class ProfilePageComponent implements OnInit {
                                 ...this.selectedAddress,
                             };
                         }
-                        this.successMessage = 'Your address Updated!';
+                        this.successMessage = this.translateService.instant(
+                            'ADDRESS_UPDATED_SUCCESS'
+                        );
                         setTimeout(() => {
                             this.successMessage = '';
                         }, 3000);
-
                         this.closeModal();
                     },
                     error: (err) => {
-                        (this.errorMessage = 'Error updating address'), err;
+                        this.errorMessage = this.translateService.instant(
+                            'ERROR_UPDATING_ADDRESS'
+                        );
                         setTimeout(() => {
                             this.errorMessage = '';
                         }, 3000);
@@ -126,13 +136,17 @@ export class ProfilePageComponent implements OnInit {
                             (a: any) => a.id !== this.selectedAddress.id
                         );
                         this.closeModal();
-                        this.successMessage = 'Your address Deleted!';
+                        this.successMessage = this.translateService.instant(
+                            'ADDRESS_DELETED_SUCCESS'
+                        );
                         setTimeout(() => {
                             this.successMessage = '';
                         }, 3000);
                     },
                     error: (err) => {
-                        (this.errorMessage = 'Error deleting address'), err;
+                        this.errorMessage = this.translateService.instant(
+                            'ERROR_DELETING_ADDRESS'
+                        );
                         setTimeout(() => {
                             this.errorMessage = '';
                         }, 3000);
@@ -148,7 +162,7 @@ export class ProfilePageComponent implements OnInit {
             email: this.data.email,
             phone: this.data.phone || '',
             image: this.data.image,
-            password: '', // Optional field for password change
+            password: '',
         };
         this.showProfileEditModal = true;
     }
@@ -167,19 +181,22 @@ export class ProfilePageComponent implements OnInit {
 
         this.profileService.updateProfile(this.data.id, formData).subscribe({
             next: (response) => {
-                this.data = { ...this.data, ...response.data }; // Merge response data
+                this.data = { ...this.data, ...response.data };
                 this.fetchdata();
                 this.showProfileEditModal = false;
                 this.editedProfile = {};
-                this.cdr.detectChanges(); // Manually trigger change detection
-
-                this.successMessage = 'Your Profile Updated!';
+                this.cdr.detectChanges();
+                this.successMessage = this.translateService.instant(
+                    'PROFILE_UPDATED_SUCCESS'
+                );
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 3000);
             },
             error: (err) => {
-                (this.errorMessage = 'Error updating profile'), err;
+                this.errorMessage = this.translateService.instant(
+                    'ERROR_UPDATING_PROFILE'
+                );
                 setTimeout(() => {
                     this.errorMessage = '';
                 }, 3000);
@@ -189,7 +206,7 @@ export class ProfilePageComponent implements OnInit {
 
     onFileChange(event: any) {
         if (event.target.files && event.target.files.length > 0) {
-            this.editedProfile.image = event.target.files[0]; // Store the file object
+            this.editedProfile.image = event.target.files[0];
         }
     }
 
@@ -199,5 +216,11 @@ export class ProfilePageComponent implements OnInit {
         this.showProfileEditModal = false;
         this.selectedAddress = null;
         this.editedProfile = {};
+    }
+
+    getRelativeTime(dateString: string): string {
+        const date = new Date(dateString);
+        const locale = this.translateService.currentLang === 'ar' ? ar : enUS;
+        return formatDistanceToNow(date, { addSuffix: true, locale }); // e.g., "2 days ago" or "منذ يومين"
     }
 }
