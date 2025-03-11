@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { environment } from '../../../../environments/environment.development';
 import { OrderService } from './order.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-// import { DateLocalizationService } from '../date-localization.service'; // Assuming this exists
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-orders',
     standalone: true,
-    imports: [CommonModule, TranslateModule], // Added TranslateModule
+    imports: [CommonModule, TranslateModule, RouterLink],
     templateUrl: './orders.component.html',
     styleUrl: './orders.component.scss',
 })
@@ -20,8 +20,7 @@ export class OrderComponent implements OnInit {
 
     constructor(
         private orderService: OrderService,
-        public translateService: TranslateService, // Added for translations
-        // private dateLocalizationService: DateLocalizationService // Added for localized dates
+        public translateService: TranslateService
     ) {}
 
     ngOnInit(): void {
@@ -48,6 +47,20 @@ export class OrderComponent implements OnInit {
     }
 
     getLocalizedDate(dateString: string) {
-        // return this.dateLocalizationService.getRelativeTime(dateString);
+        // Implement date localization if needed
+        return dateString; // Placeholder; replace with actual localization logic
+    }
+
+    // Method to translate the order status
+    translateStatus(status: string): string {
+        const statusTranslations: { [key: string]: string } = {
+            'Pending': 'STATUS_PENDING',
+            'Awaiting Payment': 'STATUS_AWAITING_PAYMENT',
+            'Shipped': 'STATUS_SHIPPED',
+            'Delivered': 'STATUS_DELIVERED'
+        };
+
+        const translationKey = statusTranslations[status] || 'UNKNOWN_STATUS';
+        return this.translateService.instant(translationKey);
     }
 }
