@@ -1,4 +1,10 @@
 <div [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loader-overlay">
+        <div class="spinner"></div>
+        <p>{{ "LOADING" | translate }}</p>
+    </div>
+
     <app-navbar />
 
     <app-page-banner />
@@ -346,12 +352,14 @@
                                 *ngIf="isLoggedIn"
                             >
                                 <div class="content">
+                                    <!-- Disable button during loading -->
                                     <button
                                         (click)="proceedToCheckout()"
                                         class="btn"
                                         [title]="
                                             'PROCEED_TO_CHECKOUT' | translate
                                         "
+                                        [disabled]="isLoading"
                                     >
                                         {{ "PROCEED_TO_CHECKOUT" | translate }}
                                     </button>
@@ -362,12 +370,14 @@
                                 *ngIf="!isLoggedIn"
                             >
                                 <div class="content">
+                                    <!-- Disable button during loading -->
                                     <button
                                         (click)="proceedToClientCheckout()"
                                         class="btn"
                                         [title]="
                                             'PROCEED_TO_CHECKOUT' | translate
                                         "
+                                        [disabled]="isLoading"
                                     >
                                         {{ "PROCEED_TO_CHECKOUT" | translate }}
                                     </button>

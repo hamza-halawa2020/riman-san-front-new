@@ -42,6 +42,7 @@ export class CheckoutPageComponent implements OnInit {
     successMessage: string = '';
     errorMessage: string = '';
     isLoggedIn: boolean = false;
+    isLoading: boolean = false; // Add loading state flag
 
     constructor(
         public router: Router,
@@ -49,7 +50,7 @@ export class CheckoutPageComponent implements OnInit {
         private cartService: CartService,
         private clientCartService: ClientCartService,
         private loginService: LoginService,
-        public translateService: TranslateService // Injected for translation
+        public translateService: TranslateService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
     }
@@ -83,7 +84,10 @@ export class CheckoutPageComponent implements OnInit {
         const product = this.products?.find((p: any) => p.id === productId);
         return product
             ? { title: product.title, image: product.productImages[0].image }
-            : { title: this.translateService.instant('Unknown'), image: 'default.png' };
+            : {
+                  title: this.translateService.instant('Unknown'),
+                  image: 'default.png',
+              };
     }
 
     updatePaymentMethod(method: string) {
@@ -102,51 +106,76 @@ export class CheckoutPageComponent implements OnInit {
                 let checkoutData = JSON.parse(storedData);
 
                 if (!checkoutData.payment_method) {
-                    this.errorMessage = this.translateService.instant('PLEASE_SELECT_PAYMENT_METHOD');
-                    setTimeout(() => { this.errorMessage = ''; }, 3000);
+                    this.errorMessage = this.translateService.instant(
+                        'PLEASE_SELECT_PAYMENT_METHOD'
+                    );
+                    setTimeout(() => {
+                        this.errorMessage = '';
+                    }, 3000);
                     return;
                 }
+
+                // Show loader
+                this.isLoading = true;
 
                 if (checkoutData.payment_method === 'cash_on_delivery') {
                     this.checkoutService.storeOrder(checkoutData).subscribe({
                         next: () => {
-                            this.successMessage = this.translateService.instant('ORDER_PLACED_CASH_SUCCESS');
-                            setTimeout(() => { this.successMessage = ''; }, 3000);
+                            this.successMessage = this.translateService.instant(
+                                'ORDER_PLACED_CASH_SUCCESS'
+                            );
+                            setTimeout(() => {
+                                this.successMessage = '';
+                            }, 3000);
                             localStorage.removeItem('checkoutData');
                             localStorage.removeItem('totalPriceData');
                             localStorage.removeItem('appliedCoupon');
                             this.checkoutData = null;
                             this.totalPriceData = null;
                             this.cartService.clearCart().subscribe();
+                            this.isLoading = false; // Hide loader
                         },
                         error: (error) => {
                             this.handleError(error);
+                            this.isLoading = false; // Hide loader on error
                         },
                     });
                 } else if (checkoutData.payment_method === 'visa') {
                     this.checkoutService.storeOrder(checkoutData).subscribe({
                         next: (orderResponse: any) => {
                             const payLoad = { orderID: orderResponse.data.id };
-                            this.checkoutService.getPaymentLink(payLoad).subscribe({
-                                next: (paymentResponse: any) => {
-                                    window.open(paymentResponse.iframe_url, '_blank');
-                                },
-                                error: (error) => {
-                                    this.handleError(error);
-                                },
-                            });
+                            this.checkoutService
+                                .getPaymentLink(payLoad)
+                                .subscribe({
+                                    next: (paymentResponse: any) => {
+                                        window.open(
+                                            paymentResponse.iframe_url,
+                                            '_blank'
+                                        );
+                                        this.isLoading = false; // Hide loader after opening Visa page
+                                    },
+                                    error: (error) => {
+                                        this.handleError(error);
+                                        this.isLoading = false; // Hide loader on error
+                                    },
+                                });
                         },
                         error: (error) => {
                             this.handleError(error);
+                            this.isLoading = false; // Hide loader on error
                         },
                     });
                 }
             } catch (error: any) {
                 this.handleError(error);
+                this.isLoading = false; // Hide loader on error
             }
         } else {
-            this.errorMessage = this.translateService.instant('NO_CHECKOUT_DATA');
-            setTimeout(() => { this.errorMessage = ''; }, 3000);
+            this.errorMessage =
+                this.translateService.instant('NO_CHECKOUT_DATA');
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 3000);
         }
     }
 
@@ -157,51 +186,83 @@ export class CheckoutPageComponent implements OnInit {
                 let checkoutData = JSON.parse(storedData);
 
                 if (!checkoutData.payment_method) {
-                    this.errorMessage = this.translateService.instant('PLEASE_SELECT_PAYMENT_METHOD');
-                    setTimeout(() => { this.errorMessage = ''; }, 3000);
+                    this.errorMessage = this.translateService.instant(
+                        'PLEASE_SELECT_PAYMENT_METHOD'
+                    );
+                    setTimeout(() => {
+                        this.errorMessage = '';
+                    }, 3000);
                     return;
                 }
 
+                // Show loader
+                this.isLoading = true;
+
                 if (checkoutData.payment_method === 'cash_on_delivery') {
-                    this.checkoutService.storeClientOrder(checkoutData).subscribe({
-                        next: () => {
-                            this.successMessage = this.translateService.instant('ORDER_PLACED_CASH_SUCCESS');
-                            setTimeout(() => { this.successMessage = ''; }, 3000);
-                            localStorage.removeItem('checkoutData');
-                            localStorage.removeItem('totalPriceData');
-                            localStorage.removeItem('appliedCoupon');
-                            this.checkoutData = null;
-                            this.totalPriceData = null;
-                            this.clientCartService.clearCart();
-                        },
-                        error: (error) => {
-                            this.handleError(error);
-                        },
-                    });
+                    this.checkoutService
+                        .storeClientOrder(checkoutData)
+                        .subscribe({
+                            next: () => {
+                                this.successMessage =
+                                    this.translateService.instant(
+                                        'ORDER_PLACED_CASH_SUCCESS'
+                                    );
+                                setTimeout(() => {
+                                    this.successMessage = '';
+                                }, 3000);
+                                localStorage.removeItem('checkoutData');
+                                localStorage.removeItem('totalPriceData');
+                                localStorage.removeItem('appliedCoupon');
+                                this.checkoutData = null;
+                                this.totalPriceData = null;
+                                this.clientCartService.clearCart();
+                                this.isLoading = false; // Hide loader
+                            },
+                            error: (error) => {
+                                this.handleError(error);
+                                this.isLoading = false; // Hide loader on error
+                            },
+                        });
                 } else if (checkoutData.payment_method === 'visa') {
-                    this.checkoutService.storeClientOrder(checkoutData).subscribe({
-                        next: (orderResponse: any) => {
-                            const payLoad = { orderID: orderResponse.data.id };
-                            this.checkoutService.getPaymentLink(payLoad).subscribe({
-                                next: (paymentResponse: any) => {
-                                    window.open(paymentResponse.iframe_url, '_blank');
-                                },
-                                error: (error) => {
-                                    this.handleError(error);
-                                },
-                            });
-                        },
-                        error: (error) => {
-                            this.handleError(error);
-                        },
-                    });
+                    this.checkoutService
+                        .storeClientOrder(checkoutData)
+                        .subscribe({
+                            next: (orderResponse: any) => {
+                                const payLoad = {
+                                    orderID: orderResponse.data.id,
+                                };
+                                this.checkoutService
+                                    .getPaymentLink(payLoad)
+                                    .subscribe({
+                                        next: (paymentResponse: any) => {
+                                            window.open(
+                                                paymentResponse.iframe_url,
+                                                '_blank'
+                                            );
+                                            this.isLoading = false; // Hide loader after opening Visa page
+                                        },
+                                        error: (error) => {
+                                            this.handleError(error);
+                                            this.isLoading = false; // Hide loader on error
+                                        },
+                                    });
+                            },
+                            error: (error) => {
+                                this.handleError(error);
+                                this.isLoading = false; // Hide loader on error
+                            },
+                        });
                 }
             } catch (error: any) {
                 this.handleError(error);
+                this.isLoading = false; // Hide loader on error
             }
         } else {
-            this.errorMessage = this.translateService.instant('NO_CHECKOUT_DATA');
-            setTimeout(() => { this.errorMessage = ''; }, 3000);
+            this.errorMessage =
+                this.translateService.instant('NO_CHECKOUT_DATA');
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 3000);
         }
     }
 
@@ -211,8 +272,12 @@ export class CheckoutPageComponent implements OnInit {
                 .flat()
                 .join(' | ');
         } else {
-            this.errorMessage = error.error?.message || this.translateService.instant('UNEXPECTED_ERROR');
+            this.errorMessage =
+                error.error?.message ||
+                this.translateService.instant('UNEXPECTED_ERROR');
         }
-        setTimeout(() => { this.errorMessage = ''; }, 3000);
+        setTimeout(() => {
+            this.errorMessage = '';
+        }, 3000);
     }
 }
