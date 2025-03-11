@@ -339,7 +339,10 @@
                                                             else noCities
                                                         "
                                                     >
-                                                        <option
+                                                        <option>
+                                                            {{'please choose city'| translate}}
+                                                        </option>
+                                                        <option 
                                                             *ngFor="
                                                                 let city of filteredCities
                                                             "
@@ -435,7 +438,7 @@
                                                         >
                                                     </td>
                                                 </tr>
-                                                <tr >
+                                                <tr>
                                                     <td>
                                                         {{
                                                             "SHIPPING"
