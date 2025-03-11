@@ -7,10 +7,10 @@
             404
         </h1>
         <p class="mx-auto">
-            The page you are looking for might have been removed had its name changed or is temporarily unavailable.
+            {{ 'PAGE_NOT_FOUND_MESSAGE' | translate }}
         </p>
         <a routerLink="/" class="default-btn">
-            Back To Home
+            {{ 'BACK_TO_HOME' | translate }}
         </a>
     </div>
 </div>

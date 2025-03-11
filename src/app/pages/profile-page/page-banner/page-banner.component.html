@@ -8,10 +8,12 @@
                 data-wow-delay="0.3s"
                 data-wow-offset="0"
             >
-                <h1>Profile Page</h1>
+                <h1>{{ "MY_PROFILE" | translate }}</h1>
                 <ul>
-                    <li><a routerLink="/">Home</a></li>
-                    <li>/ Profile</li>
+                    <li>
+                        <a routerLink="/">{{ "HOME" | translate }} </a>
+                    </li>
+                    <li>/ {{ "MY_PROFILE" | translate }}</li>
                 </ul>
             </div>
             <!-- //.HERO-TEXT -->
