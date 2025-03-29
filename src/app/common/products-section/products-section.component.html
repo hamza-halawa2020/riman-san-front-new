@@ -107,8 +107,8 @@
                         <i class="far fa-heart"></i>
                     </button>
                     <button
-                        *ngIf="!isLoggedIn"
                         class="favorite-btn"
+                        *ngIf="!isLoggedIn"
                         (click)="addToClientFavourite(product)"
                     >
                         <i class="far fa-heart"></i>
@@ -142,21 +142,9 @@
                                 <div
                                     class="quantity-selector d-flex align-items-center"
                                 >
-                                    <button
-                                        class="quantity-btn"
-                                        (click)="decreaseQuantity(product.id)"
-                                    >
-                                        -
-                                    </button>
-                                    <span class="quantity">{{
-                                        quantities[product.id] || 1
-                                    }}</span>
-                                    <button
-                                        class="quantity-btn"
-                                        (click)="increaseQuantity(product.id)"
-                                    >
-                                        +
-                                    </button>
+                                    <!-- <button class="quantity-btn">-</button>
+                                    <span class="quantity">1</span>
+                                    <button class="quantity-btn">+</button> -->
 
                                     <button
                                         class="btn add-to-cart-btn"

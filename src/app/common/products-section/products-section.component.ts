@@ -23,7 +23,6 @@ export class ProductsSectionComponent implements OnInit {
     activeFilter: string = 'all';
     image = environment.imgUrl + 'products/';
     hoverImages: { [key: number]: string } = {};
-    quantities: { [key: number]: number } = {}; // متغير جديد لتتبع الكميات
     successMessage: string = '';
     errorMessage: string = '';
     isLoggedIn: boolean = false;
@@ -53,10 +52,6 @@ export class ProductsSectionComponent implements OnInit {
             next: (response) => {
                 this.products = Object.values(response)[0];
                 this.setFilter('all');
-                // تهيئة الكمية الافتراضية لكل منتج إلى 1
-                this.products.forEach((product) => {
-                    this.quantities[product.id] = 1;
-                });
                 this.cdr.detectChanges();
             },
             error: (error) => {
@@ -82,25 +77,13 @@ export class ProductsSectionComponent implements OnInit {
         this.cdr.detectChanges();
     }
 
-    // دالة لزيادة الكمية
-    increaseQuantity(productId: number): void {
-        this.quantities[productId] = (this.quantities[productId] || 1) + 1;
-        this.cdr.detectChanges();
-    }
-
-    // دالة لتقليل الكمية (الحد الأدنى 1)
-    decreaseQuantity(productId: number): void {
-        if (this.quantities[productId] > 1) {
-            this.quantities[productId]--;
-            this.cdr.detectChanges();
-        }
-    }
-
     getRandomImage(images: any[]): string {
         if (!images || images.length <= 1) {
+            // If 0 or 1 image, no hover options
             return 'assets/default-image.jpg';
         }
-        const randomIndex = Math.floor(Math.random() * (images.length - 1)) + 1;
+        // Select from images excluding index 0
+        const randomIndex = Math.floor(Math.random() * (images.length - 1)) + 1; // Start from 1 to length-1
         return `${this.image}${images[randomIndex]?.image || ''}`;
     }
 
@@ -140,10 +123,7 @@ export class ProductsSectionComponent implements OnInit {
                 this.errorMessage = '';
             }, 1000);
         } else {
-            const productToAdd = {
-                ...product,
-                quantity: this.quantities[product.id] ,
-            };
+            const productToAdd = { ...product, quantity: 1 };
             this.cartClientService.addToClientCart(productToAdd);
 
             this.successMessage = this.translate.instant(
@@ -158,7 +138,6 @@ export class ProductsSectionComponent implements OnInit {
     addToCart(product_id: any) {
         const payload = {
             product_id: product_id,
-            quantity: this.quantities[product_id],
         };
 
         this.cartService.addToCart(payload).subscribe({
