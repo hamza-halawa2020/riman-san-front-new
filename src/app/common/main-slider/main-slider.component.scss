@@ -3,11 +3,9 @@
     height: 70vh;
     width: 100%;
 }
+
 .new-class {
-    padding: {
-        // top: 110px;
-        // bottom: 50px;
-    }
+    position: relative;
 }
 
 .carousel-image {
@@ -25,14 +23,126 @@
     color: white;
     width: 80%;
     max-width: 600px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .overlay-content h3 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
+    font-weight: 700;
 }
 
 .overlay-content p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     line-height: 1.5;
+    font-weight: 500;
+}
+
+.owl-dots {
+    position: absolute;
+    // bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+
+    .owl-dot {
+        span {
+            background: rgba(255, 255, 255, 0.5);
+            width: 12px;
+            height: 12px;
+            // margin: 0 5px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        &.active span {
+            background: #fff;
+        }
+
+        &:hover span {
+            background: rgba(255, 255, 255, 0.8);
+        }
+    }
+}
+
+.custom-nav {
+    .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 15px;
+        font-size: 1.5rem;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.3s ease, background 0.3s ease;
+        z-index: 10;
+    }
+
+    .prev-btn {
+        left: 20px;
+    }
+
+    .next-btn {
+        right: 20px;
+    }
+}
+
+.main-slider:hover {
+    .custom-nav .nav-btn {
+        opacity: 1;
+    }
+}
+
+.custom-nav .nav-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+[dir="rtl"] {
+    .custom-nav {
+        .prev-btn {
+            right: 20px;
+            left: auto;
+            i {
+                transform: rotate(180deg);
+            }
+        }
+
+        .next-btn {
+            left: 20px;
+            right: auto;
+            i {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .image-container {
+        height: 50vh;
+    }
+
+    .carousel-image {
+        height: 50vh;
+    }
+
+    .overlay-content h3 {
+        font-size: 1.8rem;
+    }
+
+    .overlay-content p {
+        font-size: 1rem;
+    }
+
+    .custom-nav .nav-btn {
+        padding: 10px;
+        font-size: 1.2rem;
+    }
+
+    .owl-dots {
+        bottom: 10px;
+    }
 }

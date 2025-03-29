@@ -1,7 +1,7 @@
 import { CommonModule, NgClass, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { CarouselComponent, CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { MainSliderService } from './main-slider.service';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
@@ -19,18 +19,23 @@ import { TranslateService } from '@ngx-translate/core';
         HttpClientModule,
     ],
     templateUrl: './main-slider.component.html',
-    styleUrl: './main-slider.component.scss',
+    styleUrls: ['./main-slider.component.scss'],
     providers: [MainSliderService],
 })
 export class MainSlider implements OnInit {
     sliderData: any;
     image = environment.imgUrl + 'main-sliders/';
+
+    // Reference to the OwlCarousel component
+    @ViewChild('owlCarousel', { static: false }) owlCarousel!: CarouselComponent;
+
     currentOptions: OwlOptions;
+
     feedbackSlides: OwlOptions = {
         items: 1,
-        nav: false,
+        nav: false, // Disable default nav buttons
         loop: true,
-        margin: 25,
+        // margin: 25,
         dots: true,
         autoplay: true,
         autoplayHoverPause: true,
@@ -40,17 +45,13 @@ export class MainSlider implements OnInit {
                 autoHeight: false,
             },
         },
-        navText: [
-            "<i class='fa-solid fa-chevron-left'></i>",
-            "<i class='fa-solid fa-chevron-right'></i>",
-        ],
     };
 
     feedbackSlides2: OwlOptions = {
         items: 1,
-        nav: false,
+        nav: false, // Disable default nav buttons
         loop: true,
-        margin: 25,
+        // margin: 25,
         dots: true,
         autoplay: true,
         autoplayHoverPause: true,
@@ -61,10 +62,6 @@ export class MainSlider implements OnInit {
                 autoHeight: false,
             },
         },
-        navText: [
-            "<i class='fa-solid fa-arrow-right'></i>",
-            "<i class='fa-solid fa-arrow-left'></i>",
-        ],
     };
 
     constructor(
@@ -94,5 +91,18 @@ export class MainSlider implements OnInit {
                 this.sliderData = Object.values(response)[0];
             },
         });
+    }
+
+    // Methods to navigate the carousel
+    prevSlide() {
+        if (this.owlCarousel) {
+            this.owlCarousel.prev();
+        }
+    }
+
+    nextSlide() {
+        if (this.owlCarousel) {
+            this.owlCarousel.next();
+        }
     }
 }

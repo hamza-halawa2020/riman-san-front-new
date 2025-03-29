@@ -1,0 +1,152 @@
+.category-section {
+    background-color: #fff;
+
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #333;
+        text-transform: uppercase;
+    }
+
+    .category-card {
+        text-decoration: none;
+        display: block;
+
+        .card {
+            border: none;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+
+            &.large-card {
+                height: 600px; // Height for the large card container (matches the image)
+            }
+
+            &.small-card {
+                height: 400px; // Height for the small card container (matches the image)
+            }
+
+            .card-img {
+                width: 100%;
+                height: 100%; // Image takes the full height of the container
+                object-fit: cover; // Scale image to cover the container
+                transition: transform 1.3s ease; // Smooth transition for zoom effect
+            }
+
+            .overlay {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 50%; // Start small
+                height: 50%; // Start small
+                background: rgba(
+                    255,
+                    255,
+                    255,
+                    0.1
+                ); // Semi-transparent white overlay
+                border-radius: 50%; // Make it circular (bubble-like)
+                transform: translate(-50%, -50%); // Center the bubble
+                opacity: 0; // Start hidden
+                transition: opacity 0.3s ease; // Smooth opacity transition
+            }
+
+            .category-title {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: #58ccc3; // Teal background
+                color: white;
+                padding: 10px;
+                text-align: center;
+                font-size: 1.2rem;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
+        }
+
+        &:hover {
+            .card {
+                .card-img {
+                    transform: scale(1.1); // Zoom in effect (slight zoom)
+                }
+
+                .overlay {
+                    opacity: 1; // Show the bubble
+                    animation: bubbleEffect 0.5s ease-in-out forwards; // Faster animation (0.5s instead of 1s)
+                }
+            }
+        }
+    }
+
+    .explore-link {
+        display: inline-block;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #333;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-bottom: 2px solid #58ccc3; // Teal underline
+        padding-bottom: 5px;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #58ccc3;
+        }
+    }
+
+    // Ensure no margin between small cards
+    .d-flex.flex-column {
+        gap: 0; // Remove gap between small cards
+    }
+
+    // Bubble animation
+    @keyframes bubbleEffect {
+        0% {
+            width: 50%;
+            height: 50%;
+            opacity: 1;
+        }
+        70% {
+            width: 150%; // Grow larger than the image to cover it fully
+            height: 150%;
+            opacity: 1;
+        }
+        100% {
+            width: 150%;
+            height: 150%;
+            opacity: 0; // Fade out completely
+        }
+    }
+
+    // Responsive adjustments
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        .category-card {
+            .card {
+                &.large-card {
+                    height: 300px; // Reduce height for mobile
+                }
+
+                &.small-card {
+                    height: 150px; // Reduce height for mobile
+                }
+
+                .category-title {
+                    font-size: 1rem;
+                    padding: 8px;
+                }
+
+                .overlay {
+                    width: 70%; // Slightly larger bubble on mobile for better visibility
+                    height: 70%;
+                }
+            }
+        }
+    }
+}

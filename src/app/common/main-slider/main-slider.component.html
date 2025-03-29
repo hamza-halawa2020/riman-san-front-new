@@ -1,6 +1,6 @@
 <div class="new-class position-relative">
     <div class="main-slider mx-auto">
-        <owl-carousel-o [options]="currentOptions">
+        <owl-carousel-o [options]="currentOptions" #owlCarousel>
             <ng-template carouselSlide *ngFor="let slide of sliderData">
                 <div class="text-center">
                     <a href="{{ slide.link }}">
@@ -21,5 +21,15 @@
                 </div>
             </ng-template>
         </owl-carousel-o>
+
+        <!-- Custom Navigation Buttons -->
+        <div class="custom-nav">
+            <button class="nav-btn prev-btn" (click)="prevSlide()">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="nav-btn next-btn" (click)="nextSlide()">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
     </div>
 </div>

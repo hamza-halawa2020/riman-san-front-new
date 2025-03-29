@@ -24,7 +24,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     providers: [EventSliderService],
 })
 export class UpcomingEventsComponent implements OnInit {
-    sliderData: any[] = []; // Explicitly typed as an array
+    sliderData: any[] = [];
     image = environment.imgUrl + 'events/';
     currentOptions: OwlOptions;
     successMessage: string = '';
@@ -53,10 +53,10 @@ export class UpcomingEventsComponent implements OnInit {
                 items: 2,
             },
             935: {
-                items: 2,
+                items: 3,
             },
             1115: {
-                items: 2,
+                items: 3,
             },
         },
     };
@@ -85,10 +85,10 @@ export class UpcomingEventsComponent implements OnInit {
                 items: 2,
             },
             935: {
-                items: 2,
+                items: 3,
             },
             1115: {
-                items: 2,
+                items: 3,
             },
         },
     };
@@ -96,7 +96,7 @@ export class UpcomingEventsComponent implements OnInit {
     constructor(
         public router: Router,
         private eventSliderService: EventSliderService,
-        public translate: TranslateService // Injected as public for template access
+        public translate: TranslateService
     ) {
         this.currentOptions =
             this.translate.currentLang === 'ar'
@@ -107,7 +107,7 @@ export class UpcomingEventsComponent implements OnInit {
                 event.lang === 'ar'
                     ? this.upcomingEventsSlides2
                     : this.upcomingEventsSlides;
-            this.translateData(); // Re-translate data on language change
+            this.translateData();
         });
     }
 
@@ -134,7 +134,13 @@ export class UpcomingEventsComponent implements OnInit {
         if (!this.sliderData || !Array.isArray(this.sliderData)) return;
 
         this.sliderData.forEach((slide: any) => {
-            slide.translatedTitle = this.translate.instant(slide.title) || slide.title;
+            slide.translatedTitle = slide.title?.trim()
+                ? this.translate.instant(slide.title) || slide.title
+                : 'UNKNOWN_TITLE';
+
+            slide.translatedDescription = slide.description?.trim()
+                ? this.translate.instant(slide.description) || slide.description
+                : 'UNKNOWN_DESCRIPTION';
         });
     }
 }

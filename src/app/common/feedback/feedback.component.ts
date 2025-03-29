@@ -1,7 +1,7 @@
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { FeedBackService } from './feed-back.service';
@@ -16,9 +16,7 @@ import { enUS } from 'date-fns/locale'; // Import English locale
     imports: [
         RouterLink,
         CarouselModule,
-        RouterLink,
         CommonModule,
-        CarouselModule,
         NgIf,
         NgClass,
         TranslateModule,
@@ -29,11 +27,12 @@ import { enUS } from 'date-fns/locale'; // Import English locale
     providers: [FeedBackService],
 })
 export class FeedbackComponent implements OnInit {
-    sliderData: any;
+    sliderData: any[] = [];
+    groupedSliderData: any[][] = []; // Grouped reviews (3 per slide)
     productImage = environment.imgUrl + 'products/';
     currentOptions: OwlOptions;
     feedbackSlides: OwlOptions = {
-        items: 1,
+        items: 1, // Still 1 slide at a time, but each slide will contain 3 reviews
         nav: false,
         loop: true,
         margin: 25,
@@ -95,9 +94,18 @@ export class FeedbackComponent implements OnInit {
         this.feedBackService.index().subscribe({
             next: (response) => {
                 this.sliderData = Object.values(response)[0];
+                this.groupSliderData(); // Group the reviews into sets of 3
             },
             error: (error) => {},
         });
+    }
+
+    // Group reviews into sets of 3 for each slide
+    groupSliderData() {
+        this.groupedSliderData = [];
+        for (let i = 0; i < this.sliderData.length; i += 3) {
+            this.groupedSliderData.push(this.sliderData.slice(i, i + 3));
+        }
     }
 
     getStars(rating: number): boolean[] {
@@ -112,6 +120,6 @@ export class FeedbackComponent implements OnInit {
         const date = new Date(dateString);
         const locale = this.translate.currentLang === 'ar' ? ar : enUS;
 
-        return formatDistanceToNow(date, { addSuffix: true,locale }); // e.g., "2 days ago"
+        return formatDistanceToNow(date, { addSuffix: true, locale }); // e.g., "2 days ago"
     }
 }

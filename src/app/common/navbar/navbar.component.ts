@@ -22,7 +22,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
         TranslateModule,
     ],
     templateUrl: './navbar.component.html',
-    styleUrl: './navbar.component.scss',
+    styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit, OnDestroy {
     isCollapsed = true;
@@ -30,15 +30,15 @@ export class NavbarComponent implements OnInit, OnDestroy {
     cartClientData: any[] = [];
     favClientData: any[] = [];
     favData: any[] = [];
-    EMAIL:string ='info@rimansan.net';
+    EMAIL: string = 'info@rimansan.net';
     public cartSubscription!: Subscription;
     public cartClientSubscription!: Subscription;
     public favSubscription!: Subscription;
     public favClientSubscription!: Subscription;
 
     isLoggedIn: boolean = false;
-    data: any;
-    favouriteData: any;
+    isSticky: boolean = false;
+    currentLanguage: string = 'en'; // Track current language
 
     constructor(
         public router: Router,
@@ -61,6 +61,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         const initialLang =
             savedLang || (browserLang?.match(/en|ar/) ? browserLang : 'en');
         this.translate.use(initialLang);
+        this.currentLanguage = initialLang;
         this.applyLanguageDirection(initialLang);
     }
 
@@ -89,9 +90,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.cartService.refreshCart();
             this.cartClientService.refreshCart();
         });
+
         this.router.events.subscribe(() => {
             this.favouriteService.refreshFav();
             this.favouriteClientService.refreshFav();
+        });
+
+        // Update currentLanguage when language changes
+        this.translate.onLangChange.subscribe((event) => {
+            this.currentLanguage = event.lang;
+            this.applyLanguageDirection(event.lang);
         });
     }
 
@@ -104,7 +112,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.favClientSubscription.unsubscribe();
     }
 
-    isSticky: boolean = false;
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
         const scrollPosition =
@@ -121,16 +128,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     logout() {
         this.loginService.logout();
+        this.isLoggedIn = false; // Update isLoggedIn after logout
     }
 
     switchLanguage(lang: string) {
         this.translate.use(lang);
+        this.currentLanguage = lang;
         this.applyLanguageDirection(lang);
         localStorage.setItem('language', lang); // Save to localStorage
     }
 
     getCurrentLanguage(): string {
-        return this.translate.currentLang || this.translate.getDefaultLang();
+        return this.currentLanguage || this.translate.getDefaultLang();
     }
 
     // Helper method to apply language direction
