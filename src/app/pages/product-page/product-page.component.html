@@ -4,23 +4,230 @@
     <app-page-banner />
 
     <!-- Start product Area -->
-    <section id="product_area" class="section-padding">
+    <section id="product_area" class="mt-5">
         <div class="container">
             <div class="section-title position-relative">
-                <div class="section-title">
-                    <h2>{{ "OUR_PRODUCTS" | translate }}</h2>
-                    <p [innerHTML]="'CHECK_ALL_PRODUCTS' | translate"></p>
-                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <!-- Grid View Options -->
+                    <div class="grid-view-options">
+                        <!-- 2 Columns -->
+                        <button
+                            class="btn btn-outline-secondary"
+                            [ngClass]="{ active: gridColumns === 2 }"
+                            (click)="setGridColumns(2)"
+                            title="2 Columns"
+                        >
+                            <span class="custom-grid-icon">
+                                <svg
+                                    width="20"
+                                    height="24"
+                                    viewBox="-3 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect width="24" height="24" fill="white" />
+                                    <rect
+                                        x="1"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="10"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
 
-                <div class="w-25">
-                    <label for="categorySelect">{{ "CATEGORIES" | translate }}</label>
-                    <select class="form-control" id="categorySelect">
-                        <option value="all" selected>{{ "ALL" | translate }}</option>
-                        <option>ssdsgd</option> <!-- Replace with dynamic categories if available -->
-                    </select>
+                        <!-- 3 Columns -->
+                        <button
+                            class="btn btn-outline-secondary"
+                            [ngClass]="{ active: gridColumns === 3 }"
+                            (click)="setGridColumns(3)"
+                            title="3 Columns"
+                        >
+                            <span class="custom-grid-icon">
+                                <svg
+                                    width="30"
+                                    height="24"
+                                    viewBox="3 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect width="24" height="24" fill="white" />
+                                    <rect
+                                        x="1"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="10"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="20"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
+
+                        <!-- 4 Columns -->
+                        <button
+                            class="btn btn-outline-secondary"
+                            [ngClass]="{ active: gridColumns === 4 }"
+                            (click)="setGridColumns(4)"
+                            title="4 Columns"
+                        >
+                            <span class="custom-grid-icon">
+                                <svg
+                                    width="40"
+                                    height="24"
+                                    viewBox="7 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect width="24" height="24" fill="white" />
+                                    <rect
+                                        x="1"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="10"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="20"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="30"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
+
+                        <!-- 6 Columns -->
+                        <button
+                            class="btn btn-outline-secondary"
+                            [ngClass]="{ active: gridColumns === 6 }"
+                            (click)="setGridColumns(6)"
+                            title="6 Columns"
+                        >
+                            <span class="custom-grid-icon">
+                                <svg
+                                    width="60"
+                                    height="24"
+                                    viewBox="17 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect width="24" height="24" fill="white" />
+                                    <rect
+                                        x="1"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="10"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="20"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="30"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="40"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                    <rect
+                                        x="50"
+                                        y="3"
+                                        width="7"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+
+                    <!-- Sorting Filter -->
+                    <div class="w-25">
+                        <label for="sortSelect">{{
+                            "SORT_BY" | translate
+                        }}</label>
+                        <select
+                            class="form-control"
+                            id="sortSelect"
+                            (change)="sortProducts($any($event.target).value)"
+                        >
+                            <option value="a_to_z">
+                                {{ "ALPHA_A_TO_Z" | translate }}
+                            </option>
+                            <option value="z_to_a">
+                                {{ "ALPHA_Z_TO_A" | translate }}
+                            </option>
+                            <option value="price_low_to_high">
+                                {{ "PRICE_LOW_TO_HIGH" | translate }}
+                            </option>
+                            <option value="price_high_to_low">
+                                {{ "PRICE_HIGH_TO_LOW" | translate }}
+                            </option>
+                            <option value="date_old_to_new">
+                                {{ "DATE_OLD_TO_NEW" | translate }}
+                            </option>
+                            <option value="date_new_to_old">
+                                {{ "DATE_NEW_TO_OLD" | translate }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
-
             <!-- Success Message as a Toast -->
             <div
                 *ngIf="successMessage"
@@ -37,8 +244,12 @@
                 >
                     <div class="toast-header">
                         <strong
-                            [class.ms-auto]="translateService.currentLang === 'ar'"
-                            [class.me-auto]="translateService.currentLang !== 'ar'"
+                            [class.ms-auto]="
+                                translateService.currentLang === 'ar'
+                            "
+                            [class.me-auto]="
+                                translateService.currentLang !== 'ar'
+                            "
                             class="text-success"
                         >
                             {{ "SUCCESS" | translate }}
@@ -66,8 +277,12 @@
                 >
                     <div class="toast-header">
                         <strong
-                            [class.ms-auto]="translateService.currentLang === 'ar'"
-                            [class.me-auto]="translateService.currentLang !== 'ar'"
+                            [class.ms-auto]="
+                                translateService.currentLang === 'ar'
+                            "
+                            [class.me-auto]="
+                                translateService.currentLang !== 'ar'
+                            "
                             class="text-danger"
                         >
                             {{ "ERROR" | translate }}
@@ -82,16 +297,17 @@
             <div class="text-center">
                 <div>
                     <div class="row">
-                        <div
-                            class="col-lg-3 col-md-4 col-sm-6 mix sale"
-                            *ngFor="let product of data"
-                        >
+                        <div [ngClass]="gridClass" *ngFor="let product of data">
                             <div class="product-grid">
                                 <div class="product-image">
                                     <a routerLink="/product/{{ product.id }}">
                                         <img
                                             class="pic-1 imageClass"
-                                            src="{{ image + product.productImages[0].image }}"
+                                            src="{{
+                                                image +
+                                                    product.productImages[0]
+                                                        .image
+                                            }}"
                                             alt="product image"
                                         />
                                     </a>
@@ -99,19 +315,30 @@
                                         <li>
                                             <a
                                                 style="cursor: pointer"
-                                                (click)="addToFavourite(product.id)"
-                                                [attr.data-tip]="'ADD_TO_WISHLIST' | translate"
+                                                (click)="
+                                                    addToFavourite(product.id)
+                                                "
+                                                [attr.data-tip]="
+                                                    'ADD_TO_WISHLIST'
+                                                        | translate
+                                                "
                                             >
-                                                <i class="fa-regular fa-heart"></i>
+                                                <i
+                                                    class="fa-regular fa-heart"
+                                                ></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 style="cursor: pointer"
                                                 (click)="addToCart(product.id)"
-                                                [attr.data-tip]="'ADD_TO_CART' | translate"
+                                                [attr.data-tip]="
+                                                    'ADD_TO_CART' | translate
+                                                "
                                             >
-                                                <i class="fa-solid fa-cart-plus"></i>
+                                                <i
+                                                    class="fa-solid fa-cart-plus"
+                                                ></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -119,19 +346,34 @@
                                         <li>
                                             <a
                                                 style="cursor: pointer"
-                                                (click)="addToClientFavourite(product)"
-                                                [attr.data-tip]="'ADD_TO_WISHLIST' | translate"
+                                                (click)="
+                                                    addToClientFavourite(
+                                                        product
+                                                    )
+                                                "
+                                                [attr.data-tip]="
+                                                    'ADD_TO_WISHLIST'
+                                                        | translate
+                                                "
                                             >
-                                                <i class="fa-regular fa-heart"></i>
+                                                <i
+                                                    class="fa-regular fa-heart"
+                                                ></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 style="cursor: pointer"
-                                                (click)="addToClientCart(product)"
-                                                [attr.data-tip]="'ADD_TO_CART' | translate"
+                                                (click)="
+                                                    addToClientCart(product)
+                                                "
+                                                [attr.data-tip]="
+                                                    'ADD_TO_CART' | translate
+                                                "
                                             >
-                                                <i class="fa-solid fa-cart-plus"></i>
+                                                <i
+                                                    class="fa-solid fa-cart-plus"
+                                                ></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -139,20 +381,30 @@
                                         class="product-new-label"
                                         *ngIf="product.discount"
                                     >
-                                        {{ "DISCOUNT" | translate }}: {{ product.discount }}
+                                        {{ "DISCOUNT" | translate }}:
+                                        {{ product.discount }}
                                         {{ "EGP" | translate }}
                                     </span>
                                 </div>
                                 <div class="product-content">
                                     <h3 class="title">
-                                        <a routerLink="/product/{{ product.id }}">
-                                            {{ product.translatedName || product.title }}
+                                        <a
+                                            routerLink="/product/{{
+                                                product.id
+                                            }}"
+                                        >
+                                            {{
+                                                product.translatedName ||
+                                                    product.title
+                                            }}
                                         </a>
                                     </h3>
                                     <div class="price">
                                         {{ product.priceAfterDiscount }}
                                         {{ "EGP" | translate }}
-                                        <span *ngIf="product.priceBeforeDiscount">
+                                        <span
+                                            *ngIf="product.priceBeforeDiscount"
+                                        >
                                             {{ product.priceBeforeDiscount }}
                                             {{ "EGP" | translate }}
                                         </span>

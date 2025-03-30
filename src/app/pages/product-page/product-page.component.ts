@@ -30,28 +30,31 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
         NgClass,
         FooterComponent,
         BackToTopComponent,
-        TranslateModule, // Added TranslateModule
+        TranslateModule,
     ],
     templateUrl: './product-page.component.html',
     styleUrls: ['./product-page.component.scss'],
     providers: [ProductService],
 })
 export class ProductPageComponent implements OnInit {
-    data: any[] = []; // Explicitly typed as an array
+    data: any[] = [];
+    originalData: any[] = []; // Store the original data to reset sorting
     image = environment.imgUrl + 'products/';
     isLoggedIn: boolean = false;
     successMessage: string = '';
     errorMessage: string = '';
+    gridColumns: number = 4; // Default number of columns (4 columns)
+    gridClass: string = 'col-lg-3 col-md-4 col-sm-6'; // Default grid class
 
     constructor(
-        public router: Router, // Made public
+        public router: Router,
         private productService: ProductService,
         private cartService: CartService,
         private cartClientService: ClientCartService,
         private favouriteService: FavouriteService,
         private favClientService: FavouriteClientService,
         private loginService: LoginService,
-        public translateService: TranslateService // Made public
+        public translateService: TranslateService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
     }
@@ -63,11 +66,74 @@ export class ProductPageComponent implements OnInit {
         });
     }
 
+    setGridColumns(columns: number): void {
+        this.gridColumns = columns;
+        switch (columns) {
+            case 1:
+                this.gridClass = 'col-lg-12 col-md-12 col-sm-12';
+                break;
+            case 2:
+                this.gridClass = 'col-lg-6 col-md-6 col-sm-12';
+                break;
+            case 3:
+                this.gridClass = 'col-lg-4 col-md-6 col-sm-12';
+                break;
+            case 4:
+                this.gridClass = 'col-lg-3 col-md-4 col-sm-12';
+                break;
+            case 6:
+                this.gridClass = 'col-lg-2 col-md-2 col-sm-12';
+                break;
+            default:
+                this.gridClass = 'col-lg-3 col-md-4 col-sm-12';
+                break;
+        }
+
+        document.body.classList.remove('grid-columns-1', 'grid-columns-2', 'grid-columns-3', 
+                                     'grid-columns-4', 'grid-columns-6');
+        document.body.classList.add(`grid-columns-${columns}`);
+    }
+
+    sortProducts(sortOption: any): void {
+        // Create a copy of the original data to sort
+        
+        let sortedData = [...this.originalData];
+
+        switch (sortOption) {
+            case 'a_to_z':
+                sortedData.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+                break;
+            case 'z_to_a':
+                sortedData.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
+                break;
+            case 'price_low_to_high':
+                sortedData.sort((a, b) => (a.priceAfterDiscount || 0) - (b.priceAfterDiscount || 0));
+                break;
+            case 'price_high_to_low':
+                sortedData.sort((a, b) => (b.priceAfterDiscount || 0) - (a.priceAfterDiscount || 0));
+                break;
+            case 'date_old_to_new':
+                sortedData.sort((a, b) => new Date(a.created_at || 0).getTime() - new Date(b.created_at || 0).getTime());
+                break;
+            case 'date_new_to_old':
+                sortedData.sort((a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime());
+                break;
+            default:
+                sortedData = [...this.originalData]; // Reset to original order
+                break;
+        }
+
+        this.data = sortedData;
+        this.translateData(); // Reapply translations after sorting
+    }
+
     addToClientCart(product: any) {
         const client_cart = this.cartClientService.cartSubject.value;
 
         if (!client_cart || !Array.isArray(client_cart)) {
-            this.errorMessage = this.translateService.instant('CART_DATA_NOT_AVAILABLE');
+            this.errorMessage = this.translateService.instant(
+                'CART_DATA_NOT_AVAILABLE'
+            );
             return;
         }
 
@@ -76,7 +142,9 @@ export class ProductPageComponent implements OnInit {
         );
 
         if (exists) {
-            this.errorMessage = this.translateService.instant('PRODUCT_ALREADY_IN_CART');
+            this.errorMessage = this.translateService.instant(
+                'PRODUCT_ALREADY_IN_CART'
+            );
             setTimeout(() => {
                 this.errorMessage = '';
             }, 1000);
@@ -84,7 +152,9 @@ export class ProductPageComponent implements OnInit {
             const productToAdd = { ...product, quantity: 1 };
             this.cartClientService.addToClientCart(productToAdd);
 
-            this.successMessage = this.translateService.instant('PRODUCT_ADDED_TO_CART');
+            this.successMessage = this.translateService.instant(
+                'PRODUCT_ADDED_TO_CART'
+            );
             setTimeout(() => {
                 this.successMessage = '';
             }, 1000);
@@ -98,7 +168,9 @@ export class ProductPageComponent implements OnInit {
 
         this.cartService.addToCart(payload).subscribe({
             next: (response) => {
-                this.successMessage = this.translateService.instant('PRODUCT_ADDED_TO_CART');
+                this.successMessage = this.translateService.instant(
+                    'PRODUCT_ADDED_TO_CART'
+                );
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
@@ -127,7 +199,9 @@ export class ProductPageComponent implements OnInit {
 
         this.favouriteService.add(payload).subscribe({
             next: (response) => {
-                this.successMessage = this.translateService.instant('PRODUCT_ADDED_TO_WISHLIST');
+                this.successMessage = this.translateService.instant(
+                    'PRODUCT_ADDED_TO_WISHLIST'
+                );
                 setTimeout(() => {
                     this.successMessage = '';
                 }, 1000);
@@ -153,7 +227,9 @@ export class ProductPageComponent implements OnInit {
         const client_fav = this.favClientService.favSubject.value;
 
         if (!client_fav || !Array.isArray(client_fav)) {
-            this.errorMessage = this.translateService.instant('FAV_DATA_NOT_AVAILABLE');
+            this.errorMessage = this.translateService.instant(
+                'FAV_DATA_NOT_AVAILABLE'
+            );
             return;
         }
 
@@ -162,7 +238,9 @@ export class ProductPageComponent implements OnInit {
         );
 
         if (exists) {
-            this.errorMessage = this.translateService.instant('PRODUCT_ALREADY_IN_FAV');
+            this.errorMessage = this.translateService.instant(
+                'PRODUCT_ALREADY_IN_FAV'
+            );
             setTimeout(() => {
                 this.errorMessage = '';
             }, 1000);
@@ -170,7 +248,9 @@ export class ProductPageComponent implements OnInit {
             const productToAdd = { ...product, quantity: 1 };
             this.favClientService.addToClientFav(productToAdd);
 
-            this.successMessage = this.translateService.instant('PRODUCT_ADDED_TO_FAV');
+            this.successMessage = this.translateService.instant(
+                'PRODUCT_ADDED_TO_FAV'
+            );
             setTimeout(() => {
                 this.successMessage = '';
             }, 1000);
@@ -178,19 +258,24 @@ export class ProductPageComponent implements OnInit {
     }
 
     fetchdata() {
-        this.productService.index().subscribe({
-            next: (response) => {
-                this.data = Object.values(response)[0];
-                this.translateData();
-            },
-            error: (error) => {
-                this.errorMessage = this.translateService.instant('UNEXPECTED_ERROR');
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
-            },
-        });
-    }
+    this.productService.index().subscribe({
+        next: (response) => {
+            this.originalData = Object.values(response)[0] || []; // Ensure originalData is an array
+            this.originalData = this.originalData.map(product => ({
+                ...product,
+                productImages: product.productImages || [] // Ensure productImages is an array
+            }));
+            this.data = [...this.originalData]; // Initialize data with original data
+            this.translateData();
+        },
+        error: (error) => {
+            this.errorMessage = this.translateService.instant('UNEXPECTED_ERROR');
+            setTimeout(() => {
+                this.errorMessage = '';
+            }, 3000);
+        },
+    });
+}
 
     translateData() {
         if (!this.data || !Array.isArray(this.data)) return;
