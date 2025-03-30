@@ -1,6 +1,6 @@
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { ContactComponent } from '../../common/contact/contact.component';
@@ -12,7 +12,6 @@ import { environment } from '../../../environments/environment.development';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from './product.service';
 import { LoginService } from '../login-page/login.service';
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CartService } from '../cart-page/cart.service';
 import { FavouriteService } from '../favourite-page/favourite.service';
 import { ClientCartService } from '../client-cart/client-cart.service';
@@ -37,19 +36,13 @@ declare var bootstrap: any;
         NgClass,
         RatingModule,
         FormsModule,
-        CarouselModule,
         TranslateModule,
     ],
     templateUrl: './product-details-page.component.html',
     styleUrls: ['./product-details-page.component.scss'],
 })
-export class ProductDetailsPageComponent implements OnInit {
-    activeTab: string = 'overview'; // Default active tab
-
-    switchTab(tab: string) {
-        this.activeTab = tab;
-    }
-
+export class ProductDetailsPageComponent implements OnInit, OnDestroy {
+    activeTab: string = 'overview';
     name: string = '';
     email: string = '';
     phone: string = '';
@@ -66,7 +59,15 @@ export class ProductDetailsPageComponent implements OnInit {
     socialImage = environment.imgUrl + 'socials/';
     selectedImage: string = '';
     currentIndex: number = 0;
-    currentOptions: OwlOptions;
+    modalSelectedImage: string = '';
+    modalCurrentIndex: number = 0;
+    peopleViewing: number = 13;
+    private viewingInterval: any;
+
+    // Zoom effect properties
+    showZoom: boolean = false;
+    zoomPosition: { x: number; y: number } = { x: 0, y: 0 };
+    zoomBackgroundPosition: string = '0px 0px';
 
     constructor(
         private activateRoute: ActivatedRoute,
@@ -79,16 +80,6 @@ export class ProductDetailsPageComponent implements OnInit {
         public translateService: TranslateService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
-        this.currentOptions =
-            this.translateService.currentLang === 'ar'
-                ? this.ProductSliderSlides2
-                : this.ProductSliderSlides;
-        this.translateService.onLangChange.subscribe((event) => {
-            this.currentOptions =
-                event.lang === 'ar'
-                    ? this.ProductSliderSlides2
-                    : this.ProductSliderSlides;
-        });
     }
 
     ngOnInit(): void {
@@ -97,6 +88,20 @@ export class ProductDetailsPageComponent implements OnInit {
         this.translateService.onLangChange.subscribe(() => {
             this.translateData();
         });
+
+        this.startViewingUpdate();
+    }
+
+    ngOnDestroy(): void {
+        if (this.viewingInterval) {
+            clearInterval(this.viewingInterval);
+        }
+    }
+
+    startViewingUpdate(): void {
+        this.viewingInterval = setInterval(() => {
+            this.peopleViewing = Math.floor(Math.random() * 20) + 15;
+        }, 10000);
     }
 
     getDetails(): void {
@@ -105,6 +110,11 @@ export class ProductDetailsPageComponent implements OnInit {
             this.productService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
                 this.translateData();
+                if (this.details?.productImages?.length > 0) {
+                    this.selectedImage =
+                        this.image + this.details.productImages[0].image;
+                    this.modalSelectedImage = this.selectedImage;
+                }
             });
         });
     }
@@ -119,7 +129,6 @@ export class ProductDetailsPageComponent implements OnInit {
             this.translateService.instant(this.details.description) ||
             this.details.description;
 
-        // Translate related products
         if (this.details.relatedProducts) {
             this.details.relatedProducts.forEach((product: any) => {
                 product.translatedName =
@@ -129,6 +138,97 @@ export class ProductDetailsPageComponent implements OnInit {
         }
     }
 
+    selectImage(imageUrl: string, index: number) {
+        this.selectedImage = imageUrl;
+        this.currentIndex = index;
+    }
+
+    prevImage() {
+        if (this.currentIndex > 0) {
+            this.currentIndex--;
+            this.selectedImage =
+                this.image + this.details.productImages[this.currentIndex].image;
+        }
+    }
+
+    nextImage() {
+        if (this.currentIndex < this.details?.productImages.length - 1) {
+            this.currentIndex++;
+            this.selectedImage =
+                this.image + this.details.productImages[this.currentIndex].image;
+        }
+    }
+
+    prevModalImage() {
+        if (this.modalCurrentIndex > 0) {
+            this.modalCurrentIndex--;
+            this.modalSelectedImage =
+                this.image +
+                this.details.productImages[this.modalCurrentIndex].image;
+        }
+    }
+
+    nextModalImage() {
+        if (this.modalCurrentIndex < this.details?.productImages.length - 1) {
+            this.modalCurrentIndex++;
+            this.modalSelectedImage =
+                this.image +
+                this.details.productImages[this.modalCurrentIndex].image;
+        }
+    }
+
+    openModal() {
+        this.modalSelectedImage = this.selectedImage;
+        this.modalCurrentIndex = this.currentIndex;
+        let modal = new bootstrap.Modal(document.getElementById('imageModal'));
+        modal.show();
+    }
+
+    // Zoom effect handlers
+    onMouseMove(event: MouseEvent) {
+        const img = event.target as HTMLImageElement;
+        const rect = img.getBoundingClientRect();
+
+        // حساب الموقع النسبي للماوس داخل الصورة
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        // التأكد من أن الماوس داخل حدود الصورة
+        if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+            this.showZoom = true;
+
+            const lensSize = 150; // حجم الدائرة المكبرة (width و height)
+            const zoomLevel = 3; // مستوى التكبير
+
+            // حساب موقع الدائرة المكبرة بحيث تكون مركزة على الماوس
+            let lensX = x - lensSize / 2;
+            let lensY = y - lensSize / 2;
+
+            // التأكد من أن الدائرة لا تخرج عن حدود الصورة
+            lensX = Math.max(0, Math.min(lensX, rect.width - lensSize));
+            lensY = Math.max(0, Math.min(lensY, rect.height - lensSize));
+
+            this.zoomPosition = { x: lensX, y: lensY };
+
+            // حساب نسبة موقع الماوس بالنسبة لأبعاد الصورة
+            const zoomX = (x / rect.width) * 100;
+            const zoomY = (y / rect.height) * 100;
+
+            // تحديد موقع الخلفية بناءً على نسبة التكبير
+            this.zoomBackgroundPosition = `${zoomX}% ${zoomY}%`;
+
+            console.log('Mouse Position:', { x, y }, 'Lens Position:', this.zoomPosition, 'Background Position:', this.zoomBackgroundPosition);
+        } else {
+            this.showZoom = false;
+        }
+    }
+
+    onMouseLeave() {
+        this.showZoom = false;
+        console.log('Mouse left image');
+    }
+
+    // بقية الدوال مثل addToCart و addToFavourite تبقى كما هي
     addToClientCart(product: any) {
         const client_cart = this.cartClientService.cartSubject.value;
 
@@ -223,31 +323,6 @@ export class ProductDetailsPageComponent implements OnInit {
                 }, 3000);
             },
         });
-    }
-
-    openModal(imageUrl: string, index: number) {
-        this.selectedImage = imageUrl;
-        this.currentIndex = index;
-        let modal = new bootstrap.Modal(document.getElementById('imageModal'));
-        modal.show();
-    }
-
-    nextImage() {
-        if (this.currentIndex < this.details.productImages.length - 1) {
-            this.currentIndex++;
-            this.selectedImage =
-                this.image +
-                this.details.productImages[this.currentIndex].image;
-        }
-    }
-
-    prevImage() {
-        if (this.currentIndex > 0) {
-            this.currentIndex--;
-            this.selectedImage =
-                this.image +
-                this.details.productImages[this.currentIndex].image;
-        }
     }
 
     addReview(reviewText: string, rating: number) {
@@ -364,67 +439,4 @@ export class ProductDetailsPageComponent implements OnInit {
             }, 1000);
         }
     }
-
-    ProductSliderSlides: OwlOptions = {
-        nav: true,
-        loop: true,
-        margin: 25,
-        dots: false,
-        autoplay: true,
-        smartSpeed: 500,
-        autoplayHoverPause: true,
-        navText: [
-            "<i class='fa-solid fa-chevron-left'></i>",
-            "<i class='fa-solid fa-chevron-right'></i>",
-        ],
-        responsive: {
-            0: {
-                items: 1,
-            },
-            515: {
-                items: 1,
-            },
-            695: {
-                items: 2,
-            },
-            935: {
-                items: 2,
-            },
-            1115: {
-                items: 2,
-            },
-        },
-    };
-
-    ProductSliderSlides2: OwlOptions = {
-        nav: true,
-        loop: true,
-        margin: 25,
-        dots: false,
-        rtl: true,
-        autoplay: true,
-        smartSpeed: 500,
-        autoplayHoverPause: true,
-        navText: [
-            "<i class='fa-solid fa-chevron-left'></i>",
-            "<i class='fa-solid fa-chevron-right'></i>",
-        ],
-        responsive: {
-            0: {
-                items: 1,
-            },
-            515: {
-                items: 1,
-            },
-            695: {
-                items: 2,
-            },
-            935: {
-                items: 2,
-            },
-            1115: {
-                items: 2,
-            },
-        },
-    };
 }
