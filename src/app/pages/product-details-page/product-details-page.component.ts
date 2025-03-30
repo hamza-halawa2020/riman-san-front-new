@@ -1,6 +1,6 @@
 import { RatingModule } from 'ngx-bootstrap/rating';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PageBannerComponent } from './page-banner/page-banner.component';
 import { ContactComponent } from '../../common/contact/contact.component';
@@ -17,6 +17,7 @@ import { FavouriteService } from '../favourite-page/favourite.service';
 import { ClientCartService } from '../client-cart/client-cart.service';
 import { FavouriteClientService } from '../favourite-client-page/favourite-client.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 
 declare var bootstrap: any;
 
@@ -37,6 +38,7 @@ declare var bootstrap: any;
         RatingModule,
         FormsModule,
         TranslateModule,
+        CarouselModule, // Add CarouselModule
     ],
     templateUrl: './product-details-page.component.html',
     styleUrls: ['./product-details-page.component.scss'],
@@ -65,6 +67,70 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
     private viewingInterval: any;
     private autoSlideInterval: any;
 
+    // Related products carousel options
+    relatedProductsOptions: OwlOptions;
+    relatedProductsOptionsAr: OwlOptions = {
+        nav: true,
+        loop: true,
+        margin: 25,
+        dots: false,
+        autoplay: true,
+        smartSpeed: 500,
+        rtl: true,
+        autoplayHoverPause: true,
+        navText: [
+            "<i class='fa-solid fa-chevron-left'></i>",
+            "<i class='fa-solid fa-chevron-right'></i>",
+        ],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            515: {
+                items: 1,
+            },
+            695: {
+                items: 2,
+            },
+            935: {
+                items: 3,
+            },
+            1115: {
+                items: 3,
+            },
+        },
+    };
+    relatedProductsOptionsEn: OwlOptions = {
+        nav: true,
+        loop: true,
+        margin: 25,
+        dots: false,
+        autoplay: true,
+        smartSpeed: 500,
+        autoplayHoverPause: true,
+        navText: [
+            "<i class='fa-solid fa-chevron-left'></i>",
+            "<i class='fa-solid fa-chevron-right'></i>",
+        ],
+        responsive: {
+            0: {
+                items: 1,
+            },
+            515: {
+                items: 1,
+            },
+            695: {
+                items: 2,
+            },
+            935: {
+                items: 3,
+            },
+            1115: {
+                items: 3,
+            },
+        },
+    };
+
     // Zoom effect properties
     showZoom: boolean = false;
     zoomPosition: { x: number; y: number } = { x: 0, y: 0 };
@@ -80,32 +146,33 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
         private favClientService: FavouriteClientService,
         private cartClientService: ClientCartService,
         private loginService: LoginService,
+        private cdr: ChangeDetectorRef,
         public translateService: TranslateService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
+        this.relatedProductsOptions =
+            this.translateService.currentLang === 'ar'
+                ? this.relatedProductsOptionsAr
+                : this.relatedProductsOptionsEn;
     }
 
     ngOnInit(): void {
         this.getDetails();
-
-        this.translateService.onLangChange.subscribe(() => {
+        this.translateService.onLangChange.subscribe((event) => {
+            this.relatedProductsOptions =
+                event.lang === 'ar'
+                    ? this.relatedProductsOptionsAr
+                    : this.relatedProductsOptionsEn;
             this.translateData();
         });
-
         this.startViewingUpdate();
         this.startAutoSlide();
-
-        // الحصول على رابط المنتج الحالي
         this.productUrl = window.location.href;
     }
 
     ngOnDestroy(): void {
-        if (this.viewingInterval) {
-            clearInterval(this.viewingInterval);
-        }
-        if (this.autoSlideInterval) {
-            clearInterval(this.autoSlideInterval);
-        }
+        if (this.viewingInterval) clearInterval(this.viewingInterval);
+        if (this.autoSlideInterval) clearInterval(this.autoSlideInterval);
     }
 
     startViewingUpdate(): void {
@@ -121,9 +188,7 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
     }
 
     stopAutoSlide(): void {
-        if (this.autoSlideInterval) {
-            clearInterval(this.autoSlideInterval);
-        }
+        if (this.autoSlideInterval) clearInterval(this.autoSlideInterval);
     }
 
     restartAutoSlide(): void {
@@ -136,22 +201,28 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
             this.id = +params['id'];
             this.productService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
+                console.log('Details:', this.details);
+                console.log('Related Products:', this.details?.relatedProducts);
+                console.log(
+                    'Related Products Full Structure:',
+                    JSON.stringify(this.details?.relatedProducts, null, 2)
+                );
                 this.translateData();
                 if (this.details?.productImages?.length > 0) {
                     this.selectedImage =
                         this.image + this.details.productImages[0].image;
                     this.modalSelectedImage = this.selectedImage;
                 }
+                this.cdr.detectChanges();
             });
         });
     }
 
-    translateData() {
+    translateData(): void {
         if (!this.details) return;
         this.details.translatedName =
             this.translateService.instant(this.details.title) ||
             this.details.title;
-
         this.details.translatedDescription =
             this.translateService.instant(this.details.description) ||
             this.details.description;
@@ -163,38 +234,42 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
                     product.title;
             });
         }
+        this.cdr.detectChanges();
     }
 
-    selectImage(imageUrl: string, index: number) {
+    selectImage(imageUrl: string, index: number): void {
         this.selectedImage = imageUrl;
         this.currentIndex = index;
         this.stopAutoSlide();
         setTimeout(() => this.restartAutoSlide(), 10000);
     }
 
-    prevImage() {
+    prevImage(): void {
         if (this.currentIndex > 0) {
             this.currentIndex--;
             this.selectedImage =
-                this.image + this.details.productImages[this.currentIndex].image;
+                this.image +
+                this.details.productImages[this.currentIndex].image;
             this.stopAutoSlide();
             setTimeout(() => this.restartAutoSlide(), 10000);
         }
     }
 
-    nextImage() {
+    nextImage(): void {
         if (this.currentIndex < this.details?.productImages.length - 1) {
             this.currentIndex++;
             this.selectedImage =
-                this.image + this.details.productImages[this.currentIndex].image;
+                this.image +
+                this.details.productImages[this.currentIndex].image;
         } else {
             this.currentIndex = 0;
             this.selectedImage =
-                this.image + this.details.productImages[this.currentIndex].image;
+                this.image +
+                this.details.productImages[this.currentIndex].image;
         }
     }
 
-    prevModalImage() {
+    prevModalImage(): void {
         if (this.modalCurrentIndex > 0) {
             this.modalCurrentIndex--;
             this.modalSelectedImage =
@@ -203,7 +278,7 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    nextModalImage() {
+    nextModalImage(): void {
         if (this.modalCurrentIndex < this.details?.productImages.length - 1) {
             this.modalCurrentIndex++;
             this.modalSelectedImage =
@@ -212,15 +287,14 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
         }
     }
 
-    openModal() {
+    openModal(): void {
         this.modalSelectedImage = this.selectedImage;
         this.modalCurrentIndex = this.currentIndex;
         let modal = new bootstrap.Modal(document.getElementById('imageModal'));
         modal.show();
     }
 
-    // Zoom effect handlers
-    onMouseMove(event: MouseEvent) {
+    onMouseMove(event: MouseEvent): void {
         const img = event.target as HTMLImageElement;
         const rect = img.getBoundingClientRect();
 
@@ -245,44 +319,60 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
             const zoomY = (y / rect.height) * 100;
 
             this.zoomBackgroundPosition = `${zoomX}% ${zoomY}%`;
-
-            console.log('Mouse Position:', { x, y }, 'Lens Position:', this.zoomPosition, 'Background Position:', this.zoomBackgroundPosition);
         } else {
             this.showZoom = false;
         }
     }
 
-    onMouseLeave() {
+    onMouseLeave(): void {
         this.showZoom = false;
-        console.log('Mouse left image');
     }
 
-    // دوال المشاركة على وسائل التواصل الاجتماعي
-    shareOnFacebook() {
+    shareOnFacebook(): void {
         const url = encodeURIComponent(this.productUrl);
-        const title = encodeURIComponent(this.details?.translatedName || this.details?.title || 'Check out this product!');
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}`, '_blank');
+        const title = encodeURIComponent(
+            this.details?.translatedName ||
+                this.details?.title ||
+                'Check out this product!'
+        );
+        window.open(
+            `https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}`,
+            '_blank'
+        );
     }
 
-    shareOnTwitter() {
+    shareOnTwitter(): void {
         const url = encodeURIComponent(this.productUrl);
-        const text = encodeURIComponent(`Check out this product: ${this.details?.translatedName || this.details?.title || ''}`);
-        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+        const text = encodeURIComponent(
+            `Check out this product: ${
+                this.details?.translatedName || this.details?.title || ''
+            }`
+        );
+        window.open(
+            `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+            '_blank'
+        );
     }
 
-    shareOnWhatsApp() {
+    shareOnWhatsApp(): void {
         const url = encodeURIComponent(this.productUrl);
-        const text = encodeURIComponent(`Check out this product: ${this.details?.translatedName || this.details?.title || ''} - ${this.details?.translatedDescription || ''}`);
-        window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
+        const text = encodeURIComponent(
+            `Check out this product: ${
+                this.details?.translatedName || this.details?.title || ''
+            } - ${this.details?.translatedDescription || ''}`
+        );
+        window.open(
+            `https://api.whatsapp.com/send?text=${text}%20${url}`,
+            '_blank'
+        );
     }
 
-    addToClientCart(product: any) {
+    addToClientCart(product: any): void {
         const client_cart = this.cartClientService.cartSubject.value;
 
         if (!client_cart || !Array.isArray(client_cart)) {
-            this.errorMessage = this.translateService.instant(
-                'UNEXPECTED_ERROR'
-            );
+            this.errorMessage =
+                this.translateService.instant('UNEXPECTED_ERROR');
             return;
         }
 
@@ -294,35 +384,25 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
             this.errorMessage = this.translateService.instant(
                 'Product is already in the cart.'
             );
-            setTimeout(() => {
-                this.errorMessage = '';
-            }, 1000);
+            setTimeout(() => (this.errorMessage = ''), 1000);
         } else {
             const productToAdd = { ...product, quantity: 1 };
             this.cartClientService.addToClientCart(productToAdd);
-
             this.successMessage = this.translateService.instant(
                 'Product added to cart successfully!'
             );
-            setTimeout(() => {
-                this.successMessage = '';
-            }, 1000);
+            setTimeout(() => (this.successMessage = ''), 1000);
         }
     }
 
-    addToCart(product_id: any) {
-        const payload = {
-            product_id: product_id,
-        };
-
+    addToCart(product_id: any): void {
+        const payload = { product_id };
         this.cartService.addToCart(payload).subscribe({
             next: (response) => {
                 this.successMessage = this.translateService.instant(
                     'Product added to cart successfully!'
                 );
-                setTimeout(() => {
-                    this.successMessage = '';
-                }, 1000);
+                setTimeout(() => (this.successMessage = ''), 1000);
             },
             error: (error) => {
                 if (error.error?.errors) {
@@ -334,26 +414,19 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
                         error.error?.message ||
                         this.translateService.instant('UNEXPECTED_ERROR');
                 }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                setTimeout(() => (this.errorMessage = ''), 3000);
             },
         });
     }
 
-    addToFavourite(product_id: any) {
-        const payload = {
-            product_id: product_id,
-        };
-
+    addToFavourite(product_id: any): void {
+        const payload = { product_id };
         this.favouriteService.add(payload).subscribe({
             next: (response) => {
                 this.successMessage = this.translateService.instant(
                     'Product added to WishList successfully!'
                 );
-                setTimeout(() => {
-                    this.successMessage = '';
-                }, 1000);
+                setTimeout(() => (this.successMessage = ''), 1000);
             },
             error: (error) => {
                 if (error.error?.errors) {
@@ -365,14 +438,12 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
                         error.error?.message ||
                         this.translateService.instant('UNEXPECTED_ERROR');
                 }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                setTimeout(() => (this.errorMessage = ''), 3000);
             },
         });
     }
 
-    addReview(reviewText: string, rating: number) {
+    addReview(reviewText: string, rating: number): void {
         if (!reviewText || reviewText.trim() === '') {
             this.errorMessage = this.translateService.instant(
                 'Review cannot be empty!'
@@ -395,7 +466,6 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
                     'Review added successfully but it is under review!'
                 );
                 setTimeout(() => (this.successMessage = ''), 3000);
-
                 this.newReview = '';
                 this.newRate = 0;
             },
@@ -414,7 +484,7 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
         nameText: string,
         emailText: string,
         phoneText: string
-    ) {
+    ): void {
         if (!reviewText || reviewText.trim() === '') {
             this.errorMessage = this.translateService.instant(
                 'Review cannot be empty!'
@@ -440,7 +510,6 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
                     'Review added successfully but it is under review!'
                 );
                 setTimeout(() => (this.successMessage = ''), 3000);
-
                 this.newReview = '';
                 this.newRate = 0;
             },
@@ -453,13 +522,12 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
         });
     }
 
-    addToClientFavourite(product: any) {
+    addToClientFavourite(product: any): void {
         const client_fav = this.favClientService.favSubject.value;
 
         if (!client_fav || !Array.isArray(client_fav)) {
-            this.errorMessage = this.translateService.instant(
-                'UNEXPECTED_ERROR'
-            );
+            this.errorMessage =
+                this.translateService.instant('UNEXPECTED_ERROR');
             return;
         }
 
@@ -471,19 +539,27 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
             this.errorMessage = this.translateService.instant(
                 'Product is already in the fav!'
             );
-            setTimeout(() => {
-                this.errorMessage = '';
-            }, 1000);
+            setTimeout(() => (this.errorMessage = ''), 1000);
         } else {
             const productToAdd = { ...product, quantity: 1 };
             this.favClientService.addToClientFav(productToAdd);
-
             this.successMessage = this.translateService.instant(
                 'Product added to fav successfully!'
             );
-            setTimeout(() => {
-                this.successMessage = '';
-            }, 1000);
+            setTimeout(() => (this.successMessage = ''), 1000);
         }
+    }
+
+    onImageLoad(imageUrl: string): void {
+        console.log('Image loaded:', imageUrl);
+    }
+
+    onImageError(event: Event): void {
+        console.error(
+            'Image failed to load:',
+            (event.target as HTMLImageElement).src
+        );
+        (event.target as HTMLImageElement).src =
+            this.image + 'fallback-image.jpg';
     }
 }
