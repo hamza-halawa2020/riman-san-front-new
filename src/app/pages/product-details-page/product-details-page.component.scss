@@ -31,36 +31,35 @@
     flex-direction: column;
     gap: 10px;
     width: 100px;
-    max-height: 450px; /* تحديد ارتفاع أقصى لقسم الصور المصغرة */
-    overflow-y: auto; /* إضافة تمرير رأسي */
-    scrollbar-width: thin; /* جعل شريط التمرير أنحف (لـ Firefox) */
-    scrollbar-color: #26a69a #f1f1f1; /* لون شريط التمرير (لـ Firefox) */
+    max-height: 450px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #26a69a #f1f1f1;
 }
 
-/* تخصيص شريط التمرير لـ Webkit (Chrome, Safari) */
 .thumbnails::-webkit-scrollbar {
-    width: 8px; /* عرض شريط التمرير */
+    width: 8px;
 }
 
 .thumbnails::-webkit-scrollbar-track {
-    background: #f1f1f1; /* لون خلفية المسار */
+    background: #f1f1f1;
     border-radius: 10px;
 }
 
 .thumbnails::-webkit-scrollbar-thumb {
-    background: #26a69a; /* لون شريط التمرير */
+    background: #26a69a;
     border-radius: 10px;
 }
 
 .thumbnails::-webkit-scrollbar-thumb:hover {
-    background: #1a7a70; /* لون شريط التمرير عند التمرير فوقه */
+    background: #1a7a70;
 }
 
 .thumbnail {
     cursor: pointer;
     border: 2px solid transparent;
     transition: border-color 0.3s ease;
-    flex: 0 0 auto; /* التأكد من أن الصور المصغرة لا تتقلص */
+    flex: 0 0 auto;
 }
 
 .thumbnail.active {
@@ -69,7 +68,7 @@
 
 .thumbnail-img {
     width: 100%;
-    height: 80px; /* تحديد ارتفاع ثابت للصور المصغرة */
+    height: 80px;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -111,7 +110,6 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Navigation buttons */
 .zoom-container .btn-light {
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -121,7 +119,6 @@
     opacity: 1;
 }
 
-/* Styling for the animated Add to Cart button */
 .animated-cart-btn {
     background-color: #74d7e6;
     color: #26a69a;
@@ -157,7 +154,6 @@
     90%, 100% { transform: translateX(0); }
 }
 
-/* Styling for the people viewing message */
 .people-viewing {
     font-size: 14px;
     color: #666;
@@ -170,6 +166,44 @@
     color: #666;
 }
 
+/* Social Share Icons */
+.social-share {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-icon {
+    cursor: pointer;
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.social-icon i {
+    vertical-align: middle;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+.social-icon.fa-facebook-f {
+    background-color: #3b5998;
+}
+
+.social-icon.fa-twitter {
+    background-color: #1da1f2;
+}
+
+.social-icon.fa-whatsapp {
+    background-color: #25d366;
+}
+
 /* Responsive adjustments */
 @media only screen and (max-width: 767px) {
     .product-image-gallery {
@@ -177,11 +211,11 @@
     }
 
     .thumbnails {
-        flex-direction: row; /* تغيير الاتجاه إلى أفقي على الشاشات الصغيرة */
+        flex-direction: row;
         width: 100%;
-        max-height: 100px; /* ارتفاع أقصى للصور المصغرة على الشاشات الصغيرة */
-        overflow-x: auto; /* تمرير أفقي */
-        overflow-y: hidden; /* إخفاء التمرير الرأسي */
+        max-height: 100px;
+        overflow-x: auto;
+        overflow-y: hidden;
         gap: 5px;
     }
 
@@ -191,7 +225,7 @@
     }
 
     .thumbnail-img {
-        height: 80px; /* الحفاظ على نفس الارتفاع */
+        height: 80px;
     }
 
     .zoom-container,
@@ -203,7 +237,7 @@
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .thumbnails {
         width: 80px;
-        max-height: 400px; /* ارتفاع أقصى للصور المصغرة */
+        max-height: 400px;
         overflow-y: auto;
     }
 

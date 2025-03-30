@@ -61,13 +61,16 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
     currentIndex: number = 0;
     modalSelectedImage: string = '';
     modalCurrentIndex: number = 0;
-    peopleViewing: number = 13;
+    peopleViewing: number = 3;
     private viewingInterval: any;
+    private autoSlideInterval: any;
 
     // Zoom effect properties
     showZoom: boolean = false;
     zoomPosition: { x: number; y: number } = { x: 0, y: 0 };
     zoomBackgroundPosition: string = '0px 0px';
+
+    productUrl: string = '';
 
     constructor(
         private activateRoute: ActivatedRoute,
@@ -90,18 +93,42 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
         });
 
         this.startViewingUpdate();
+        this.startAutoSlide();
+
+        // الحصول على رابط المنتج الحالي
+        this.productUrl = window.location.href;
     }
 
     ngOnDestroy(): void {
         if (this.viewingInterval) {
             clearInterval(this.viewingInterval);
         }
+        if (this.autoSlideInterval) {
+            clearInterval(this.autoSlideInterval);
+        }
     }
 
     startViewingUpdate(): void {
         this.viewingInterval = setInterval(() => {
-            this.peopleViewing = Math.floor(Math.random() * 20) + 15;
+            this.peopleViewing = Math.floor(Math.random() * 10) + 1;
         }, 10000);
+    }
+
+    startAutoSlide(): void {
+        this.autoSlideInterval = setInterval(() => {
+            this.nextImage();
+        }, 5000);
+    }
+
+    stopAutoSlide(): void {
+        if (this.autoSlideInterval) {
+            clearInterval(this.autoSlideInterval);
+        }
+    }
+
+    restartAutoSlide(): void {
+        this.stopAutoSlide();
+        this.startAutoSlide();
     }
 
     getDetails(): void {
@@ -141,6 +168,8 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
     selectImage(imageUrl: string, index: number) {
         this.selectedImage = imageUrl;
         this.currentIndex = index;
+        this.stopAutoSlide();
+        setTimeout(() => this.restartAutoSlide(), 10000);
     }
 
     prevImage() {
@@ -148,12 +177,18 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
             this.currentIndex--;
             this.selectedImage =
                 this.image + this.details.productImages[this.currentIndex].image;
+            this.stopAutoSlide();
+            setTimeout(() => this.restartAutoSlide(), 10000);
         }
     }
 
     nextImage() {
         if (this.currentIndex < this.details?.productImages.length - 1) {
             this.currentIndex++;
+            this.selectedImage =
+                this.image + this.details.productImages[this.currentIndex].image;
+        } else {
+            this.currentIndex = 0;
             this.selectedImage =
                 this.image + this.details.productImages[this.currentIndex].image;
         }
@@ -189,32 +224,26 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
         const img = event.target as HTMLImageElement;
         const rect = img.getBoundingClientRect();
 
-        // حساب الموقع النسبي للماوس داخل الصورة
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
 
-        // التأكد من أن الماوس داخل حدود الصورة
         if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
             this.showZoom = true;
 
-            const lensSize = 150; // حجم الدائرة المكبرة (width و height)
-            const zoomLevel = 3; // مستوى التكبير
+            const lensSize = 150;
+            const zoomLevel = 3;
 
-            // حساب موقع الدائرة المكبرة بحيث تكون مركزة على الماوس
             let lensX = x - lensSize / 2;
             let lensY = y - lensSize / 2;
 
-            // التأكد من أن الدائرة لا تخرج عن حدود الصورة
             lensX = Math.max(0, Math.min(lensX, rect.width - lensSize));
             lensY = Math.max(0, Math.min(lensY, rect.height - lensSize));
 
             this.zoomPosition = { x: lensX, y: lensY };
 
-            // حساب نسبة موقع الماوس بالنسبة لأبعاد الصورة
             const zoomX = (x / rect.width) * 100;
             const zoomY = (y / rect.height) * 100;
 
-            // تحديد موقع الخلفية بناءً على نسبة التكبير
             this.zoomBackgroundPosition = `${zoomX}% ${zoomY}%`;
 
             console.log('Mouse Position:', { x, y }, 'Lens Position:', this.zoomPosition, 'Background Position:', this.zoomBackgroundPosition);
@@ -228,7 +257,25 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
         console.log('Mouse left image');
     }
 
-    // بقية الدوال مثل addToCart و addToFavourite تبقى كما هي
+    // دوال المشاركة على وسائل التواصل الاجتماعي
+    shareOnFacebook() {
+        const url = encodeURIComponent(this.productUrl);
+        const title = encodeURIComponent(this.details?.translatedName || this.details?.title || 'Check out this product!');
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&title=${title}`, '_blank');
+    }
+
+    shareOnTwitter() {
+        const url = encodeURIComponent(this.productUrl);
+        const text = encodeURIComponent(`Check out this product: ${this.details?.translatedName || this.details?.title || ''}`);
+        window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+    }
+
+    shareOnWhatsApp() {
+        const url = encodeURIComponent(this.productUrl);
+        const text = encodeURIComponent(`Check out this product: ${this.details?.translatedName || this.details?.title || ''} - ${this.details?.translatedDescription || ''}`);
+        window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
+    }
+
     addToClientCart(product: any) {
         const client_cart = this.cartClientService.cartSubject.value;
 

@@ -187,6 +187,19 @@
                                 <i class="fa fa-heart"></i>
                             </a>
                         </div>
+                        <!-- قسم المشاركة -->
+                        <div class="social-share mt-3">
+                            <span class="me-2">{{ "SHARE" | translate }}:</span>
+                            <a class="social-icon" (click)="shareOnFacebook()" [title]="'SHARE_ON_FACEBOOK' | translate">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="social-icon" (click)="shareOnTwitter()" [title]="'SHARE_ON_TWITTER' | translate">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="social-icon" (click)="shareOnWhatsApp()" [title]="'SHARE_ON_WHATSAPP' | translate">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
