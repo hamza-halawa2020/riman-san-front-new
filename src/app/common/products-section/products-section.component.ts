@@ -69,7 +69,7 @@ export class ProductsSectionComponent implements OnInit {
             this.filteredProducts = this.products.filter(
                 (product) => product.discount > 0
             );
-        } else if (filter === 'best-seller') {
+        } else if (filter === 'BEST_PRICE') {
             this.filteredProducts = [...this.products].sort(
                 (a, b) => a.priceAfterDiscount - b.priceAfterDiscount
             );
