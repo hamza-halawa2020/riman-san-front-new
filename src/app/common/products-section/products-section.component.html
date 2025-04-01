@@ -113,7 +113,6 @@
                     >
                         <i class="far fa-heart"></i>
                     </button>
-
                     <!-- Product Image -->
                     <div
                         class="product-image"
@@ -123,19 +122,22 @@
                         (mouseleave)="onMouseLeave(product.id)"
                     >
                         <!-- Default Image -->
-                        <img
-                            class="default-image img-fluid"
-                            [src]="product.productImages?.[0]?.image ? image + product.productImages[0].image : 'assets/default-image.jpg'"
-                            [alt]="product.title"
-                            (error)="onImageError($event)"
-                        />
-                        <!-- Hover Image -->
-                        <img
-                            class="hover-image img-fluid"
-                            [src]="hoverImages[product.id] || (product.productImages?.[0]?.image ? image + product.productImages[0].image : 'assets/default-image.jpg')"
-                            [alt]="product.title"
-                            (error)="onImageError($event)"
-                        />
+                        <a routerLink="/product/{{ product.id }}">
+                            <img
+                                class="default-image img-fluid"
+                                [src]="product.productImages?.[0]?.image ? image + product.productImages[0].image : 'assets/default-image.jpg'"
+                                [alt]="product.title"
+                                (error)="onImageError($event)"
+                            />
+                            <!-- Hover Image -->
+                            <img
+                                class="hover-image img-fluid"
+                                [src]="hoverImages[product.id] || (product.productImages?.[0]?.image ? image + product.productImages[0].image : 'assets/default-image.jpg')"
+                                [alt]="product.title"
+                                (error)="onImageError($event)"
+                            />
+                        </a>
+
                         <!-- Hover Overlay -->
                         <div class="overlay">
                             <div class="overlay-content">
@@ -170,25 +172,26 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Product Info -->
-                    <div class="product-info text-center mt-3">
-                        <h3 class="product-title">{{ product.title }}</h3>
-                        <div class="price">
-                            <span class="discounted-price"
-                                >{{ product.priceAfterDiscount }} EGP</span
-                            >
-                            <span
-                                class="original-price"
-                                *ngIf="product.discount > 0"
-                            >
-                                {{ product.priceBeforeDiscount }} EGP
-                            </span>
+                    <a routerLink="/product/{{ product.id }}">
+                        <!-- Product Info -->
+                        <div class="product-info text-center mt-3">
+                            <h3 class="product-title">{{ product.title }}</h3>
+                            <div class="price">
+                                <span class="discounted-price"
+                                    >{{ product.priceAfterDiscount }} EGP</span
+                                >
+                                <span
+                                    class="original-price"
+                                    *ngIf="product.discount > 0"
+                                >
+                                    {{ product.priceBeforeDiscount }} EGP
+                                </span>
+                            </div>
+                            <div class="category mt-1">
+                                <small>{{ product.category }}</small>
+                            </div>
                         </div>
-                        <div class="category mt-1">
-                            <small>{{ product.category }}</small>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
