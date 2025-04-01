@@ -171,14 +171,25 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if (this.viewingInterval) clearInterval(this.viewingInterval);
+        if (this.viewingInterval) clearTimeout(this.viewingInterval);
         if (this.autoSlideInterval) clearInterval(this.autoSlideInterval);
     }
 
     startViewingUpdate(): void {
-        this.viewingInterval = setInterval(() => {
-            this.peopleViewing = Math.floor(Math.random() * 20) + 6;
-        }, 10000);
+        // Define a function to update the number of people viewing and schedule the next update
+        const updateViewing = () => {
+            // Generate a random number between 30 and 49 (Math.random() * 20 generates 0-19, then add 30)
+            this.peopleViewing = Math.floor(Math.random() * 20) + 30;
+
+            // Generate a random interval between 50,000 and 59,999 milliseconds (50 to ~60 seconds)
+            const randomInterval = Math.floor(Math.random() * 10000) + 50000;
+
+            // Schedule the next update using setTimeout with the random interval
+            this.viewingInterval = setTimeout(updateViewing, randomInterval);
+        };
+
+        // Start the first update immediately
+        updateViewing();
     }
 
     startAutoSlide(): void {
