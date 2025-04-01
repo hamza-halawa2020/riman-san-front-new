@@ -63,7 +63,7 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
     currentIndex: number = 0;
     modalSelectedImage: string = '';
     modalCurrentIndex: number = 0;
-    peopleViewing: number = 3;
+    peopleViewing: number = 22;
     private viewingInterval: any;
     private autoSlideInterval: any;
 
@@ -177,7 +177,7 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
 
     startViewingUpdate(): void {
         this.viewingInterval = setInterval(() => {
-            this.peopleViewing = Math.floor(Math.random() * 10) + 1;
+            this.peopleViewing = Math.floor(Math.random() * 20) + 6;
         }, 10000);
     }
 

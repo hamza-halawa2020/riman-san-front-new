@@ -26,6 +26,7 @@ export class ProductsSectionComponent implements OnInit {
     successMessage: string = '';
     errorMessage: string = '';
     isLoggedIn: boolean = false;
+    readonly maxProductsToShow: number = 8;
 
     constructor(
         private productSliderService: ProductSliderService,
@@ -60,20 +61,36 @@ export class ProductsSectionComponent implements OnInit {
         });
     }
 
+    shuffleArray(array: any[]): any[] {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    }
+
     setFilter(filter: string): void {
         this.activeFilter = filter;
 
+        let filtered: any[] = [];
+
         if (filter === 'all') {
-            this.filteredProducts = [...this.products];
+            filtered = this.shuffleArray([...this.products]).slice(
+                0,
+                this.maxProductsToShow
+            );
         } else if (filter === 'offers') {
-            this.filteredProducts = this.products.filter(
-                (product) => product.discount > 0
-            );
+            filtered = this.shuffleArray(
+                this.products.filter((product) => product.discount > 0)
+            ).slice(0, this.maxProductsToShow);
         } else if (filter === 'BEST_PRICE') {
-            this.filteredProducts = [...this.products].sort(
-                (a, b) => a.priceAfterDiscount - b.priceAfterDiscount
-            );
+            filtered = [...this.products]
+                .sort((a, b) => a.priceAfterDiscount - b.priceAfterDiscount)
+                .slice(0, this.maxProductsToShow);
         }
+
+        this.filteredProducts = filtered;
         this.cdr.detectChanges();
     }
 
