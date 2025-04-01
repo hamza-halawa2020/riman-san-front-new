@@ -15,6 +15,7 @@ import { MainSlider } from '../../common/main-slider/main-slider.component';
 import { ProductSliderComponent } from '../../common/product-slider/product-slider.component';
 import { CategorySectionComponent } from '../../common/category-section/category-section.component';
 import { ProductsSectionComponent } from '../../common/products-section/products-section.component';
+import { BrandsComponent } from '../../common/brands/brands.component';
 
 @Component({
     selector: 'app-home-demo-one',
@@ -30,6 +31,7 @@ import { ProductsSectionComponent } from '../../common/products-section/products
         CategorySectionComponent,
         ProductsSectionComponent,
         MainSlider,
+        BrandsComponent,
         CtaComponent,
         TeamComponent,
         ContactComponent,
