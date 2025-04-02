@@ -35,6 +35,7 @@ import { CertificationPageComponent } from './pages/certification-page/certifica
 import { FactoryPageComponent } from './pages/factory-page/factory-page.component';
 import { FavouritePageWrapperComponent } from './pages/favourite-page-wrapper/favourite-page-wrapper.component';
 import { FavouriteResolver } from './pages/favourite-page-wrapper/favourite.resolver';
+import { ShopPageComponent } from './pages/shop-page/shop-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -46,6 +47,7 @@ export const routes: Routes = [
     { path: 'posts', component: BlogPageComponent },
     { path: 'post/:id', component: BlogDetailsPageComponent },
     { path: 'products', component: ProductPageComponent },
+    { path: 'shop', component: ShopPageComponent },
     { path: 'product/:id', component: ProductDetailsPageComponent },
     { path: 'events', component: EventPageComponent },
     { path: 'event/:id', component: EventDetailsPageComponent },

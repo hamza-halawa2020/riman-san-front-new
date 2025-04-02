@@ -1,0 +1,133 @@
+.category-section {
+    background-color: #fff;
+
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: #333;
+        text-transform: uppercase;
+    }
+
+    .category-card {
+        text-decoration: none;
+        display: block;
+
+        .card {
+            border: none;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            height: 400px; // ارتفاع موحد لجميع البطاقات
+
+            .card-img {
+                width: 100%;
+                height: 100%; // الصورة تأخذ كامل ارتفاع البطاقة
+                object-fit: cover; // ضبط الصورة لتغطية الحاوية بالكامل
+                transition: transform 1.3s ease; // تأثير التكبير السلس
+            }
+
+            .overlay {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 50%; // حجم البداية للدائرة
+                height: 50%;
+                background: rgba(255, 255, 255, 0.1); // طبقة شفافة
+                border-radius: 50%; // شكل دائري
+                transform: translate(-50%, -50%); // توسيط الدائرة
+                opacity: 0; // مخفية في البداية
+                transition: opacity 0.3s ease;
+            }
+
+            .category-title {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: #58ccc3; // لون خلفية العنوان
+                color: white;
+                padding: 10px;
+                text-align: center;
+                font-size: 1.2rem;
+                font-weight: 500;
+                text-transform: uppercase;
+            }
+        }
+
+        &:hover {
+            .card {
+                .card-img {
+                    transform: scale(1.1); // تأثير التكبير عند التمرير
+                }
+
+                .overlay {
+                    opacity: 1; // إظهار الدائرة
+                    animation: bubbleEffect 0.5s ease-in-out forwards; // تأثير الفقاعة
+                }
+            }
+        }
+    }
+
+    .explore-link {
+        display: inline-block;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #333;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-bottom: 2px solid #58ccc3; // خط سفلي بلون الـ teal
+        padding-bottom: 5px;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #58ccc3;
+        }
+    }
+
+    // إزالة الفجوات بين البطاقات
+    .d-flex.flex-column {
+        gap: 0;
+    }
+
+    // تأثير الفقاعة
+    @keyframes bubbleEffect {
+        0% {
+            width: 50%;
+            height: 50%;
+            opacity: 1;
+        }
+        70% {
+            width: 150%; // تنمو لتغطي الصورة
+            height: 150%;
+            opacity: 1;
+        }
+        100% {
+            width: 150%;
+            height: 150%;
+            opacity: 0; // تتلاشى
+        }
+    }
+
+    // التصميم المتجاوب
+    @media (max-width: 768px) {
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        .category-card {
+            .card {
+                height: 200px; // ارتفاع موحد للشاشات الصغيرة
+                .category-title {
+                    font-size: 1rem;
+                    padding: 8px;
+                }
+
+                .overlay {
+                    width: 70%;
+                    height: 70%;
+                }
+            }
+        }
+    }
+}
