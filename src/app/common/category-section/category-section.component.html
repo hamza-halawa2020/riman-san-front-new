@@ -13,7 +13,7 @@
             <!-- Left Column: Hair Care (2x height of Skin Care) and Skin Care -->
             <div class="col-md-6 d-flex flex-column">
                 <a
-                    routerLink="{{ data[0].id }}"
+                    routerLink="/categories/{{ data[0].id }}"
                     class="category-card flex-grow-2 mb-3"
                 >
                     <div
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 </a>
-                <a [routerLink]="data[3].id" class="category-card flex-grow-1">
+                <a routerLink="/categories/{{data[3].id}}" class="category-card flex-grow-1">
                     <div
                         class="card position-relative overflow-hidden small-card"
                     >
@@ -47,7 +47,7 @@
 
             <!-- Right Column: Health & Support (1/2 height of Personal Care) and Personal Care -->
             <div class="col-md-6 d-flex flex-column">
-                <a [routerLink]="data[1].id" class="category-card flex-grow-1">
+                <a routerLink="/categories/{{data[1].id}}" class="category-card flex-grow-1">
                     <div
                         class="card position-relative overflow-hidden small-card"
                     >
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </a>
-                <a [routerLink]="data[2].id" class="category-card flex-grow-2">
+                <a routerLink="/categories/{{data[2].id}}" class="category-card flex-grow-2">
                     <div
                         class="card position-relative overflow-hidden large-card"
                     >

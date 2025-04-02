@@ -18,25 +18,25 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            height: 400px; // ارتفاع موحد لجميع البطاقات
+            height: 400px;
 
             .card-img {
                 width: 100%;
-                height: 100%; // الصورة تأخذ كامل ارتفاع البطاقة
-                object-fit: cover; // ضبط الصورة لتغطية الحاوية بالكامل
-                transition: transform 1.3s ease; // تأثير التكبير السلس
+                height: 100%;
+                object-fit: cover;
+                transition: transform 1.3s ease;
             }
 
             .overlay {
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 50%; // حجم البداية للدائرة
+                width: 50%;
                 height: 50%;
-                background: rgba(255, 255, 255, 0.1); // طبقة شفافة
-                border-radius: 50%; // شكل دائري
-                transform: translate(-50%, -50%); // توسيط الدائرة
-                opacity: 0; // مخفية في البداية
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
                 transition: opacity 0.3s ease;
             }
 
@@ -45,7 +45,7 @@
                 bottom: 0;
                 left: 0;
                 width: 100%;
-                background: #58ccc3; // لون خلفية العنوان
+                background: #58ccc3;
                 color: white;
                 padding: 10px;
                 text-align: center;
@@ -58,12 +58,12 @@
         &:hover {
             .card {
                 .card-img {
-                    transform: scale(1.1); // تأثير التكبير عند التمرير
+                    transform: scale(1.1);
                 }
 
                 .overlay {
-                    opacity: 1; // إظهار الدائرة
-                    animation: bubbleEffect 0.5s ease-in-out forwards; // تأثير الفقاعة
+                    opacity: 1;
+                    animation: bubbleEffect 0.5s ease-in-out forwards;
                 }
             }
         }
@@ -76,7 +76,7 @@
         color: #333;
         text-transform: uppercase;
         text-decoration: none;
-        border-bottom: 2px solid #58ccc3; // خط سفلي بلون الـ teal
+        border-bottom: 2px solid #58ccc3;
         padding-bottom: 5px;
         transition: color 0.3s ease;
 
@@ -85,12 +85,10 @@
         }
     }
 
-    // إزالة الفجوات بين البطاقات
     .d-flex.flex-column {
         gap: 0;
     }
 
-    // تأثير الفقاعة
     @keyframes bubbleEffect {
         0% {
             width: 50%;
@@ -98,18 +96,17 @@
             opacity: 1;
         }
         70% {
-            width: 150%; // تنمو لتغطي الصورة
+            width: 150%;
             height: 150%;
             opacity: 1;
         }
         100% {
             width: 150%;
             height: 150%;
-            opacity: 0; // تتلاشى
+            opacity: 0;
         }
     }
 
-    // التصميم المتجاوب
     @media (max-width: 768px) {
         h2 {
             font-size: 1.5rem;
@@ -117,7 +114,7 @@
 
         .category-card {
             .card {
-                height: 200px; // ارتفاع موحد للشاشات الصغيرة
+                height: 200px;
                 .category-title {
                     font-size: 1rem;
                     padding: 8px;

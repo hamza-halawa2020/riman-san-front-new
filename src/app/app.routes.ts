@@ -36,6 +36,7 @@ import { FactoryPageComponent } from './pages/factory-page/factory-page.componen
 import { FavouritePageWrapperComponent } from './pages/favourite-page-wrapper/favourite-page-wrapper.component';
 import { FavouriteResolver } from './pages/favourite-page-wrapper/favourite.resolver';
 import { ShopPageComponent } from './pages/shop-page/shop-page.component';
+import { CategoryPageComponent } from './pages/category-page/category-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -49,6 +50,7 @@ export const routes: Routes = [
     { path: 'products', component: ProductPageComponent },
     { path: 'shop', component: ShopPageComponent },
     { path: 'product/:id', component: ProductDetailsPageComponent },
+    { path: 'categories/:id', component: CategoryPageComponent },
     { path: 'events', component: EventPageComponent },
     { path: 'event/:id', component: EventDetailsPageComponent },
     { path: 'checkout', component: CheckoutPageComponent },
