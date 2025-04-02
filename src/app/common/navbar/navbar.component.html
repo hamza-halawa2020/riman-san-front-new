@@ -6,12 +6,18 @@
                 <div class="col-md-4 mb-2 mb-md-0">
                     <ul class="list-inline mb-0">
                         <li class="list-inline-item">
-                            <a routerLink="/about" class="text-dark text-decoration-none">
+                            <a
+                                routerLink="/about"
+                                class="text-dark text-decoration-none"
+                            >
                                 {{ "ABOUT_US" | translate }}
                             </a>
                         </li>
                         <li class="list-inline-item">
-                            <a routerLink="/contacts" class="text-dark text-decoration-none">
+                            <a
+                                routerLink="/contacts"
+                                class="text-dark text-decoration-none"
+                            >
                                 {{ "Contact Us" | translate }}
                             </a>
                         </li>
@@ -19,7 +25,9 @@
                 </div>
                 <div class="col-md-4 text-md-center mb-2 mb-md-0">
                     <span class="fw-bold">
-                        {{ "Free Shipping on orders above 499 EGP" | translate }}
+                        {{
+                            "Free Shipping on orders above 499 EGP" | translate
+                        }}
                     </span>
                     -
                     <a routerLink="/products" class="text-primary fw-bold">
@@ -29,12 +37,39 @@
                 </div>
                 <div class="col-md-4 text-md-end">
                     <div class="dropdown d-inline">
-                        <a class="dropdown-toggle" type="button" id="languageDropDown" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ getCurrentLanguage() === "ar" ? "العربية" : "English" }}
+                        <a
+                            class="dropdown-toggle"
+                            type="button"
+                            id="languageDropDown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            {{
+                                getCurrentLanguage() === "ar"
+                                    ? "العربية"
+                                    : "English"
+                            }}
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="languageDropDown">
-                            <li><a (click)="switchLanguage('en')" class="dropdown-item" style="cursor: pointer">English</a></li>
-                            <li><a (click)="switchLanguage('ar')" class="dropdown-item" style="cursor: pointer">العربية</a></li>
+                        <ul
+                            class="dropdown-menu"
+                            aria-labelledby="languageDropDown"
+                        >
+                            <li>
+                                <a
+                                    (click)="switchLanguage('en')"
+                                    class="dropdown-item"
+                                    style="cursor: pointer"
+                                    >English</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    (click)="switchLanguage('ar')"
+                                    class="dropdown-item"
+                                    style="cursor: pointer"
+                                    >العربية</a
+                                >
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -43,58 +78,177 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light site-navigation d-flex align-items-center" [ngClass]="{ sticky: isSticky }">
-        <div class="container d-flex align-items-center justify-content-between position-relative">
+    <nav
+        class="navbar navbar-expand-lg navbar-light site-navigation d-flex align-items-center"
+        [ngClass]="{ sticky: isSticky }"
+    >
+        <div
+            class="container d-flex align-items-center justify-content-between position-relative"
+        >
             <!-- Toggler for mobile view -->
-            <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button
+                class="navbar-toggler"
+                type="button"
+                (click)="isCollapsed = !isCollapsed"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <!-- Navigation Links -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
-                <ul class="navbar-nav mb-2 mb-lg-0" [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-auto' : 'me-auto'">
-                    <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+            <div
+                class="collapse navbar-collapse"
+                id="navbarSupportedContent"
+                [ngbCollapse]="isCollapsed"
+            >
+                <ul
+                    class="navbar-nav mb-2 mb-lg-0"
+                    [ngClass]="
+                        getCurrentLanguage() === 'ar' ? 'ms-auto' : 'me-auto'
+                    "
+                >
+                    <li
+                        class="nav-item"
+                        routerLinkActive="active-link"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                    >
                         <a class="nav-link" routerLink="/">
-                            <svg width="16" height="16" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
-                                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
+                            <svg
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-house-door"
+                                viewBox="0 0 16 16"
+                            >
+                                <path
+                                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"
+                                />
                             </svg>
                             {{ "HOME" | translate }}
                         </a>
                     </li>
-                    <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                    <li
+                        class="nav-item"
+                        routerLinkActive="active-link"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                    >
                         <a class="nav-link" routerLink="/shop">
-                            <svg width="16" height="16" fill="currentColor" class="bi bi-handbag" viewBox="0 0 16 16">
-                                <path d="M8 1a2 2 0 0 1 2 2v2H6V3a2 2 0 0 1 2-2m3 4V3a3 3 0 1 0-6 0v2H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5zm-1 1v1.5a.5.5 0 0 0 1 0V6h1.639a.5.5 0 0 1 .494.426l1.028 6.851A1.5 1.5 0 0 1 12.678 15H3.322a1.5 1.5 0 0 1-1.483-1.723l1.028-6.851A.5.5 0 0 1 3.36 6H5v1.5a.5.5 0 1 0 1 0V6z" />
+                            <svg
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-handbag"
+                                viewBox="0 0 16 16"
+                            >
+                                <path
+                                    d="M8 1a2 2 0 0 1 2 2v2H6V3a2 2 0 0 1 2-2m3 4V3a3 3 0 1 0-6 0v2H3.36a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.355a2.5 2.5 0 0 0 2.473-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5zm-1 1v1.5a.5.5 0 0 0 1 0V6h1.639a.5.5 0 0 1 .494.426l1.028 6.851A1.5 1.5 0 0 1 12.678 15H3.322a1.5 1.5 0 0 1-1.483-1.723l1.028-6.851A.5.5 0 0 1 3.36 6H5v1.5a.5.5 0 1 0 1 0V6z"
+                                />
                             </svg>
                             {{ "SHOP" | translate }}
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="educationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg width="32" height="32" viewBox="0 0 50 50" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid meet">
-                                <path d="M24.999 27.381c-5.406 0-9.999 1.572-12.999 4.036v4.583h26v-4.583c-3-2.464-7.594-4.036-13.001-4.036zm23.871-2.352l-23.934-11.029-23.924 11.029 3.988 1.825v2.807c-1 .207-1.003.731-1.003 1.354 0 .368.122.799.354 1.057l-1.368 2.928h4.88l-1.356-2.93c.228-.258.415-.638.415-1.006 0-.622-.922-1.197-.922-1.404v-2.337l5 2.246v-.199c3-2.609 8.271-4.265 13.998-4.265 5.729 0 11.002 1.656 14.002 4.265v.199l9.87-4.54z" />
+                        <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="educationDropdown"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <svg
+                                width="32"
+                                height="32"
+                                viewBox="0 0 50 50"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                preserveAspectRatio="xMidYMid meet"
+                            >
+                                <path
+                                    d="M24.999 27.381c-5.406 0-9.999 1.572-12.999 4.036v4.583h26v-4.583c-3-2.464-7.594-4.036-13.001-4.036zm23.871-2.352l-23.934-11.029-23.924 11.029 3.988 1.825v2.807c-1 .207-1.003.731-1.003 1.354 0 .368.122.799.354 1.057l-1.368 2.928h4.88l-1.356-2.93c.228-.258.415-.638.415-1.006 0-.622-.922-1.197-.922-1.404v-2.337l5 2.246v-.199c3-2.609 8.271-4.265 13.998-4.265 5.729 0 11.002 1.656 14.002 4.265v.199l9.87-4.54z"
+                                />
                             </svg>
                             {{ "EDUCATION" | translate }}
                         </a>
-                        <ul class="dropdown-menu text-center" aria-labelledby="educationDropdown">
-                            <li><a class="dropdown-item" routerLink="/courses">{{ "COURSES" | translate }}</a></li>
-                            <li><a class="dropdown-item" routerLink="/instructors">{{ "INSTRUCTORS" | translate }}</a></li>
-                            <li><a class="dropdown-item" routerLink="/certifications">{{ "CERTIFICATIONS" | translate }}</a></li>
+                        <ul
+                            class="dropdown-menu text-center"
+                            aria-labelledby="educationDropdown"
+                        >
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    routerLink="/courses"
+                                    >{{ "COURSES" | translate }}</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    routerLink="/instructors"
+                                    >{{ "INSTRUCTORS" | translate }}</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    routerLink="/certifications"
+                                    >{{ "CERTIFICATIONS" | translate }}</a
+                                >
+                            </li>
                         </ul>
                     </li>
-                    <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                    <li
+                        class="nav-item"
+                        routerLinkActive="active-link"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                    >
                         <a class="nav-link" routerLink="/posts">
-                            <svg width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
-                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                            <svg
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-pen-fill"
+                                viewBox="0 0 16 16"
+                            >
+                                <path
+                                    d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"
+                                />
                             </svg>
                             {{ "BLOG" | translate }}
                         </a>
                     </li>
-                    <li class="nav-item" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">
+                    <li
+                        class="nav-item"
+                        routerLinkActive="active-link"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                    >
                         <a class="nav-link" routerLink="/events">
-                            <svg width="16" height="16" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" preserveAspectRatio="xMidYMid meet">
+                            <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 36 36"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                preserveAspectRatio="xMidYMid meet"
+                            >
                                 <title>event-line</title>
-                                <rect x="2" y="8" width="32" height="24" rx="2" ry="2" fill="none" />
+                                <rect
+                                    x="2"
+                                    y="8"
+                                    width="32"
+                                    height="24"
+                                    rx="2"
+                                    ry="2"
+                                    fill="none"
+                                />
                                 <path d="M10 12 V2 M26 12 V2" />
                                 <rect x="14" y="8" width="8" height="2" />
                                 <path d="M16 18 L22 24 M22 24 L28 18" />
@@ -106,38 +260,144 @@
             </div>
 
             <!-- Logo (Center) -->
-            <a class="navbar-brand mx-auto position-absolute start-50 translate-middle-x" routerLink="/">
-                <img src="https://e-majestic.com/cdn/shop/files/logo.pdf.png?v=1733088835&width=350" alt="Majestic BioPharma Logo" class="logo-img" />
+            <a
+                class="navbar-brand mx-auto position-absolute start-50 translate-middle-x"
+                routerLink="/"
+            >
+                <img
+                    src="https://e-majestic.com/cdn/shop/files/logo.pdf.png?v=1733088835&width=350"
+                    alt="Majestic BioPharma Logo"
+                    class="logo-img"
+                />
             </a>
 
             <!-- Right Side Icons -->
             <div class="d-flex align-items-center">
-                <a *ngIf="isLoggedIn" routerLink="/profile" class="nav-link" [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'">
-                    <svg width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                <!-- Profile Dropdown for Logged In Users -->
+                <div
+                    *ngIf="isLoggedIn"
+                    class="dropdown"
+                    [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'"
+                >
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        id="profileDropdown"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        <svg
+                            width="30"
+                            height="30"
+                            fill="currentColor"
+                            class="bi bi-person"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"
+                            />
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                        <li>
+                            <a class="dropdown-item" routerLink="/profile">{{
+                                "PROFILE" | translate
+                            }}</a>
+                        </li>
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                (click)="logout()"
+                                style="cursor: pointer"
+                                >{{ "LOGOUT" | translate }}</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Login Icon for Non-Logged In Users -->
+                <a
+                    *ngIf="!isLoggedIn"
+                    routerLink="/login"
+                    class="nav-link"
+                    [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'"
+                >
+                    <svg
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        class="bi bi-person"
+                        viewBox="0 0 16 16"
+                    >
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"
+                        />
                     </svg>
                 </a>
-                <a *ngIf="!isLoggedIn" routerLink="/login" class="nav-link" [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'">
-                    <svg width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+
+                <!-- Wishlist Icon -->
+                <a
+                    routerLink="/wishlist"
+                    [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'"
+                    class="position-relative nav-link"
+                >
+                    <svg
+                        width="25"
+                        height="25"
+                        fill="currentColor"
+                        class="bi bi-heart"
+                        viewBox="0 0 16 16"
+                    >
+                        <path
+                            d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"
+                        />
                     </svg>
-                </a>
-                <a routerLink="/wishlist" [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'" class="position-relative nav-link">
-                    <svg width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143q.09.083.176.171a3 3 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15" />
-                    </svg>
-                    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-dark" [ngClass]="getCurrentLanguage() === 'ar' ? 'start-0' : 'start-100'">
+                    <span
+                        class="position-absolute top-0 translate-middle badge rounded-pill bg-dark"
+                        [ngClass]="
+                            getCurrentLanguage() === 'ar'
+                                ? 'start-0'
+                                : 'start-100'
+                        "
+                    >
                         {{ isLoggedIn ? favData.length : favClientData.length }}
                     </span>
                 </a>
-                <a routerLink="/cart" [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'" class="position-relative nav-link">
-                    <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+
+                <!-- Cart Icon -->
+                <a
+                    routerLink="/cart"
+                    [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'"
+                    class="position-relative nav-link"
+                >
+                    <svg
+                        width="25"
+                        height="25"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        <path
+                            d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                        ></path>
                     </svg>
-                    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-dark" [ngClass]="getCurrentLanguage() === 'ar' ? 'start-0' : 'start-100'">
-                        {{ isLoggedIn ? cartData.length : cartClientData.length }}
+                    <span
+                        class="position-absolute top-0 translate-middle badge rounded-pill bg-dark"
+                        [ngClass]="
+                            getCurrentLanguage() === 'ar'
+                                ? 'start-0'
+                                : 'start-100'
+                        "
+                    >
+                        {{
+                            isLoggedIn ? cartData.length : cartClientData.length
+                        }}
                     </span>
                 </a>
             </div>
