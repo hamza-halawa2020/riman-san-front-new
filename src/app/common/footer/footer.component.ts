@@ -6,14 +6,11 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
     selector: 'app-footer',
     standalone: true,
-    imports: [RouterLink, NgIf, NgClass,TranslateModule],
+    imports: [RouterLink, NgIf, NgClass, TranslateModule],
     templateUrl: './footer.component.html',
-    styleUrl: './footer.component.scss'
+    styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
-
-    constructor (
-        public router: Router
-    ) {}
-
+    email: string = ' info@rimansan.net';
+    constructor(public router: Router) {}
 }

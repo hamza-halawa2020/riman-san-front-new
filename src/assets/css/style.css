@@ -4095,7 +4095,8 @@ blockquote::before,
 }
 .sth_det2 u {
     color: #000;
-    /* font-family: "LyonArabic"; */
+    font-family: "LyonArabic", "Poppins", sans-serif;
+    font-variant-numeric: lining-nums;
 }
 /*END TEAM PAGE THREE CSS*/
 /*START SINGLE TEAM DETAILS*/
