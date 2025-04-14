@@ -26,8 +26,9 @@
     }
 
     svg {
-        width: clamp(15px, 3vw, 30px); 
-        height: clamp(15px, 3vw, 30px);
+        width: 1em; 
+        height: 1em;
+        vertical-align: middle; 
         transition: all 0.3s ease;
     }
 }
@@ -43,8 +44,9 @@
 .d-flex.align-items-center {
     .nav-link {
         svg {
-            width: clamp(15px, 2.5vw, 25px); 
-            height: clamp(15px, 2.5vw, 25px);
+            width: 1.5em; 
+            height: 1.2em;
+            vertical-align: middle;
             transition: all 0.3s ease;
         }
     }
@@ -128,7 +130,7 @@
 /* Custom Container for Navbar */
 .custom-container {
     width: 100%;
-    max-width: 1800px; 
+    max-width: 1700px; 
     margin: 0 auto;
     padding: 0 30px; 
 }
@@ -138,13 +140,6 @@
     .custom-container {
         padding: 0 15px; 
     }
-}
-
-/* Unify icon sizes in the navbar */
-.nav-link svg {
-    width: 25px; 
-    height: 25px;
-    vertical-align: middle; 
 }
 
 /* Optional: Adjust badge positioning if needed */
