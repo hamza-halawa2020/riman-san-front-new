@@ -1,53 +1,96 @@
 <app-navbar />
 
-<app-page-banner />
+<!-- Coming Soon Section -->
+<section class="coming-soon-section d-flex align-items-center text-center text-white">
+  <div class="container">
+    <!-- Animated Title -->
+    <h1 class="display-3 fw-bold animate__animated animate__fadeInDown">
+      Something Awesome is Coming Soon!
+    </h1>
+    <p class="lead mt-3 animate__animated animate__fadeInUp">
+      We're working hard to bring you an incredible experience. Stay tuned!
+    </p>
+
+    <!-- Countdown Timer (Optional) -->
+    <div class="countdown mt-5 animate__animated animate__zoomIn">
+      <div class="time-block">
+        <span class="time" id="days">00</span>
+        <span class="label">Days</span>
+      </div>
+      <div class="time-block">
+        <span class="time" id="hours">00</span>
+        <span class="label">Hours</span>
+      </div>
+      <div class="time-block">
+        <span class="time" id="minutes">00</span>
+        <span class="label">Minutes</span>
+      </div>
+      <div class="time-block">
+        <span class="time" id="seconds">00</span>
+        <span class="label">Seconds</span>
+      </div>
+    </div>
+
+  
+  </div>
+
+  <!-- Background Overlay -->
+  <div class="overlay"></div>
+</section>
 
 <!-- Success Message as a Toast -->
 <div
-    *ngIf="successMessage"
-    class="toast-container position-fixed top-0 end-0 p-3"
+  *ngIf="successMessage"
+  class="toast-container position-fixed top-0 end-0 p-3"
 >
-    <div
-        class="toast show"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-    >
-        <div class="toast-header">
-            <strong class="me-auto text-success">Success</strong>
-        </div>
-        <div class="toast-body">
-            <h6>
-                {{ successMessage }}
-            </h6>
-        </div>
+  <div
+    class="toast show animate__animated animate__fadeInRight"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <strong class="me-auto text-success">Success</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+        (click)="successMessage = ''"
+      ></button>
     </div>
+    <div class="toast-body">
+      <h6>{{ successMessage }}</h6>
+    </div>
+  </div>
 </div>
 
 <!-- Error Message as a Toast -->
 <div
-    *ngIf="errorMessage"
-    class="toast-container position-fixed top-0 end-0 p-3"
+  *ngIf="errorMessage"
+  class="toast-container position-fixed top-0 end-0 p-3"
 >
-    <div
-        class="toast show"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
-    >
-        <div class="toast-header">
-            <strong class="me-auto text-danger">Error</strong>
-        </div>
-        <div class="toast-body">
-            <h6>
-                {{ errorMessage }}
-            </h6>
-        </div>
+  <div
+    class="toast show animate__animated animate__fadeInRight"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <strong class="me-auto text-danger">Error</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+        (click)="errorMessage = ''"
+      ></button>
     </div>
+    <div class="toast-body">
+      <h6>{{ errorMessage }}</h6>
+    </div>
+  </div>
 </div>
 
-<h1 class="container text-center">factory content</h1>
-
 <app-footer />
-
 <app-back-to-top />
