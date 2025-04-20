@@ -1,6 +1,5 @@
 <div [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
     <app-navbar />
-
     <app-page-banner />
 
     <!-- Success Message as a Toast -->
@@ -9,7 +8,7 @@
         class="toast-container position-fixed top-0"
         [class.start-0]="translateService.currentLang === 'ar'"
         [class.end-0]="translateService.currentLang !== 'ar'"
-        p-3
+        style="z-index: 1050; padding: 1rem;"
     >
         <div
             class="toast show"
@@ -38,7 +37,7 @@
         class="toast-container position-fixed top-0"
         [class.start-0]="translateService.currentLang === 'ar'"
         [class.end-0]="translateService.currentLang !== 'ar'"
-        p-3
+        style="z-index: 1050; padding: 1rem;"
     >
         <div
             class="toast show"
@@ -72,13 +71,14 @@
             </h2>
 
             <!-- Category Grid -->
-            <div class="row">
-                <div class="col-md-4 d-flex flex-column">
-                    <a routerLink="/products/" class="category-card mb-3">
+            <div class="row g-3" *ngIf="data && data.length > 0; else noData">
+                <div class="col-lg-4 col-md-6 col-6">
+                    <a routerLink="/products/" class="category-card">
                         <div class="card position-relative overflow-hidden">
                             <img
                                 src="https://new-backend.rimansan.net/public/images/categories/1742656502_67ded3f62554f.jpg"
                                 class="card-img"
+                                alt="{{ 'All Products' | translate }}"
                             />
                             <div class="overlay"></div>
                             <div class="category-title">
@@ -88,14 +88,15 @@
                     </a>
                 </div>
                 <div
-                    class="col-md-4 d-flex flex-column"
+                    class="col-lg-4 col-md-6 col-6"
                     *ngFor="let item of data"
                 >
-                    <a routerLink="/categories/{{ item.id }}" class="category-card mb-3">
+                    <a routerLink="/categories/{{ item.id }}" class="category-card">
                         <div class="card position-relative overflow-hidden">
                             <img
                                 src="{{ image + item.image }}"
                                 class="card-img"
+                                alt="{{ item.translatedTitle || item.name }}"
                             />
                             <div class="overlay"></div>
                             <div class="category-title">
@@ -106,6 +107,7 @@
                 </div>
             </div>
 
+            <!-- No Data Template -->
             <ng-template #noData>
                 <div class="text-center">
                     <p>{{ "NO_CATEGORIES_AVAILABLE" | translate }}</p>
@@ -115,6 +117,5 @@
     </div>
 
     <app-footer />
-
     <app-back-to-top />
 </div>

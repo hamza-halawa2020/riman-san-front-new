@@ -23,6 +23,15 @@
         display: flex;
         gap: 2px;
 
+        &.grid-1 {
+            span {
+                width: 12px;
+                height: 10px;
+                background: #999;
+                border: 1px solid #ccc;
+            }
+        }
+
         &.grid-2 {
             span {
                 width: 10px;
@@ -60,6 +69,7 @@
         }
     }
 }
+
 .product-grid {
     margin-bottom: 20px;
     transition: all 0.3s ease;

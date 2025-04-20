@@ -1,7 +1,11 @@
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
-import { CarouselComponent, CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import {
+    CarouselComponent,
+    CarouselModule,
+    OwlOptions,
+} from 'ngx-owl-carousel-o';
 import { MainSliderService } from './main-slider.service';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
@@ -27,7 +31,8 @@ export class MainSlider implements OnInit {
     image = environment.imgUrl + 'main-sliders/';
 
     // Reference to the OwlCarousel component
-    @ViewChild('owlCarousel', { static: false }) owlCarousel!: CarouselComponent;
+    @ViewChild('owlCarousel', { static: false })
+    owlCarousel!: CarouselComponent;
 
     currentOptions: OwlOptions;
 
@@ -43,6 +48,7 @@ export class MainSlider implements OnInit {
         responsive: {
             0: {
                 autoHeight: false,
+                autoplay: false,
             },
         },
     };
@@ -60,6 +66,7 @@ export class MainSlider implements OnInit {
         responsive: {
             0: {
                 autoHeight: false,
+                autoplay: false,
             },
         },
     };

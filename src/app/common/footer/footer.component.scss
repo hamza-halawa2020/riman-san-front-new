@@ -1,9 +1,10 @@
 /* Middle Section */
 .footer-middle-area {
-    background-color: #222222;
+    background-color: #222222 !important;
     color: #fff;
-    padding: 40px 0;
+    // padding: 40px 0;
 }
+
 
 .footer-middle-area .custom-container {
     display: flex;
@@ -21,6 +22,7 @@
 
 .single-footer-widget {
     margin-bottom: 30px;
+    background-color: #222222 !important;
 }
 
 .logo-wrapper {
@@ -36,11 +38,10 @@
 
 .single-footer-widget h3 {
     font-size: 14px;
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
     color: #fff;
-    text-transform: uppercase;
     letter-spacing: 1px;
-    line-height: 50px;
+    line-height: 35px;
 }
 
 .single-footer-widget p {
@@ -95,6 +96,70 @@
     border-color: #ff94ff;
 }
 
+/* Accordion Styles for Mobile */
+.accordion-header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    // text-transform: uppercase;
+    letter-spacing: 1px;
+    // border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #222222 !important;
+    width: 100%;
+    position: relative; /* عشان نتحكم في مكان الأيقونة */
+}
+
+.accordion-header .header-text {
+    flex: 0 0 auto;
+    margin-right: auto; /* النص هيترمي لليسار */
+}
+
+.accordion-header .accordion-icon {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+    position: absolute; /* الأيقونة هتبقى في الطرف الأيمن */
+    top: 50%;
+    transform: translateY(-50%); /* توسيط الأيقونة عموديًا */
+    right:0 !important;
+    // left: 780px;
+}
+
+[dir="rtl"] .accordion-header .accordion-icon {
+    // right: auto !important;
+    left: 0 !important;
+}
+
+
+.accordion-header .accordion-icon.active {
+    transform: translateY(-50%) rotate(180deg); /* تدوير الأيقونة لما تكون مفتوحة */
+}
+
+.accordion-content {
+    padding: 15px 0;
+    background-color: #222222 !important;
+    overflow: hidden; /* عشان الأنيميشن يشتغل بشكل صحيح */
+}
+
+/* الأنيميشن للفتح والإغلاق */
+.accordion-content.animate {
+    max-height: 0; /* لما يكون مقفول */
+    opacity: 0;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out; /* أنيميشن سلس */
+}
+
+.accordion-content.animate.d-block {
+    max-height: 500px; /* قيمة كبيرة كافية لاحتواء المحتوى، ممكن تعدلها حسب الحاجة */
+    opacity: 1;
+}
+
+.accordion-content.animate.d-none {
+    max-height: 0;
+    opacity: 0;
+}
+
 /* Bottom Section */
 .footer-bottom-area {
     background-color: #f8f9fa;
@@ -118,39 +183,96 @@
     text-decoration: underline;
 }
 
-/* Responsive Adjustments */
-@media only screen and (max-width: 767px) {
+/* WhatsApp Floating Button */
+.whatsapp-float {
+    position: fixed;
+    bottom: 85px;
+    right: 30px;
+    background-color: #25d366;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.whatsapp-float:hover {
+    background-color: #20b358;
+}
+
+.whatsapp-float i {
+    font-size: 24px;
+}
+
+@media only screen and (min-width: 981px) {
+    .accordion-header {
+        display: none !important;
+    }
+
+    .accordion-content {
+        display: block !important;
+        max-height: none !important;
+        opacity: 1 !important;
+    }
+}
+
+
+
+
+
+
+
+@media only screen and  (max-width: 980px) {
+        .footer-middle-area .custom-container {
+        max-width: 980px;
+    }
+
+    .footer-middle-area .col-sm-6 {
+        // margin-bottom: 10px;
+    }
+
+}
+
+
+@media only screen and (max-width: 980px) {
     .footer-middle-area .custom-container {
         max-width: 100%;
     }
 
-    .footer-middle-area .col-sm-6 {
-        margin-bottom: 30px;
+    .footer-middle-area .row {
+        display: block;
     }
 
-    .footer-middle-area .col-sm-6:last-child {
+    .footer-middle-area .col-sm-6 {
+        margin-bottom: 0;
+        width: 100%;
+    }
+
+    .single-footer-widget {
         margin-bottom: 0;
     }
 
-    .subscribe-box .payment-methods img {
-        max-width: 120px;
+    .accordion-content {
+        background-color: #222222 !important;
     }
+
 
     .footer-bottom-area {
         padding: 20px 0;
     }
-}
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-    .footer-middle-area .custom-container {
-        max-width: 720px;
+    .accordion-header {
+        display: flex !important;
     }
 
-    .footer-middle-area .col-sm-6 {
-        margin-bottom: 30px;
+    .accordion-content {
+        display: none;
     }
-
-    .subscribe-box .payment-methods img {
-        max-width: 130px;
-    }
+    
 }

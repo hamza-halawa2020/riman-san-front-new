@@ -89,7 +89,7 @@
         <!-- Products Grid -->
         <div class="row g-4">
             <div
-                class="col-lg-3 col-md-4 col-sm-6"
+                class="col-xl-3 col-lg-4 col-md-6 col-6"
                 *ngFor="let product of filteredProducts"
             >
                 <div class="product-card">
@@ -144,10 +144,6 @@
                                 <div
                                     class="quantity-selector d-flex align-items-center"
                                 >
-                                    <!-- <button class="quantity-btn">-</button>
-                                    <span class="quantity">1</span>
-                                    <button class="quantity-btn">+</button> -->
-
                                     <button
                                         class="btn add-to-cart-btn"
                                         *ngIf="isLoggedIn"

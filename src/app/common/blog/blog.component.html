@@ -5,7 +5,7 @@
         class="toast-container position-fixed top-0"
         [class.start-0]="translateService.currentLang === 'ar'"
         [class.end-0]="translateService.currentLang !== 'ar'"
-        p-3
+        style="z-index: 1050; padding: 1rem;"
     >
         <div
             class="toast show"
@@ -34,7 +34,7 @@
         class="toast-container position-fixed top-0"
         [class.start-0]="translateService.currentLang === 'ar'"
         [class.end-0]="translateService.currentLang !== 'ar'"
-        p-3
+        style="z-index: 1050; padding: 1rem;"
     >
         <div
             class="toast show"
@@ -57,54 +57,51 @@
         </div>
     </div>
 
-    <section class="">
+    <section class="blog-section py-5">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="text-center mt-5 mb-3">
+                <div class="col-12">
+                    <div class="text-center mb-4">
                         <h2>{{ 'EXPERT TIPS & ADVICE' | translate }}</h2>
-                        <!-- <p [innerHTML]="'CHECK_ALL_POSTS' | translate"></p> -->
-                        <!-- <a routerLink="/posts" class="default-btn">
-                            {{ 'EXPLORE_ALL_POSTS' | translate }}
-                        </a> -->    
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row g-4">
                 <div
-                    class="col-lg-4 col-sm-4 col-xs-12 wow fadeInUp"
+                    class="col-lg-4 col-md-6 col-12"
                     *ngFor="let data of data"
-                    data-wow-duration="1s"
-                    data-wow-delay="0.1s"
-                    data-wow-offset="0"
                 >
-                    <div class="single_blog">
-                        <img
-                            src="{{ image + data.image }}"
-                            class="img-fluid max-height"
-                            alt="image"
-                        />
-                        <div class="content_box">
-                            <span
-                                [title]="
-                                    data.created_at | date : 'MMM d, yyyy, h:mm a'
-                                "
-                            >
-                                {{ data.translatedRelativeTime || getRelativeTime(data.created_at) }} |
-                                <a routerLink="/post/{{ data.id }}">
-                                    {{ data.translatedTitle || data.title }}
-                                </a>
-                            </span>
-                            <div>
-                                <i class="fa-regular fa-circle-user"></i>
-                                {{ 'BY' | translate }}
-                                {{ data.translatedAdmin || data.admin }}
+                    <div class="single-blog card h-100 shadow-sm">
+                        <div class="image-container">
+                            <img
+                                src="{{ image + data.image }}"
+                                class="card-img-top img-fluid"
+                                alt="{{ data.translatedTitle || data.title }}"
+                            />
+                        </div>
+                        <div class="card-body content-box d-flex flex-column">
+                            <div class="meta-info mb-2">
+                                <span
+                                    [title]="
+                                        data.created_at | date : 'MMM d, yyyy, h:mm a'
+                                    "
+                                    class="text-muted"
+                                >
+                                    {{ data.translatedRelativeTime || getRelativeTime(data.created_at) }} |
+                                    <a routerLink="/post/{{ data.id }}" class="text-primary">
+                                        {{ data.translatedTitle || data.title }}
+                                    </a>
+                                </span>
                             </div>
-                            <div>
-                                <i class="fa-regular fa-comment-dots"></i>
+                            <div class="author-info text-muted mb-2">
+                                <i class="fa-regular fa-circle-user me-1"></i>
+                                {{ 'BY' | translate }} {{ data.translatedAdmin || data.admin }}
+                            </div>
+                            <div class="comments-info text-muted mb-3">
+                                <i class="fa-regular fa-comment-dots me-1"></i>
                                 {{ 'COMMENTS' | translate }} ({{ data.postComments.length }})
                             </div>
-                            <div class="mt-3">
+                            <div class="mt-auto">
                                 <a routerLink="/post/{{ data.id }}" class="cta">
                                     <span>{{ 'READ_MORE' | translate }}</span>
                                     <svg
@@ -128,7 +125,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- END COL-->
             </div>
         </div>
     </section>

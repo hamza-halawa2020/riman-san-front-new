@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
@@ -7,8 +7,11 @@ import { environment } from '../../../environments/environment.development';
 import { FeedBackService } from './feed-back.service';
 import { formatDistanceToNow } from 'date-fns';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ar } from 'date-fns/locale'; // Import Arabic locale
-import { enUS } from 'date-fns/locale'; // Import English locale
+import { ar } from 'date-fns/locale';
+import { enUS } from 'date-fns/locale';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
     selector: 'app-feedback',
@@ -26,23 +29,34 @@ import { enUS } from 'date-fns/locale'; // Import English locale
     styleUrl: './feedback.component.scss',
     providers: [FeedBackService],
 })
-export class FeedbackComponent implements OnInit {
+export class FeedbackComponent implements OnInit, OnDestroy {
     sliderData: any[] = [];
-    groupedSliderData: any[][] = []; // Grouped reviews (3 per slide)
+    groupedSliderData: any[][] = [];
     productImage = environment.imgUrl + 'products/';
     currentOptions: OwlOptions;
+    private destroy$ = new Subject<void>();
+    private itemsPerSlide: number = 3; // Default: 3 items for large screens
+
     feedbackSlides: OwlOptions = {
-        items: 1, // Still 1 slide at a time, but each slide will contain 3 reviews
         nav: false,
         loop: true,
         margin: 25,
-        dots: true,
+        dots: false,
         autoplay: true,
         autoplayHoverPause: true,
         responsive: {
             0: {
+                items: 1, // 1 item for small screens
                 autoHeight: false,
             },
+            // 768: {
+            //     items: 2, // 2 items for medium screens
+            //     autoHeight: false,
+            // },
+            // 992: {
+            //     items: 3, // 3 items max for large screens
+            //     autoHeight: false,
+            // },
         },
         navText: [
             "<i class='fa-solid fa-chevron-left'></i>",
@@ -50,18 +64,26 @@ export class FeedbackComponent implements OnInit {
         ],
     };
     feedbackSlides2: OwlOptions = {
-        items: 1,
         nav: false,
         loop: true,
         margin: 25,
         rtl: true,
-        dots: true,
+        dots: false,
         autoplay: true,
         autoplayHoverPause: true,
         responsive: {
             0: {
+                items: 1,
                 autoHeight: false,
             },
+            // 768: {
+            //     items: 2,
+            //     autoHeight: false,
+            // },
+            // 992: {
+            //     items: 3, // 3 items max for large screens
+            //     autoHeight: false,
+            // },
         },
         navText: [
             "<i class='fa-solid fa-arrow-left'></i>",
@@ -72,7 +94,8 @@ export class FeedbackComponent implements OnInit {
     constructor(
         public router: Router,
         private feedBackService: FeedBackService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private breakpointObserver: BreakpointObserver
     ) {
         this.currentOptions =
             this.translate.currentLang === 'ar'
@@ -88,23 +111,55 @@ export class FeedbackComponent implements OnInit {
 
     ngOnInit(): void {
         this.fetchSliderData();
+        this.observeBreakpoints();
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 
     fetchSliderData() {
         this.feedBackService.index().subscribe({
             next: (response) => {
                 this.sliderData = Object.values(response)[0];
-                this.groupSliderData(); // Group the reviews into sets of 3
+                this.groupSliderData();
             },
             error: (error) => {},
         });
     }
 
-    // Group reviews into sets of 3 for each slide
+    observeBreakpoints() {
+        this.breakpointObserver
+            .observe([
+                Breakpoints.XSmall,
+                Breakpoints.Small,
+                Breakpoints.Medium,
+                Breakpoints.Large,
+                Breakpoints.XLarge,
+            ])
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((result) => {
+                if (
+                    result.breakpoints[Breakpoints.XSmall] ||
+                    result.breakpoints[Breakpoints.Small]
+                ) {
+                    this.itemsPerSlide = 1; // 1 item for <768px
+                } else if (result.breakpoints[Breakpoints.Medium]) {
+                    this.itemsPerSlide = 2; // 2 items for 768px-991px
+                } else {
+                    this.itemsPerSlide = 3; // Max 3 items for ≥992px
+                }
+                this.groupSliderData();
+            });
+    }
+
     groupSliderData() {
         this.groupedSliderData = [];
-        for (let i = 0; i < this.sliderData.length; i += 3) {
-            this.groupedSliderData.push(this.sliderData.slice(i, i + 3));
+        for (let i = 0; i < this.sliderData.length; i += this.itemsPerSlide) {
+            this.groupedSliderData.push(
+                this.sliderData.slice(i, i + this.itemsPerSlide)
+            );
         }
     }
 
@@ -119,7 +174,6 @@ export class FeedbackComponent implements OnInit {
     getRelativeTime(dateString: string): string {
         const date = new Date(dateString);
         const locale = this.translate.currentLang === 'ar' ? ar : enUS;
-
-        return formatDistanceToNow(date, { addSuffix: true, locale }); // e.g., "2 days ago"
+        return formatDistanceToNow(date, { addSuffix: true, locale });
     }
 }

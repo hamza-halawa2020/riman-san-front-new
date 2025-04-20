@@ -8,9 +8,22 @@ import { TranslateModule } from '@ngx-translate/core';
     standalone: true,
     imports: [RouterLink, NgIf, NgClass, TranslateModule],
     templateUrl: './footer.component.html',
-    styleUrl: './footer.component.scss',
+    styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
-    email: string = ' info@rimansan.net';
+    email: string = 'info@rimansan.net';
+
+    accordionState: { [key: string]: boolean } = {
+        getInTouch: false,
+        categories: false,
+        policies: false,
+        stayConnected: false,
+        newsletter: false,
+    };
+
     constructor(public router: Router) {}
+
+    toggleAccordion(section: string) {
+        this.accordionState[section] = !this.accordionState[section];
+    }
 }

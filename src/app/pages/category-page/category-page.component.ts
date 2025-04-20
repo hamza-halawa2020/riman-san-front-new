@@ -38,14 +38,16 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class CategoryPageComponent implements OnInit {
     data: any[] = [];
-    originalData: any[] = []; // Store the original data to reset sorting
+    originalData: any[] = [];
     image = environment.imgUrl + 'products/';
     isLoggedIn: boolean = false;
     successMessage: string = '';
     errorMessage: string = '';
-    gridColumns: number = 4; // Default number of columns (4 columns)
+    gridColumns: number = 4; // Default number of columns
     gridClass: string = 'col-lg-3 col-md-4 col-sm-6'; // Default grid class
     categoryId: string | null = null;
+    isMobile: boolean = false;
+
     constructor(
         public router: Router,
         private categoryService: CategoryService,
@@ -58,6 +60,9 @@ export class CategoryPageComponent implements OnInit {
         public translateService: TranslateService
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
+        this.checkMobile();
+        console.log('Initial isMobile:', this.isMobile, 'gridColumns:', this.gridColumns);
+        window.addEventListener('resize', () => this.checkMobile());
     }
 
     ngOnInit(): void {
@@ -68,28 +73,47 @@ export class CategoryPageComponent implements OnInit {
         });
     }
 
+    ngOnDestroy(): void {
+        window.removeEventListener('resize', () => this.checkMobile());
+    }
+
+    checkMobile(): void {
+        this.isMobile = window.innerWidth < 768 || window.matchMedia('(max-width: 767.98px)').matches;
+        console.log('checkMobile: isMobile=', this.isMobile, 'window.innerWidth=', window.innerWidth);
+        if (this.isMobile && (this.gridColumns === 4 || this.gridColumns === 6)) {
+            this.setGridColumns(2); // Default to 2 columns on mobile
+            console.log('Switched to 2 columns on mobile');
+        }
+    }
+
     setGridColumns(columns: number): void {
+        console.log('setGridColumns called with columns=', columns, 'isMobile=', this.isMobile);
+        if (this.isMobile && columns > 3) {
+            columns = 3; // Restrict to max 3 columns on mobile
+            console.log('Restricted to 3 columns on mobile');
+        }
         this.gridColumns = columns;
         switch (columns) {
             case 1:
-                this.gridClass = 'col-lg-12 col-md-12 col-sm-12';
+                this.gridClass = 'col-12';
                 break;
             case 2:
-                this.gridClass = 'col-lg-6 col-md-6 col-sm-12';
+                this.gridClass = 'col-lg-6 col-md-6 col-6';
                 break;
             case 3:
-                this.gridClass = 'col-lg-4 col-md-6 col-sm-12';
+                this.gridClass = 'col-lg-4 col-md-6 col-4';
                 break;
             case 4:
-                this.gridClass = 'col-lg-3 col-md-4 col-sm-12';
+                this.gridClass = 'col-lg-3 col-md-4 col-sm-6';
                 break;
             case 6:
-                this.gridClass = 'col-lg-2 col-md-2 col-sm-12';
+                this.gridClass = 'col-lg-2 col-md-4 col-sm-6';
                 break;
             default:
-                this.gridClass = 'col-lg-3 col-md-4 col-sm-12';
+                this.gridClass = 'col-lg-3 col-md-4 col-sm-6';
                 break;
         }
+        console.log('Set gridClass to:', this.gridClass, 'gridColumns:', this.gridColumns);
 
         document.body.classList.remove(
             'grid-columns-1',
@@ -103,182 +127,106 @@ export class CategoryPageComponent implements OnInit {
 
     sortCategorys(sortOption: any): void {
         let sortedData = [...this.data];
-
         switch (sortOption) {
             case 'a_to_z':
-                sortedData.sort((a, b) =>
-                    (a.title || '').localeCompare(b.title || '')
-                );
+                sortedData.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
                 break;
             case 'z_to_a':
-                sortedData.sort((a, b) =>
-                    (b.title || '').localeCompare(a.title || '')
-                );
+                sortedData.sort((a, b) => (b.title || '').localeCompare(a.title || ''));
                 break;
             case 'price_low_to_high':
-                sortedData.sort(
-                    (a, b) =>
-                        (a.priceAfterDiscount || 0) -
-                        (b.priceAfterDiscount || 0)
-                );
+                sortedData.sort((a, b) => (a.priceAfterDiscount || 0) - (b.priceAfterDiscount || 0));
                 break;
             case 'price_high_to_low':
-                sortedData.sort(
-                    (a, b) =>
-                        (b.priceAfterDiscount || 0) -
-                        (a.priceAfterDiscount || 0)
-                );
+                sortedData.sort((a, b) => (b.priceAfterDiscount || 0) - (a.priceAfterDiscount || 0));
                 break;
             case 'date_old_to_new':
                 sortedData.sort(
-                    (a, b) =>
-                        new Date(a.created_at || 0).getTime() -
-                        new Date(b.created_at || 0).getTime()
+                    (a, b) => new Date(a.created_at || 0).getTime() - new Date(b.created_at || 0).getTime()
                 );
                 break;
             case 'date_new_to_old':
                 sortedData.sort(
-                    (a, b) =>
-                        new Date(b.created_at || 0).getTime() -
-                        new Date(a.created_at || 0).getTime()
+                    (a, b) => new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime()
                 );
                 break;
             default:
                 sortedData = [...this.data];
                 break;
         }
-
         this.data = sortedData;
         this.translateData();
     }
 
     addToClientCart(category: any) {
         const client_cart = this.cartClientService.cartSubject.value;
-
         if (!client_cart || !Array.isArray(client_cart)) {
-            this.errorMessage = this.translateService.instant(
-                'CART_DATA_NOT_AVAILABLE'
-            );
+            this.errorMessage = this.translateService.instant('CART_DATA_NOT_AVAILABLE');
             return;
         }
-
-        const exists = client_cart.some(
-            (item) => item && item.category_id === category.id
-        );
-
+        const exists = client_cart.some((item) => item && item.category_id === category.id);
         if (exists) {
-            this.errorMessage = this.translateService.instant(
-                'PRODUCT_ALREADY_IN_CART'
-            );
-            setTimeout(() => {
-                this.errorMessage = '';
-            }, 1000);
+            this.errorMessage = this.translateService.instant('PRODUCT_ALREADY_IN_CART');
+            setTimeout(() => { this.errorMessage = ''; }, 1000);
         } else {
             const categoryToAdd = { ...category, quantity: 1 };
             this.cartClientService.addToClientCart(categoryToAdd);
-
-            this.successMessage = this.translateService.instant(
-                'PRODUCT_ADDED_TO_CART'
-            );
-            setTimeout(() => {
-                this.successMessage = '';
-            }, 1000);
+            this.successMessage = this.translateService.instant('PRODUCT_ADDED_TO_CART');
+            setTimeout(() => { this.successMessage = ''; }, 1000);
         }
     }
 
     addToCart(category_id: any) {
-        const payload = {
-            category_id: category_id,
-        };
-
+        const payload = { category_id };
         this.cartService.addToCart(payload).subscribe({
             next: (response) => {
-                this.successMessage = this.translateService.instant(
-                    'PRODUCT_ADDED_TO_CART'
-                );
-                setTimeout(() => {
-                    this.successMessage = '';
-                }, 1000);
+                this.successMessage = this.translateService.instant('PRODUCT_ADDED_TO_CART');
+                setTimeout(() => { this.successMessage = ''; }, 1000);
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(error.error.errors)
-                        .flat()
-                        .join(' | ');
+                    this.errorMessage = Object.values(error.error.errors).flat().join(' | ');
                 } else {
-                    this.errorMessage =
-                        error.error?.message ||
-                        this.translateService.instant('UNEXPECTED_ERROR');
+                    this.errorMessage = error.error?.message || this.translateService.instant('UNEXPECTED_ERROR');
                 }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                setTimeout(() => { this.errorMessage = ''; }, 3000);
             },
         });
     }
 
     addToFavourite(category_id: any) {
-        const payload = {
-            category_id: category_id,
-        };
-
+        const payload = { category_id };
         this.favouriteService.add(payload).subscribe({
             next: (response) => {
-                this.successMessage = this.translateService.instant(
-                    'PRODUCT_ADDED_TO_WISHLIST'
-                );
-                setTimeout(() => {
-                    this.successMessage = '';
-                }, 1000);
+                this.successMessage = this.translateService.instant('PRODUCT_ADDED_TO_WISHLIST');
+                setTimeout(() => { this.successMessage = ''; }, 1000);
             },
             error: (error) => {
                 if (error.error?.errors) {
-                    this.errorMessage = Object.values(error.error.errors)
-                        .flat()
-                        .join(' | ');
+                    this.errorMessage = Object.values(error.error.errors).flat().join(' | ');
                 } else {
-                    this.errorMessage =
-                        error.error?.message ||
-                        this.translateService.instant('UNEXPECTED_ERROR');
+                    this.errorMessage = error.error?.message || this.translateService.instant('UNEXPECTED_ERROR');
                 }
-                setTimeout(() => {
-                    this.errorMessage = '';
-                }, 3000);
+                setTimeout(() => { this.errorMessage = ''; }, 3000);
             },
         });
     }
 
     addToClientFavourite(category: any) {
         const client_fav = this.favClientService.favSubject.value;
-
         if (!client_fav || !Array.isArray(client_fav)) {
-            this.errorMessage = this.translateService.instant(
-                'FAV_DATA_NOT_AVAILABLE'
-            );
+            this.errorMessage = this.translateService.instant('FAV_DATA_NOT_AVAILABLE');
             return;
         }
-
-        const exists = client_fav.some(
-            (item) => item && item.category_id === category.id
-        );
-
+        const exists = client_fav.some((item) => item && item.category_id === category.id);
         if (exists) {
-            this.errorMessage = this.translateService.instant(
-                'PRODUCT_ALREADY_IN_FAV'
-            );
-            setTimeout(() => {
-                this.errorMessage = '';
-            }, 1000);
+            this.errorMessage = this.translateService.instant('PRODUCT_ALREADY_IN_FAV');
+            setTimeout(() => { this.errorMessage = ''; }, 1000);
         } else {
             const categoryToAdd = { ...category, quantity: 1 };
             this.favClientService.addToClientFav(categoryToAdd);
-
-            this.successMessage = this.translateService.instant(
-                'PRODUCT_ADDED_TO_FAV'
-            );
-            setTimeout(() => {
-                this.successMessage = '';
-            }, 1000);
+            this.successMessage = this.translateService.instant('PRODUCT_ADDED_TO_FAV');
+            setTimeout(() => { this.successMessage = ''; }, 1000);
         }
     }
 
@@ -290,21 +238,17 @@ export class CategoryPageComponent implements OnInit {
                     ...product,
                     productImages: product.productImages || [],
                 }));
-
                 if (this.categoryId) {
                     this.data = this.originalData.filter(
-                        (product) =>
-                            product.category === `category ${this.categoryId}`
+                        (product) => product.category === `category ${this.categoryId}`
                     );
                 } else {
                     this.data = [...this.originalData];
                 }
-
                 this.translateData();
             },
             error: (error) => {
-                this.errorMessage =
-                    this.translateService.instant('UNEXPECTED_ERROR');
+                this.errorMessage = this.translateService.instant('UNEXPECTED_ERROR');
                 setTimeout(() => (this.errorMessage = ''), 3000);
             },
         });
@@ -312,13 +256,10 @@ export class CategoryPageComponent implements OnInit {
 
     translateData() {
         if (!this.data || !Array.isArray(this.data)) return;
-
         this.data.forEach((category: any) => {
-            category.translatedName =
-                this.translateService.instant(category.title) || category.title;
+            category.translatedName = this.translateService.instant(category.title) || category.title;
             category.translatedDescription =
-                this.translateService.instant(category.description) ||
-                category.description;
+                this.translateService.instant(category.description) || category.description;
         });
     }
 }

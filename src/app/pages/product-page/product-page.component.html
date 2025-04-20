@@ -1,6 +1,5 @@
 <div [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
     <app-navbar />
-
     <app-page-banner />
 
     <!-- Start product Area -->
@@ -10,6 +9,33 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <!-- Grid View Options -->
                     <div class="grid-view-options">
+                        <!-- 1 Column (Mobile Only) -->
+                        <button
+                            class="btn btn-outline-secondary d-block d-md-none"
+                            [ngClass]="{ active: gridColumns === 1 }"
+                            (click)="setGridColumns(1)"
+                            title="1 Column"
+                        >
+                            <span class="custom-grid-icon grid-1">
+                                <svg
+                                    width="15"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <rect width="24" height="24" fill="white" />
+                                    <rect
+                                        x="1"
+                                        y="3"
+                                        width="22"
+                                        height="18"
+                                        fill="#09244B"
+                                    />
+                                </svg>
+                            </span>
+                        </button>
+
                         <!-- 2 Columns -->
                         <button
                             class="btn btn-outline-secondary"
@@ -85,9 +111,9 @@
                             </span>
                         </button>
 
-                        <!-- 4 Columns -->
+                        <!-- 4 Columns (Hidden on Mobile) -->
                         <button
-                            class="btn btn-outline-secondary"
+                            class="btn btn-outline-secondary d-none d-md-inline-block"
                             [ngClass]="{ active: gridColumns === 4 }"
                             (click)="setGridColumns(4)"
                             title="4 Columns"
@@ -133,9 +159,9 @@
                             </span>
                         </button>
 
-                        <!-- 6 Columns -->
+                        <!-- 6 Columns (Hidden on Mobile) -->
                         <button
-                            class="btn btn-outline-secondary"
+                            class="btn btn-outline-secondary d-none d-md-inline-block"
                             [ngClass]="{ active: gridColumns === 6 }"
                             (click)="setGridColumns(6)"
                             title="6 Columns"
@@ -198,37 +224,24 @@
 
                     <!-- Sorting Filter -->
                     <div class="w-25">
-                        <label for="sortSelect">{{
-                            "SORT_BY" | translate
-                        }}</label>
+                        <label for="sortSelect">{{ "SORT_BY" | translate }}</label>
                         <select
                             class="form-control"
                             id="sortSelect"
                             (change)="sortProducts($any($event.target).value)"
                         >
-                            <option value="a_to_z">
-                                {{ "ALPHA_A_TO_Z" | translate }}
-                            </option>
-                            <option value="z_to_a">
-                                {{ "ALPHA_Z_TO_A" | translate }}
-                            </option>
-                            <option value="price_low_to_high">
-                                {{ "PRICE_LOW_TO_HIGH" | translate }}
-                            </option>
-                            <option value="price_high_to_low">
-                                {{ "PRICE_HIGH_TO_LOW" | translate }}
-                            </option>
-                            <option value="date_old_to_new">
-                                {{ "DATE_OLD_TO_NEW" | translate }}
-                            </option>
-                            <option value="date_new_to_old">
-                                {{ "DATE_NEW_TO_OLD" | translate }}
-                            </option>
+                            <option value="a_to_z">{{ "ALPHA_A_TO_Z" | translate }}</option>
+                            <option value="z_to_a">{{ "ALPHA_Z_TO_A" | translate }}</option>
+                            <option value="price_low_to_high">{{ "PRICE_LOW_TO_HIGH" | translate }}</option>
+                            <option value="price_high_to_low">{{ "PRICE_HIGH_TO_LOW" | translate }}</option>
+                            <option value="date_old_to_new">{{ "DATE_OLD_TO_NEW" | translate }}</option>
+                            <option value="date_new_to_old">{{ "DATE_NEW_TO_OLD" | translate }}</option>
                         </select>
                     </div>
                 </div>
             </div>
-            <!-- Success Message as a Toast -->
+
+            <!-- Success/Error Toasts -->
             <div
                 *ngIf="successMessage"
                 class="toast-container position-fixed top-0"
@@ -244,12 +257,8 @@
                 >
                     <div class="toast-header">
                         <strong
-                            [class.ms-auto]="
-                                translateService.currentLang === 'ar'
-                            "
-                            [class.me-auto]="
-                                translateService.currentLang !== 'ar'
-                            "
+                            [class.ms-auto]="translateService.currentLang === 'ar'"
+                            [class.me-auto]="translateService.currentLang !== 'ar'"
                             class="text-success"
                         >
                             {{ "SUCCESS" | translate }}
@@ -260,8 +269,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Error Message as a Toast -->
             <div
                 *ngIf="errorMessage"
                 class="toast-container position-fixed top-0"
@@ -277,12 +284,8 @@
                 >
                     <div class="toast-header">
                         <strong
-                            [class.ms-auto]="
-                                translateService.currentLang === 'ar'
-                            "
-                            [class.me-auto]="
-                                translateService.currentLang !== 'ar'
-                            "
+                            [class.ms-auto]="translateService.currentLang === 'ar'"
+                            [class.me-auto]="translateService.currentLang !== 'ar'"
                             class="text-danger"
                         >
                             {{ "ERROR" | translate }}
@@ -303,11 +306,7 @@
                                     <a routerLink="/product/{{ product.id }}">
                                         <img
                                             class="pic-1 imageClass"
-                                            src="{{
-                                                image +
-                                                    product.productImages[0]
-                                                        .image
-                                            }}"
+                                            src="{{ image + product.productImages[0].image }}"
                                             alt="product image"
                                         />
                                     </a>
@@ -315,30 +314,19 @@
                                         <li>
                                             <a
                                                 style="cursor: pointer"
-                                                (click)="
-                                                    addToFavourite(product.id)
-                                                "
-                                                [attr.data-tip]="
-                                                    'ADD_TO_WISHLIST'
-                                                        | translate
-                                                "
+                                                (click)="addToFavourite(product.id)"
+                                                [attr.data-tip]="'ADD_TO_WISHLIST' | translate"
                                             >
-                                                <i
-                                                    class="fa-regular fa-heart"
-                                                ></i>
+                                                <i class="fa-regular fa-heart"></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 style="cursor: pointer"
                                                 (click)="addToCart(product.id)"
-                                                [attr.data-tip]="
-                                                    'ADD_TO_CART' | translate
-                                                "
+                                                [attr.data-tip]="'ADD_TO_CART' | translate"
                                             >
-                                                <i
-                                                    class="fa-solid fa-cart-plus"
-                                                ></i>
+                                                <i class="fa-solid fa-cart-plus"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -346,34 +334,19 @@
                                         <li>
                                             <a
                                                 style="cursor: pointer"
-                                                (click)="
-                                                    addToClientFavourite(
-                                                        product
-                                                    )
-                                                "
-                                                [attr.data-tip]="
-                                                    'ADD_TO_WISHLIST'
-                                                        | translate
-                                                "
+                                                (click)="addToClientFavourite(product)"
+                                                [attr.data-tip]="'ADD_TO_WISHLIST' | translate"
                                             >
-                                                <i
-                                                    class="fa-regular fa-heart"
-                                                ></i>
+                                                <i class="fa-regular fa-heart"></i>
                                             </a>
                                         </li>
                                         <li>
                                             <a
                                                 style="cursor: pointer"
-                                                (click)="
-                                                    addToClientCart(product)
-                                                "
-                                                [attr.data-tip]="
-                                                    'ADD_TO_CART' | translate
-                                                "
+                                                (click)="addToClientCart(product)"
+                                                [attr.data-tip]="'ADD_TO_CART' | translate"
                                             >
-                                                <i
-                                                    class="fa-solid fa-cart-plus"
-                                                ></i>
+                                                <i class="fa-solid fa-cart-plus"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -381,32 +354,19 @@
                                         class="product-new-label"
                                         *ngIf="product.discount"
                                     >
-                                        {{ "DISCOUNT" | translate }}:
-                                        {{ product.discount }}
-                                        {{ "EGP" | translate }}
+                                        {{ "DISCOUNT" | translate }}: {{ product.discount }} {{ "EGP" | translate }}
                                     </span>
                                 </div>
                                 <div class="product-content">
                                     <h3 class="title">
-                                        <a
-                                            routerLink="/product/{{
-                                                product.id
-                                            }}"
-                                        >
-                                            {{
-                                                product.translatedName ||
-                                                    product.title
-                                            }}
+                                        <a routerLink="/product/{{ product.id }}">
+                                            {{ product.translatedName || product.title }}
                                         </a>
                                     </h3>
                                     <div class="price">
-                                        {{ product.priceAfterDiscount }}
-                                        {{ "EGP" | translate }}
-                                        <span
-                                            *ngIf="product.priceBeforeDiscount"
-                                        >
-                                            {{ product.priceBeforeDiscount }}
-                                            {{ "EGP" | translate }}
+                                        {{ product.priceAfterDiscount }} {{ "EGP" | translate }}
+                                        <span *ngIf="product.priceBeforeDiscount">
+                                            {{ product.priceBeforeDiscount }} {{ "EGP" | translate }}
                                         </span>
                                     </div>
                                     <a
@@ -428,7 +388,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End Col -->
                     </div>
                 </div>
             </div>
@@ -437,6 +396,5 @@
     <!-- End product Area -->
 
     <app-footer />
-
     <app-back-to-top />
 </div>

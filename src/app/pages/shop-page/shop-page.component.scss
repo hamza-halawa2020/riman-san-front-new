@@ -1,11 +1,13 @@
 .category-section {
     background-color: #fff;
+    padding: 3rem 0;
 
     h2 {
-        font-size: 1.8rem;
+        font-size: calc(1.6rem + 0.8vw); /* Dynamic title size */
         font-weight: 600;
         color: #333;
         text-transform: uppercase;
+        margin-bottom: 2rem;
     }
 
     .category-card {
@@ -14,11 +16,12 @@
 
         .card {
             border: none;
-            border-radius: 0;
+            border-radius: 8px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            height: 400px;
+            aspect-ratio: 3 / 2; /* Consistent image ratio */
+            max-height: 350px; /* Base max height for large screens */
 
             .card-img {
                 width: 100%;
@@ -31,8 +34,8 @@
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 50%;
-                height: 50%;
+                width: 40%; /* Smaller base size */
+                height: 40%;
                 background: rgba(255, 255, 255, 0.1);
                 border-radius: 50%;
                 transform: translate(-50%, -50%);
@@ -47,9 +50,9 @@
                 width: 100%;
                 background: #58ccc3;
                 color: white;
-                padding: 10px;
+                padding: calc(8px + 0.2vw);
                 text-align: center;
-                font-size: 1.2rem;
+                font-size: calc(1rem + 0.3vw); /* Dynamic title size */
                 font-weight: 500;
                 text-transform: uppercase;
             }
@@ -71,13 +74,12 @@
 
     .explore-link {
         display: inline-block;
-        font-size: 1.1rem;
+        font-size: calc(0.9rem + 0.2vw);
         font-weight: 500;
         color: #333;
-        text-transform: uppercase;
         text-decoration: none;
         border-bottom: 2px solid #58ccc3;
-        padding-bottom: 5px;
+        padding-bottom: 3px;
         transition: color 0.3s ease;
 
         &:hover {
@@ -85,44 +87,90 @@
         }
     }
 
-    .d-flex.flex-column {
-        gap: 0;
-    }
-
     @keyframes bubbleEffect {
         0% {
-            width: 50%;
-            height: 50%;
+            width: 40%;
+            height: 40%;
             opacity: 1;
         }
         70% {
-            width: 150%;
-            height: 150%;
+            width: 120%;
+            height: 120%;
             opacity: 1;
         }
         100% {
-            width: 150%;
-            height: 150%;
+            width: 120%;
+            height: 120%;
             opacity: 0;
         }
     }
 
-    @media (max-width: 768px) {
+    /* Medium screens (768px-991px) */
+    @media (max-width: 991px) {
         h2 {
-            font-size: 1.5rem;
+            font-size: calc(1.4rem + 0.6vw);
         }
 
         .category-card {
             .card {
-                height: 200px;
-                .category-title {
-                    font-size: 1rem;
-                    padding: 8px;
+                max-height: 250px; /* Reduced height */
+                border-radius: 6px;
+
+                .card-img {
+                    object-fit: cover;
                 }
 
                 .overlay {
-                    width: 70%;
-                    height: 70%;
+                    width: 35%; /* Smaller overlay */
+                    height: 35%;
+                }
+
+                .category-title {
+                    font-size: calc(0.9rem + 0.2vw);
+                    padding: calc(6px + 0.2vw);
+                }
+            }
+        }
+    }
+
+    /* Small screens (below 768px) */
+    @media (max-width: 767px) {
+        padding: 2rem 0;
+
+        h2 {
+            font-size: calc(1.2rem + 0.5vw);
+        }
+
+        .category-card {
+            .card {
+                max-height: 150px; /* Smallest height for mobile */
+                border-radius: 4px;
+
+                .card-img {
+                    object-fit: cover;
+                }
+
+                .overlay {
+                    width: 30%; /* Smallest overlay */
+                    height: 30%;
+                }
+
+                .category-title {
+                    font-size: calc(0.8rem + 0.2vw);
+                    padding: calc(5px + 0.2vw);
+                }
+            }
+        }
+    }
+
+    /* Extra small screens (below 576px) */
+    @media (max-width: 575px) {
+        .category-card {
+            .card {
+                max-height: 120px; /* Even smaller for tiny screens */
+                .category-title {
+                    font-size: calc(0.7rem + 0.2vw);
+                    padding: 4px;
                 }
             }
         }

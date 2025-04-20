@@ -1,17 +1,17 @@
 <div
-    class="category-section py-5"
+    class="category-section"
     [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'"
 >
-    <div class="container w-50">
+    <div class="container">
         <!-- Section Title -->
-        <h2 class="text-center mb-4">
+        <h4 class="text-center mb-4">
             {{ "EXPLORE_OUR_MAIN_CATEGORIES" | translate }}
-        </h2>
+        </h4>
 
         <!-- Category Grid -->
         <div class="row g-3" *ngIf="data && data.length >= 4; else noData">
             <!-- Left Column: Hair Care (2x height of Skin Care) and Skin Care -->
-            <div class="col-md-6 d-flex flex-column">
+            <div class="col-6 d-flex flex-column">
                 <a
                     routerLink="/categories/{{ data[0].id }}"
                     class="category-card flex-grow-2 mb-3"
@@ -46,7 +46,7 @@
             </div>
 
             <!-- Right Column: Health & Support (1/2 height of Personal Care) and Personal Care -->
-            <div class="col-md-6 d-flex flex-column">
+            <div class="col-6 d-flex flex-column">
                 <a routerLink="/categories/{{data[1].id}}" class="category-card flex-grow-1">
                     <div
                         class="card position-relative overflow-hidden small-card"
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </a>
-                <a routerLink="/categories/{{data[2].id}}" class="category-card flex-grow-2">
+                <a routerLink="/ Wcategories/{{data[2].id}}" class="category-card flex-grow-2">
                     <div
                         class="card position-relative overflow-hidden large-card"
                     >
