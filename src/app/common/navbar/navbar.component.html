@@ -5,8 +5,8 @@
             <div
                 class="top-bar d-flex align-items-center justify-content-between"
             >
-                <!-- Left: About/Contact Links -->
-                <ul class="list-inline mb-0">
+                <!-- Left: About/Contact Links (Hidden on Small Screens) -->
+                <ul class="list-inline mb-0 d-none d-md-flex">
                     <li class="list-inline-item">
                         <a
                             routerLink="/about"
@@ -25,13 +25,15 @@
                     </li>
                 </ul>
 
-                <!-- Center: Welcome Message -->
-                <span class="fw-bold welcome-message text-center">
+                <!-- Center: Welcome Message (Hidden on Small Screens) -->
+                <span
+                    class="fw-bold welcome-message text-center d-none d-md-block"
+                >
                     {{ "welocme to rimansan company" | translate }}
                 </span>
 
-                <!-- Right: Language Dropdown -->
-                <div class="dropdown">
+                <!-- Center: Language Dropdown (Always Visible, Centered on Small Screens) -->
+                <div class="dropdown mx-auto">
                     <a
                         class="dropdown-toggle"
                         type="button"
@@ -89,7 +91,6 @@
                 aria-expanded="false"
                 aria-label="Toggle navigation"
             >
-                <!-- <span class="navbar-toggler-icon"></span> -->
                 <svg
                     width="30"
                     height="16"
@@ -204,6 +205,19 @@
                             {{ "FACTORY" | translate }}
                         </a>
                     </li>
+
+                    <li class="nav-item d-md-none">
+                        <a class="nav-link" routerLink="/about">{{
+                            "ABOUT_US" | translate
+                        }}</a>
+                    </li>
+                    <li class="nav-item d-md-none">
+                        <a
+                            class="nav-link"
+                            routerLink="/contacts"
+                            >{{ "Contact Us" | translate }}</a
+                        >
+                    </li>
                     <li class="nav-item dropdown">
                         <a
                             class="nav-link dropdown-toggle"
@@ -256,6 +270,8 @@
                                     >{{ "CERTIFICATIONS" | translate }}</a
                                 >
                             </li>
+                            <!-- Add About Us and Contact Us for Small Screens -->
+                           
                         </ul>
                     </li>
                 </ul>
@@ -273,12 +289,12 @@
                 />
             </a>
 
-            <!-- Right Side Icons (Hidden on Mobile) -->
-            <div class="d-flex align-items-center d-lg-flex d-none">
+            <!-- Right Side Icons (Always Visible, Adjusted for Mobile) -->
+            <div class="d-flex align-items-center">
                 <!-- Profile Dropdown for Logged In Users -->
                 <div
                     *ngIf="isLoggedIn"
-                    class="dropdown"
+                    class="dropdown d-lg-flex d-none"
                     [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'"
                 >
                     <a
@@ -322,7 +338,7 @@
                 <a
                     *ngIf="!isLoggedIn"
                     routerLink="/login"
-                    class="nav-link"
+                    class="nav-link d-lg-flex d-none"
                     [ngClass]="getCurrentLanguage() === 'ar' ? 'ms-3' : 'me-3'"
                 >
                     <svg
@@ -411,7 +427,8 @@
         <a routerLink="/" class="bottom-nav-item">
             <svg width="25" height="25" fill="currentColor" viewBox="0 0 16 16">
                 <path
-                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"
+                    d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4 Liabilities
+                    a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"
                 />
             </svg>
             <span>{{ "HOME" | translate }}</span>
