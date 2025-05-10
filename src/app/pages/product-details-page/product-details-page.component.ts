@@ -212,12 +212,12 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
             this.id = +params['id'];
             this.productService.show(this.id).subscribe((data) => {
                 this.details = Object.values(data)[0];
-                console.log('Details:', this.details);
-                console.log('Related Products:', this.details?.relatedProducts);
-                console.log(
-                    'Related Products Full Structure:',
-                    JSON.stringify(this.details?.relatedProducts, null, 2)
-                );
+                // console.log('Details:', this.details);
+                // console.log('Related Products:', this.details?.relatedProducts);
+                // console.log(
+                //     'Related Products Full Structure:',
+                //     JSON.stringify(this.details?.relatedProducts, null, 2)
+                // );
                 this.translateData();
                 if (this.details?.productImages?.length > 0) {
                     this.selectedImage =
@@ -562,7 +562,7 @@ export class ProductDetailsPageComponent implements OnInit, OnDestroy {
     }
 
     onImageLoad(imageUrl: string): void {
-        console.log('Image loaded:', imageUrl);
+        // console.log('Image loaded:', imageUrl);
     }
 
     onImageError(event: Event): void {

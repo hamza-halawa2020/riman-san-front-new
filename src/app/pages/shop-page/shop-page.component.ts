@@ -41,6 +41,8 @@ export class ShopPageComponent implements OnInit {
     image = environment.imgUrl + 'categories/';
     successMessage: string = '';
     errorMessage: string = '';
+    // AllProductsImage: string =environment.imgUrl + 'categories/1742656502_67ded3f62554f.jpg';
+    AllProductsImage: string = 'https://admin.rimansan.net/assets/images/logo.svg';
 
     constructor(
         public router: Router,
@@ -59,7 +61,7 @@ export class ShopPageComponent implements OnInit {
         this.shopService.index().subscribe({
             next: (response) => {
                 this.data = Object.values(response)[0];
-                console.log('data',this.data);
+                //console.log('data',this.data);
                 this.translateData();
             },
             error: (error) => {

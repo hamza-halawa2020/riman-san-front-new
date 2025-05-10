@@ -60,7 +60,7 @@ export class CertificationPageComponent implements OnInit {
             (res: any) => {
                 this.certificates = Object.values(res)[0];
 
-                console.log(this.certificates);
+                // console.log(this.certificates); 
 
                 this.successMessage = res.message || 'Your Certification !';
                 setTimeout(() => {

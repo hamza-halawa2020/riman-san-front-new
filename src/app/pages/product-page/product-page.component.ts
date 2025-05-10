@@ -59,7 +59,7 @@ export class ProductPageComponent implements OnInit {
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
         this.checkMobile();
-        console.log('Initial isMobile:', this.isMobile, 'gridColumns:', this.gridColumns);
+        // console.log('Initial isMobile:', this.isMobile, 'gridColumns:', this.gridColumns);
         window.addEventListener('resize', () => this.checkMobile());
     }
 
@@ -76,18 +76,18 @@ export class ProductPageComponent implements OnInit {
 
     checkMobile(): void {
         this.isMobile = window.innerWidth < 768;
-        console.log('checkMobile: isMobile=', this.isMobile, 'window.innerWidth=', window.innerWidth);
+        // console.log('checkMobile: isMobile=', this.isMobile, 'window.innerWidth=', window.innerWidth);
         if (this.isMobile && (this.gridColumns === 4 || this.gridColumns === 6)) {
             this.setGridColumns(2); // Default to 2 columns on mobile
-            console.log('Switched to 2 columns on mobile');
+            // console.log('Switched to 2 columns on mobile');
         }
     }
 
     setGridColumns(columns: number): void {
-        console.log('setGridColumns called with columns=', columns, 'isMobile=', this.isMobile);
+        // console.log('setGridColumns called with columns=', columns, 'isMobile=', this.isMobile);
         if (this.isMobile && columns > 3) {
             columns = 3; // Restrict to max 3 columns on mobile
-            console.log('Restricted to 3 columns on mobile');
+            // console.log('Restricted to 3 columns on mobile');
         }
         this.gridColumns = columns;
         switch (columns) {
@@ -110,7 +110,7 @@ export class ProductPageComponent implements OnInit {
                 this.gridClass = 'col-lg-3 col-md-4 col-sm-6';
                 break;
         }
-        console.log('Set gridClass to:', this.gridClass, 'gridColumns:', this.gridColumns);
+        // console.log('Set gridClass to:', this.gridClass, 'gridColumns:', this.gridColumns);
 
         document.body.classList.remove('grid-columns-1', 'grid-columns-2', 'grid-columns-3', 
                                      'grid-columns-4', 'grid-columns-6');

@@ -61,7 +61,7 @@ export class CategoryPageComponent implements OnInit {
     ) {
         this.isLoggedIn = !!loginService.isLoggedIn();
         this.checkMobile();
-        console.log('Initial isMobile:', this.isMobile, 'gridColumns:', this.gridColumns);
+        // console.log('Initial isMobile:', this.isMobile, 'gridColumns:', this.gridColumns);
         window.addEventListener('resize', () => this.checkMobile());
     }
 
@@ -79,18 +79,18 @@ export class CategoryPageComponent implements OnInit {
 
     checkMobile(): void {
         this.isMobile = window.innerWidth < 768 || window.matchMedia('(max-width: 767.98px)').matches;
-        console.log('checkMobile: isMobile=', this.isMobile, 'window.innerWidth=', window.innerWidth);
+        // console.log('checkMobile: isMobile=', this.isMobile, 'window.innerWidth=', window.innerWidth);
         if (this.isMobile && (this.gridColumns === 4 || this.gridColumns === 6)) {
             this.setGridColumns(2); // Default to 2 columns on mobile
-            console.log('Switched to 2 columns on mobile');
+            // console.log('Switched to 2 columns on mobile');
         }
     }
 
     setGridColumns(columns: number): void {
-        console.log('setGridColumns called with columns=', columns, 'isMobile=', this.isMobile);
+        // console.log('setGridColumns called with columns=', columns, 'isMobile=', this.isMobile);
         if (this.isMobile && columns > 3) {
             columns = 3; // Restrict to max 3 columns on mobile
-            console.log('Restricted to 3 columns on mobile');
+            // console.log('Restricted to 3 columns on mobile');
         }
         this.gridColumns = columns;
         switch (columns) {
@@ -113,7 +113,7 @@ export class CategoryPageComponent implements OnInit {
                 this.gridClass = 'col-lg-3 col-md-4 col-sm-6';
                 break;
         }
-        console.log('Set gridClass to:', this.gridClass, 'gridColumns:', this.gridColumns);
+        // console.log('Set gridClass to:', this.gridClass, 'gridColumns:', this.gridColumns);
 
         document.body.classList.remove(
             'grid-columns-1',
@@ -231,17 +231,21 @@ export class CategoryPageComponent implements OnInit {
     }
 
     fetchdata() {
+        // console.log('fetchdata called');
         this.categoryService.index().subscribe({
             next: (response) => {
                 this.originalData = Object.values(response)[0] || [];
+                // console.log('fetchdata originalData:', this.originalData);
                 this.originalData = this.originalData.map((product) => ({
                     ...product,
                     productImages: product.productImages || [],
                 }));
+                // console.log('fetchdata originalData after map:', this.originalData);
                 if (this.categoryId) {
                     this.data = this.originalData.filter(
-                        (product) => product.category === `category ${this.categoryId}`
+                        (product) => product.category_id == `${this.categoryId}`
                     );
+                    // console.log('fetchdata data:', this.data);
                 } else {
                     this.data = [...this.originalData];
                 }
