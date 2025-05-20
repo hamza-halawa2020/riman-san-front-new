@@ -319,46 +319,6 @@ export class CartPageComponent implements OnInit {
         this.router.navigate(['/checkout']);
     }
 
-    // clearCart() {
-    //     Swal.fire({
-    //         title: this.translateService.instant('Are you sure?'),
-    //         text: this.translateService.instant(
-    //             'Do you really want to clear the cart?'
-    //         ),
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#d33',
-    //         cancelButtonColor: '#3085d6',
-    //         confirmButtonText: this.translateService.instant('Yes, clear it!'),
-    //         cancelButtonText: this.translateService.instant('Cancel'),
-    //     }).then((result: any) => {
-    //         if (result.isConfirmed) {
-    //             this.cartService.clearCart().subscribe({
-    //                 next: () => {
-    //                     this.fetchdata();
-    //                     localStorage.removeItem('checkoutData');
-    //                     localStorage.removeItem('totalPriceData');
-    //                     localStorage.removeItem('appliedCoupon');
-    //                     localStorage.setItem('cart', JSON.stringify([]));
-    //                     Swal.fire({
-    //                         title: this.translateService.instant('clear!'),
-    //                         text: this.translateService.instant(
-    //                             'Your cart is clear.'
-    //                         ),
-    //                         icon: 'success',
-    //                         timer: 1500,
-    //                         showConfirmButton: false,
-    //                     });
-    //                     this.cdr.detectChanges();
-    //                 },
-    //                 error: (error) => {
-    //                     this.handleError(error);
-    //                 },
-    //             });
-    //         }
-    //     });
-    // }
-
     clearCart() {
         const areYouSure = this.translateService.instant('ARE_YOU_SURE');
         const clearCartConfirm =

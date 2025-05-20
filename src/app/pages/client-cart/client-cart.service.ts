@@ -87,5 +87,10 @@ export class ClientCartService {
             this.cartSubject.next(JSON.parse(cart));
         }
     }
+
+    
+    showCoupon(payload: { code: string }) {
+        return this.http.post(`${this.apiUrl}/showCoupon`, payload);
+    }
     
 }

@@ -48,7 +48,7 @@ export class MainSlider implements OnInit {
         responsive: {
             0: {
                 autoHeight: false,
-                autoplay: false,
+                autoplay: true,
             },
         },
     };
@@ -66,7 +66,7 @@ export class MainSlider implements OnInit {
         responsive: {
             0: {
                 autoHeight: false,
-                autoplay: false,
+                autoplay: true,
             },
         },
     };

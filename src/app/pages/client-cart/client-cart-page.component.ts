@@ -36,6 +36,7 @@ import { CartService } from '../cart-page/cart.service';
 
 
 export class ClientCartPageComponent implements OnInit {
+    data: any[] = []; // Array of cart items
     cartItems: any[] = []; // Array of cart items (from ClientCartService)
     countries: any[] = []; // Array of countries
     cities: any[] = []; // Array of cities
@@ -53,6 +54,7 @@ export class ClientCartPageComponent implements OnInit {
     phone: string = ''; // New field: Phone
     address: string = ''; // Existing field: Address
     notes: string = ''; // Existing field: Notes
+    couponCode: any;
 
     constructor(
         public router: Router,
@@ -85,18 +87,52 @@ export class ClientCartPageComponent implements OnInit {
                 }, 500);
             }, 500);
         }
+        const savedCoupon = localStorage.getItem('appliedCoupon');
+        if (savedCoupon) {
+            this.showCoupon(savedCoupon);
+        }
         this.translateService.onLangChange.subscribe(() => {
             this.translateData(); // Re-translate data on language change
         });
     }
 
+    showCoupon(code: string) {
+        const payload = { code: code };
+
+        this.cartService.showCoupon(payload).subscribe({
+            next: (response: any) => {
+                this.couponCode = Object.values(response)[0];
+                this.successMessage =
+                    response.message ||
+                    this.translateService.instant('SUCCESS');
+                setTimeout(() => {
+                    this.successMessage = '';
+                }, 1000);
+                localStorage.setItem('appliedCoupon', code);
+                this.cdr.detectChanges();
+            },
+            error: (error) => {
+                this.handleError(error);
+            },
+        });
+    }
+    
+    get totalAmount(): number {
+        return (
+            this.data?.reduce(
+                (sum: number, cart: any) => sum + cart.total_price,
+                0
+            ) || 0
+        );
+    }
     fetchCartData() {
         this.clientCartService.client_cart$.subscribe((client_cart) => {
             this.cartItems = client_cart || [];
             this.calculateTotal();
             this.translateData();
         });
-    }
+    } 
+    
 
     calculateTotal() {
         this.totalPrice = this.cartItems.reduce((acc, cart) => {
@@ -242,6 +278,7 @@ export class ClientCartPageComponent implements OnInit {
 
                     localStorage.removeItem('checkoutData');
                     localStorage.removeItem('totalPriceData');
+                    localStorage.removeItem('appliedCoupon');
                     Swal.fire({
                         title: cleared,
                         text: cartClearedSuccess,
@@ -274,6 +311,7 @@ export class ClientCartPageComponent implements OnInit {
                 product_id: cart.product.id,
                 quantity: cart.quantity,
             })),
+            coupon_id: this.couponCode?.id || null,
             name: this.name,
             email: this.email,
             phone: this.phone,
@@ -307,9 +345,13 @@ export class ClientCartPageComponent implements OnInit {
         const totalPriceData = {
             country: selectedCountryObj ? selectedCountryObj.translatedName || selectedCountryObj.name : 'N/A',
             city: selectedCityObj ? selectedCityObj.translatedName || selectedCityObj.name : 'N/A',
+            coupon: this.couponCode?.code || 'N/A',
+            couponName: this.couponCode?.code || 'N/A',
             totalAmount: this.totalPrice,
             shipmentCost: this.shipmentCost,
+            discount: this.couponCode?.discount || 0,
             finalPrice: this.finalPrice,
+            
         };
 
         localStorage.setItem('checkoutData', JSON.stringify(orderItems));
@@ -318,8 +360,13 @@ export class ClientCartPageComponent implements OnInit {
         this.router.navigate(['/checkout']);
     }
 
+
     get finalPrice(): number {
-        return this.totalPrice + this.shipmentCost;
+        return (
+            this.totalPrice +
+            this.shipmentCost -
+            (this.couponCode?.discount || 0)
+        );
     }
 
     private handleError(error: any) {

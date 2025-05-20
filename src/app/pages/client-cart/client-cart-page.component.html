@@ -399,6 +399,36 @@
                                                 ></textarea>
                                             </div>
                                         </div>
+                                        <div class="row mt-2">
+                                            <label for="code">{{
+                                                "ADD_A_COUPON" | translate
+                                            }}</label>
+                                            <div class="col-auto">
+                                                <input
+                                                    #couponInput
+                                                    name="code"
+                                                    [placeholder]="
+                                                        'ENTER_YOUR_COUPON'
+                                                            | translate
+                                                    "
+                                                    class="form-control"
+                                                    id="code"
+                                                    [value]="couponCode?.code || ''"
+                                                />
+                                                <div class="col-auto mt-1">
+                                                    <button
+                                                        (click)="
+                                                            showCoupon(
+                                                                couponInput.value
+                                                            )
+                                                        "
+                                                        class="btn rounded"
+                                                    >
+                                                        {{ "APPLY" | translate }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-7 col-12">
@@ -450,6 +480,20 @@
                                                             class="badge bg-success"
                                                             >{{
                                                                 shipmentCost
+                                                            }}</span
+                                                        >
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {{ "YOU_SAVE" | translate }}
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success"
+                                                            >{{
+                                                                couponCode?.discount ||
+                                                                    0
                                                             }}</span
                                                         >
                                                     </td>
