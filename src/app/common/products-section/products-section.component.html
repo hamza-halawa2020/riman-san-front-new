@@ -178,7 +178,8 @@
                                 >
                                 <span
                                     class="original-price"
-                                    *ngIf="product.discount > 0"
+                                    *ngIf="product?.priceBeforeDiscount !== product?.priceAfterDiscount">
+
                                 >
                                     {{ product.priceBeforeDiscount }} EGP
                                 </span>

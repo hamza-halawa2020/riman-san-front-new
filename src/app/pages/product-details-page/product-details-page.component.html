@@ -140,7 +140,7 @@
                             <div class="zoom-container" (click)="openModal()">
                                 <button
                                     *ngIf="currentIndex > 0"
-                                    class="btn btn-light position-absolute start-0 top-50 translate-middle-y"
+                                    class="btn btn-light position-absolute start-0 top-50 translate-middle-y custom-btn"
                                     (click)="
                                         prevImage(); $event.stopPropagation()
                                     "
@@ -172,7 +172,7 @@
                                         currentIndex <
                                         details?.productImages.length - 1
                                     "
-                                    class="btn btn-light position-absolute end-0 top-50 translate-middle-y"
+                                    class="btn btn-light position-absolute end-0 top-50 translate-middle-y custom-btn"
                                     (click)="
                                         nextImage(); $event.stopPropagation()
                                     "
@@ -199,10 +199,11 @@
                                     >{{ details?.priceAfterDiscount }}
                                     {{ "EGP" | translate }}</span
                                 >
-                                <span class="old"
-                                    >({{ details?.priceBeforeDiscount }}
-                                    {{ "EGP" | translate }})</span
-                                >
+                           
+                                <span class="old" *ngIf="details?.priceBeforeDiscount !== details?.priceAfterDiscount">
+                                ({{ details?.priceBeforeDiscount }} {{ 'EGP' | translate }})
+                                </span>
+
                             </div>
                         </div>
                         <div class="mt-4">
@@ -475,7 +476,7 @@
                                         {{ related.priceAfterDiscount }}
                                         {{ "EGP" | translate }}
                                         <span
-                                            *ngIf="related.priceBeforeDiscount"
+                                             *ngIf="related?.priceBeforeDiscount !== related?.priceAfterDiscount"
                                             >{{ related.priceBeforeDiscount }}
                                             {{ "EGP" | translate }}</span
                                         >

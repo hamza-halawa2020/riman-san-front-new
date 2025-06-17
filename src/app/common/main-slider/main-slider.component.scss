@@ -1,9 +1,9 @@
 .image-container {
     position: relative;
     width: 100%;
-    height: 50vw; /* الارتفاع يعتمد على عرض الشاشة */
-    min-height: 200px; /* الحد الأدنى للارتفاع */
-    max-height: 500px; /* الحد الأقصى للارتفاع */
+    height: 50vw; 
+    min-height: 200px; 
+    max-height: 500px; 
 }
 
 .new-class {
@@ -12,7 +12,7 @@
 
 .carousel-image {
     width: 100%;
-    height: 50vw; /* الارتفاع يعتمد على عرض الشاشة */
+    height: 50vw; 
     min-height: 200px;
     max-height: 500px;
     object-fit: cover;
@@ -31,13 +31,13 @@
 }
 
 .overlay-content h3 {
-    font-size: calc(1.5rem + 1vw); /* حجم ديناميكي يتغير مع الشاشة */
+    font-size: calc(1.5rem + 1vw); 
     margin-bottom: 0.5rem;
     font-weight: 700;
 }
 
 .overlay-content p {
-    font-size: calc(0.8rem + 0.5vw); /* حجم ديناميكي للوصف */
+    font-size: calc(0.8rem + 0.5vw); 
     line-height: 1.4;
     font-weight: 500;
 }
@@ -52,7 +52,7 @@
     .owl-dot {
         span {
             background: rgba(255, 255, 255, 0.5);
-            width: calc(8px + 0.5vw); /* حجم النقاط ديناميكي */
+            width: calc(8px + 0.5vw); 
             height: calc(8px + 0.5vw);
             margin: 0 calc(3px + 0.2vw);
             border-radius: 50%;
@@ -74,15 +74,16 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.158);
         color: white;
         border: none;
-        padding: calc(8px + 0.5vw); /* حجم الأزرار ديناميكي */
+        padding: calc(8px + 0.5vw); 
         font-size: calc(0.9rem + 0.3vw);
         cursor: pointer;
         opacity: 0;
         transition: opacity 0.3s ease, background 0.3s ease;
         z-index: 10;
+        border-radius: 15px;
     }
 
     .prev-btn {
@@ -124,10 +125,10 @@
     }
 }
 
-/* تعديلات للشاشات الصغيرة جدًا (لضمان الحد الأدنى من التصغير) */
+
 @media (max-width: 576px) {
     .image-container {
-        height: 40vw; /* تصغير إضافي */
+        height: 40vw; 
         min-height: 150px;
     }
 

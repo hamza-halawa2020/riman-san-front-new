@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <!-- END ARTI SINGLE -->
-                    <div class="author_part">
+                    <!-- <div class="author_part">
                         <h3 class="blog_head_title">
                             {{ "ADDED_BY" | translate }}
                         </h3>
@@ -92,10 +92,10 @@
                             />
                             <h4>{{ details?.translatedAdmin || details?.admin }}</h4>
                         </div>
-                    </div>
+                    </div> -->
                     <!-- END AUTHOR PART -->
                     <div class="comments_part">
-                        <h3 class="blog_head_title">
+                        <h3 *ngIf="details?.postComments.length > 0" class="blog_head_title">
                             {{ "COMMENTS" | translate }}
                         </h3>
                         <div
@@ -112,7 +112,7 @@
                         <!-- END SINGLE COMMENT -->
                     </div>
                     <!-- END COMMENTS PART -->
-                    <div class="comment_form" *ngIf="isLoggedIn">
+                    <div class="comment_form" *ngIf="isLoggedIn && details?.postComments.length > 0">
                         <h3 class="blog_head_title">
                             {{ "ADD_A_COMMENT" | translate }}
                         </h3>

@@ -120,7 +120,7 @@ export class CheckoutPageComponent implements OnInit {
 
                 if (checkoutData.payment_method === 'cash_on_delivery') {
                     this.checkoutService.storeOrder(checkoutData).subscribe({
-                        next: () => {
+                        next: (orderResponse: any) => {
                             this.successMessage = this.translateService.instant(
                                 'ORDER_PLACED_CASH_SUCCESS'
                             );
@@ -134,6 +134,7 @@ export class CheckoutPageComponent implements OnInit {
                             this.totalPriceData = null;
                             this.cartService.clearCart().subscribe();
                             this.isLoading = false; // Hide loader
+                            this.router.navigate(['/payment-status'], {queryParams: {success: true,orderNumber: orderResponse.data.order_number},});
                         },
                         error: (error) => {
                             this.handleError(error);
@@ -148,10 +149,10 @@ export class CheckoutPageComponent implements OnInit {
                                 .getPaymentLink(payLoad)
                                 .subscribe({
                                     next: (paymentResponse: any) => {
-                                        window.open(
-                                            paymentResponse.iframe_url,
-                                            '_blank'
-                                        );
+                                        // window.open(paymentResponse.iframe_url);
+                                        window.location.href =
+                                            paymentResponse.iframe_url;
+
                                         this.isLoading = false; // Hide loader after opening Visa page
                                     },
                                     error: (error) => {
@@ -202,7 +203,7 @@ export class CheckoutPageComponent implements OnInit {
                     this.checkoutService
                         .storeClientOrder(checkoutData)
                         .subscribe({
-                            next: () => {
+                            next: (orderResponse: any) => {
                                 this.successMessage =
                                     this.translateService.instant(
                                         'ORDER_PLACED_CASH_SUCCESS'
@@ -217,6 +218,7 @@ export class CheckoutPageComponent implements OnInit {
                                 this.totalPriceData = null;
                                 this.clientCartService.clearCart();
                                 this.isLoading = false; // Hide loader
+                                this.router.navigate(['/payment-status'], {queryParams: {success: true,orderNumber: orderResponse.data.order_number},});
                             },
                             error: (error) => {
                                 this.handleError(error);
@@ -235,10 +237,10 @@ export class CheckoutPageComponent implements OnInit {
                                     .getPaymentLink(payLoad)
                                     .subscribe({
                                         next: (paymentResponse: any) => {
-                                            window.open(
-                                                paymentResponse.iframe_url,
-                                                '_blank'
-                                            );
+                                            // window.open(paymentResponse.iframe_url);
+                                            window.location.href =
+                                                paymentResponse.iframe_url;
+
                                             this.isLoading = false; // Hide loader after opening Visa page
                                         },
                                         error: (error) => {

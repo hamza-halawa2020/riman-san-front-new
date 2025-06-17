@@ -3090,7 +3090,7 @@
 	transform:scale(1);
 }
 .shopping-cart .total-amount .right {
-	padding-left: 100px;
+	/* padding-left: 100px; */
 }
 .shopping-cart .total-amount .right ul{
 	

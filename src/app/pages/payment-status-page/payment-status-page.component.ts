@@ -5,11 +5,12 @@ import { BackToTopComponent } from '../../common/back-to-top/back-to-top.compone
 import { NavbarComponent } from '../../common/navbar/navbar.component';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../cart-page/cart.service';
-import { CheckoutService } from '../checkout-page/checkout.service';
 import { ClientCartService } from '../client-cart/client-cart.service';
-import { TranslateService,TranslateModule } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { PaymentStatusService } from './payment.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-payment-status-page',
@@ -23,55 +24,51 @@ import { TranslateService,TranslateModule } from '@ngx-translate/core';
         NgIf,
         NgbModule,
         CommonModule,
-        TranslateModule, // Added for translations
+        TranslateModule,
     ],
     templateUrl: './payment-status-page.component.html',
     styleUrl: './payment-status-page.component.scss',
 })
 export class PaymentStatusPageComponent implements OnInit {
     success: boolean = false;
-    message: string = '';
+    order: any = [];
+    orderNumber: string = '';
+    paymobOrderId: string = '';
+    image = environment.imgUrl + 'products/';
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
-        private checkoutService: CheckoutService,
         private cartClientService: ClientCartService,
         private cartService: CartService,
-        public translateService: TranslateService // Injected for translation
+        public translateService: TranslateService,
+        private paymentStatusService: PaymentStatusService 
     ) {}
 
     ngOnInit() {
         this.route.queryParams.subscribe((params) => {
-            this.success = params['success'] === 'true';
-            this.message =
-                params['message'] ||
-                this.translateService.instant('NO_MESSAGE_AVAILABLE');
+            this.success = params['success'] == 'true';
+            this.paymobOrderId = params['merchant_order_id'] || '';
+            this.orderNumber = params['orderNumber'] || '';
+
+            if (this.paymobOrderId) {
+                this.paymentStatusService.getPaymentById(this.paymobOrderId).subscribe({next: (response: any) => {
+                            if (response.data && response.data.order) {
+                                this.orderNumber = response.data.order.order_number;
+                                this.paymentStatusService.trackOrder(this.orderNumber).subscribe({next: (orderResponse: any) => {this.order = orderResponse.data || null;}});
+                            }
+                        }});
+            }else if (this.orderNumber) {
+                this.paymentStatusService.trackOrder(this.orderNumber).subscribe({next: (orderResponse: any) => {this.order = orderResponse.data || null;}});
+            }
 
             if (this.success) {
                 localStorage.removeItem('checkoutData');
                 localStorage.removeItem('totalPriceData');
                 localStorage.removeItem('appliedCoupon');
-                this.cartService.clearCart().subscribe({
-                    next: () => {},
-                    error: (error) => this.handleError(error),
-                });
+                this.cartService.clearCart().subscribe({next: () => {}});
                 this.cartClientService.clearCart();
             }
+
         });
-
-        setTimeout(() => {
-            this.router.navigate(['/products']);
-        }, 5000);
-    }
-
-    private handleError(error: any) {
-        this.message =
-            error.error?.message ||
-            this.translateService.instant('UNEXPECTED_ERROR');
-        this.success = false;
-        setTimeout(() => {
-            this.router.navigate(['/products']);
-        }, 5000);
     }
 }

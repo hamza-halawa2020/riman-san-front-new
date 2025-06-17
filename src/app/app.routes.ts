@@ -37,6 +37,8 @@ import { FavouritePageWrapperComponent } from './pages/favourite-page-wrapper/fa
 import { FavouriteResolver } from './pages/favourite-page-wrapper/favourite.resolver';
 import { ShopPageComponent } from './pages/shop-page/shop-page.component';
 import { CategoryPageComponent } from './pages/category-page/category-page.component';
+import { ReturnsRefundsPageComponent } from './pages/returns-refunds/returns-refunds-page.component';
+import { ShippingDeliveryPageComponent } from './pages/shipping-delivery/shipping-delivery-page.component';
 
 export const routes: Routes = [
     { path: '', component: HomeDemoOneComponent },
@@ -57,6 +59,8 @@ export const routes: Routes = [
     { path: 'faqs', component: FaqsPageComponent },
     { path: 'payment-status', component: PaymentStatusPageComponent },
     { path: 'privacy-policy', component: PrivacyPolicyPageComponent },
+    { path: 'returns-refunds', component: ReturnsRefundsPageComponent },
+    { path: 'shipping-delivery', component: ShippingDeliveryPageComponent },
     { path: 'terms-conditions', component: TermsConditionsPageComponent },
     { path: 'certifications', component: CertificationPageComponent },
     { path: 'factory', component: FactoryPageComponent },
