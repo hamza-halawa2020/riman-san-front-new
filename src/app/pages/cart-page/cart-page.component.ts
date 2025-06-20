@@ -139,12 +139,17 @@ export class CartPageComponent implements OnInit {
         });
     }
 
+    // get finalPrice(): number {
+    //     return (
+    //         this.totalAmount +
+    //         this.shipmentCost -
+    //         (this.couponCode?.discount || 0)
+    //     );
+    // }
     get finalPrice(): number {
-        return (
-            this.totalAmount +
-            this.shipmentCost -
-            (this.couponCode?.discount || 0)
-        );
+        const discountPercentage = this.couponCode?.discount || 0;
+        const discountAmount = (this.totalAmount * discountPercentage) / 100;
+        return this.totalAmount + this.shipmentCost - discountAmount;
     }
 
     fetchCitiess() {

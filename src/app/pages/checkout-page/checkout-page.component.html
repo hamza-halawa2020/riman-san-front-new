@@ -236,6 +236,23 @@
                                                     </span>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td>
+                                                    {{ "DISCOUNT" | translate }}
+                                                </td>
+                                                <td>
+                                                    <span
+                                                            class="badge bg-success"
+                                                            *ngIf="totalPriceData?.discount"
+                                                            >
+                                                    {{totalPriceData?.discount | number:'1.0-0' }}%
+                                                
+                                                </span>
+                                                <span class="badge bg-danger" *ngIf="!totalPriceData?.discount">
+                                                                0
+                                                </span>
+                                                </td>
+                                            </tr>
                                             <tr
                                                 *ngIf="
                                                     totalPriceData?.shipmentCost
@@ -250,17 +267,7 @@
                                                     }}
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    {{ "DISCOUNT" | translate }}
-                                                </td>
-                                                <td>
-                                                    {{
-                                                        totalPriceData?.discount ||
-                                                            0
-                                                    }}
-                                                </td>
-                                            </tr>
+                                            
                                             <tr class="table-success">
                                                 <td>
                                                     <strong>{{

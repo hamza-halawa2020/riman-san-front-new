@@ -470,6 +470,24 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
+                                                        {{ "YOU_SAVE" | translate }}
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success"
+                                                            *ngIf="couponCode"
+                                                            >
+
+                                                            {{ couponCode?.discount | number:'1.0-0' }}%
+                                                            </span>
+                                                            <span class="badge bg-danger" *ngIf="!couponCode">
+                                                                0
+                                                            </span>
+                                                    </td>
+                                                </tr>
+                                               
+                                                <tr>
+                                                    <td>
                                                         {{
                                                             "SHIPPING"
                                                                 | translate
@@ -484,20 +502,7 @@
                                                         >
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        {{ "YOU_SAVE" | translate }}
-                                                    </td>
-                                                    <td>
-                                                        <span
-                                                            class="badge bg-success"
-                                                            >{{
-                                                                couponCode?.discount ||
-                                                                    0
-                                                            }}</span
-                                                        >
-                                                    </td>
-                                                </tr>
+                                                
 
                                                 <tr>
                                                     <td>

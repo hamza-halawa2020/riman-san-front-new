@@ -31,10 +31,6 @@ import { CartService } from '../cart-page/cart.service';
     styleUrl: './client-cart-page.component.scss',
     providers: [ClientCartService, CartService], // Add both services
 })
-
-
-
-
 export class ClientCartPageComponent implements OnInit {
     data: any[] = []; // Array of cart items
     cartItems: any[] = []; // Array of cart items (from ClientCartService)
@@ -116,7 +112,7 @@ export class ClientCartPageComponent implements OnInit {
             },
         });
     }
-    
+
     get totalAmount(): number {
         return (
             this.data?.reduce(
@@ -131,8 +127,7 @@ export class ClientCartPageComponent implements OnInit {
             this.calculateTotal();
             this.translateData();
         });
-    } 
-    
+    }
 
     calculateTotal() {
         this.totalPrice = this.cartItems.reduce((acc, cart) => {
@@ -142,11 +137,11 @@ export class ClientCartPageComponent implements OnInit {
 
     fetchCountries() {
         this.cartService.allCountries().subscribe({
-            next: (response:any) => {
+            next: (response: any) => {
                 this.countries = Object.values(response)[0] as any[];
                 this.translateData();
             },
-            error: (error:any) => {
+            error: (error: any) => {
                 this.handleError(error);
             },
         });
@@ -154,11 +149,11 @@ export class ClientCartPageComponent implements OnInit {
 
     fetchCitiess() {
         this.cartService.allCities().subscribe({
-            next: (response:any) => {
+            next: (response: any) => {
                 this.cities = Object.values(response)[0] as any[];
                 this.translateData();
             },
-            error: (error:any) => {
+            error: (error: any) => {
                 this.handleError(error);
             },
         });
@@ -166,10 +161,10 @@ export class ClientCartPageComponent implements OnInit {
 
     fetchShipment() {
         this.cartService.allShipments().subscribe({
-            next: (response:any) => {
+            next: (response: any) => {
                 this.shipments = Object.values(response)[0] as any[];
             },
-            error: (error:any) => {
+            error: (error: any) => {
                 this.handleError(error);
             },
         });
@@ -200,11 +195,15 @@ export class ClientCartPageComponent implements OnInit {
 
     removeItem(productId: number) {
         const areYouSure = this.translateService.instant('ARE_YOU_SURE');
-        const removeItemConfirm = this.translateService.instant('REMOVE_ITEM_CONFIRM');
+        const removeItemConfirm = this.translateService.instant(
+            'REMOVE_ITEM_CONFIRM'
+        );
         const yesRemoveIt = this.translateService.instant('YES_REMOVE_IT');
         const cancel = this.translateService.instant('CANCEL');
         const removed = this.translateService.instant('REMOVED');
-        const productRemovedSuccess = this.translateService.instant('PRODUCT_REMOVED_SUCCESS');
+        const productRemovedSuccess = this.translateService.instant(
+            'PRODUCT_REMOVED_SUCCESS'
+        );
 
         Swal.fire({
             title: areYouSure,
@@ -216,8 +215,11 @@ export class ClientCartPageComponent implements OnInit {
             confirmButtonText: yesRemoveIt,
             cancelButtonText: cancel,
             customClass: {
-                popup: this.translateService.currentLang === 'ar' ? 'swal-rtl' : 'swal-ltr'
-            }
+                popup:
+                    this.translateService.currentLang === 'ar'
+                        ? 'swal-rtl'
+                        : 'swal-ltr',
+            },
         }).then((result: any) => {
             if (result.isConfirmed) {
                 try {
@@ -231,8 +233,11 @@ export class ClientCartPageComponent implements OnInit {
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {
-                            popup: this.translateService.currentLang === 'ar' ? 'swal-rtl' : 'swal-ltr'
-                        }
+                            popup:
+                                this.translateService.currentLang === 'ar'
+                                    ? 'swal-rtl'
+                                    : 'swal-ltr',
+                        },
                     });
                 } catch (error) {
                     Swal.fire({
@@ -242,8 +247,11 @@ export class ClientCartPageComponent implements OnInit {
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {
-                            popup: this.translateService.currentLang === 'ar' ? 'swal-rtl' : 'swal-ltr'
-                        }
+                            popup:
+                                this.translateService.currentLang === 'ar'
+                                    ? 'swal-rtl'
+                                    : 'swal-ltr',
+                        },
                     });
                 }
             }
@@ -252,11 +260,14 @@ export class ClientCartPageComponent implements OnInit {
 
     clearCart() {
         const areYouSure = this.translateService.instant('ARE_YOU_SURE');
-        const clearCartConfirm = this.translateService.instant('CLEAR_CART_CONFIRM');
+        const clearCartConfirm =
+            this.translateService.instant('CLEAR_CART_CONFIRM');
         const yesClearIt = this.translateService.instant('YES_CLEAR_IT');
         const cancel = this.translateService.instant('CANCEL');
         const cleared = this.translateService.instant('CLEAR');
-        const cartClearedSuccess = this.translateService.instant('CART_CLEARED_SUCCESS');
+        const cartClearedSuccess = this.translateService.instant(
+            'CART_CLEARED_SUCCESS'
+        );
 
         Swal.fire({
             title: areYouSure,
@@ -268,8 +279,11 @@ export class ClientCartPageComponent implements OnInit {
             confirmButtonText: yesClearIt,
             cancelButtonText: cancel,
             customClass: {
-                popup: this.translateService.currentLang === 'ar' ? 'swal-rtl' : 'swal-ltr'
-            }
+                popup:
+                    this.translateService.currentLang === 'ar'
+                        ? 'swal-rtl'
+                        : 'swal-ltr',
+            },
         }).then((result: any) => {
             if (result.isConfirmed) {
                 try {
@@ -286,8 +300,11 @@ export class ClientCartPageComponent implements OnInit {
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {
-                            popup: this.translateService.currentLang === 'ar' ? 'swal-rtl' : 'swal-ltr'
-                        }
+                            popup:
+                                this.translateService.currentLang === 'ar'
+                                    ? 'swal-rtl'
+                                    : 'swal-ltr',
+                        },
                     });
                 } catch (error) {
                     Swal.fire({
@@ -297,8 +314,11 @@ export class ClientCartPageComponent implements OnInit {
                         timer: 1500,
                         showConfirmButton: false,
                         customClass: {
-                            popup: this.translateService.currentLang === 'ar' ? 'swal-rtl' : 'swal-ltr'
-                        }
+                            popup:
+                                this.translateService.currentLang === 'ar'
+                                    ? 'swal-rtl'
+                                    : 'swal-ltr',
+                        },
                     });
                 }
             }
@@ -329,13 +349,15 @@ export class ClientCartPageComponent implements OnInit {
         );
 
         if (!this.selectedCountry || !this.selectedCity || !this.address) {
-            this.errorMessage = this.translateService.instant('PLEASE_ADD_ADDRESS');
+            this.errorMessage =
+                this.translateService.instant('PLEASE_ADD_ADDRESS');
             setTimeout(() => {
                 this.errorMessage = '';
             }, 3000);
             return;
         } else if (!this.name || !this.phone || !this.email) {
-            this.errorMessage = this.translateService.instant('PLEASE_ADD_DATA');
+            this.errorMessage =
+                this.translateService.instant('PLEASE_ADD_DATA');
             setTimeout(() => {
                 this.errorMessage = '';
             }, 3000);
@@ -343,15 +365,18 @@ export class ClientCartPageComponent implements OnInit {
         }
 
         const totalPriceData = {
-            country: selectedCountryObj ? selectedCountryObj.translatedName || selectedCountryObj.name : 'N/A',
-            city: selectedCityObj ? selectedCityObj.translatedName || selectedCityObj.name : 'N/A',
+            country: selectedCountryObj
+                ? selectedCountryObj.translatedName || selectedCountryObj.name
+                : 'N/A',
+            city: selectedCityObj
+                ? selectedCityObj.translatedName || selectedCityObj.name
+                : 'N/A',
             coupon: this.couponCode?.code || 'N/A',
             couponName: this.couponCode?.code || 'N/A',
             totalAmount: this.totalPrice,
             shipmentCost: this.shipmentCost,
             discount: this.couponCode?.discount || 0,
             finalPrice: this.finalPrice,
-            
         };
 
         localStorage.setItem('checkoutData', JSON.stringify(orderItems));
@@ -360,13 +385,18 @@ export class ClientCartPageComponent implements OnInit {
         this.router.navigate(['/checkout']);
     }
 
+    // get finalPrice(): number {
+    //     return (
+    //         this.totalPrice +
+    //         this.shipmentCost -
+    //         (this.couponCode?.discount || 0)
+    //     );
+    // }
 
     get finalPrice(): number {
-        return (
-            this.totalPrice +
-            this.shipmentCost -
-            (this.couponCode?.discount || 0)
-        );
+        const discountPercentage = this.couponCode?.discount || 0;
+        const discountAmount = (this.totalPrice * discountPercentage) / 100;
+        return this.totalPrice + this.shipmentCost - discountAmount;
     }
 
     private handleError(error: any) {
@@ -395,9 +425,7 @@ export class ClientCartPageComponent implements OnInit {
         // Translate cities
         this.cities.forEach((city) => {
             city.translatedName =
-                this.translateService.instant(
-                    `${city.name}`
-                ) || city.name;
+                this.translateService.instant(`${city.name}`) || city.name;
         });
 
         // Translate product titles in cart (if needed)
